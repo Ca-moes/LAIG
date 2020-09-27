@@ -245,8 +245,118 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
-        return null;
+         this.views = []
+
+        var children = viewsNode.childNodes
+
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].nodeName !== "perspective" && children[i].nodeName !== "ortho") {
+                if (children[i].nodeType === 8) continue
+                this.onXMLMinorError("[VIEWS1] unknown tag <" + children[i].nodeName + ">")
+                this.log("more info: " + children[i].nodeValue)
+                continue
+            }
+
+            // get current view's ID
+            let viewId = this.reader.getString(children[i], 'id')
+            if (viewId === null) {
+                return "[VIEWS] no ID set for <" + children[i] + ">"
+            }
+
+            if (this.views[viewId] != null) {
+                return "[VIEWS] View IDs must be unique (ID = " + viewId + " already exists)"
+            }
+
+            if (children[i].nodeName === "perspective") {
+                let fromAux = null
+                let toAux = null
+
+                const perspectiveChildren = children[i].childNodes
+                for (let j = 0; j < perspectiveChildren.length; j++) {
+                    if (perspectiveChildren[j].nodeName !== "from" && perspectiveChildren[j].nodeName !== "to") {
+                        this.onXMLMinorError("[VIEWS] unknown tag <" + perspectiveChildren[j].nodeName + ">")
+                        continue
+                    }
+
+                    if (perspectiveChildren[j].nodeName === "from") {
+                        fromAux = {
+                            x: this.reader.getFloat(perspectiveChildren[j], 'x'),
+                            y: this.reader.getFloat(perspectiveChildren[j], 'y'),
+                            z: this.reader.getFloat(perspectiveChildren[j], 'z')
+                        }
+                    }
+                    else {
+                        toAux = {
+                            x: this.reader.getFloat(perspectiveChildren[j], 'x'),
+                            y: this.reader.getFloat(perspectiveChildren[j], 'y'),
+                            z: this.reader.getFloat(perspectiveChildren[j], 'z')
+                        }
+                    }
+                }
+
+                this.views[viewId] = this.createPerspectiveCamera({
+                    near: this.reader.getFloat(children[i], 'near'),
+                    far: this.reader.getFloat(children[i], 'far'),
+                    angle: this.reader.getFloat(children[i], 'angle'),
+                    from: fromAux,
+                    to: toAux
+                })
+            }
+
+            else if (children[i].nodeName === "ortho") {
+                const orthoChildren = children[i].children;
+
+                let fromAux = null
+                let toAux = null
+                let upAux = {
+                    x: 0.0,
+                    y: 1.0,
+                    z: 0.0
+                }
+
+                for (let j = 0; j < orthoChildren.length; j++) {
+                    if (orthoChildren[j].nodeName !== "from" && orthoChildren[j].nodeName !== "to" && orthoChildren[j].nodeName !== "up") {
+                        this.onXMLMinorError("unknown tag <"+orthoChildren[j].nodeName+">");
+                        continue;
+                    }
+
+                    if (orthoChildren[j].nodeName === "from") {
+                        fromAux = {
+                            x: this.reader.getFloat(orthoChildren[j], 'x'),
+                            y: this.reader.getFloat(orthoChildren[j], 'y'),
+                            z: this.reader.getFloat(orthoChildren[j], 'z')
+                        }
+                    }
+                    else if (orthoChildren[j].nodeName === "to") {
+                        toAux = {
+                            x: this.reader.getFloat(orthoChildren[j], 'x'),
+                            y: this.reader.getFloat(orthoChildren[j], 'y'),
+                            z: this.reader.getFloat(orthoChildren[j], 'z')
+                        }
+                    }
+                    else {
+                        upAux = {
+                            x: this.reader.getFloat(orthoChildren[j], 'x'),
+                            y: this.reader.getFloat(orthoChildren[j], 'y'),
+                            z: this.reader.getFloat(orthoChildren[j], 'z')
+                        }
+                    }
+                }
+                this.views[viewId] = this.createOrthoCamera({
+                    near: this.reader.getFloat(children[i], 'near'),
+                    far: this.reader.getFloat(children[i], 'far'),
+                    left: this.reader.getFloat(children[i], 'left'),
+                    right: this.reader.getFloat(children[i], 'right'),
+                    top: this.reader.getFloat(children[i], 'top'),
+                    bottom: this.reader.getFloat(children[i], 'bottom'),
+                    from: fromAux,
+                    to: toAux,
+                    up: upAux
+                })
+            }
+        }
+
+        this.log("Parsed Views.")
     }
 
     /**
@@ -569,5 +679,85 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         
         //this.nodes[this.idRoot].display()
+    }
+
+    createPerspectiveCamera(elements) {
+        if (isNaN(elements.near)) {
+            this.onXMLError('expected a float number on near.')
+        }
+        if (isNaN(elements.far)) {
+            this.onXMLError('expected a float number on far.')
+        }
+        if (isNaN(elements.angle)) {
+            this.onXMLError('expected a float number on angle.')
+        }
+        if (isNaN(elements.from.x)) {
+            this.onXMLError('expected a float number o from(x)')
+        }
+        if (isNaN(elements.from.y)) {
+            this.onXMLError('expected a float number o from(y)')
+        }
+        if (isNaN(elements.from.z)) {
+            this.onXMLError('expected a float number o from(z)')
+        }
+        if (isNaN(elements.to.x)) {
+            this.onXMLError('expected a float number o to(x)')
+        }
+        if (isNaN(elements.to.y)) {
+            this.onXMLError('expected a float number o to(y)')
+        }
+        if (isNaN(elements.to.z)) {
+            this.onXMLError('expected a float number o to(z)')
+        }
+        return new CGFcamera(elements.angle * DEGREE_TO_RAD, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y))
+    }
+
+    createOrthoCamera(elements) {
+        if (isNaN(elements.near)) {
+            this.onXMLError('Perspective Views expected a float number on near.')
+        }
+        if (isNaN(elements.far)) {
+            this.onXMLError('Perspective Views expected a float number on far.')
+        }
+        if (isNaN(elements.from.x)) {
+            this.onXMLError('Perspective Views expected a float number o from(x)')
+        }
+        if (isNaN(elements.from.y)) {
+            this.onXMLError('Perspective Views expected a float number o from(y)')
+        }
+        if (isNaN(elements.from.z)) {
+            this.onXMLError('Perspective Views expected a float number o from(z)')
+        }
+        if (isNaN(elements.to.x)) {
+            this.onXMLError('Perspective Views expected a float number o to(x)')
+        }
+        if (isNaN(elements.to.y)) {
+            this.onXMLError('Perspective Views expected a float number o to(y)')
+        }
+        if (isNaN(elements.to.z)) {
+            this.onXMLError('Perspective Views expected a float number o to(z)')
+        }
+        if (isNaN(elements.up.x)) {
+            this.onXMLError('Perspective Views expected a float number o up(x)')
+        }
+        if (isNaN(elements.up.y)) {
+            this.onXMLError('Perspective Views expected a float number o up(y)')
+        }
+        if (isNaN(elements.up.z)) {
+            this.onXMLError('Perspective Views expected a float number o up(z)')
+        }
+        if (isNaN(elements.left)) {
+            this.onXMLError('Perspective Views expected a float number on left.')
+        }
+        if (isNaN(elements.right)) {
+            this.onXMLError('Perspective Views expected a float number on right.')
+        }
+        if (isNaN(elements.bottom)) {
+            this.onXMLError('Perspective Views expected a float number on bottom.')
+        }
+        if (isNaN(elements.top)) {
+            this.onXMLError('Perspective Views expected a float number on top.')
+        }
+        return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y), vec3.fromValues(elements.up.x, elements.up.y, elements.up.y))
     }
 }
