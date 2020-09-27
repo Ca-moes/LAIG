@@ -1,11 +1,11 @@
 # LAIG 2020/2021 - TP1
 
-## Group: T0xG0y
+## Group: T07G08
 
-| Name             | Number    | E-Mail             |
-| ---------------- | --------- | ------------------ |
-| John Doe         | 201801010 | ...                |
-| Jane Doe         | 201801011 | ...                |
+| Name                            | Number    | E-Mail               |
+| ------------------------------- | --------- | -------------------- |
+| André Daniel Alves Gomes        | 201806224 | up201806224@fe.up.pt |
+| Gonçalo André Carneiro Teixeira | 201806562 | up201806562@fe.up.pt |
 
 ----
 ## Project information
