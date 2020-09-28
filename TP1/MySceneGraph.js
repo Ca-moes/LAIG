@@ -587,11 +587,10 @@ class MySceneGraph {
    * @param {nodes block element} nodesNode
    */
   parseNodes(nodesNode) {
-        var children = nodesNode.children
+        const children = nodesNode.children;
 
-        var grandChildren = []
-        var grandgrandChildren = []
-        var nodeNames = []
+        let grandChildren = [];
+        let nodeNames = [];
 
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
