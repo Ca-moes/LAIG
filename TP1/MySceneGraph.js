@@ -628,7 +628,7 @@ class MySceneGraph {
               return "[OBJECTS] No material or texture applyed"
             }
 
-            // this.onXMLMinorError("To do: Parse nodes.");
+            this.onXMLMinorError("To do: Parse nodes.");
             // Transformations
 
             // Material
