@@ -520,32 +520,31 @@ class MySceneGraph {
      * @param {materials block element} materialsNode
      */
     parseMaterials(materialsNode) {
-        var children = materialsNode.children;
+        const children = materialsNode.children
 
-        this.materials = [];
+        this.materials = []
 
-        var grandChildren = [];
-        var nodeNames = [];
+        const grandChildren = []
+        const nodeNames = []
 
         // Any number of materials.
-        for (var i = 0; i < children.length; i++) {
-
+        for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName != "material") {
-                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">")
                 continue;
             }
 
             // Get id of the current material.
-            var materialID = this.reader.getString(children[i], 'id');
+            const materialID = this.reader.getString(children[i], 'id')
             if (materialID == null)
-                return "no ID defined for material";
+                return "no ID defined for material"
 
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")";
+                return "ID must be unique for each light (conflict: ID = " + materialID + ")"
 
             //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            this.onXMLMinorError("To do: Parse materials.")
         }
 
         //this.log("Parsed materials");
