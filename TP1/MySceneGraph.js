@@ -245,15 +245,14 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseViews(viewsNode) {
-         this.views = []
+        this.views = []
+        this.viewsIds = []
 
-        var children = viewsNode.childNodes
+        const children = viewsNode.childNodes;
 
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "perspective" && children[i].nodeName !== "ortho") {
-                if (children[i].nodeType === 8) continue
-                this.onXMLMinorError("[VIEWS1] unknown tag <" + children[i].nodeName + ">")
-                this.log("more info: " + children[i].nodeValue)
+                this.onXMLMinorError("[VIEWS] unknown tag <" + children[i].nodeName + ">")
                 continue
             }
 
@@ -342,6 +341,7 @@ class MySceneGraph {
                         }
                     }
                 }
+
                 this.views[viewId] = this.createOrthoCamera({
                     near: this.reader.getFloat(children[i], 'near'),
                     far: this.reader.getFloat(children[i], 'far'),
@@ -354,6 +354,7 @@ class MySceneGraph {
                     up: upAux
                 })
             }
+            this.viewsIds.push(viewId)
         }
 
         this.log("Parsed Views.")
