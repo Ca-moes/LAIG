@@ -524,9 +524,9 @@ class MySceneGraph {
 
         this.materials = []
 
-        const grandChildren = []
         const nodeNames = []
 
+        let count = 0
         // Any number of materials.
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName != "material") {
@@ -543,11 +543,41 @@ class MySceneGraph {
             if (this.materials[materialID] != null)
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")"
 
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.")
+            // parsing materials
+            const grandChildren = children[i].childNodes
+            let gchildnames = []
+            for (let k = 0; k < grandChildren.length; k++)
+                gchildnames.push(grandChildren[k].nodeName)
+
+            const shininessIndex = gchildnames.indexOf("shininess")
+            const emissiveIndex = gchildnames.indexOf("emissive")
+            const ambientIndex = gchildnames.indexOf("ambient")
+            const diffuseIndex = gchildnames.indexOf("diffuse")
+            const specularIndex = gchildnames.indexOf("specular")
+
+            if (shininessIndex === -1 || emissiveIndex === -1 || ambientIndex ===-1 || diffuseIndex ===-1 || specularIndex===-1) {
+                return "Missing values for material with id: " + materialID
+            }
+
+            const shininess = this.reader.getFloat(grandChildren[shininessIndex], 'value')
+
+            const emissive = this.parseColor(grandChildren[emissiveIndex], 'emissive')
+            if (!Array.isArray(emissive)) return emissive
+            const ambient = this.parseColor(grandChildren[ambientIndex], 'ambient')
+            if (!Array.isArray(ambient)) return ambient
+            const diffuse = this.parseColor(grandChildren[diffuseIndex], 'diffuse')
+            if (!Array.isArray(diffuse)) return diffuse
+            const specular = this.parseColor(grandChildren[specularIndex], 'specular')
+            if (!Array.isArray(specular)) return specular
+
+            this.materials[materialID] = [shininess, ambient, diffuse, specular, emissive]
+            count++
+        }
+        if (count === 0) {
+            return "[MATERIALS] No materials defined"
         }
 
-        //this.log("Parsed materials");
+        this.log("Parsed Materials");
         return null;
     }
 
@@ -788,4 +818,25 @@ class MySceneGraph {
         }
         return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y), vec3.fromValues(elements.up.x, elements.up.y, elements.up.y))
     }
+
+    analyseColor(color) {
+        if (!(color.red!= null && !isNaN(color.red) && components.red >= 0 && components.red <= 1)){
+            return "unable to parse red color  component for ID = " + id;
+        }
+
+        if (!(components.green!= null && !isNaN(components.green) && components.green >= 0 && components.green <= 1)){
+            return "unable to parse green color  component for ID = " + id;
+        }
+
+        if (!(components.blue!= null && !isNaN(components.blue) && components.blue >= 0 && components.blue <= 1)){
+            return "unable to parse blue color  component for ID = " + id;
+        }
+
+        if (!(components.alpha!= null && !isNaN(components.alpha) && components.alpha >= 0 && components.alpha <= 1)){
+            return "unable to parse alpha color  component for ID = " + id;
+        }
+
+        return null;
+    }
+
 }
