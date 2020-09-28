@@ -481,9 +481,37 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
+        let children = texturesNode.childNodes
+
+        if (children.length === 0) {
+            return "[TEXTURES] no textures defined"
+        }
+
+        this.textures = []
 
         //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].nodeName !== "texture") {
+                this.onXMLMinorError("[TEXTURE] tag name not valid")
+                continue
+            }
+            const textureId = this.reader.getString(children[i], 'id')
+            if (textureId.length === 0) {
+                return "[TEXTURES] no texture ID defined"
+            }
+            const file = this.reader.getString(children[i], 'path');
+            if (file.includes('scenes/images')) {
+                this.textures[textureId] = new CGFtexture(this.scene, file)
+            }
+            else if (file.includes('images/')) {
+                this.textures[textureId] = new CGFtexture(this.scene, './scenes/' + file)
+            }
+            else {
+                this.textures[textureId] = new CGFtexture(this.scene, "./scenes/images/" + file)
+            }
+        }
+
+        this.log("Parsed Textures.")
         return null;
     }
 
