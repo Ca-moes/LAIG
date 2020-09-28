@@ -214,7 +214,7 @@ class MySceneGraph {
         var referenceIndex = nodeNames.indexOf("reference");
 
         // Get root of the scene.
-        if(rootIndex == -1)
+        if (rootIndex == -1)
             return "No root id defined for scene.";
 
         var rootNode = children[rootIndex];
@@ -499,6 +499,7 @@ class MySceneGraph {
             if (textureId.length === 0) {
                 return "[TEXTURES] no texture ID defined"
             }
+            // todo - add rule for repeated IDs
             const file = this.reader.getString(children[i], 'path');
             if (file.includes('scenes/images')) {
                 this.textures[textureId] = new CGFtexture(this.scene, file)
@@ -529,7 +530,7 @@ class MySceneGraph {
         let count = 0
         // Any number of materials.
         for (let i = 0; i < children.length; i++) {
-            if (children[i].nodeName != "material") {
+            if (children[i].nodeName !== "material") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">")
                 continue;
             }
@@ -555,7 +556,7 @@ class MySceneGraph {
             const diffuseIndex = gchildnames.indexOf("diffuse")
             const specularIndex = gchildnames.indexOf("specular")
 
-            if (shininessIndex === -1 || emissiveIndex === -1 || ambientIndex ===-1 || diffuseIndex ===-1 || specularIndex===-1) {
+            if (shininessIndex === -1 || emissiveIndex === -1 || ambientIndex === -1 || diffuseIndex === -1 || specularIndex === -1) {
                 return "Missing values for material with id: " + materialID
             }
 
@@ -588,8 +589,6 @@ class MySceneGraph {
   parseNodes(nodesNode) {
         var children = nodesNode.children
 
-        this.nodes = []
-
         var grandChildren = []
         var grandgrandChildren = []
         var nodeNames = []
@@ -614,29 +613,264 @@ class MySceneGraph {
             grandChildren = children[i].children
 
             nodeNames = [];
-            for (var j = 0; j < grandChildren.length; j++) {
+            for (let j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName)
             }
 
-            var transformationsIndex = nodeNames.indexOf("transformations")
-            var materialIndex = nodeNames.indexOf("material")
-            var textureIndex = nodeNames.indexOf("texture")
-            var descendantsIndex = nodeNames.indexOf("descendants")
+            const transformationsIndex = nodeNames.indexOf("transformations");
+            const materialIndex = nodeNames.indexOf("material");
+            const textureIndex = nodeNames.indexOf("texture");
+            const descendantsIndex = nodeNames.indexOf("descendants");
 
             // checking if there is a material or a texture applyed
             if (materialIndex === -1 || textureIndex === -1) {
-              return "[OBJECTS] No material or texture applyed"
+              return "[OBJECTS] No material or texture applied"
             }
 
-            this.onXMLMinorError("To do: Parse nodes.");
             // Transformations
+            let transformations = []
+            const transformationsNode = grandChildren[transformationsIndex].childNodes
+            for (let j = 0; j < transformationsNode.length; j++) {
+                if (transformationsNode[j].nodeName === "rotation") {
+                    const axis = this.reader.getString(transformationsNode[j], 'axis')
+                    const angle = this.reader.getFloat(transformationsNode[j], 'angle')
+
+                    if (axis === null || (axis !== "xx" && axis !== "yy" && axis !== "zz")) {
+                        return "[NODES] wrong value for axis on rotation - node id: " + nodeID
+                    }
+                    if (angle === null || isNaN(angle)) {
+                        return "[NODES] wrong value for angle on rotation - node id: " + nodeID
+                    }
+
+                    transformations.push({
+                        type: "rotation",
+                        angle: angle,
+                        axis: axis
+                    })
+                }
+                else if (transformationsNode[j].nodeName === "translation") {
+                    const x = this.reader.getFloat(transformationsNode[j], "x")
+                    const y = this.reader.getFloat(transformationsNode[j], "y")
+                    const z = this.reader.getFloat(transformationsNode[j], "z")
+
+                    if (x === null || y === null || z === null) {
+                        return "[NODES] missing values for translation - node id: " + nodeID
+                    }
+                    if (isNaN(x) || isNaN(y) || isNaN(z)) {
+                        return "[NODES] wrong values for translation - node id: " + nodeID
+                    }
+
+                    transformations.push({
+                        type: "translation",
+                        x: x,
+                        y: y,
+                        z: z
+                    })
+                }
+                else if (transformationsNode[j].nodeName === "scale") {
+                    const sx = this.reader.getFloat(transformationsNode[j], "sx")
+                    const sy = this.reader.getFloat(transformationsNode[j], "sy")
+                    const sz = this.reader.getFloat(transformationsNode[j], "sz")
+
+                    if (sx === null || sy === null || sz === null) {
+                        return "[NODES] missing values for scale - node id: " + nodeID
+                    }
+                    if (isNaN(sx) || isNaN(sy) || isNaN(sz)) {
+                        return "[NODES] wrong values for scale - node id: " + nodeID
+                    }
+
+                    transformations.push({
+                        type: "scale",
+                        sx: sx,
+                        sy: sy,
+                        sz: sz
+                    })
+                }
+                else {
+                    this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
+                }
+            }
+
+            const transformationMatrix = mat4.create()
+            for (const tr of transformations) {
+                if (tr.type === "translation") {
+                    mat4.translate(transformationMatrix, transformationMatrix, tr.x, tr.y, tr.z)
+                } else if (tr.type === "rotation") {
+                    mat4.rotate(transformationMatrix, transformationMatrix, tr.angle, this.axisCoords[tr.axis[0]])
+                } else if (tr.type === "scale") {
+                    mat4.scale(transformationMatrix, transformationMatrix, [tr.sx, tr.sy, tr.sz])
+                }
+            }
 
             // Material
+            const materialId = this.reader.getString(grandChildren[materialIndex], "id")
+            if (materialId === null) {
+                return "[NODES] Material ID is not valid. node ID: " + nodeID
+            }
+            if (materialId !== "null") {
+                if (this.materials[materialId] === null) {
+                    return "[NODES] Material with ID: " + materialId + " does not exist. Error on node ID: " + nodeID
+                }
+            }
 
             // Texture
+            const textureId = this.reader.getString(grandChildren[textureIndex], "id")
+            if (textureId == null) {
+                return "[NODES] Texture ID is not valid. node ID: " + nodeID
+            }
+            if (textureId !== "null" && textureId !== "clear") {
+                if (this.textures[textureId] === null) {
+                    return "[NODES] Texture with ID: " + textureId + " does not exist. Error on node ID: " + nodeID
+                }
+            }
 
             // Descendants
+            const descendants = []
+            const descendantsNodes = grandChildren[descendantsIndex].childNodes
+            for (let j = 0; j < descendantsNodes.length; j++) {
+                if (descendantsNodes[j].nodeName === "noderef") {
+                    const descID = this.reader.getString(descendantsNodes[j],'id');
+
+                    if (descID == null)
+                        return "[NODES] Undefined ID for descendant. node id: " + nodeID;
+                    else if (descID === nodeID)
+                        return " [NODES] duplicated node id: " + nodeID;
+
+                    descendants.push({
+                        type: "noderef",
+                        id: descID
+                    })
+                }
+                else if (descendantsNodes[j].nodeName === "leaf") {
+                    const type = this.reader.getString(descendantsNodes[j], "type", ['triangle', 'rectangle', 'cylinder', 'sphere', 'torus'])
+                    if (type === "rectangle") {
+                        const x1 = this.reader.getFloat(descendantsNodes[j], 'x1')
+                        const y1 = this.reader.getFloat(descendantsNodes[j], 'y1')
+                        const x2 = this.reader.getFloat(descendantsNodes[j], 'x2')
+                        const y2 = this.reader.getFloat(descendantsNodes[j], 'y2')
+
+                        if (x1 == null || x2 == null || y1 == null || y2 == null) {
+                            return "[NODES] Missing values for rectangle leaf. Node id: " + nodeID
+                        }
+                        if (isNaN(x1) || isNaN(x2) || isNaN(y1) || isNaN(y2)) {
+                            return "[NODES] Invalid values for rectangle leaf. Node id: " + nodeID
+                        }
+
+                        descendants.push({
+                            type: "rectangle",
+                            x1: x1,
+                            y1: y1,
+                            x2: x2,
+                            y2: y2
+                        })
+                    }
+                    else if (type === "triangle") {
+                        const x1 = this.reader.getFloat(descendantsNodes[j], 'x1')
+                        const y1 = this.reader.getFloat(descendantsNodes[j], 'y1')
+                        const x2 = this.reader.getFloat(descendantsNodes[j], 'x2')
+                        const y2 = this.reader.getFloat(descendantsNodes[j], 'y2')
+                        const x3 = this.reader.getFloat(descendantsNodes[j], 'x3')
+                        const y3 = this.reader.getFloat(descendantsNodes[j], 'y3')
+
+                        if (x1 == null || x2 == null || y1 == null || y2 == null || x3 == null || y3 == null ) {
+                            return "[NODES] Missing values for triangle leaf. Node id: " + nodeID
+                        }
+                        if (isNaN(x1) || isNaN(x2) || isNaN(y1) || isNaN(y2) || isNaN(x3) || isNaN(y3)) {
+                            return "[NODES] Invalid values for triangle leaf. Node id: " + nodeID
+                        }
+
+                        descendants.push({
+                            type: "triangle",
+                            x1: x1,
+                            y1: y1,
+                            x2: x2,
+                            y2: y2,
+                            x3: x3,
+                            y3: y3
+                        })
+                    }
+                    else if (type === "cylinder") {
+                        const height = this.reader.getString(descendantsNodes[j],'height')
+                        const topRadius = this.reader.getString(descendantsNodes[j],'topRadius')
+                        const bottomRadius = this.reader.getString(descendantsNodes[j],'bottomRadius')
+                        const stacks = this.reader.getString(descendantsNodes[j],'stacks')
+                        const slices = this.reader.getString(descendantsNodes[j],'slices')
+
+                        if (height==null || topRadius==null || bottomRadius==null || stacks==null || slices==null) {
+                            return "[NODES] Missing values for cylinder leaf. Node id: " + nodeID
+                        }
+                        else if (isNaN(height) || isNaN(topRadius) || isNaN(bottomRadius) || isNaN(stacks) || isNaN(slices)) {
+                            return "[NODES] Invalid values for cylinder leaf. Node id: " + nodeID
+                        }
+
+                        descendants.push({
+                            type: "cylinder",
+                            height: height,
+                            topRadius: topRadius,
+                            bottomRadius: bottomRadius,
+                            stacks: stacks,
+                            slices: slices
+                        })
+                    }
+                    else if (type === "sphere") {
+                        const radius = this.reader.getString(descendantsNodes[j], 'radius')
+                        const stacks = this.reader.getString(descendantsNodes[j], 'stacks')
+                        const slices = this.reader.getString(descendantsNodes[j], 'slices')
+
+                        if (radius == null || stacks == null || slices == null)
+                            return "[NODES] Missing values for sphere leaf. Node id: " + nodeID
+                        else if (isNaN(radius) || isNaN(stacks) || isNaN(slices))
+                            return "[NODES] Invalid values for sphere leaf. Node id: " + nodeID
+
+                        descendants.push({
+                            type: "sphere",
+                            radius: radius,
+                            stacks: stacks,
+                            slices: slices
+                        })
+                    }
+                    else if (type === "torus") {
+                        const inner = this.reader.getString(descendantsNodes[j],'inner')
+                        const outer = this.reader.getString(descendantsNodes[j],'outer')
+                        const loops = this.reader.getString(descendantsNodes[j],'loops')
+                        const slices = this.reader.getString(descendantsNodes[j],'slices')
+
+                        if (inner==null || outer==null || loops==null || slices==null)
+                            return "[NODES] Missing values for torus leaf. Node id: " + nodeID
+                        else if (isNaN(inner) || isNaN(outer) || isNaN(loops) || isNaN(slices))
+                            return "[NODES] Invalid values for torus leaf. Node id: " + nodeID
+
+                        descendants.push({
+                            type: "torus",
+                            inner: inner,
+                            outer: outer,
+                            loops: loops,
+                            slices: slices
+                        })
+                    }
+                }
+            }
+            if (descendants.length === 0) {
+                return "[NODES] No descendants! Node id: " + nodeID
+            }
+
+            this.nodes[nodeID] = {
+                matrix: transformationMatrix,
+                material: materialId,
+                texture: textureId,
+                descendants: descendants
+            }
+
+            this.log(this.nodes)
+
+            this.log("Node ID: " + nodeID)
+            this.log("Transformation Matrix: " + transformationMatrix)
+            this.log("Material ID: " + materialId)
+            this.log("Texture ID: " + textureId)
         }
+
+        this.log("Parsed Nodes.")
+        return null
     }
 
 
@@ -738,7 +972,6 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
 
         //this.nodes[this.idRoot].display()
@@ -823,25 +1056,4 @@ class MySceneGraph {
         }
         return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y), vec3.fromValues(elements.up.x, elements.up.y, elements.up.y))
     }
-
-    analyseColor(color) {
-        if (!(color.red!= null && !isNaN(color.red) && components.red >= 0 && components.red <= 1)){
-            return "unable to parse red color  component for ID = " + id;
-        }
-
-        if (!(components.green!= null && !isNaN(components.green) && components.green >= 0 && components.green <= 1)){
-            return "unable to parse green color  component for ID = " + id;
-        }
-
-        if (!(components.blue!= null && !isNaN(components.blue) && components.blue >= 0 && components.blue <= 1)){
-            return "unable to parse blue color  component for ID = " + id;
-        }
-
-        if (!(components.alpha!= null && !isNaN(components.alpha) && components.alpha >= 0 && components.alpha <= 1)){
-            return "unable to parse alpha color  component for ID = " + id;
-        }
-
-        return null;
-    }
-
 }
