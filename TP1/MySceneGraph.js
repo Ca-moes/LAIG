@@ -35,7 +35,7 @@ class MySceneGraph {
         this.axisCoords['y'] = [0, 1, 0];
         this.axisCoords['z'] = [0, 0, 1];
 
-        // File reading 
+        // File reading
         this.reader = new CGFXMLreader();
 
         /*
@@ -200,7 +200,7 @@ class MySceneGraph {
     }
 
     /**
-     * Parses the <initials> block. 
+     * Parses the <initials> block.
      * @param {initials block element} initialsNode
      */
     parseInitials(initialsNode) {
@@ -224,7 +224,7 @@ class MySceneGraph {
 
         this.idRoot = id;
 
-        // Get axis length        
+        // Get axis length
         if(referenceIndex == -1)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
@@ -477,7 +477,7 @@ class MySceneGraph {
     }
 
     /**
-     * Parses the <textures> block. 
+     * Parses the <textures> block.
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
@@ -586,44 +586,49 @@ class MySceneGraph {
    * @param {nodes block element} nodesNode
    */
   parseNodes(nodesNode) {
-        var children = nodesNode.children;
+        var children = nodesNode.children
 
-        this.nodes = [];
+        this.nodes = []
 
-        var grandChildren = [];
-        var grandgrandChildren = [];
-        var nodeNames = [];
+        var grandChildren = []
+        var grandgrandChildren = []
+        var nodeNames = []
 
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
 
             if (children[i].nodeName != "node") {
-                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
-                continue;
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">")
+                continue
             }
 
             // Get id of the current node.
-            var nodeID = this.reader.getString(children[i], 'id');
+            var nodeID = this.reader.getString(children[i], 'id')
             if (nodeID == null)
-                return "no ID defined for nodeID";
+                return "no ID defined for nodeID"
 
             // Checks for repeated IDs.
             if (this.nodes[nodeID] != null)
-                return "ID must be unique for each node (conflict: ID = " + nodeID + ")";
+                return "ID must be unique for each node (conflict: ID = " + nodeID + ")"
 
-            grandChildren = children[i].children;
+            grandChildren = children[i].children
 
             nodeNames = [];
             for (var j = 0; j < grandChildren.length; j++) {
-                nodeNames.push(grandChildren[j].nodeName);
+                nodeNames.push(grandChildren[j].nodeName)
             }
 
-            var transformationsIndex = nodeNames.indexOf("transformations");
-            var materialIndex = nodeNames.indexOf("material");
-            var textureIndex = nodeNames.indexOf("texture");
-            var descendantsIndex = nodeNames.indexOf("descendants");
+            var transformationsIndex = nodeNames.indexOf("transformations")
+            var materialIndex = nodeNames.indexOf("material")
+            var textureIndex = nodeNames.indexOf("texture")
+            var descendantsIndex = nodeNames.indexOf("descendants")
 
-            this.onXMLMinorError("To do: Parse nodes.");
+            // checking if there is a material or a texture applyed
+            if (materialIndex === -1 || textureIndex === -1) {
+              return "[OBJECTS] No material or texture applyed"
+            }
+
+            // this.onXMLMinorError("To do: Parse nodes.");
             // Transformations
 
             // Material
@@ -733,9 +738,9 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        
+
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
-        
+
         //this.nodes[this.idRoot].display()
     }
 
