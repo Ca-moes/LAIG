@@ -258,7 +258,7 @@ class MySceneGraph {
 
             // get current view's ID
             let viewId = this.reader.getString(children[i], 'id')
-            if (viewId === null) {
+            if (viewId == null) {
                 return "[VIEWS] no ID set for <" + children[i] + ">"
             }
 
@@ -596,7 +596,7 @@ class MySceneGraph {
         // Any number of nodes.
         for (var i = 0; i < children.length; i++) {
 
-            if (children[i].nodeName != "node") {
+            if (children[i].nodeName !== "node") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">")
                 continue
             }
@@ -622,7 +622,7 @@ class MySceneGraph {
             const textureIndex = nodeNames.indexOf("texture");
             const descendantsIndex = nodeNames.indexOf("descendants");
 
-            // checking if there is a material or a texture applyed
+            // checking if there is a material or a texture applied
             if (materialIndex === -1 || textureIndex === -1) {
               return "[OBJECTS] No material or texture applied"
             }
@@ -635,10 +635,10 @@ class MySceneGraph {
                     const axis = this.reader.getString(transformationsNode[j], 'axis')
                     const angle = this.reader.getFloat(transformationsNode[j], 'angle')
 
-                    if (axis === null || (axis !== "xx" && axis !== "yy" && axis !== "zz")) {
+                    if (axis == null || (axis !== "xx" && axis !== "yy" && axis !== "zz")) {
                         return "[NODES] wrong value for axis on rotation - node id: " + nodeID
                     }
-                    if (angle === null || isNaN(angle)) {
+                    if (angle == null || isNaN(angle)) {
                         return "[NODES] wrong value for angle on rotation - node id: " + nodeID
                     }
 
@@ -653,7 +653,7 @@ class MySceneGraph {
                     const y = this.reader.getFloat(transformationsNode[j], "y")
                     const z = this.reader.getFloat(transformationsNode[j], "z")
 
-                    if (x === null || y === null || z === null) {
+                    if (x == null || y == null || z == null) {
                         return "[NODES] missing values for translation - node id: " + nodeID
                     }
                     if (isNaN(x) || isNaN(y) || isNaN(z)) {
@@ -672,7 +672,7 @@ class MySceneGraph {
                     const sy = this.reader.getFloat(transformationsNode[j], "sy")
                     const sz = this.reader.getFloat(transformationsNode[j], "sz")
 
-                    if (sx === null || sy === null || sz === null) {
+                    if (sx == null || sy == null || sz == null) {
                         return "[NODES] missing values for scale - node id: " + nodeID
                     }
                     if (isNaN(sx) || isNaN(sy) || isNaN(sz)) {
@@ -704,11 +704,11 @@ class MySceneGraph {
 
             // Material
             const materialId = this.reader.getString(grandChildren[materialIndex], "id")
-            if (materialId === null) {
+            if (materialId == null) {
                 return "[NODES] Material ID is not valid. node ID: " + nodeID
             }
             if (materialId !== "null") {
-                if (this.materials[materialId] === null) {
+                if (this.materials[materialId] == null) {
                     return "[NODES] Material with ID: " + materialId + " does not exist. Error on node ID: " + nodeID
                 }
             }
@@ -719,9 +719,37 @@ class MySceneGraph {
                 return "[NODES] Texture ID is not valid. node ID: " + nodeID
             }
             if (textureId !== "null" && textureId !== "clear") {
-                if (this.textures[textureId] === null) {
+                if (this.textures[textureId] == null) {
                     return "[NODES] Texture with ID: " + textureId + " does not exist. Error on node ID: " + nodeID
                 }
+            }
+            const amplificationNodes = grandChildren[textureIndex].childNodes
+            if (amplificationNodes.length === 1) {
+                return "[NODES] Amplification is not valid. Node ID: " + nodeID
+            }
+            let amplification = null
+            for (let j = 0; j < amplificationNodes.length; j++) {
+                if (amplificationNodes[j].nodeName === "amplification") {
+                    const afs = this.reader.getFloat(amplificationNodes[j], 'afs')
+                    const aft = this.reader.getFloat(amplificationNodes[j], 'aft')
+                    if (aft == null || afs == null) {
+                        return "[NODES] Amplification is not valid. Node ID: " + nodeID
+                    }
+                    if (isNaN(aft) || isNaN(afs)) {
+                        return "[NODES] Amplification values not valid. Node ID: " + nodeID
+                    }
+                    amplification = {
+                        afs: afs,
+                        aft: aft
+                    }
+                }
+            }
+            if (amplification == null) {
+                return "[NODES] Amplification is not valid. Node ID: " + nodeID
+            }
+            const texture = {
+                textureId: textureId,
+                amplification: amplification
             }
 
             // Descendants
@@ -857,16 +885,14 @@ class MySceneGraph {
             this.nodes[nodeID] = {
                 matrix: transformationMatrix,
                 material: materialId,
-                texture: textureId,
+                texture: texture,
                 descendants: descendants
             }
+        }
 
-            this.log(this.nodes)
-
-            this.log("Node ID: " + nodeID)
-            this.log("Transformation Matrix: " + transformationMatrix)
-            this.log("Material ID: " + materialId)
-            this.log("Texture ID: " + textureId)
+        let aux
+        if ((aux = this.verifyDescendants()) !== null) {
+            return "[NODES] Descendant node with ID: " + aux + " is not defined."
         }
 
         this.log("Parsed Nodes.")
@@ -1055,5 +1081,18 @@ class MySceneGraph {
             this.onXMLError('Perspective Views expected a float number on top.')
         }
         return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y), vec3.fromValues(elements.up.x, elements.up.y, elements.up.y))
+    }
+
+    verifyDescendants() {
+        for (const [nodeID, node] of Object.entries(this.nodes)) {
+            for (const desc of node.descendants) {
+                if (desc.type === "noderef") {
+                    if (this.nodes[desc.id] == null) {
+                        return desc.id
+                    }
+                }
+            }
+        }
+        return null
     }
 }
