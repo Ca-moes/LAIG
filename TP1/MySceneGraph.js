@@ -824,11 +824,11 @@ class MySceneGraph {
                         })
                     }
                     else if (type === "cylinder") {
-                        const height = this.reader.getString(descendantsNodes[j],'height')
-                        const topRadius = this.reader.getString(descendantsNodes[j],'topRadius')
-                        const bottomRadius = this.reader.getString(descendantsNodes[j],'bottomRadius')
-                        const stacks = this.reader.getString(descendantsNodes[j],'stacks')
-                        const slices = this.reader.getString(descendantsNodes[j],'slices')
+                        const height = this.reader.getFloat(descendantsNodes[j],'height')
+                        const topRadius = this.reader.getFloat(descendantsNodes[j],'topRadius')
+                        const bottomRadius = this.reader.getFloat(descendantsNodes[j],'bottomRadius')
+                        const stacks = this.reader.getInteger(descendantsNodes[j],'stacks')
+                        const slices = this.reader.getInteger(descendantsNodes[j],'slices')
 
                         if (height==null || topRadius==null || bottomRadius==null || stacks==null || slices==null) {
                             return "[NODES] Missing values for cylinder leaf. Node id: " + nodeID
@@ -1029,6 +1029,9 @@ class MySceneGraph {
                         break
                     case "sphere":
                         new MySphere(this.scene, desc.radius, desc.slices, desc.stacks).display()
+                        break
+                    case "cylinder":
+                        //new MyCylinder(this.scene, desc.height, desc.topRadius, desc.bottomRadius, desc.stacks, desc.slices).display()
                         break
                     // todo - implement the various primitives
                     // todo - deal with textures
