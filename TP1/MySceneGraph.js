@@ -499,7 +499,10 @@ class MySceneGraph {
             if (textureId.length === 0) {
                 return "[TEXTURES] no texture ID defined"
             }
-            // todo - add rule for repeated IDs
+            if (this.textures[textureId] != null) {
+                return "ID must be unique for each texture (conflict: ID = " + textureId + ")";
+            }
+
             const file = this.reader.getString(children[i], 'path');
             if (file.includes('scenes/images')) {
                 this.textures[textureId] = new CGFtexture(this.scene, file)
