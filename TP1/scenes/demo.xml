@@ -82,8 +82,8 @@
                 <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
                 <leaf type="rectangle" x1="0" y1="1" x2="1" y2="0" />
                 <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
-                <leaf type="cylinder" height="3" topRadius="1" bottomRadius="1" stacks="12" slices="5"/>
-                <leaf type="sphere" radius="1" slices="6" stacks="4"/>
+                <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="12" slices="10"/>
+                <leaf type="sphere" radius="1" slices="10" stacks="5"/>
             </descendants>
         </node>
         <node id="demoChild">            <!-- defines one intermediate node; may be repeated as necessary -->
