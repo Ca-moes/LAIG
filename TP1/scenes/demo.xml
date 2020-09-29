@@ -79,6 +79,7 @@
                 <!-- identifier of another node, before or later defined in the file. -->
                 <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="torus" inner="0.2" outer="1.0" slices="50" loops="20" />
                 <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
             </descendants>
         </node>

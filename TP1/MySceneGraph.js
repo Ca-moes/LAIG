@@ -1041,7 +1041,7 @@ class MySceneGraph {
                         // new cylinder
                         break
                     case "torus":
-                        // new torus
+                        new MyTorus(this.scene, desc.inner, desc.outer, desc.slices, desc.loops).display()
                         break
                     // todo - deal with textures
                     default:
