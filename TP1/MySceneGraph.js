@@ -892,8 +892,7 @@ class MySceneGraph {
                 matrix: transformationMatrix,
                 material: materialId,
                 texture: texture,
-                descendants: descendants,
-                display: false
+                descendants: descendants
             }
         }
 
@@ -1007,15 +1006,17 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
         this.scene.pushMatrix()
-        this.processNode(this.nodes[this.idRoot], mat4.create())
+        this.processNode(this.nodes[this.idRoot])
         this.scene.popMatrix()
     }
 
-    processNode(node, matrix) {
-        mat4.multiply(node.matrix, node.matrix, matrix)
+    processNode(node) {
+        // mat4.multiply(node.matrix, node.matrix, matrix)
         this.scene.multMatrix(node.matrix)
-        this.materials[node.material].apply()
 
+        if (node.material !== "null") {
+            this.materials[node.material].apply()
+        }
 
         for (let desc of node.descendants) {
             if (desc.type !== "noderef") {
@@ -1023,11 +1024,19 @@ class MySceneGraph {
                     case "rectangle":
                         new MyRectangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2).display()
                         break
+                    case "triangle":
+                        new MyTriangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2, desc.x3, desc.y3).display()
+                        break
                     // todo - implement the various primitives
                     // todo - deal with textures
                     default:
                         break
                 }
+            }
+            else {
+                this.scene.pushMatrix()
+                this.processNode(this.nodes[desc.id], node.matrix)
+                this.scene.popMatrix()
             }
         }
     }
