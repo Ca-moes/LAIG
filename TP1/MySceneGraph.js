@@ -847,9 +847,9 @@ class MySceneGraph {
                         })
                     }
                     else if (type === "sphere") {
-                        const radius = this.reader.getString(descendantsNodes[j], 'radius')
-                        const stacks = this.reader.getString(descendantsNodes[j], 'stacks')
-                        const slices = this.reader.getString(descendantsNodes[j], 'slices')
+                        const radius = this.reader.getFloat(descendantsNodes[j], 'radius')
+                        const stacks = this.reader.getInteger(descendantsNodes[j], 'stacks')
+                        const slices = this.reader.getInteger(descendantsNodes[j], 'slices')
 
                         if (radius == null || stacks == null || slices == null)
                             return "[NODES] Missing values for sphere leaf. Node id: " + nodeID
@@ -1022,10 +1022,13 @@ class MySceneGraph {
             if (desc.type !== "noderef") {
                 switch (desc.type) {
                     case "rectangle":
-                        new MyRectangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2).display()
+                        //new MyRectangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2).display()
                         break
                     case "triangle":
-                        new MyTriangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2, desc.x3, desc.y3).display()
+                        //new MyTriangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2, desc.x3, desc.y3).display()
+                        break
+                    case "sphere":
+                        new MySphere(this.scene, desc.radius, desc.slices, desc.stacks).display()
                         break
                     // todo - implement the various primitives
                     // todo - deal with textures

@@ -65,9 +65,11 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
             <transformations>
+            <!--
                 <translation x="0" y="1.0" z="1.0" />
                 <rotation axis="yy" angle="45" />
                 <scale sx="2" sy="1" sz="1" />
+            -->
             </transformations>
 
             <!-- declaring descendants, at least one node or one leaf must be present
@@ -80,6 +82,7 @@
                 <!-- next lines define nodes of type leaf; may be repeated, in any order, as necessary -->
                 <leaf type="rectangle" x1="0" y1="1" x2="1" y2="0" />
                 <!-- 2D coordinates on the XY plane for left-top and right-bottom vertices. -->
+                 <leaf type="sphere" radius="0.5" slices="10" stacks="10"/>
             </descendants>
         </node>
         <node id="demoChild">            <!-- defines one intermediate node; may be repeated as necessary -->
