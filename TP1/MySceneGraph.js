@@ -827,11 +827,11 @@ class MySceneGraph {
                         })
                     }
                     else if (type === "cylinder") {
-                        const height = this.reader.getString(descendantsNodes[j],'height')
-                        const topRadius = this.reader.getString(descendantsNodes[j],'topRadius')
-                        const bottomRadius = this.reader.getString(descendantsNodes[j],'bottomRadius')
-                        const stacks = this.reader.getString(descendantsNodes[j],'stacks')
-                        const slices = this.reader.getString(descendantsNodes[j],'slices')
+                        const height = this.reader.getFloat(descendantsNodes[j],'height')
+                        const topRadius = this.reader.getFloat(descendantsNodes[j],'topRadius')
+                        const bottomRadius = this.reader.getFloat(descendantsNodes[j],'bottomRadius')
+                        const stacks = this.reader.getInteger(descendantsNodes[j],'stacks')
+                        const slices = this.reader.getInteger(descendantsNodes[j],'slices')
 
                         if (height==null || topRadius==null || bottomRadius==null || stacks==null || slices==null) {
                             return "[NODES] Missing values for cylinder leaf. Node id: " + nodeID
@@ -850,14 +850,17 @@ class MySceneGraph {
                         })
                     }
                     else if (type === "sphere") {
-                        const radius = this.reader.getString(descendantsNodes[j], 'radius')
-                        const stacks = this.reader.getString(descendantsNodes[j], 'stacks')
-                        const slices = this.reader.getString(descendantsNodes[j], 'slices')
+                        const radius = this.reader.getFloat(descendantsNodes[j], 'radius')
+                        const stacks = this.reader.getInteger(descendantsNodes[j], 'stacks')
+                        const slices = this.reader.getInteger(descendantsNodes[j], 'slices')
 
                         if (radius == null || stacks == null || slices == null)
                             return "[NODES] Missing values for sphere leaf. Node id: " + nodeID
                         else if (isNaN(radius) || isNaN(stacks) || isNaN(slices))
                             return "[NODES] Invalid values for sphere leaf. Node id: " + nodeID
+
+                        this.log("stacks: " + stacks)
+                        this.log("slices: " + slices)
 
                         descendants.push({
                             type: "sphere",
@@ -867,12 +870,12 @@ class MySceneGraph {
                         })
                     }
                     else if (type === "torus") {
-                        const inner = this.reader.getString(descendantsNodes[j],'inner')
-                        const outer = this.reader.getString(descendantsNodes[j],'outer')
-                        const loops = this.reader.getString(descendantsNodes[j],'loops')
-                        const slices = this.reader.getString(descendantsNodes[j],'slices')
+                        const inner = this.reader.getFloat(descendantsNodes[j],'inner')
+                        const outer = this.reader.getFloat(descendantsNodes[j],'outer')
+                        const loops = this.reader.getInteger(descendantsNodes[j],'loops')
+                        const slices = this.reader.getInteger(descendantsNodes[j],'slices')
 
-                        if (inner==null || outer==null || loops==null || slices==null)
+                        if (inner == null || outer == null || loops == null || slices == null)
                             return "[NODES] Missing values for torus leaf. Node id: " + nodeID
                         else if (isNaN(inner) || isNaN(outer) || isNaN(loops) || isNaN(slices))
                             return "[NODES] Invalid values for torus leaf. Node id: " + nodeID
