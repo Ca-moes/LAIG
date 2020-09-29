@@ -571,7 +571,14 @@ class MySceneGraph {
             const specular = this.parseColor(grandChildren[specularIndex], 'specular')
             if (!Array.isArray(specular)) return specular
 
-            this.materials[materialID] = [shininess, ambient, diffuse, specular, emissive]
+
+            this.materials[materialID] = new CGFappearance(this.scene)
+            this.materials[materialID].setShininess(shininess)
+            this.materials[materialID].setEmission(emissive[0], emissive[1], emissive[2], emissive[3])
+            this.materials[materialID].setAmbient(ambient[0], ambient[1], ambient[2], ambient[3])
+            this.materials[materialID].setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3])
+            this.materials[materialID].setSpecular(specular[0], specular[1], specular[2], specular[3])
+
             count++
         }
         if (count === 0) {
@@ -693,7 +700,7 @@ class MySceneGraph {
             const transformationMatrix = mat4.create()
             for (const tr of transformations) {
                 if (tr.type === "translation") {
-                    mat4.translate(transformationMatrix, transformationMatrix, tr.x, tr.y, tr.z)
+                    mat4.translate(transformationMatrix, transformationMatrix, [tr.x, tr.y, tr.z])
                 } else if (tr.type === "rotation") {
                     mat4.rotate(transformationMatrix, transformationMatrix, tr.angle, this.axisCoords[tr.axis[0]])
                 } else if (tr.type === "scale") {
@@ -885,7 +892,8 @@ class MySceneGraph {
                 matrix: transformationMatrix,
                 material: materialId,
                 texture: texture,
-                descendants: descendants
+                descendants: descendants,
+                display: false
             }
         }
 
@@ -998,8 +1006,30 @@ class MySceneGraph {
      */
     displayScene() {
         //To do: Create display loop for transversing the scene graph, calling the root node's display function
+        this.scene.pushMatrix()
+        this.processNode(this.nodes[this.idRoot], mat4.create())
+        this.scene.popMatrix()
+    }
 
-        //this.nodes[this.idRoot].display()
+    processNode(node, matrix) {
+        mat4.multiply(node.matrix, node.matrix, matrix)
+        this.scene.multMatrix(node.matrix)
+        this.materials[node.material].apply()
+
+
+        for (let desc of node.descendants) {
+            if (desc.type !== "noderef") {
+                switch (desc.type) {
+                    case "rectangle":
+                        new MyRectangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2).display()
+                        break
+                    // todo - implement the various primitives
+                    // todo - deal with textures
+                    default:
+                        break
+                }
+            }
+        }
     }
 
     createPerspectiveCamera(elements) {
