@@ -1028,6 +1028,15 @@ class MySceneGraph {
                         new MyTriangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2, desc.x3, desc.y3).display()
                         break
                     // todo - implement the various primitives
+                    case "sphere":
+                        // new Sphere
+                        break
+                    case "cylinder":
+                        // new cylinder
+                        break
+                    case "torus":
+                        // new torus
+                        break
                     // todo - deal with textures
                     default:
                         break
