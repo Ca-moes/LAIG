@@ -795,10 +795,7 @@ class MySceneGraph {
 
                         descendants.push({
                             type: "rectangle",
-                            x1: x1,
-                            y1: y1,
-                            x2: x2,
-                            y2: y2
+                            object: new MyRectangle(this.scene, x1, y1, x2, y2)
                         })
                     }
                     else if (type === "triangle") {
@@ -818,12 +815,7 @@ class MySceneGraph {
 
                         descendants.push({
                             type: "triangle",
-                            x1: x1,
-                            y1: y1,
-                            x2: x2,
-                            y2: y2,
-                            x3: x3,
-                            y3: y3
+                            object: new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3)
                         })
                     }
                     else if (type === "cylinder") {
@@ -842,11 +834,7 @@ class MySceneGraph {
 
                         descendants.push({
                             type: "cylinder",
-                            height: height,
-                            topRadius: topRadius,
-                            bottomRadius: bottomRadius,
-                            stacks: stacks,
-                            slices: slices
+                            object: new MyCylinder(this.scene, height, topRadius, bottomRadius, stacks, slices)
                         })
                     }
                     else if (type === "sphere") {
@@ -864,9 +852,7 @@ class MySceneGraph {
 
                         descendants.push({
                             type: "sphere",
-                            radius: radius,
-                            stacks: stacks,
-                            slices: slices
+                            object: new MySphere(this.scene, radius, slices, stacks)
                         })
                     }
                     else if (type === "torus") {
@@ -882,10 +868,7 @@ class MySceneGraph {
 
                         descendants.push({
                             type: "torus",
-                            inner: inner,
-                            outer: outer,
-                            loops: loops,
-                            slices: slices
+                            object: new MyTorus(this.scene, inner, outer, slices, loops)
                         })
                     }
                 }
@@ -1010,14 +993,12 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        //To do: Create display loop for transversing the scene graph, calling the root node's display function
         this.scene.pushMatrix()
         this.processNode(this.nodes[this.idRoot])
         this.scene.popMatrix()
     }
 
     processNode(node) {
-        // mat4.multiply(node.matrix, node.matrix, matrix)
         this.scene.multMatrix(node.matrix)
 
         if (node.material !== "null") {
@@ -1026,33 +1007,7 @@ class MySceneGraph {
 
         for (let desc of node.descendants) {
             if (desc.type !== "noderef") {
-                switch (desc.type) {
-                    case "rectangle":
-                        //new MyRectangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2).display()
-                        break
-                    case "triangle":
-                        //new MyTriangle(this.scene, desc.x1, desc.y1, desc.x2, desc.y2, desc.x3, desc.y3).display()
-                        break
-                    case "sphere":
-                        //new MySphere(this.scene, desc.radius, desc.slices, desc.stacks).display()
-                        break
-                    case "cylinder":
-                        new MyCylinder(this.scene, desc.height, desc.topRadius, desc.bottomRadius, desc.stacks, desc.slices).display()
-                        break
-                    // todo - implement the various primitives
-                    case "sphere":
-                        // new Sphere
-                        break
-                    case "cylinder":
-                        // new cylinder
-                        break
-                    case "torus":
-                        new MyTorus(this.scene, desc.inner, desc.outer, desc.slices, desc.loops).display()
-                        break
-                    // todo - deal with textures
-                    default:
-                        break
-                }
+                desc.object.display()
             }
             else {
                 this.scene.pushMatrix()
