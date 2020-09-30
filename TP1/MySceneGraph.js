@@ -653,7 +653,7 @@ class MySceneGraph {
 
                     transformations.push({
                         type: "rotation",
-                        angle: angle,
+                        angle: angle * DEGREE_TO_RAD,
                         axis: axis
                     })
                 }
