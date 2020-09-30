@@ -187,6 +187,8 @@
                 <noderef id="ban_suporte_2" />
                 <noderef id="ban_refeicao_1" />
                 <noderef id="ban_refeicao_2" />
+                <noderef id="ban_suporte_sup_1" />
+                <noderef id="ban_suporte_sup_2" />
             </descendants>
         </node>
 
@@ -250,7 +252,36 @@
                 <noderef id="cube" />
             </descendants>
         </node> 
-       
+        <node id="ban_suporte_sup_1">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.36" y="0.9" z="-0.26" />
+                <scale sx="0.1" sy="0.5" sz="7.53" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+       <node id="ban_suporte_sup_2">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.312" y="0.9" z="3.455" />
+               <scale sx="1.25" sy="0.5" sz="0.1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
 
         <node id="paredes">            
             <material id="null" />
