@@ -157,7 +157,7 @@ initBuffers() {
     this.initGLBuffers();
 }
 
-updateTexCoords(coords) {
-    // todo - this method
-}
+    updateTexCoords(coords) {
+        // todo - this method
+    }
 }
