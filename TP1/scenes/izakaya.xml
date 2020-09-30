@@ -34,15 +34,13 @@
         </light>
     </lights>
 
-
     <textures>
         <texture id="demoTexture" path="./scenes/images/vidral.jpg" />
     </textures>
 
-
     <materials>
         <material id="demoMaterial">
-            <shininess value="ff" />
+            <shininess value="0" />
             <ambient r="1.0" g="0.5" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
@@ -61,76 +59,11 @@
             </transformations>
 
             <descendants>
-                <!-- <noderef id="paredes" /> -->
-                <noderef id="cube" />
+                <noderef id="paredes" />
+                <noderef id="bancada" />
             </descendants>
         </node>
 
-        <!-- <node id="paredes">            
-            <material id="null" />
-            <texture id="clear">
-                <amplification afs="1.0" aft="1.0" />
-            </texture>
-
-            <transformations>
-            </transformations>
-
-            <descendants>
-                <noderef id="par_chao" />
-                <noderef id="par_traseira" />
-                <noderef id="par_lateral" />
-            </descendants>
-        </node>
-
-        <node id="par_chao">            
-            <material id="null" />
-            <texture id="clear">
-                <amplification afs="1.0" aft="1.0" />
-            </texture>
-
-            <transformations>
-                <scale sx="6" sy="1" sz="10" />
-                <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="xx" angle="-90" /> 
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
-            </descendants>
-        </node>
-
-        <node id="par_traseira">            
-            <material id="null" />
-            <texture id="clear">
-                <amplification afs="1.0" aft="1.0" />
-            </texture>
-
-            <transformations>
-                <scale sx="1" sy="4" sz="10" />
-                <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="yy" angle="90" /> 
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
-            </descendants>
-        </node>
-
-        <node id="par_lateral">            
-            <material id="null" />
-            <texture id="clear">
-                <amplification afs="1.0" aft="1.0" />
-            </texture>
-
-            <transformations>
-                <scale sx="6" sy="4" sz="1" />
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
-            </descendants>
-        </node> -->
-        
         <node id="cube">            
             <material id="null" />
             <texture id="clear">
@@ -238,6 +171,116 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
+
+        <node id="bancada">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="ban_suporte_1" />
+                <noderef id="ban_suporte_2" />
+            </descendants>
+        </node>
+
+        <node id="ban_suporte_1">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.7" y="0.6" z="4" />
+                <scale sx="0.1" sy="1.2" sz="8" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="ban_suporte_2">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="1.9" y="0.6" z="7.95" />
+                <scale sx="1.5" sy="1.2" sz="0.1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+
+        <node id="paredes">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="par_chao" />
+                <noderef id="par_traseira" />
+                <noderef id="par_lateral" />
+            </descendants>
+        </node>
+        <node id="par_chao">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <scale sx="6" sy="1" sz="10" />
+                <translation x="0" y="0.0" z="1.0" />
+                <rotation axis="xx" angle="-90" /> 
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        <node id="par_traseira">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <scale sx="1" sy="4" sz="10" />
+                <translation x="0" y="0.0" z="1.0" />
+                <rotation axis="yy" angle="90" /> 
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        <node id="par_lateral">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <scale sx="6" sy="4" sz="1" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        
+        
 
     </nodes>
 </lsf>
