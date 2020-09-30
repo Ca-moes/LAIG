@@ -97,12 +97,11 @@ initBuffers() {
         }
     }
 
-    var vbase = this.vertices.length;
-    // centro da bottom base
-    
     //Para z= 0
     // adicionar a vertices[] valores dos vertices
     for (var j = 0; j <= this.slices; j++) {
+        // adiciona centro
+        this.vertices.push(0,0,0);
         // adiciona vertice current
         this.vertices.push(
             this.bottomRadius * Math.cos(j * delta_rad),
@@ -112,14 +111,45 @@ initBuffers() {
         this.vertices.push(
             this.bottomRadius * Math.cos((j+1) * delta_rad),
             this.bottomRadius * Math.sin((j+1) * delta_rad),
-            0)
-        // adiciona centro
-        this.vertices.push(0,0,0);
+            0);
+
+        this.normals.push(0,0,-1,
+            0,0,-1,
+            0,0,-1);
+            
         // liga ultimos 3
         this.indices.push(
-            this.vertices.length - 2,
-            this.vertices.length - 1,
-            this.vertices.length - 3
+            this.vertices.length/3,
+            this.vertices.length/3 - 1,
+            this.vertices.length/3 - 2
+        )
+    }
+
+    //Para z= height
+    // adicionar a vertices[] valores dos vertices
+    for (var j = 0; j <= this.slices; j++) {
+        // adiciona centro
+        this.vertices.push(0,0,this.height);
+        // adiciona vertice current
+        this.vertices.push(
+            this.bottomRadius * Math.cos(j * delta_rad),
+            this.bottomRadius * Math.sin(j * delta_rad),
+            this.height)
+        // adiciona vertice siguinte 
+        this.vertices.push(
+            this.bottomRadius * Math.cos((j+1) * delta_rad),
+            this.bottomRadius * Math.sin((j+1) * delta_rad),
+            this.height);
+
+        this.normals.push(0,0,1,
+            0,0,1,
+            0,0,1);
+
+        // liga ultimos 3
+        this.indices.push(
+            this.vertices.length/3 - 1,
+            this.vertices.length/3,
+            this.vertices.length/3 - 2
         )
     }
 
