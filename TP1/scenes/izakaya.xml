@@ -179,11 +179,14 @@
             </texture>
 
             <transformations>
+                <translation x="2" y="0.55" z="4" />
             </transformations>
 
             <descendants>
                 <noderef id="ban_suporte_1" />
                 <noderef id="ban_suporte_2" />
+                <noderef id="ban_refeicao_1" />
+                <noderef id="ban_refeicao_2" />
             </descendants>
         </node>
 
@@ -194,7 +197,7 @@
             </texture>
 
             <transformations>
-                <translation x="2.7" y="0.6" z="4" />
+                <translation x="0.7" y="0.05" z="0" />
                 <scale sx="0.1" sy="1.2" sz="8" />
             </transformations>
 
@@ -209,7 +212,7 @@
             </texture>
 
             <transformations>
-                <translation x="1.9" y="0.6" z="7.95" />
+                <translation x="-0.1" y="0.05" z="3.95" />
                 <scale sx="1.5" sy="1.2" sz="0.1" />
             </transformations>
 
@@ -217,6 +220,37 @@
                 <noderef id="cube" />
             </descendants>
         </node>
+        <node id="ban_refeicao_1">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.8" y="0.65" z="0.25" />
+                <scale sx="0.9" sy="0.1" sz="8.5" /> 
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node> 
+        <node id="ban_refeicao_2">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.3" y="0.65" z="4" />
+                <scale sx="1.3" sy="0.1" sz="1" />  
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node> 
+       
 
         <node id="paredes">            
             <material id="null" />
