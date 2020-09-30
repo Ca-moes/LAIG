@@ -499,7 +499,10 @@ class MySceneGraph {
             if (textureId.length === 0) {
                 return "[TEXTURES] no texture ID defined"
             }
-            // todo - add rule for repeated IDs
+            if (this.textures[textureId] != null) {
+                return "ID must be unique for each texture (conflict: ID = " + textureId + ")";
+            }
+
             const file = this.reader.getString(children[i], 'path');
             if (file.includes('scenes/images')) {
                 this.textures[textureId] = new CGFtexture(this.scene, file)
@@ -856,6 +859,9 @@ class MySceneGraph {
                         else if (isNaN(radius) || isNaN(stacks) || isNaN(slices))
                             return "[NODES] Invalid values for sphere leaf. Node id: " + nodeID
 
+                        this.log("stacks: " + stacks)
+                        this.log("slices: " + slices)
+
                         descendants.push({
                             type: "sphere",
                             radius: radius,
@@ -864,12 +870,12 @@ class MySceneGraph {
                         })
                     }
                     else if (type === "torus") {
-                        const inner = this.reader.getString(descendantsNodes[j],'inner')
-                        const outer = this.reader.getString(descendantsNodes[j],'outer')
-                        const loops = this.reader.getString(descendantsNodes[j],'loops')
-                        const slices = this.reader.getString(descendantsNodes[j],'slices')
+                        const inner = this.reader.getFloat(descendantsNodes[j],'inner')
+                        const outer = this.reader.getFloat(descendantsNodes[j],'outer')
+                        const loops = this.reader.getInteger(descendantsNodes[j],'loops')
+                        const slices = this.reader.getInteger(descendantsNodes[j],'slices')
 
-                        if (inner==null || outer==null || loops==null || slices==null)
+                        if (inner == null || outer == null || loops == null || slices == null)
                             return "[NODES] Missing values for torus leaf. Node id: " + nodeID
                         else if (isNaN(inner) || isNaN(outer) || isNaN(loops) || isNaN(slices))
                             return "[NODES] Invalid values for torus leaf. Node id: " + nodeID
@@ -1034,6 +1040,15 @@ class MySceneGraph {
                         new MyCylinder(this.scene, desc.height, desc.topRadius, desc.bottomRadius, desc.stacks, desc.slices).display()
                         break
                     // todo - implement the various primitives
+                    case "sphere":
+                        // new Sphere
+                        break
+                    case "cylinder":
+                        // new cylinder
+                        break
+                    case "torus":
+                        new MyTorus(this.scene, desc.inner, desc.outer, desc.slices, desc.loops).display()
+                        break
                     // todo - deal with textures
                     default:
                         break
