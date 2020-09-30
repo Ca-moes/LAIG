@@ -3,8 +3,6 @@
         <reference length="1" />
         <!-- axis length; "0" means no axis displayed -->
         <root id="root" />
-        <!-- identifier of root node of the scene graph; this node -->
-        <!-- must be defined in one of the following NODE declarations -->
     </initials>
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
@@ -29,7 +27,7 @@
         <light id="demoLight">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="1" y="1" z="1" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="10" y="12" z="9.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -43,11 +41,9 @@
 
 
     <materials>
-        <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
-         requires a distinct "id". At least one material should be present. -->
         <material id="demoMaterial">
             <shininess value="ff" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.5" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
@@ -65,11 +61,12 @@
             </transformations>
 
             <descendants>
-                <noderef id="paredes" />
+                <!-- <noderef id="paredes" /> -->
+                <noderef id="cube" />
             </descendants>
         </node>
 
-        <node id="paredes">            
+        <!-- <node id="paredes">            
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -94,7 +91,7 @@
             <transformations>
                 <scale sx="6" sy="1" sz="10" />
                 <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="xx" angle="-1.57" /> <!-- -90º -->
+                <rotation axis="xx" angle="-90" /> 
             </transformations>
 
             <descendants>
@@ -111,7 +108,7 @@
             <transformations>
                 <scale sx="1" sy="4" sz="10" />
                 <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="yy" angle="1.57" /> <!-- 90º -->
+                <rotation axis="yy" angle="90" /> 
             </transformations>
 
             <descendants>
@@ -127,6 +124,36 @@
 
             <transformations>
                 <scale sx="6" sy="4" sz="1" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node> -->
+        
+        <node id="cube">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="cub_lado_1" />
+            </descendants>
+        </node>
+
+        <node id="cub_lado_1">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.5" y="-0.5" z="0.5" />
+                <rotation axis="yy" angle="90" />
             </transformations>
 
             <descendants>
