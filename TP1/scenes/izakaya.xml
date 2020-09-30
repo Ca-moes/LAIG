@@ -142,9 +142,13 @@
 
             <descendants>
                 <noderef id="cub_lado_1" />
+                <noderef id="cub_lado_2" />
+                <noderef id="cub_lado_3" />
+                <noderef id="cub_lado_4" />
+                <noderef id="cub_lado_5" />
+                <noderef id="cub_lado_6" />
             </descendants>
         </node>
-
         <node id="cub_lado_1">            
             <material id="null" />
             <texture id="clear">
@@ -160,5 +164,80 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
+        <node id="cub_lado_2">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.5" y="-0.5" z="-0.5" />
+                <rotation axis="yy" angle="270" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        <node id="cub_lado_3">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.5" y="-0.5" z="-0.5" />
+                <rotation axis="xx" angle="90" /> 
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        <node id="cub_lado_4">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.5" y="0.5" z="0.5" />
+                <rotation axis="xx" angle="-90" />  
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        <node id="cub_lado_5">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.5" y="-0.5" z="-0.5" />
+                <rotation axis="yy" angle="180" />   
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        <node id="cub_lado_6">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.5" y="-0.5" z="0.5" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
     </nodes>
 </lsf>
