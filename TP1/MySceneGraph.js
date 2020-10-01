@@ -879,7 +879,7 @@ class MySceneGraph {
 
             this.nodes[nodeID] = {
                 matrix: transformationMatrix,
-                material: materialId,
+                material: this.materials[materialId],
                 texture: texture,
                 descendants: descendants
             }
@@ -1001,8 +1001,8 @@ class MySceneGraph {
     processNode(node) {
         this.scene.multMatrix(node.matrix)
 
-        if (node.material !== "null") {
-            this.materials[node.material].apply()
+        if (node.material != null) {
+            node.material.apply()
         }
 
         // this could be improved
@@ -1014,8 +1014,8 @@ class MySceneGraph {
                             this.activeTexture.unbind()
                         }
                     } else {
-                        const amp = node.texture.amplification
-                        desc.object.updateTexCoords([amp[0], amp[1]])
+                        // const amp = node.texture.amplification
+                        // desc.object.updateTexCoords([amp[0], amp[1]])
                         this.textures[node.texture.textureId].bind()
                         this.activeTexture = this.textures[node.texture.textureId]
                     }
