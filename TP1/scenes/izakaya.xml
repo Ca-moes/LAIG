@@ -4,6 +4,7 @@
         <!-- axis length; "0" means no axis displayed -->
         <root id="root" />
     </initials>
+
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
             <from x="30" y="15" z="30" />
@@ -40,7 +41,7 @@
 
     <materials>
         <material id="demoMaterial">
-            <shininess value="0" />
+            <shininess value="2" />
             <ambient r="1.0" g="0.5" b="0.0" a="1.0" />
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
@@ -61,6 +62,7 @@
             <descendants>
                 <noderef id="paredes" />
                 <noderef id="bancada" />
+                <noderef id="cadeira_1" />
             </descendants>
         </node>
 
@@ -193,7 +195,6 @@
                 <noderef id="ban_entrega_2" />
             </descendants>
         </node>
-
         <node id="ban_suporte_1">
             <material id="null"/>
             <texture id="clear">
@@ -313,7 +314,7 @@
                 <descendants>
                     <noderef id="cube" />
                 </descendants>
-            </node>
+        </node>
 
         <node id="paredes">            
             <material id="null" />
@@ -377,5 +378,205 @@
             </descendants>
         </node>
     
+        <node id="cadeira_1">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="3.2" y="0.4" z="0.5" />
+                <scale sx="0.2" sy="0.18" sz="0.2" /> 
+            </transformations>
+
+            <descendants>
+                <noderef id="cadeira" />
+            </descendants>
+        </node>
+
+        <node id="cadeira">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="cad_suporte" />
+                <noderef id="cad_assento" />
+                <noderef id="cad_perna_1" />
+                <noderef id="cad_perna_2" />
+                <noderef id="cad_perna_3" />
+                <noderef id="cad_perna_4" />
+                <noderef id="cad_sup_perna_1" />
+                <noderef id="cad_sup_perna_2" />
+                <noderef id="cad_sup_perna_3" />
+                <noderef id="cad_sup_perna_4" />
+            </descendants>
+        </node>
+        <node id="cad_suporte">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <scale sx="0.3" sy="0.8" sz="0.3" />
+                <rotation axis="xx" angle="-90" />  
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
+            </descendants>
+        </node>
+        <node id="cad_assento">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="1.9" z="0" />
+                <scale sx="2" sy="0.25" sz="2" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="cad_perna_1">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.1" y="0" z="0.1" />
+                <rotation axis="yy" angle="45" />
+                <rotation axis="xx" angle="60" />
+                <scale sx="0.17" sy="0.18" sz="1.1" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
+            </descendants>
+        </node>
+        <node id="cad_perna_2">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.1" y="0" z="-0.1" />
+                <rotation axis="yy" angle="135" />
+                <rotation axis="xx" angle="60" />
+                <scale sx="0.17" sy="0.18" sz="1.1" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
+            </descendants>
+        </node>
+        <node id="cad_perna_3">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.1" y="0" z="-0.1" />
+                <rotation axis="yy" angle="225" />
+                <rotation axis="xx" angle="60" />
+                <scale sx="0.17" sy="0.18" sz="1.1" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
+            </descendants>
+        </node>
+        <node id="cad_perna_4">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.1" y="0" z="0.1" />
+                <rotation axis="yy" angle="315" />
+                <rotation axis="xx" angle="60" />
+                <scale sx="0.17" sy="0.18" sz="1.1" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
+            </descendants>
+        </node>
+        <node id="cad_sup_perna_1">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="-1.45" z="0.7" />
+                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="cad_sup_perna_2">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="yy" angle="90" />
+                <translation x="0" y="-1.45" z="0.7" />
+                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="cad_sup_perna_3">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="yy" angle="180" />
+                <translation x="0" y="-1.45" z="0.7" />
+                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="cad_sup_perna_4">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <rotation axis="yy" angle="270" />
+                <translation x="0" y="-1.45" z="0.7" />
+                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+
     </nodes>
 </lsf>
