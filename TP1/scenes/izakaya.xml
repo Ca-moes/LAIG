@@ -190,6 +190,7 @@
                 <noderef id="ban_suporte_sup_1" />
                 <noderef id="ban_suporte_sup_2" />
                 <noderef id="ban_entrega_1" />
+                <noderef id="ban_entrega_2" />
             </descendants>
         </node>
 
@@ -282,16 +283,31 @@
                 <descendants>
                     <noderef id="cube" />
                 </descendants>
-            </node>
+        </node>
         <node id="ban_entrega_1">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.2" y="1.15" z="-0.2" />
+                <scale sx="0.55" sy="0.05" sz="7.6" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="ban_entrega_2">
                 <material id="null"/>
                 <texture id="clear">
                     <amplification afs="1.0" aft="1.0" />
                 </texture>
 
                 <transformations>
-                    <!-- <translation x="-0.312" y="0.9" z="3.455" />
-                <scale sx="1.25" sy="0.5" sz="0.1" /> -->
+                    <translation x="-0.5" y="1.15" z="3.35" />
+                    <scale sx="0.87" sy="0.05" sz="0.5" />
                 </transformations>
 
                 <descendants>
@@ -360,10 +376,6 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
-        
-        
-
-    
     
     </nodes>
 </lsf>
