@@ -1008,18 +1008,18 @@ class MySceneGraph {
         // this could be improved
         for (let desc of node.descendants) {
             if (desc.type !== "noderef") {
+                /* TODO - Ensure inheritance on textures
                 if (node.texture.textureId !== "null") {
                     if (node.texture.textureId === "clear") {
-                        if (this.activeTexture != null) {
-                            this.activeTexture.unbind()
-                        }
-                    } else {
-                        // const amp = node.texture.amplification
-                        // desc.object.updateTexCoords([amp[0], amp[1]])
+                        if (this.currentTexture != null)
+                            this.currentTexture.unbind()
+                    }
+                    else {
                         this.textures[node.texture.textureId].bind()
-                        this.activeTexture = this.textures[node.texture.textureId]
+                        this.currentTexture = this.textures[node.texture.textureId]
                     }
                 }
+                */
                 desc.object.display()
             }
             else {
