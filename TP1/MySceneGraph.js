@@ -709,10 +709,10 @@ class MySceneGraph {
                 }
             }
             const amplificationNodes = grandChildren[textureIndex].childNodes
-            if (amplificationNodes.length === 1) {
-                return "[NODES] Amplification is not valid. Node ID: " + nodeID
+            let amplification = {
+                afs: 1,
+                aft: 1
             }
-            let amplification = null
             for (let j = 0; j < amplificationNodes.length; j++) {
                 if (amplificationNodes[j].nodeName === "amplification") {
                     const afs = this.reader.getFloat(amplificationNodes[j], 'afs')
@@ -721,17 +721,16 @@ class MySceneGraph {
                         return "[NODES] Amplification is not valid. Node ID: " + nodeID
                     }
                     if (isNaN(aft) || isNaN(afs)) {
-                        return "[NODES] Amplification values not valid. Node ID: " + nodeID
-                    }
-                    amplification = {
-                        afs: afs,
-                        aft: aft
+                        this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
+                    } else {
+                        amplification = {
+                            afs: afs,
+                            aft: aft
+                        }
                     }
                 }
             }
-            if (amplification == null) {
-                return "[NODES] Amplification is not valid. Node ID: " + nodeID
-            }
+
             const texture = {
                 textureId: textureId,
                 amplification: amplification
