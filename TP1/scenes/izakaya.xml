@@ -62,11 +62,7 @@
             <descendants>
                 <noderef id="paredes" />
                 <noderef id="bancada" />
-                <noderef id="cadeira_1" />
-                <!-- <noderef id="cadeira_2" />
-                <noderef id="cadeira_3" />
-                <noderef id="cadeira_4" />
-                <noderef id="cadeira_5" /> -->
+                <noderef id="set_lat_cadeiras" />
             </descendants>
         </node>
 
@@ -342,7 +338,7 @@
             </texture>
 
             <transformations>
-                <scale sx="6" sy="1" sz="10" />
+                <scale sx="5" sy="1" sz="10" />
                 <translation x="0" y="0.0" z="1.0" />
                 <rotation axis="xx" angle="-90" /> 
             </transformations>
@@ -374,7 +370,7 @@
             </texture>
 
             <transformations>
-                <scale sx="6" sy="4" sz="1" />
+                <scale sx="5" sy="4" sz="1" />
             </transformations>
 
             <descendants>
@@ -382,6 +378,29 @@
             </descendants>
         </node>
     
+        <node id="set_lat_cadeiras">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="3.2" y="0.4" z="4" />
+                <scale sx="0.2" sy="0.18" sz="0.2" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cadeira_1" />
+                <noderef id="cadeira_2" />
+                <noderef id="cadeira_3" />
+                <noderef id="cadeira_4" />
+                <noderef id="cadeira_5" />
+                <noderef id="cadeira_6" />
+                <noderef id="cadeira_7" />
+                <noderef id="cadeira_8" />
+            </descendants>
+        </node>
+
         <node id="cadeira_1">            
             <material id="null" />
             <texture id="clear">
@@ -389,23 +408,21 @@
             </texture>
 
             <transformations>
-                <translation x="3.2" y="0.4" z="0.5" />
-                <scale sx="0.2" sy="0.18" sz="0.2" /> 
+                <translation x="0" y="0" z="-17.5" />
             </transformations>
 
             <descendants>
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <!-- <node id="cadeira_2">            
+        <node id="cadeira_2">            
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="3.2" y="0.4" z="1.5" />
-                <scale sx="0.2" sy="0.18" sz="0.2" /> 
+                <translation x="0" y="0" z="-12.5" />
             </transformations>
 
             <descendants>
@@ -419,8 +436,7 @@
             </texture>
 
             <transformations>
-                <translation x="3.2" y="0.4" z="2.5" />
-                <scale sx="0.2" sy="0.18" sz="0.2" /> 
+                <translation x="0" y="0" z="-7.5" />
             </transformations>
 
             <descendants>
@@ -434,8 +450,7 @@
             </texture>
 
             <transformations>
-                <translation x="3.2" y="0.4" z="3.5" />
-                <scale sx="0.2" sy="0.18" sz="0.2" /> 
+                <translation x="0" y="0" z="-2.5" />
             </transformations>
 
             <descendants>
@@ -449,15 +464,56 @@
             </texture>
 
             <transformations>
-                <translation x="3.2" y="0.4" z="4.5" />
-                <scale sx="0.2" sy="0.18" sz="0.2" /> 
+                <translation x="0" y="0" z="2.5" />
             </transformations> 
 
             <descendants>
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        -->
+        <node id="cadeira_6">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="7.5" />
+            </transformations> 
+
+            <descendants>
+                <noderef id="cadeira" />
+            </descendants>
+        </node>
+        <node id="cadeira_7">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="12.5" />
+            </transformations> 
+
+            <descendants>
+                <noderef id="cadeira" />
+            </descendants>
+        </node>
+        <node id="cadeira_8">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="17.5" />
+            </transformations> 
+
+            <descendants>
+                <noderef id="cadeira" />
+            </descendants>
+        </node>
+
         <node id="cadeira">            
             <material id="null" />
             <texture id="clear">
