@@ -92,4 +92,8 @@ class MySphere extends CGFobject {
   setFillMode() {
     this.primitiveType=this.scene.gl.TRIANGLES;
   }
+
+  updateTexCoords(coords) {
+    // todo - this method
+  }
 }
