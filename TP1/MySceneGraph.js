@@ -645,14 +645,14 @@ class MySceneGraph {
                     const axis = this.reader.getString(transformationsNode[j], 'axis')
                     const angle = this.reader.getFloat(transformationsNode[j], 'angle')
 
-                    if (axis == null || (axis !== "xx" && axis !== "yy" && axis !== "zz")) {
+                    if (axis == null || (axis !== "x" && axis !== "y" && axis !== "z")) {
                         return "[NODES] wrong value for axis on rotation - node id: " + nodeID
                     }
                     if (angle == null || isNaN(angle)) {
                         return "[NODES] wrong value for angle on rotation - node id: " + nodeID
                     }
 
-                    mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis[0]])
+                    mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
                 }
                 else if (transformationsNode[j].nodeName === "translation") {
                     const x = this.reader.getFloat(transformationsNode[j], "x")
