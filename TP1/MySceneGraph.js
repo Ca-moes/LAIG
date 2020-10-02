@@ -966,15 +966,30 @@ class MySceneGraph {
      */
     displayScene() {
         this.scene.pushMatrix()
-        this.processNode(this.nodes[this.idRoot])
+        this.processNode(this.nodes[this.idRoot], this.nodes[this.idRoot].material, this.nodes[this.idRoot].texture)
         this.scene.popMatrix()
     }
 
-    processNode(node) {
+    processNode(node, material, texture) {
         this.scene.multMatrix(node.matrix)
 
+        let currentMaterial = material
+        // let currentTexture = texture
+
         if (node.material != null) {
-            node.material.apply()
+            currentMaterial = node.material
+        }
+
+        /*
+        if (this.textures[currNode.textureID] != null) {
+            if (currNode.textureID == 'clear') {
+                idTexture = null
+            } else idTexture = currNode.textureID
+        }
+         */
+
+        if (currentMaterial != null) {
+            currentMaterial.apply()
         }
 
         // this could be improved
@@ -996,7 +1011,7 @@ class MySceneGraph {
             }
             else {
                 this.scene.pushMatrix()
-                this.processNode(this.nodes[desc.id], node.matrix)
+                this.processNode(this.nodes[desc.id], currentMaterial, null)
                 this.scene.popMatrix()
             }
         }

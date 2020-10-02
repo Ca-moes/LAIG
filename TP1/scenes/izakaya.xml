@@ -47,6 +47,20 @@
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="chrome">
+            <shininess value="76.8" />
+            <ambient r="0.25" g="0.25" b="0.25" a="1.0" />
+            <diffuse r="0.1" g="0.1" b="0.1" a="1.0" />
+            <specular r="0.774597 " g="0.774597 " b="0.774597 " a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="black_plastic">
+            <shininess value="32" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.09" g="0.09" b="0.09" a="1.0" />
+            <specular r="0.5 " g="0.5 " b="0.5 " a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <nodes>
@@ -92,7 +106,7 @@
 
             <transformations>
                 <translation x="0.5" y="-0.5" z="0.5" />
-                <rotation axis="yy" angle="90" />
+                <rotation axis="y" angle="90" />
             </transformations>
 
             <descendants>
@@ -107,7 +121,7 @@
 
             <transformations>
                 <translation x="-0.5" y="-0.5" z="-0.5" />
-                <rotation axis="yy" angle="270" />
+                <rotation axis="y" angle="270" />
             </transformations>
 
             <descendants>
@@ -122,7 +136,7 @@
 
             <transformations>
                 <translation x="-0.5" y="-0.5" z="-0.5" />
-                <rotation axis="xx" angle="90" /> 
+                <rotation axis="x" angle="90" /> 
             </transformations>
 
             <descendants>
@@ -137,7 +151,7 @@
 
             <transformations>
                 <translation x="-0.5" y="0.5" z="0.5" />
-                <rotation axis="xx" angle="-90" />  
+                <rotation axis="x" angle="-90" />  
             </transformations>
 
             <descendants>
@@ -152,7 +166,7 @@
 
             <transformations>
                 <translation x="0.5" y="-0.5" z="-0.5" />
-                <rotation axis="yy" angle="180" />   
+                <rotation axis="y" angle="180" />   
             </transformations>
 
             <descendants>
@@ -340,7 +354,7 @@
             <transformations>
                 <scale sx="5" sy="1" sz="10" />
                 <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="xx" angle="-90" /> 
+                <rotation axis="x" angle="-90" /> 
             </transformations>
 
             <descendants>
@@ -356,7 +370,7 @@
             <transformations>
                 <scale sx="1" sy="4" sz="10" />
                 <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="yy" angle="90" /> 
+                <rotation axis="y" angle="90" /> 
             </transformations>
 
             <descendants>
@@ -515,7 +529,7 @@
         </node>
 
         <node id="cadeira">            
-            <material id="null" />
+            <material id="chrome" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
@@ -544,7 +558,7 @@
 
             <transformations>
                 <scale sx="0.3" sy="0.8" sz="0.3" />
-                <rotation axis="xx" angle="-90" />  
+                <rotation axis="x" angle="-90" />  
             </transformations>
 
             <descendants>
@@ -552,7 +566,7 @@
             </descendants>
         </node>
         <node id="cad_assento">            
-            <material id="null" />
+            <material id="black_plastic" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
@@ -574,8 +588,8 @@
 
             <transformations>
                 <translation x="0.1" y="0" z="0.1" />
-                <rotation axis="yy" angle="45" />
-                <rotation axis="xx" angle="60" />
+                <rotation axis="y" angle="45" />
+                <rotation axis="x" angle="60" />
                 <scale sx="0.17" sy="0.18" sz="1.1" />
             </transformations>
 
@@ -591,8 +605,8 @@
 
             <transformations>
                 <translation x="0.1" y="0" z="-0.1" />
-                <rotation axis="yy" angle="135" />
-                <rotation axis="xx" angle="60" />
+                <rotation axis="y" angle="135" />
+                <rotation axis="x" angle="60" />
                 <scale sx="0.17" sy="0.18" sz="1.1" />
             </transformations>
 
@@ -608,8 +622,8 @@
 
             <transformations>
                 <translation x="-0.1" y="0" z="-0.1" />
-                <rotation axis="yy" angle="225" />
-                <rotation axis="xx" angle="60" />
+                <rotation axis="y" angle="225" />
+                <rotation axis="x" angle="60" />
                 <scale sx="0.17" sy="0.18" sz="1.1" />
             </transformations>
 
@@ -625,8 +639,8 @@
 
             <transformations>
                 <translation x="-0.1" y="0" z="0.1" />
-                <rotation axis="yy" angle="315" />
-                <rotation axis="xx" angle="60" />
+                <rotation axis="y" angle="315" />
+                <rotation axis="x" angle="60" />
                 <scale sx="0.17" sy="0.18" sz="1.1" />
             </transformations>
 
@@ -656,7 +670,7 @@
             </texture>
 
             <transformations>
-                <rotation axis="yy" angle="90" />
+                <rotation axis="y" angle="90" />
                 <translation x="0" y="-1.45" z="0.7" />
                 <scale sx="1.4" sy="0.2" sz="0.2" /> 
             </transformations>
@@ -672,7 +686,7 @@
             </texture>
 
             <transformations>
-                <rotation axis="yy" angle="180" />
+                <rotation axis="y" angle="180" />
                 <translation x="0" y="-1.45" z="0.7" />
                 <scale sx="1.4" sy="0.2" sz="0.2" /> 
             </transformations>
@@ -688,7 +702,7 @@
             </texture>
 
             <transformations>
-                <rotation axis="yy" angle="270" />
+                <rotation axis="y" angle="270" />
                 <translation x="0" y="-1.45" z="0.7" />
                 <scale sx="1.4" sy="0.2" sz="0.2" /> 
             </transformations>
