@@ -82,7 +82,7 @@
 
         <node id="cube">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -100,7 +100,7 @@
         </node>
         <node id="cub_lado_1">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -115,7 +115,7 @@
         </node>
         <node id="cub_lado_2">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -130,7 +130,7 @@
         </node>
         <node id="cub_lado_3">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -145,7 +145,7 @@
         </node>
         <node id="cub_lado_4">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -160,7 +160,7 @@
         </node>
         <node id="cub_lado_5">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -175,7 +175,7 @@
         </node>
         <node id="cub_lado_6">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -211,7 +211,7 @@
         </node>
         <node id="ban_suporte_1">
             <material id="null"/>
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 

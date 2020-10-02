@@ -974,44 +974,30 @@ class MySceneGraph {
         this.scene.multMatrix(node.matrix)
 
         let currentMaterial = material
-        // let currentTexture = texture
+        let currentTexture = texture
+
+        if (node.texture.textureId !== "null") {
+            currentTexture = node.texture
+        }
 
         if (node.material != null) {
             currentMaterial = node.material
         }
 
-        /*
-        if (this.textures[currNode.textureID] != null) {
-            if (currNode.textureID == 'clear') {
-                idTexture = null
-            } else idTexture = currNode.textureID
-        }
-         */
-
         if (currentMaterial != null) {
             currentMaterial.apply()
         }
 
-        // this could be improved
         for (let desc of node.descendants) {
             if (desc.type !== "noderef") {
-                /* TODO - Ensure inheritance on textures
-                if (node.texture.textureId !== "null") {
-                    if (node.texture.textureId === "clear") {
-                        if (this.currentTexture != null)
-                            this.currentTexture.unbind()
-                    }
-                    else {
-                        this.textures[node.texture.textureId].bind()
-                        this.currentTexture = this.textures[node.texture.textureId]
-                    }
+                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
+                    this.textures[currentTexture.textureId].bind()
                 }
-                */
                 desc.object.display()
             }
             else {
                 this.scene.pushMatrix()
-                this.processNode(this.nodes[desc.id], currentMaterial, null)
+                this.processNode(this.nodes[desc.id], currentMaterial, currentTexture)
                 this.scene.popMatrix()
             }
         }
