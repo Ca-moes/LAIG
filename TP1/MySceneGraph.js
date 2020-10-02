@@ -637,25 +637,22 @@ class MySceneGraph {
             }
 
             // Transformations
-            let transformations = []
+            const transformationMatrix = mat4.create()
+
             const transformationsNode = grandChildren[transformationsIndex].childNodes
             for (let j = 0; j < transformationsNode.length; j++) {
                 if (transformationsNode[j].nodeName === "rotation") {
                     const axis = this.reader.getString(transformationsNode[j], 'axis')
                     const angle = this.reader.getFloat(transformationsNode[j], 'angle')
 
-                    if (axis == null || (axis !== "xx" && axis !== "yy" && axis !== "zz")) {
+                    if (axis == null || (axis !== "x" && axis !== "y" && axis !== "z")) {
                         return "[NODES] wrong value for axis on rotation - node id: " + nodeID
                     }
                     if (angle == null || isNaN(angle)) {
                         return "[NODES] wrong value for angle on rotation - node id: " + nodeID
                     }
 
-                    transformations.push({
-                        type: "rotation",
-                        angle: angle * DEGREE_TO_RAD,
-                        axis: axis
-                    })
+                    mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
                 }
                 else if (transformationsNode[j].nodeName === "translation") {
                     const x = this.reader.getFloat(transformationsNode[j], "x")
@@ -669,12 +666,7 @@ class MySceneGraph {
                         return "[NODES] wrong values for translation - node id: " + nodeID
                     }
 
-                    transformations.push({
-                        type: "translation",
-                        x: x,
-                        y: y,
-                        z: z
-                    })
+                    mat4.translate(transformationMatrix, transformationMatrix, [x, y, z])
                 }
                 else if (transformationsNode[j].nodeName === "scale") {
                     const sx = this.reader.getFloat(transformationsNode[j], "sx")
@@ -688,26 +680,10 @@ class MySceneGraph {
                         return "[NODES] wrong values for scale - node id: " + nodeID
                     }
 
-                    transformations.push({
-                        type: "scale",
-                        sx: sx,
-                        sy: sy,
-                        sz: sz
-                    })
+                    mat4.scale(transformationMatrix, transformationMatrix, [sx, sy, sz])
                 }
                 else {
                     this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
-                }
-            }
-
-            const transformationMatrix = mat4.create()
-            for (const tr of transformations) {
-                if (tr.type === "translation") {
-                    mat4.translate(transformationMatrix, transformationMatrix, [tr.x, tr.y, tr.z])
-                } else if (tr.type === "rotation") {
-                    mat4.rotate(transformationMatrix, transformationMatrix, tr.angle, this.axisCoords[tr.axis[0]])
-                } else if (tr.type === "scale") {
-                    mat4.scale(transformationMatrix, transformationMatrix, [tr.sx, tr.sy, tr.sz])
                 }
             }
 
@@ -733,10 +709,10 @@ class MySceneGraph {
                 }
             }
             const amplificationNodes = grandChildren[textureIndex].childNodes
-            if (amplificationNodes.length === 1) {
-                return "[NODES] Amplification is not valid. Node ID: " + nodeID
+            let amplification = {
+                afs: 1,
+                aft: 1
             }
-            let amplification = null
             for (let j = 0; j < amplificationNodes.length; j++) {
                 if (amplificationNodes[j].nodeName === "amplification") {
                     const afs = this.reader.getFloat(amplificationNodes[j], 'afs')
@@ -745,17 +721,16 @@ class MySceneGraph {
                         return "[NODES] Amplification is not valid. Node ID: " + nodeID
                     }
                     if (isNaN(aft) || isNaN(afs)) {
-                        return "[NODES] Amplification values not valid. Node ID: " + nodeID
-                    }
-                    amplification = {
-                        afs: afs,
-                        aft: aft
+                        this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
+                    } else {
+                        amplification = {
+                            afs: afs,
+                            aft: aft
+                        }
                     }
                 }
             }
-            if (amplification == null) {
-                return "[NODES] Amplification is not valid. Node ID: " + nodeID
-            }
+
             const texture = {
                 textureId: textureId,
                 amplification: amplification
@@ -846,9 +821,6 @@ class MySceneGraph {
                             return "[NODES] Missing values for sphere leaf. Node id: " + nodeID
                         else if (isNaN(radius) || isNaN(stacks) || isNaN(slices))
                             return "[NODES] Invalid values for sphere leaf. Node id: " + nodeID
-
-                        this.log("stacks: " + stacks)
-                        this.log("slices: " + slices)
 
                         descendants.push({
                             type: "sphere",
