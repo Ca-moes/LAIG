@@ -822,9 +822,6 @@ class MySceneGraph {
                         else if (isNaN(radius) || isNaN(stacks) || isNaN(slices))
                             return "[NODES] Invalid values for sphere leaf. Node id: " + nodeID
 
-                        this.log("stacks: " + stacks)
-                        this.log("slices: " + slices)
-
                         descendants.push({
                             type: "sphere",
                             object: new MySphere(this.scene, radius, slices, stacks)
