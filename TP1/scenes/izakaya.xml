@@ -62,7 +62,7 @@
         <material id="chrome">
             <shininess value="76.8" />
             <ambient r="0.25" g="0.25" b="0.25" a="1.0" />
-            <diffuse r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
             <specular r="0.774597 " g="0.774597 " b="0.774597 " a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
@@ -89,6 +89,7 @@
                 <noderef id="paredes" />
                 <noderef id="bancada" />
                 <noderef id="set_lat_cadeiras" />
+                <noderef id="set_lat_tapetes" />
             </descendants>
         </node>
 
@@ -193,6 +194,165 @@
 
             <transformations>
                 <translation x="-0.5" y="-0.5" z="0.5" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="set_lat_tapetes">            
+            <material id="null" />
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <scale sx="1.25" sy="0.18" sz="1.25" />
+                <translation x="-2.43" y="-1.255" z="-3.9" />
+            </transformations>
+
+            <descendants>
+                <noderef id="tapete_1" />
+                <noderef id="tapete_2" />
+                <noderef id="tapete_3" />
+                <noderef id="tapete_4" />
+                <noderef id="tapete_5" />
+                <noderef id="tapete_6" />
+                <noderef id="tapete_7" />
+                <noderef id="tapete_8" />
+            </descendants>
+        </node>
+
+        <node id="tapete_1">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="0.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="tapete_2">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="1.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="tapete_3">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="2.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="tapete_4">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="3.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="tapete_5">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="4.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="tapete_6">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="5.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="tapete_7">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="6.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+
+        <node id="tapete_8">
+            <material id="null"/>
+            <texture id="clear">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.43" y="1.255" z="7.9" />
+                <scale sx="0.8" sy="1" sz="0.8" />
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
@@ -426,7 +586,6 @@
                 <noderef id="cadeira_8" />
             </descendants>
         </node>
-
         <node id="cadeira_1">            
             <material id="null" />
             <texture id="clear">
