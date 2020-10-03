@@ -36,7 +36,6 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture" path="./scenes/images/vidral.jpg" />
         <texture id="clear_wood" path="clear_wood.jpg" />
         <texture id="dark_wood" path="dark_wood.jpg" />
         <texture id="semi_clear_wood" path="semi_clear_wood.jpg" />
