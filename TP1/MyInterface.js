@@ -49,7 +49,22 @@ class MyInterface extends CGFinterface {
     }
 
     addDropdown(id, list, name) {
+        const group = this.gui.addFolder("Views");
+        group.open();
+
         list.push("default/reset")
-        this.gui.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
+        group.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
+    }
+
+    addLightsGroup(lights) {
+        const group = this.gui.addFolder("Lights");
+        group.open();
+
+        for (let key in lights) {
+            if (lights.hasOwnProperty(key)) {
+                this.scene.lightFlags[key] = lights[key][0];
+                group.add(this.scene.lightFlags, key).onChange(this.scene.updateLights.bind(this.scene))
+            }
+        }
     }
 }
