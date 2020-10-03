@@ -248,6 +248,11 @@ class MySceneGraph {
         this.views = []
         this.viewsIds = []
 
+        this.defaultView = this.reader.getString(viewsNode, "default")
+        if (this.defaultView == null) {
+            return "[VIEWS] No default view set"
+        }
+
         const children = viewsNode.childNodes;
 
         for (let i = 0; i < children.length; i++) {
@@ -333,6 +338,7 @@ class MySceneGraph {
                             z: this.reader.getFloat(orthoChildren[j], 'z')
                         }
                     }
+                    // todo - default for up is 0,1,0 (make this happen if no up is defined)
                     else {
                         upAux = {
                             x: this.reader.getFloat(orthoChildren[j], 'x'),
@@ -355,6 +361,13 @@ class MySceneGraph {
                 })
             }
             this.viewsIds.push(viewId)
+        }
+
+        if (this.viewsIds.length === 0) {
+            return "[VIEWS] No views defined. At least one must be defined"
+        }
+        if (!this.viewsIds.includes(this.defaultView)) {
+            return "[VIEWS] Default View is not declared"
         }
 
         this.log("Parsed Views.")
