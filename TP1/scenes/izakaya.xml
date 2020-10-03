@@ -43,6 +43,7 @@
         <texture id="floor_wood" path="floor_wood.jpg" />
         <texture id="wall_wood" path="wall_wood.png" />
         <texture id="rattan" path="palha.jpg" />
+        <texture id="glass" path="bottle.jpg" />
     </textures>
 
     <materials>
@@ -92,9 +93,108 @@
                 <noderef id="set_lat_cadeiras" />
                 <noderef id="set_lat_tapetes" />
                 <noderef id="prateleira" />
+                <noderef id="garrafa_1" />
             </descendants>
         </node>
 
+
+        <node id="garrafa_1">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.235" y="3" z="5.5" />
+                <scale sx="0.2" sy="0.2" sz="0.2" />
+            </transformations>
+
+            <descendants>
+                <noderef id="garrafa" />
+            </descendants>
+        </node>
+        <node id="garrafa">
+            <material id="chrome"/>
+            <texture id="glass">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <!-- <translation x="0.235" y="3" z="5.5" />
+                <scale sx="0.5" sy="0.5" sz="0.5" /> -->
+            </transformations>
+
+            <descendants>
+                <noderef id="corpo" />
+                <noderef id="corpo_superior" />
+                <noderef id="gargalo" />
+                <noderef id="rolha" />
+            </descendants>
+        </node>
+        <node id="corpo">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="0" />
+                <scale sx="0.5" sy="1.2" sz="0.5" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="1" slices="10"/>
+            </descendants>
+        </node>
+        <node id="corpo_superior">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="2.4" z="0" />
+                <scale sx="0.50" sy="0.5" sz="0.50" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" radius="1" slices="10" stacks="5"/>
+            </descendants>
+        </node>
+        <node id="gargalo">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="2.7" z="0" />
+                <scale sx="0.17" sy="0.5" sz="0.17" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
+            </descendants>
+        </node>
+         <node id="rolha">
+            <material id="base"/>
+            <texture id="clear_wood">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="2.77" z="0" />
+                <scale sx="0.14" sy="0.5" sz="0.14" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
+            </descendants>
+        </node>
 
         <node id="prateleira">
             <material id="base"/>
