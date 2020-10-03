@@ -47,4 +47,9 @@ class MyInterface extends CGFinterface {
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
+
+    addDropdown(id, list, name) {
+        list.push("default/reset")
+        this.gui.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
+    }
 }
