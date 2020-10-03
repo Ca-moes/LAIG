@@ -483,10 +483,6 @@ class MySceneGraph {
     parseTextures(texturesNode) {
         let children = texturesNode.childNodes
 
-        if (children.length === 0) {
-            return "[TEXTURES] no textures defined"
-        }
-
         this.textures = []
 
         //For each texture in textures block, check ID and file URL

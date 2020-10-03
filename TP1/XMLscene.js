@@ -38,6 +38,8 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance=new CGFappearance(this);
 
+        this.selectedView = "default/reset"
+        this.lightFlags = {}
     }
 
     /**
@@ -91,6 +93,9 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
+        this.interface.addDropdown("selectedView", this.graph.viewsIds, "View")
+        this.interface.addLightsGroup(this.graph.lights)
+
         this.sceneInited = true;
     }
 
@@ -140,5 +145,32 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    updateView() {
+        if (this.selectedView === "default/reset") {
+            this.initCameras()
+        } else {
+            this.camera = this.graph.views[this.selectedView]
+        }
+        this.interface.setActiveCamera(this.camera)
+    }
+
+    updateLights() {
+        let i = 0;
+        for (let key in this.lightFlags) {
+            if (this.lightFlags.hasOwnProperty(key)) {
+                if (this.lightFlags[key]) {
+                    this.lights[i].setVisible(true);
+                    this.lights[i].enable();
+                }
+                else {
+                    this.lights[i].setVisible(false);
+                    this.lights[i].disable();
+                }
+                this.lights[i].update();
+                i++;
+            }
+        }
     }
 }
