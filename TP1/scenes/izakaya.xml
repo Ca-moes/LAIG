@@ -78,7 +78,7 @@
     <nodes>
         <node id="root">            
             <material id="demoMaterial" />
-            <texture id="demoTexture">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
