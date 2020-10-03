@@ -37,6 +37,11 @@
 
     <textures>
         <texture id="demoTexture" path="./scenes/images/vidral.jpg" />
+        <texture id="clear_wood" path="clear_wood.jpg" />
+        <texture id="dark_wood" path="dark_wood.jpg" />
+        <texture id="semi_clear_wood" path="semi_clear_wood.jpg" />
+        <texture id="floor_wood" path="floor_wood.jpg" />
+        <texture id="wall_wood" path="wall_wood.png" />
     </textures>
 
     <materials>
@@ -46,6 +51,13 @@
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="base">
+            <shininess value="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
         <material id="chrome">
             <shininess value="76.8" />
@@ -210,8 +222,8 @@
             </descendants>
         </node>
         <node id="ban_suporte_1">
-            <material id="null"/>
-            <texture id="null">
+            <material id="base"/>
+            <texture id="semi_clear_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -225,8 +237,8 @@
             </descendants>
         </node>
         <node id="ban_suporte_2">
-            <material id="null"/>
-            <texture id="clear">
+            <material id="base"/>
+            <texture id="semi_clear_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -240,8 +252,8 @@
             </descendants>
         </node>
         <node id="ban_refeicao_1">
-            <material id="null"/>
-            <texture id="clear">
+            <material id="base"/>
+            <texture id="clear_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -255,8 +267,8 @@
             </descendants>
         </node> 
         <node id="ban_refeicao_2">
-            <material id="null"/>
-            <texture id="clear">
+            <material id="base"/>
+            <texture id="clear_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -270,8 +282,8 @@
             </descendants>
         </node> 
         <node id="ban_suporte_sup_1">
-            <material id="null"/>
-            <texture id="clear">
+            <material id="base"/>
+            <texture id="semi_clear_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -285,8 +297,8 @@
             </descendants>
         </node>
         <node id="ban_suporte_sup_2">
-                <material id="null"/>
-                <texture id="clear">
+                <material id="base"/>
+                <texture id="semi_clear_wood">
                     <amplification afs="1.0" aft="1.0" />
                 </texture>
 
@@ -300,8 +312,8 @@
                 </descendants>
         </node>
         <node id="ban_entrega_1">
-            <material id="null"/>
-            <texture id="clear">
+            <material id="base"/>
+            <texture id="clear_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -315,8 +327,8 @@
             </descendants>
         </node>
         <node id="ban_entrega_2">
-                <material id="null"/>
-                <texture id="clear">
+                <material id="base"/>
+                <texture id="clear_wood">
                     <amplification afs="1.0" aft="1.0" />
                 </texture>
 
@@ -331,8 +343,8 @@
         </node>
 
         <node id="paredes">            
-            <material id="null" />
-            <texture id="clear">
+            <material id="base" />
+            <texture id="wall_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -346,8 +358,8 @@
             </descendants>
         </node>
         <node id="par_chao">            
-            <material id="null" />
-            <texture id="clear">
+            <material id="base" />
+            <texture id="floor_wood">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -363,7 +375,7 @@
         </node>
         <node id="par_traseira">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
@@ -379,7 +391,7 @@
         </node>
         <node id="par_lateral">            
             <material id="null" />
-            <texture id="clear">
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
