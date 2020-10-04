@@ -47,7 +47,7 @@ class MySphere extends CGFobject {
         //--- Vertices coordinates
         var x = (Math.cos(theta) * sinPhi) * this.radius;
         var z = (cosPhi) * this.radius;
-        var y = (Math.sin(-theta) * sinPhi) * this.radius;
+        var y = (Math.sin(theta) * sinPhi) * this.radius;
         this.vertices.push(x, y, z);
 
         //--- Texture Coordinates
