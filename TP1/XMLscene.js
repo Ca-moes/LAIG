@@ -38,7 +38,7 @@ class XMLscene extends CGFscene {
 
         this.defaultAppearance=new CGFappearance(this);
 
-        this.selectedView = "default/reset"
+        this.selectedView = -1
         this.lightFlags = {}
     }
 
@@ -93,8 +93,12 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        this.interface.addDropdown("selectedView", this.graph.viewsIds, "View")
+        // add dropdown for views with default view selected
+        this.interface.addViewsGroup("selectedView", this.graph.viewsIds, "View")
+        // add lights block
         this.interface.addLightsGroup(this.graph.lights)
+        // update view and lights accordingly
+        this.updateView()
 
         this.sceneInited = true;
     }
