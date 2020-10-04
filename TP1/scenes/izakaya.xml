@@ -45,7 +45,7 @@
         <texture id="rattan" path="palha.jpg" />
         <texture id="glass" path="bottle.jpg" />
         <texture id="chalkboard" path="chalkboard.jpg" />
-        <texture id="televisao" path="spoiler-alert.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg --> 
+        <texture id="televisao" path="televisao.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg --> 
     </textures>
 
     <materials>
@@ -205,7 +205,6 @@
                 <noderef id="quad_sup_set" />
             </descendants>
         </node>
-
         <node id="quad_escrita">            
             <material id="chalk" />
             <texture id="chalkboard">
@@ -391,7 +390,7 @@
                 <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-         <node id="rolha">
+        <node id="rolha">
             <material id="base"/>
             <texture id="clear_wood">
                 <amplification afs="1.0" aft="1.0" />
