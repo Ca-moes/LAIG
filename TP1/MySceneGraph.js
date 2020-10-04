@@ -648,7 +648,15 @@ class MySceneGraph {
             // Transformations
             const transformationMatrix = mat4.create()
 
-            const transformationsNode = grandChildren[transformationsIndex].childNodes
+            let transformationsNode;
+
+            if (transformationsIndex === -1) {
+                this.onXMLMinorError("[NODES] No transformations node on node id: " + nodeID)
+                transformationsNode = []
+            } else {
+                transformationsNode = grandChildren[transformationsIndex].childNodes
+            }
+
             for (let j = 0; j < transformationsNode.length; j++) {
                 if (transformationsNode[j].nodeName === "rotation") {
                     const axis = this.reader.getString(transformationsNode[j], 'axis')
