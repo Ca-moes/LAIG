@@ -44,6 +44,7 @@
         <texture id="wall_wood" path="wall_wood.png" />
         <texture id="rattan" path="palha.jpg" />
         <texture id="glass" path="bottle.jpg" />
+        <texture id="chalkboard" path="chalkboard.jpg" />
     </textures>
 
     <materials>
@@ -75,6 +76,13 @@
             <specular r="0.5 " g="0.5 " b="0.5 " a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+         <material id="black_rubber">
+            <shininess value="10" />
+            <ambient r="0.02" g="0.02" b="0.02" a="1.0" />
+            <diffuse r="0.01" g="0.01" b="0.01" a="1.0" />
+            <specular r="0.4 " g="0.4 " b="0.4 " a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <nodes>
@@ -94,9 +102,168 @@
                 <noderef id="set_lat_tapetes" />
                 <noderef id="prateleira" />
                 <noderef id="garrafa_1" />
+                <noderef id="televisao_lat" />
+                <noderef id="quadro_tra" />
             </descendants>
         </node>
 
+
+
+        <node id="televisao_lat">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.6" y="2.5" z="0.05" />
+                <scale sx="1" sy="0.5625" sz="0.5" />
+            </transformations>
+
+            <descendants>
+                <noderef id="televisao" />
+            </descendants>
+        </node>
+        <node id="televisao">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="quad_escrita" />
+                <noderef id="quad_sup_sup" />
+                <noderef id="quad_sup_inf" />
+                <noderef id="quad_sup_dir" />
+                <noderef id="quad_sup_esq" />
+            </descendants>
+        </node>
+        
+
+
+        <node id="quadro_tra">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0.05" y="1.7" z="2.7" />
+                <scale sx="1" sy="1" sz="0.6" />
+                <rotation axis="y" angle="90" />
+            </transformations>
+
+            <descendants>
+                <noderef id="quadro" />
+            </descendants>
+        </node>
+        <node id="quadro">
+            <material id="null"/>
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="quad_escrita" />
+                <noderef id="quad_sup_sup" />
+                <noderef id="quad_sup_inf" />
+                <noderef id="quad_sup_dir" />
+                <noderef id="quad_sup_esq" />
+            </descendants>
+        </node>
+        <node id="quad_escrita">            
+            <material id="black_rubber" />
+            <texture id="chalkboard">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="2" y2="2" />
+            </descendants>
+        </node>
+        <node id="quad_sup_sup">            
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="1" y="2" z="0" />
+            </transformations>
+
+            <descendants>
+                <noderef id="quad_sup" />
+            </descendants>
+        </node>
+        <node id="quad_sup_inf">            
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="1" y="0" z="0" />
+            </transformations>
+
+            <descendants>
+                <noderef id="quad_sup" />
+            </descendants>
+        </node>
+        <node id="quad_sup_dir">            
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2" y="1" z="0" />
+                <rotation axis="z" angle="90" />
+                <scale sx="1.05" sy="1" sz="1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="quad_sup" />
+            </descendants>
+        </node>
+        <node id="quad_sup_esq">            
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="1" z="0" />
+                <rotation axis="z" angle="90" />
+                <scale sx="1.05" sy="1" sz="1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="quad_sup" />
+            </descendants>
+        </node>
+        <node id="quad_sup">            
+            <material id="base" />
+            <texture id="clear_wood">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <scale sx="2" sy="0.1" sz="0.1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
 
         <node id="garrafa_1">
             <material id="null"/>
