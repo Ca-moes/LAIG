@@ -45,6 +45,7 @@
         <texture id="rattan" path="palha.jpg" />
         <texture id="glass" path="bottle.jpg" />
         <texture id="chalkboard" path="chalkboard.jpg" />
+        <texture id="televisao" path="spoiler-alert.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg --> 
     </textures>
 
     <materials>
@@ -76,10 +77,17 @@
             <specular r="0.5 " g="0.5 " b="0.5 " a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
-         <material id="black_rubber">
+        <material id="black_plastic_dif">
+            <shininess value="32" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.3 " g="0.3 " b="0.3 " a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+         <material id="chalk">
             <shininess value="10" />
             <ambient r="0.02" g="0.02" b="0.02" a="1.0" />
-            <diffuse r="0.01" g="0.01" b="0.01" a="1.0" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
             <specular r="0.4 " g="0.4 " b="0.4 " a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
@@ -108,7 +116,6 @@
         </node>
 
 
-
         <node id="televisao_lat">
             <material id="null"/>
             <texture id="null">
@@ -134,15 +141,39 @@
             </transformations>
 
             <descendants>
-                <noderef id="quad_escrita" />
+                <noderef id="tel_escrita" />
+                <noderef id="tel_sup_set" />
+            </descendants>
+        </node>
+        <node id="tel_escrita">            
+            <material id="black_plastic_dif" />
+            <texture id="televisao">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="2" y2="2" />
+            </descendants>
+        </node>
+        <node id="tel_sup_set">            
+            <material id="black_plastic" />
+            <texture id="null">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
                 <noderef id="quad_sup_sup" />
                 <noderef id="quad_sup_inf" />
                 <noderef id="quad_sup_dir" />
                 <noderef id="quad_sup_esq" />
             </descendants>
         </node>
-        
-
 
         <node id="quadro_tra">
             <material id="null"/>
@@ -171,14 +202,12 @@
 
             <descendants>
                 <noderef id="quad_escrita" />
-                <noderef id="quad_sup_sup" />
-                <noderef id="quad_sup_inf" />
-                <noderef id="quad_sup_dir" />
-                <noderef id="quad_sup_esq" />
+                <noderef id="quad_sup_set" />
             </descendants>
         </node>
+
         <node id="quad_escrita">            
-            <material id="black_rubber" />
+            <material id="chalk" />
             <texture id="chalkboard">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
@@ -188,6 +217,22 @@
 
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="2" y2="2" />
+            </descendants>
+        </node>
+        <node id="quad_sup_set">            
+            <material id="base" />
+            <texture id="clear_wood">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="quad_sup_sup" />
+                <noderef id="quad_sup_inf" />
+                <noderef id="quad_sup_dir" />
+                <noderef id="quad_sup_esq" />
             </descendants>
         </node>
         <node id="quad_sup_sup">            
@@ -251,8 +296,8 @@
             </descendants>
         </node>
         <node id="quad_sup">            
-            <material id="base" />
-            <texture id="clear_wood">
+            <material id="null" />
+            <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
