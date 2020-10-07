@@ -132,13 +132,13 @@ initBuffers() {
         this.vertices.push(0,0,this.height);
         // adiciona vertice current
         this.vertices.push(
-            this.bottomRadius * Math.cos(j * delta_rad),
-            this.bottomRadius * Math.sin(j * delta_rad),
+            this.topRadius * Math.cos(j * delta_rad),
+            this.topRadius * Math.sin(j * delta_rad),
             this.height)
         // adiciona vertice siguinte 
         this.vertices.push(
-            this.bottomRadius * Math.cos((j+1) * delta_rad),
-            this.bottomRadius * Math.sin((j+1) * delta_rad),
+            this.topRadius * Math.cos((j+1) * delta_rad),
+            this.topRadius * Math.sin((j+1) * delta_rad),
             this.height);
 
         this.normals.push(0,0,1,
