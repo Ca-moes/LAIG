@@ -1006,6 +1006,7 @@ class MySceneGraph {
                 if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
                     this.textures[currentTexture.textureId].bind()
                 }
+                desc.object.updateTexCoords(currentTexture.amplification)
                 desc.object.display()
             }
             else {
