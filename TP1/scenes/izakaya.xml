@@ -45,7 +45,7 @@
         <texture id="rattan" path="./scenes/images/palha.jpg" />
         <texture id="glass" path="./scenes/images/bottle.jpg" />
         <texture id="chalkboard" path="./scenes/images/chalkboard.jpg" />
-        <texture id="televisao" path="./scenes/images/televisao.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg -->
+        <texture id="televisao" path="./scenes/images/spoiler-alert.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg -->
     </textures>
 
     <materials>
