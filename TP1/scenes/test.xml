@@ -125,7 +125,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="cylinder" height="5" topRadius="2" bottomRadius="2" stacks="10" slices="10"/>
+                <leaf type="cylinder" height="10" topRadius="4" bottomRadius="4" stacks="10" slices="10"/>
             </descendants>
         </node>
 
