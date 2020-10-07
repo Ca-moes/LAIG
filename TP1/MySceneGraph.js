@@ -1017,7 +1017,10 @@ class MySceneGraph {
                 if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
                     this.textures[currentTexture.textureId].bind()
                 }
-                desc.object.updateTexCoords(currentTexture.amplification)
+                if (desc.type === "triangle" || desc.type === "rectangle") {
+                    // we only need to apply amplifications on rectangles and triangles
+                    desc.object.updateTexCoords(currentTexture.amplification)
+                }
                 desc.object.display()
             }
             else {
