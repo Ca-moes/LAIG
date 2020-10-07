@@ -646,7 +646,7 @@ class MySceneGraph {
 
             // checking if there is a material or a texture applied
             if (materialIndex === -1 || textureIndex === -1) {
-              return "[OBJECTS] No material or texture applied"
+              return "[NODES] No material or texture applied node ID: " + nodeID
             }
 
             // Transformations
@@ -654,7 +654,7 @@ class MySceneGraph {
             // and warn the user about it!
             const transformationMatrix = mat4.create()
             if (transformationsIndex === -1) {
-                this.onXMLMinorError("[OBJECTS] Lack of transformation tag on node ID: " + nodeID + ", proceeding with no transformations.")
+                this.onXMLMinorError("[NODES] Lack of transformation tag on node ID: " + nodeID + ", proceeding with no transformations.")
             }
             else {
                 const transformationsNode = grandChildren[transformationsIndex].childNodes
