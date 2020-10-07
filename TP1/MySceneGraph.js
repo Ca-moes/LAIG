@@ -614,15 +614,14 @@ class MySceneGraph {
         let nodeNames = [];
 
         // Any number of nodes.
-        for (var i = 0; i < children.length; i++) {
-
+        for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "node") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">")
                 continue
             }
 
             // Get id of the current node.
-            var nodeID = this.reader.getString(children[i], 'id')
+            const nodeID = this.reader.getString(children[i], 'id')
             if (nodeID == null)
                 return "no ID defined for nodeID"
 
@@ -647,58 +646,60 @@ class MySceneGraph {
               return "[OBJECTS] No material or texture applied"
             }
 
-            if (transformationsIndex === -1) {
-                return "[OBJECTS] Lack of transformation tag on node " + nodeID
-            }
-
             // Transformations
+            // when theres no <transformation> block we simply pass the identity matrix
+            // and warn the user about it!
             const transformationMatrix = mat4.create()
+            if (transformationsIndex === -1) {
+                this.onXMLMinorError("[OBJECTS] Lack of transformation tag on node ID: " + nodeID + ", proceeding with no transformations.")
+            }
+            else {
+                const transformationsNode = grandChildren[transformationsIndex].childNodes
+                for (let j = 0; j < transformationsNode.length; j++) {
+                    if (transformationsNode[j].nodeName === "rotation") {
+                        const axis = this.reader.getString(transformationsNode[j], 'axis')
+                        const angle = this.reader.getFloat(transformationsNode[j], 'angle')
 
-            const transformationsNode = grandChildren[transformationsIndex].childNodes
-            for (let j = 0; j < transformationsNode.length; j++) {
-                if (transformationsNode[j].nodeName === "rotation") {
-                    const axis = this.reader.getString(transformationsNode[j], 'axis')
-                    const angle = this.reader.getFloat(transformationsNode[j], 'angle')
+                        if (axis == null || (axis !== "x" && axis !== "y" && axis !== "z")) {
+                            return "[NODES] wrong value for axis on rotation - node id: " + nodeID
+                        }
+                        if (angle == null || isNaN(angle)) {
+                            return "[NODES] wrong value for angle on rotation - node id: " + nodeID
+                        }
 
-                    if (axis == null || (axis !== "x" && axis !== "y" && axis !== "z")) {
-                        return "[NODES] wrong value for axis on rotation - node id: " + nodeID
+                        mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
                     }
-                    if (angle == null || isNaN(angle)) {
-                        return "[NODES] wrong value for angle on rotation - node id: " + nodeID
-                    }
+                    else if (transformationsNode[j].nodeName === "translation") {
+                        const x = this.reader.getFloat(transformationsNode[j], "x")
+                        const y = this.reader.getFloat(transformationsNode[j], "y")
+                        const z = this.reader.getFloat(transformationsNode[j], "z")
 
-                    mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
-                }
-                else if (transformationsNode[j].nodeName === "translation") {
-                    const x = this.reader.getFloat(transformationsNode[j], "x")
-                    const y = this.reader.getFloat(transformationsNode[j], "y")
-                    const z = this.reader.getFloat(transformationsNode[j], "z")
+                        if (x == null || y == null || z == null) {
+                            return "[NODES] missing values for translation - node id: " + nodeID
+                        }
+                        if (isNaN(x) || isNaN(y) || isNaN(z)) {
+                            return "[NODES] wrong values for translation - node id: " + nodeID
+                        }
 
-                    if (x == null || y == null || z == null) {
-                        return "[NODES] missing values for translation - node id: " + nodeID
+                        mat4.translate(transformationMatrix, transformationMatrix, [x, y, z])
                     }
-                    if (isNaN(x) || isNaN(y) || isNaN(z)) {
-                        return "[NODES] wrong values for translation - node id: " + nodeID
-                    }
+                    else if (transformationsNode[j].nodeName === "scale") {
+                        const sx = this.reader.getFloat(transformationsNode[j], "sx")
+                        const sy = this.reader.getFloat(transformationsNode[j], "sy")
+                        const sz = this.reader.getFloat(transformationsNode[j], "sz")
 
-                    mat4.translate(transformationMatrix, transformationMatrix, [x, y, z])
-                }
-                else if (transformationsNode[j].nodeName === "scale") {
-                    const sx = this.reader.getFloat(transformationsNode[j], "sx")
-                    const sy = this.reader.getFloat(transformationsNode[j], "sy")
-                    const sz = this.reader.getFloat(transformationsNode[j], "sz")
+                        if (sx == null || sy == null || sz == null) {
+                            return "[NODES] missing values for scale - node id: " + nodeID
+                        }
+                        if (isNaN(sx) || isNaN(sy) || isNaN(sz)) {
+                            return "[NODES] wrong values for scale - node id: " + nodeID
+                        }
 
-                    if (sx == null || sy == null || sz == null) {
-                        return "[NODES] missing values for scale - node id: " + nodeID
+                        mat4.scale(transformationMatrix, transformationMatrix, [sx, sy, sz])
                     }
-                    if (isNaN(sx) || isNaN(sy) || isNaN(sz)) {
-                        return "[NODES] wrong values for scale - node id: " + nodeID
+                    else {
+                        this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
                     }
-
-                    mat4.scale(transformationMatrix, transformationMatrix, [sx, sy, sz])
-                }
-                else {
-                    this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
                 }
             }
 
@@ -723,29 +724,36 @@ class MySceneGraph {
                     return "[NODES] Texture with ID: " + textureId + " does not exist. Error on node ID: " + nodeID
                 }
             }
-            const amplificationNodes = grandChildren[textureIndex].childNodes
+
+            const textureChildren = grandChildren[textureIndex].childNodes
             let amplification = {
                 afs: 1,
                 aft: 1
             }
-            for (let j = 0; j < amplificationNodes.length; j++) {
-                if (amplificationNodes[j].nodeName === "amplification") {
-                    const afs = this.reader.getFloat(amplificationNodes[j], 'afs')
-                    const aft = this.reader.getFloat(amplificationNodes[j], 'aft')
-                    if (aft == null || afs == null) {
-                        return "[NODES] Amplification is not valid. Node ID: " + nodeID
-                    }
-                    if (isNaN(aft) || isNaN(afs)) {
-                        this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
-                    } else {
-                        amplification = {
-                            afs: afs,
-                            aft: aft
-                        }
+            let textureChildrenName = []
+            for (let j = 0; j < textureChildren.length; j++) {
+                textureChildrenName.push(textureChildren[j].nodeName)
+            }
+
+            let amplificationIndex = textureChildrenName.indexOf('amplification')
+            if (amplificationIndex === -1) {
+                this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with afs=1 and aft=1.")
+            }
+            else {
+                const afs = this.reader.getFloat(textureChildren[amplificationIndex], 'afs')
+                const aft = this.reader.getFloat(textureChildren[amplificationIndex], 'aft')
+                if (aft == null || afs == null) {
+                    return "[NODES] Amplification is not valid. Node ID: " + nodeID
+                }
+                if (isNaN(aft) || isNaN(afs)) {
+                    this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
+                } else {
+                    amplification = {
+                        afs: afs,
+                        aft: aft
                     }
                 }
             }
-
             const texture = {
                 textureId: textureId,
                 amplification: amplification
