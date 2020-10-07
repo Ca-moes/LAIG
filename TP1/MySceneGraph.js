@@ -575,6 +575,9 @@ class MySceneGraph {
             }
 
             const shininess = this.reader.getFloat(grandChildren[components["shininess"]], 'value')
+            if (isNaN(shininess) || shininess == null) {
+                return "[MATERIALS] Shininess not valid for material ID: " + materialID
+            }
 
             const emissive = this.parseColor(grandChildren[components["emissive"]], 'emissive')
             if (!Array.isArray(emissive)) return emissive
@@ -883,6 +886,10 @@ class MySceneGraph {
         let aux
         if ((aux = this.verifyDescendants()) !== null) {
             return "[NODES] Descendant node with ID: " + aux + " is not defined."
+        }
+
+        if (this.nodes[this.idRoot] == null) {
+            return "[NODES] Root node not defined."
         }
 
         this.log("Parsed Nodes.")
