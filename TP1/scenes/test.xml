@@ -104,6 +104,7 @@
         <node id="testTriangle1">   
             <material id="null" />
             <texture id="null">
+                <amplification aft="20" afs="20" />
             </texture>
 
             <transformations>
