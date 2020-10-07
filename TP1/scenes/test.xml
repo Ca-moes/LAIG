@@ -41,6 +41,7 @@
     <textures>
         <texture id="testTexture" path="./scenes/images/testTexture.png" />
         <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
+        <texture id="demo" path="televisao.jpg" />
     </textures>
 
 
@@ -104,7 +105,7 @@
         <node id="testTriangle1">   
             <material id="null" />
             <texture id="null">
-                <amplification aft="20" afs="20" />
+                <amplification aft="5" afs="10" />
             </texture>
 
             <transformations>

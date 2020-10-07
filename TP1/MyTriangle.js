@@ -63,9 +63,9 @@ class MyTriangle extends CGFobject {
 
     updateTexCoords(coords) {
         this.texCoords = [
-            0, 0,
-            this.distA / coords.afs, 0,
-            (this.distC * this.cosAlpha) / coords.afs, (this.distC * this.sinAlpha) / coords.aft,
+            0, 1,
+            this.distA / coords.afs, 1,
+            (this.distC * this.cosAlpha) / coords.afs, 1 - (this.distC * this.sinAlpha) / coords.aft,
         ]
         this.updateTexCoordsGLBuffers();
     }
