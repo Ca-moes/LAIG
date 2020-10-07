@@ -112,6 +112,7 @@
                 <noderef id="garrafa_1" />
                 <noderef id="televisao_lat" />
                 <noderef id="quadro_tra" />
+                
             </descendants>
         </node>
 

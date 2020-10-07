@@ -645,6 +645,10 @@ class MySceneGraph {
               return "[OBJECTS] No material or texture applied"
             }
 
+            if (transformationsIndex === -1) {
+                return "[OBJECTS] Lack of transformation tag on node " + nodeID
+            }
+
             // Transformations
             const transformationMatrix = mat4.create()
 
