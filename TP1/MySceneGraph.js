@@ -378,7 +378,6 @@ class MySceneGraph {
      * @param {illumination block element} illuminationsNode
      */
     parseIllumination(illuminationsNode) {
-
         var children = illuminationsNode.children;
 
         this.ambient = [];
@@ -501,7 +500,7 @@ class MySceneGraph {
         //For each texture in textures block, check ID and file URL
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "texture") {
-                this.onXMLMinorError("[TEXTURE] tag name not valid")
+                this.onXMLMinorError("[TEXTURES] unknown tag <" + children[i].nodeName + ">");
                 continue
             }
             const textureId = this.reader.getString(children[i], 'id')
@@ -517,9 +516,11 @@ class MySceneGraph {
                 this.textures[textureId] = new CGFtexture(this.scene, file)
             }
             else if (file.includes('images/')) {
-                this.textures[textureId] = new CGFtexture(this.scene, './scenes/' + file)
+                this.onXMLMinorError("[TEXTURES] Texture path with ID: " + textureId + " not on 'scenes/', adding prefix scenes/ to path.")
+                this.textures[textureId] = new CGFtexture(this.scene, "./scenes/" + file)
             }
             else {
+                this.onXMLMinorError("[TEXTURES] Texture path with ID: " + textureId + " not on 'scenes/images/', adding prefix path.")
                 this.textures[textureId] = new CGFtexture(this.scene, "./scenes/images/" + file)
             }
         }
