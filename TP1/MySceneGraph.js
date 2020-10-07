@@ -538,8 +538,6 @@ class MySceneGraph {
 
         this.materials = []
 
-        const nodeNames = []
-
         let count = 0
         // Any number of materials.
         for (let i = 0; i < children.length; i++) {
@@ -555,7 +553,7 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")"
+                return "ID must be unique for each material (conflict: ID = " + materialID + ")"
 
             // parsing materials
             const grandChildren = children[i].childNodes
@@ -563,25 +561,28 @@ class MySceneGraph {
             for (let k = 0; k < grandChildren.length; k++)
                 gchildnames.push(grandChildren[k].nodeName)
 
-            const shininessIndex = gchildnames.indexOf("shininess")
-            const emissiveIndex = gchildnames.indexOf("emissive")
-            const ambientIndex = gchildnames.indexOf("ambient")
-            const diffuseIndex = gchildnames.indexOf("diffuse")
-            const specularIndex = gchildnames.indexOf("specular")
+            let components = [];
+            components["shininess"] = gchildnames.indexOf("shininess")
+            components["emissive"] = gchildnames.indexOf("emissive")
+            components["ambient"] = gchildnames.indexOf("ambient")
+            components["diffuse"] = gchildnames.indexOf("diffuse")
+            components["specular"] = gchildnames.indexOf("specular")
 
-            if (shininessIndex === -1 || emissiveIndex === -1 || ambientIndex === -1 || diffuseIndex === -1 || specularIndex === -1) {
-                return "Missing values for material with id: " + materialID
+            for (const [key, value] of Object.entries(components)) {
+                if (value === -1) {
+                    return "[MATERIALS] Missing node <" + key + "> for material ID: " + materialID
+                }
             }
 
-            const shininess = this.reader.getFloat(grandChildren[shininessIndex], 'value')
+            const shininess = this.reader.getFloat(grandChildren[components["shininess"]], 'value')
 
-            const emissive = this.parseColor(grandChildren[emissiveIndex], 'emissive')
+            const emissive = this.parseColor(grandChildren[components["emissive"]], 'emissive')
             if (!Array.isArray(emissive)) return emissive
-            const ambient = this.parseColor(grandChildren[ambientIndex], 'ambient')
+            const ambient = this.parseColor(grandChildren[components["ambient"]], 'ambient')
             if (!Array.isArray(ambient)) return ambient
-            const diffuse = this.parseColor(grandChildren[diffuseIndex], 'diffuse')
+            const diffuse = this.parseColor(grandChildren[components["diffuse"]], 'diffuse')
             if (!Array.isArray(diffuse)) return diffuse
-            const specular = this.parseColor(grandChildren[specularIndex], 'specular')
+            const specular = this.parseColor(grandChildren[components["specular"]], 'specular')
             if (!Array.isArray(specular)) return specular
 
 
@@ -598,7 +599,7 @@ class MySceneGraph {
             return "[MATERIALS] No materials defined"
         }
 
-        this.log("Parsed Materials");
+        this.log("Parsed Materials.");
         return null;
     }
 
