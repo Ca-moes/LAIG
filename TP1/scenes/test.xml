@@ -91,6 +91,7 @@
         <node id="testRectangle1">   
             <material id="null" />
             <texture id="null">
+                <amplification afs="5" aft="5" />
             </texture>
 
             <transformations>
