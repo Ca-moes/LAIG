@@ -253,7 +253,7 @@ class MySceneGraph {
             return "[VIEWS] No default view set"
         }
 
-        const children = viewsNode.childNodes;
+        const children = viewsNode.children;
 
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "perspective" && children[i].nodeName !== "ortho") {
@@ -275,7 +275,7 @@ class MySceneGraph {
                 let fromAux = null
                 let toAux = null
 
-                const perspectiveChildren = children[i].childNodes
+                const perspectiveChildren = children[i].children
                 for (let j = 0; j < perspectiveChildren.length; j++) {
                     if (perspectiveChildren[j].nodeName !== "from" && perspectiveChildren[j].nodeName !== "to") {
                         this.onXMLMinorError("[VIEWS] unknown tag <" + perspectiveChildren[j].nodeName + ">")
@@ -378,7 +378,6 @@ class MySceneGraph {
      * @param {illumination block element} illuminationsNode
      */
     parseIllumination(illuminationsNode) {
-
         var children = illuminationsNode.children;
 
         this.ambient = [];
@@ -494,14 +493,14 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
-        let children = texturesNode.childNodes
+        let children = texturesNode.children
 
         this.textures = []
 
         //For each texture in textures block, check ID and file URL
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "texture") {
-                this.onXMLMinorError("[TEXTURE] tag name not valid")
+                this.onXMLMinorError("[TEXTURES] unknown tag <" + children[i].nodeName + ">");
                 continue
             }
             const textureId = this.reader.getString(children[i], 'id')
@@ -517,9 +516,11 @@ class MySceneGraph {
                 this.textures[textureId] = new CGFtexture(this.scene, file)
             }
             else if (file.includes('images/')) {
-                this.textures[textureId] = new CGFtexture(this.scene, './scenes/' + file)
+                this.onXMLMinorError("[TEXTURES] Texture path with ID: " + textureId + " not on 'scenes/', adding prefix scenes/ to path.")
+                this.textures[textureId] = new CGFtexture(this.scene, "./scenes/" + file)
             }
             else {
+                this.onXMLMinorError("[TEXTURES] Texture path with ID: " + textureId + " not on 'scenes/images/', adding prefix path.")
                 this.textures[textureId] = new CGFtexture(this.scene, "./scenes/images/" + file)
             }
         }
@@ -537,8 +538,6 @@ class MySceneGraph {
 
         this.materials = []
 
-        const nodeNames = []
-
         let count = 0
         // Any number of materials.
         for (let i = 0; i < children.length; i++) {
@@ -554,33 +553,39 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")"
+                return "ID must be unique for each material (conflict: ID = " + materialID + ")"
 
             // parsing materials
-            const grandChildren = children[i].childNodes
+            const grandChildren = children[i].children
             let gchildnames = []
             for (let k = 0; k < grandChildren.length; k++)
                 gchildnames.push(grandChildren[k].nodeName)
 
-            const shininessIndex = gchildnames.indexOf("shininess")
-            const emissiveIndex = gchildnames.indexOf("emissive")
-            const ambientIndex = gchildnames.indexOf("ambient")
-            const diffuseIndex = gchildnames.indexOf("diffuse")
-            const specularIndex = gchildnames.indexOf("specular")
+            let components = [];
+            components["shininess"] = gchildnames.indexOf("shininess")
+            components["emissive"] = gchildnames.indexOf("emissive")
+            components["ambient"] = gchildnames.indexOf("ambient")
+            components["diffuse"] = gchildnames.indexOf("diffuse")
+            components["specular"] = gchildnames.indexOf("specular")
 
-            if (shininessIndex === -1 || emissiveIndex === -1 || ambientIndex === -1 || diffuseIndex === -1 || specularIndex === -1) {
-                return "Missing values for material with id: " + materialID
+            for (const [key, value] of Object.entries(components)) {
+                if (value === -1) {
+                    return "[MATERIALS] Missing node <" + key + "> for material ID: " + materialID
+                }
             }
 
-            const shininess = this.reader.getFloat(grandChildren[shininessIndex], 'value')
+            const shininess = this.reader.getFloat(grandChildren[components["shininess"]], 'value')
+            if (isNaN(shininess) || shininess == null) {
+                return "[MATERIALS] Shininess not valid for material ID: " + materialID
+            }
 
-            const emissive = this.parseColor(grandChildren[emissiveIndex], 'emissive')
+            const emissive = this.parseColor(grandChildren[components["emissive"]], 'emissive')
             if (!Array.isArray(emissive)) return emissive
-            const ambient = this.parseColor(grandChildren[ambientIndex], 'ambient')
+            const ambient = this.parseColor(grandChildren[components["ambient"]], 'ambient')
             if (!Array.isArray(ambient)) return ambient
-            const diffuse = this.parseColor(grandChildren[diffuseIndex], 'diffuse')
+            const diffuse = this.parseColor(grandChildren[components["diffuse"]], 'diffuse')
             if (!Array.isArray(diffuse)) return diffuse
-            const specular = this.parseColor(grandChildren[specularIndex], 'specular')
+            const specular = this.parseColor(grandChildren[components["specular"]], 'specular')
             if (!Array.isArray(specular)) return specular
 
 
@@ -597,7 +602,7 @@ class MySceneGraph {
             return "[MATERIALS] No materials defined"
         }
 
-        this.log("Parsed Materials");
+        this.log("Parsed Materials.");
         return null;
     }
 
@@ -612,15 +617,14 @@ class MySceneGraph {
         let nodeNames = [];
 
         // Any number of nodes.
-        for (var i = 0; i < children.length; i++) {
-
+        for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "node") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">")
                 continue
             }
 
             // Get id of the current node.
-            var nodeID = this.reader.getString(children[i], 'id')
+            const nodeID = this.reader.getString(children[i], 'id')
             if (nodeID == null)
                 return "no ID defined for nodeID"
 
@@ -642,65 +646,63 @@ class MySceneGraph {
 
             // checking if there is a material or a texture applied
             if (materialIndex === -1 || textureIndex === -1) {
-              return "[OBJECTS] No material or texture applied"
+              return "[NODES] No material or texture applied node ID: " + nodeID
             }
 
             // Transformations
+            // when theres no <transformation> block we simply pass the identity matrix
+            // and warn the user about it!
             const transformationMatrix = mat4.create()
-
-            let transformationsNode;
-
             if (transformationsIndex === -1) {
-                this.onXMLMinorError("[NODES] No transformations node on node id: " + nodeID)
-                transformationsNode = []
-            } else {
-                transformationsNode = grandChildren[transformationsIndex].childNodes
+                this.onXMLMinorError("[NODES] Lack of transformation tag on node ID: " + nodeID + ", proceeding with no transformations.")
             }
+            else {
+                const transformationsNode = grandChildren[transformationsIndex].children
+                for (let j = 0; j < transformationsNode.length; j++) {
+                    if (transformationsNode[j].nodeName === "rotation") {
+                        const axis = this.reader.getString(transformationsNode[j], 'axis')
+                        const angle = this.reader.getFloat(transformationsNode[j], 'angle')
 
-            for (let j = 0; j < transformationsNode.length; j++) {
-                if (transformationsNode[j].nodeName === "rotation") {
-                    const axis = this.reader.getString(transformationsNode[j], 'axis')
-                    const angle = this.reader.getFloat(transformationsNode[j], 'angle')
+                        if (axis == null || (axis !== "x" && axis !== "y" && axis !== "z")) {
+                            return "[NODES] wrong value for axis on rotation - node id: " + nodeID
+                        }
+                        if (angle == null || isNaN(angle)) {
+                            return "[NODES] wrong value for angle on rotation - node id: " + nodeID
+                        }
 
-                    if (axis == null || (axis !== "x" && axis !== "y" && axis !== "z")) {
-                        return "[NODES] wrong value for axis on rotation - node id: " + nodeID
+                        mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
                     }
-                    if (angle == null || isNaN(angle)) {
-                        return "[NODES] wrong value for angle on rotation - node id: " + nodeID
-                    }
+                    else if (transformationsNode[j].nodeName === "translation") {
+                        const x = this.reader.getFloat(transformationsNode[j], "x")
+                        const y = this.reader.getFloat(transformationsNode[j], "y")
+                        const z = this.reader.getFloat(transformationsNode[j], "z")
 
-                    mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
-                }
-                else if (transformationsNode[j].nodeName === "translation") {
-                    const x = this.reader.getFloat(transformationsNode[j], "x")
-                    const y = this.reader.getFloat(transformationsNode[j], "y")
-                    const z = this.reader.getFloat(transformationsNode[j], "z")
+                        if (x == null || y == null || z == null) {
+                            return "[NODES] missing values for translation - node id: " + nodeID
+                        }
+                        if (isNaN(x) || isNaN(y) || isNaN(z)) {
+                            return "[NODES] wrong values for translation - node id: " + nodeID
+                        }
 
-                    if (x == null || y == null || z == null) {
-                        return "[NODES] missing values for translation - node id: " + nodeID
+                        mat4.translate(transformationMatrix, transformationMatrix, [x, y, z])
                     }
-                    if (isNaN(x) || isNaN(y) || isNaN(z)) {
-                        return "[NODES] wrong values for translation - node id: " + nodeID
-                    }
+                    else if (transformationsNode[j].nodeName === "scale") {
+                        const sx = this.reader.getFloat(transformationsNode[j], "sx")
+                        const sy = this.reader.getFloat(transformationsNode[j], "sy")
+                        const sz = this.reader.getFloat(transformationsNode[j], "sz")
 
-                    mat4.translate(transformationMatrix, transformationMatrix, [x, y, z])
-                }
-                else if (transformationsNode[j].nodeName === "scale") {
-                    const sx = this.reader.getFloat(transformationsNode[j], "sx")
-                    const sy = this.reader.getFloat(transformationsNode[j], "sy")
-                    const sz = this.reader.getFloat(transformationsNode[j], "sz")
+                        if (sx == null || sy == null || sz == null) {
+                            return "[NODES] missing values for scale - node id: " + nodeID
+                        }
+                        if (isNaN(sx) || isNaN(sy) || isNaN(sz)) {
+                            return "[NODES] wrong values for scale - node id: " + nodeID
+                        }
 
-                    if (sx == null || sy == null || sz == null) {
-                        return "[NODES] missing values for scale - node id: " + nodeID
+                        mat4.scale(transformationMatrix, transformationMatrix, [sx, sy, sz])
                     }
-                    if (isNaN(sx) || isNaN(sy) || isNaN(sz)) {
-                        return "[NODES] wrong values for scale - node id: " + nodeID
+                    else {
+                        this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
                     }
-
-                    mat4.scale(transformationMatrix, transformationMatrix, [sx, sy, sz])
-                }
-                else {
-                    this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
                 }
             }
 
@@ -725,29 +727,36 @@ class MySceneGraph {
                     return "[NODES] Texture with ID: " + textureId + " does not exist. Error on node ID: " + nodeID
                 }
             }
-            const amplificationNodes = grandChildren[textureIndex].childNodes
+
+            const textureChildren = grandChildren[textureIndex].children
             let amplification = {
                 afs: 1,
                 aft: 1
             }
-            for (let j = 0; j < amplificationNodes.length; j++) {
-                if (amplificationNodes[j].nodeName === "amplification") {
-                    const afs = this.reader.getFloat(amplificationNodes[j], 'afs')
-                    const aft = this.reader.getFloat(amplificationNodes[j], 'aft')
-                    if (aft == null || afs == null) {
-                        return "[NODES] Amplification is not valid. Node ID: " + nodeID
-                    }
-                    if (isNaN(aft) || isNaN(afs)) {
-                        this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
-                    } else {
-                        amplification = {
-                            afs: afs,
-                            aft: aft
-                        }
+            let textureChildrenName = []
+            for (let j = 0; j < textureChildren.length; j++) {
+                textureChildrenName.push(textureChildren[j].nodeName)
+            }
+
+            let amplificationIndex = textureChildrenName.indexOf('amplification')
+            if (amplificationIndex === -1) {
+                this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with afs=1 and aft=1.")
+            }
+            else {
+                const afs = this.reader.getFloat(textureChildren[amplificationIndex], 'afs')
+                const aft = this.reader.getFloat(textureChildren[amplificationIndex], 'aft')
+                if (aft == null || afs == null) {
+                    return "[NODES] Amplification is not valid. Node ID: " + nodeID
+                }
+                if (isNaN(aft) || isNaN(afs)) {
+                    this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
+                } else {
+                    amplification = {
+                        afs: afs,
+                        aft: aft
                     }
                 }
             }
-
             const texture = {
                 textureId: textureId,
                 amplification: amplification
@@ -755,7 +764,7 @@ class MySceneGraph {
 
             // Descendants
             const descendants = []
-            const descendantsNodes = grandChildren[descendantsIndex].childNodes
+            const descendantsNodes = grandChildren[descendantsIndex].children
             for (let j = 0; j < descendantsNodes.length; j++) {
                 if (descendantsNodes[j].nodeName === "noderef") {
                     const descID = this.reader.getString(descendantsNodes[j],'id');
@@ -879,6 +888,10 @@ class MySceneGraph {
             return "[NODES] Descendant node with ID: " + aux + " is not defined."
         }
 
+        if (this.nodes[this.idRoot] == null) {
+            return "[NODES] Root node not defined."
+        }
+
         this.log("Parsed Nodes.")
         return null
     }
@@ -996,6 +1009,7 @@ class MySceneGraph {
         if (node.texture.textureId !== "null") {
             currentTexture = node.texture
         }
+        currentTexture.amplification = node.texture.amplification
 
         if (node.material != null) {
             currentMaterial = node.material
@@ -1009,6 +1023,10 @@ class MySceneGraph {
             if (desc.type !== "noderef") {
                 if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
                     this.textures[currentTexture.textureId].bind()
+                }
+                if (desc.type === "triangle" || desc.type === "rectangle") {
+                    // we only need to apply amplifications on rectangles and triangles
+                    desc.object.updateTexCoords(currentTexture.amplification)
                 }
                 desc.object.display()
             }
