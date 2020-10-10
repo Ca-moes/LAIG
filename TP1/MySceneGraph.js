@@ -253,7 +253,7 @@ class MySceneGraph {
             return "[VIEWS] No default view set"
         }
 
-        const children = viewsNode.childNodes;
+        const children = viewsNode.children;
 
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "perspective" && children[i].nodeName !== "ortho") {
@@ -275,7 +275,7 @@ class MySceneGraph {
                 let fromAux = null
                 let toAux = null
 
-                const perspectiveChildren = children[i].childNodes
+                const perspectiveChildren = children[i].children
                 for (let j = 0; j < perspectiveChildren.length; j++) {
                     if (perspectiveChildren[j].nodeName !== "from" && perspectiveChildren[j].nodeName !== "to") {
                         this.onXMLMinorError("[VIEWS] unknown tag <" + perspectiveChildren[j].nodeName + ">")
@@ -493,7 +493,7 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
-        let children = texturesNode.childNodes
+        let children = texturesNode.children
 
         this.textures = []
 
@@ -556,7 +556,7 @@ class MySceneGraph {
                 return "ID must be unique for each material (conflict: ID = " + materialID + ")"
 
             // parsing materials
-            const grandChildren = children[i].childNodes
+            const grandChildren = children[i].children
             let gchildnames = []
             for (let k = 0; k < grandChildren.length; k++)
                 gchildnames.push(grandChildren[k].nodeName)
@@ -657,7 +657,7 @@ class MySceneGraph {
                 this.onXMLMinorError("[NODES] Lack of transformation tag on node ID: " + nodeID + ", proceeding with no transformations.")
             }
             else {
-                const transformationsNode = grandChildren[transformationsIndex].childNodes
+                const transformationsNode = grandChildren[transformationsIndex].children
                 for (let j = 0; j < transformationsNode.length; j++) {
                     if (transformationsNode[j].nodeName === "rotation") {
                         const axis = this.reader.getString(transformationsNode[j], 'axis')
@@ -728,7 +728,7 @@ class MySceneGraph {
                 }
             }
 
-            const textureChildren = grandChildren[textureIndex].childNodes
+            const textureChildren = grandChildren[textureIndex].children
             let amplification = {
                 afs: 1,
                 aft: 1
@@ -764,7 +764,7 @@ class MySceneGraph {
 
             // Descendants
             const descendants = []
-            const descendantsNodes = grandChildren[descendantsIndex].childNodes
+            const descendantsNodes = grandChildren[descendantsIndex].children
             for (let j = 0; j < descendantsNodes.length; j++) {
                 if (descendantsNodes[j].nodeName === "noderef") {
                     const descID = this.reader.getString(descendantsNodes[j],'id');
