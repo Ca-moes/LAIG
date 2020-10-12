@@ -112,6 +112,7 @@
                 <noderef id="garrafa_1" />
                 <noderef id="televisao_lat" />
                 <noderef id="quadro_tra" />
+                
             </descendants>
         </node>
 
@@ -148,7 +149,7 @@
         <node id="tel_escrita">            
             <material id="black_plastic_dif" />
             <texture id="televisao">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="2" aft="2" />
             </texture>
 
             <transformations>
@@ -208,7 +209,7 @@
         <node id="quad_escrita">            
             <material id="chalk" />
             <texture id="chalkboard">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
