@@ -1021,12 +1021,12 @@ class MySceneGraph {
 
         for (let desc of node.descendants) {
             if (desc.type !== "noderef") {
-                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
-                    this.textures[currentTexture.textureId].bind()
-                }
                 if (desc.type === "triangle" || desc.type === "rectangle") {
                     // we only need to apply amplifications on rectangles and triangles
                     desc.object.updateTexCoords(currentTexture.amplification)
+                }
+                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
+                    this.textures[currentTexture.textureId].bind()
                 }
                 desc.object.display()
             }
