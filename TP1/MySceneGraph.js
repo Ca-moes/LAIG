@@ -1009,7 +1009,6 @@ class MySceneGraph {
         if (node.texture.textureId !== "null") {
             currentTexture = node.texture
         }
-        currentTexture.amplification = node.texture.amplification
 
         if (node.material != null) {
             currentMaterial = node.material

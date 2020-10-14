@@ -630,7 +630,7 @@
         <node id="set_lat_tapetes">            
             <material id="base" />
             <texture id="rattan">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="0.1" aft="0.1" />
             </texture>
 
             <transformations>
@@ -787,7 +787,7 @@
         <node id="ban_suporte_1">
             <material id="base"/>
             <texture id="semi_clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="0.2" aft="1" />
             </texture>
 
             <transformations>
@@ -817,7 +817,7 @@
         <node id="ban_refeicao_1">
             <material id="base"/>
             <texture id="clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="1.0" aft="0.2" />
             </texture>
 
             <transformations>
@@ -847,7 +847,7 @@
         <node id="ban_suporte_sup_1">
             <material id="base"/>
             <texture id="semi_clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="0.2" aft="1.0" />
             </texture>
 
             <transformations>
@@ -877,7 +877,7 @@
         <node id="ban_entrega_1">
             <material id="base"/>
             <texture id="clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="1" aft="0.2" />
             </texture>
 
             <transformations>
@@ -955,7 +955,7 @@
         <node id="par_lateral">            
             <material id="null" />
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="1" aft="1" />
             </texture>
 
             <transformations>
