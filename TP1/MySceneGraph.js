@@ -225,7 +225,7 @@ class MySceneGraph {
         this.idRoot = id;
 
         // Get axis length
-        if(referenceIndex == -1)
+        if (referenceIndex == -1)
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
         var refNode = children[referenceIndex];
@@ -288,8 +288,7 @@ class MySceneGraph {
                             y: this.reader.getFloat(perspectiveChildren[j], 'y'),
                             z: this.reader.getFloat(perspectiveChildren[j], 'z')
                         }
-                    }
-                    else {
+                    } else {
                         toAux = {
                             x: this.reader.getFloat(perspectiveChildren[j], 'x'),
                             y: this.reader.getFloat(perspectiveChildren[j], 'y'),
@@ -305,9 +304,7 @@ class MySceneGraph {
                     from: fromAux,
                     to: toAux
                 })
-            }
-
-            else if (children[i].nodeName === "ortho") {
+            } else if (children[i].nodeName === "ortho") {
                 const orthoChildren = children[i].children;
 
                 let fromAux = null
@@ -320,7 +317,7 @@ class MySceneGraph {
 
                 for (let j = 0; j < orthoChildren.length; j++) {
                     if (orthoChildren[j].nodeName !== "from" && orthoChildren[j].nodeName !== "to" && orthoChildren[j].nodeName !== "up") {
-                        this.onXMLMinorError("unknown tag <"+orthoChildren[j].nodeName+">");
+                        this.onXMLMinorError("unknown tag <" + orthoChildren[j].nodeName + ">");
                         continue;
                     }
 
@@ -330,8 +327,7 @@ class MySceneGraph {
                             y: this.reader.getFloat(orthoChildren[j], 'y'),
                             z: this.reader.getFloat(orthoChildren[j], 'z')
                         }
-                    }
-                    else if (orthoChildren[j].nodeName === "to") {
+                    } else if (orthoChildren[j].nodeName === "to") {
                         toAux = {
                             x: this.reader.getFloat(orthoChildren[j], 'x'),
                             y: this.reader.getFloat(orthoChildren[j], 'y'),
@@ -433,10 +429,9 @@ class MySceneGraph {
             if (children[i].nodeName != "light") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
-            }
-            else {
+            } else {
                 attributeNames.push(...["enable", "position", "ambient", "diffuse", "specular"]);
-                attributeTypes.push(...["boolean","position", "color", "color", "color"]);
+                attributeTypes.push(...["boolean", "position", "color", "color", "color"]);
             }
 
             // Get id of the current light.
@@ -471,8 +466,7 @@ class MySceneGraph {
                         return aux;
 
                     global.push(aux);
-                }
-                else
+                } else
                     return "light " + attributeNames[i] + " undefined for ID = " + lightId;
             }
             this.lights[lightId] = global;
@@ -514,12 +508,10 @@ class MySceneGraph {
             const file = this.reader.getString(children[i], 'path');
             if (file.includes('scenes/images')) {
                 this.textures[textureId] = new CGFtexture(this.scene, file)
-            }
-            else if (file.includes('images/')) {
+            } else if (file.includes('images/')) {
                 this.onXMLMinorError("[TEXTURES] Texture path with ID: " + textureId + " not on 'scenes/', adding prefix scenes/ to path.")
                 this.textures[textureId] = new CGFtexture(this.scene, "./scenes/" + file)
-            }
-            else {
+            } else {
                 this.onXMLMinorError("[TEXTURES] Texture path with ID: " + textureId + " not on 'scenes/images/', adding prefix path.")
                 this.textures[textureId] = new CGFtexture(this.scene, "./scenes/images/" + file)
             }
@@ -607,10 +599,10 @@ class MySceneGraph {
     }
 
     /**
-   * Parses the <nodes> block.
-   * @param {nodes block element} nodesNode
-   */
-  parseNodes(nodesNode) {
+     * Parses the <nodes> block.
+     * @param {nodes block element} nodesNode
+     */
+    parseNodes(nodesNode) {
         const children = nodesNode.children;
 
         let grandChildren = [];
@@ -646,7 +638,7 @@ class MySceneGraph {
 
             // checking if there is a material or a texture applied
             if (materialIndex === -1 || textureIndex === -1) {
-              return "[NODES] No material or texture applied node ID: " + nodeID
+                return "[NODES] No material or texture applied node ID: " + nodeID
             }
 
             // Transformations
@@ -655,8 +647,7 @@ class MySceneGraph {
             const transformationMatrix = mat4.create()
             if (transformationsIndex === -1) {
                 this.onXMLMinorError("[NODES] Lack of transformation tag on node ID: " + nodeID + ", proceeding with no transformations.")
-            }
-            else {
+            } else {
                 const transformationsNode = grandChildren[transformationsIndex].children
                 for (let j = 0; j < transformationsNode.length; j++) {
                     if (transformationsNode[j].nodeName === "rotation") {
@@ -671,8 +662,7 @@ class MySceneGraph {
                         }
 
                         mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
-                    }
-                    else if (transformationsNode[j].nodeName === "translation") {
+                    } else if (transformationsNode[j].nodeName === "translation") {
                         const x = this.reader.getFloat(transformationsNode[j], "x")
                         const y = this.reader.getFloat(transformationsNode[j], "y")
                         const z = this.reader.getFloat(transformationsNode[j], "z")
@@ -685,8 +675,7 @@ class MySceneGraph {
                         }
 
                         mat4.translate(transformationMatrix, transformationMatrix, [x, y, z])
-                    }
-                    else if (transformationsNode[j].nodeName === "scale") {
+                    } else if (transformationsNode[j].nodeName === "scale") {
                         const sx = this.reader.getFloat(transformationsNode[j], "sx")
                         const sy = this.reader.getFloat(transformationsNode[j], "sy")
                         const sz = this.reader.getFloat(transformationsNode[j], "sz")
@@ -699,8 +688,7 @@ class MySceneGraph {
                         }
 
                         mat4.scale(transformationMatrix, transformationMatrix, [sx, sy, sz])
-                    }
-                    else {
+                    } else {
                         this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
                     }
                 }
@@ -738,8 +726,7 @@ class MySceneGraph {
             let amplificationIndex = textureChildrenName.indexOf('amplification')
             if (amplificationIndex === -1) {
                 this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with no amplification (inherit).")
-            }
-            else {
+            } else {
                 const afs = this.reader.getFloat(textureChildren[amplificationIndex], 'afs')
                 const aft = this.reader.getFloat(textureChildren[amplificationIndex], 'aft')
                 if (aft == null || afs == null) {
@@ -768,7 +755,7 @@ class MySceneGraph {
             const descendantsNodes = grandChildren[descendantsIndex].children
             for (let j = 0; j < descendantsNodes.length; j++) {
                 if (descendantsNodes[j].nodeName === "noderef") {
-                    const descID = this.reader.getString(descendantsNodes[j],'id');
+                    const descID = this.reader.getString(descendantsNodes[j], 'id');
 
                     if (descID == null)
                         return "[NODES] Undefined ID for descendant. node id: " + nodeID;
@@ -779,8 +766,7 @@ class MySceneGraph {
                         type: "noderef",
                         id: descID
                     })
-                }
-                else if (descendantsNodes[j].nodeName === "leaf") {
+                } else if (descendantsNodes[j].nodeName === "leaf") {
                     const type = this.reader.getString(descendantsNodes[j], "type", ['triangle', 'rectangle', 'cylinder', 'sphere', 'torus'])
                     if (type === "rectangle") {
                         const x1 = this.reader.getFloat(descendantsNodes[j], 'x1')
@@ -799,8 +785,7 @@ class MySceneGraph {
                             type: "rectangle",
                             object: new MyRectangle(this.scene, x1, y1, x2, y2)
                         })
-                    }
-                    else if (type === "triangle") {
+                    } else if (type === "triangle") {
                         const x1 = this.reader.getFloat(descendantsNodes[j], 'x1')
                         const y1 = this.reader.getFloat(descendantsNodes[j], 'y1')
                         const x2 = this.reader.getFloat(descendantsNodes[j], 'x2')
@@ -808,7 +793,7 @@ class MySceneGraph {
                         const x3 = this.reader.getFloat(descendantsNodes[j], 'x3')
                         const y3 = this.reader.getFloat(descendantsNodes[j], 'y3')
 
-                        if (x1 == null || x2 == null || y1 == null || y2 == null || x3 == null || y3 == null ) {
+                        if (x1 == null || x2 == null || y1 == null || y2 == null || x3 == null || y3 == null) {
                             return "[NODES] Missing values for triangle leaf. Node id: " + nodeID
                         }
                         if (isNaN(x1) || isNaN(x2) || isNaN(y1) || isNaN(y2) || isNaN(x3) || isNaN(y3)) {
@@ -819,18 +804,16 @@ class MySceneGraph {
                             type: "triangle",
                             object: new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3)
                         })
-                    }
-                    else if (type === "cylinder") {
-                        const height = this.reader.getFloat(descendantsNodes[j],'height')
-                        const topRadius = this.reader.getFloat(descendantsNodes[j],'topRadius')
-                        const bottomRadius = this.reader.getFloat(descendantsNodes[j],'bottomRadius')
-                        const stacks = this.reader.getInteger(descendantsNodes[j],'stacks')
-                        const slices = this.reader.getInteger(descendantsNodes[j],'slices')
+                    } else if (type === "cylinder") {
+                        const height = this.reader.getFloat(descendantsNodes[j], 'height')
+                        const topRadius = this.reader.getFloat(descendantsNodes[j], 'topRadius')
+                        const bottomRadius = this.reader.getFloat(descendantsNodes[j], 'bottomRadius')
+                        const stacks = this.reader.getInteger(descendantsNodes[j], 'stacks')
+                        const slices = this.reader.getInteger(descendantsNodes[j], 'slices')
 
-                        if (height==null || topRadius==null || bottomRadius==null || stacks==null || slices==null) {
+                        if (height == null || topRadius == null || bottomRadius == null || stacks == null || slices == null) {
                             return "[NODES] Missing values for cylinder leaf. Node id: " + nodeID
-                        }
-                        else if (isNaN(height) || isNaN(topRadius) || isNaN(bottomRadius) || isNaN(stacks) || isNaN(slices)) {
+                        } else if (isNaN(height) || isNaN(topRadius) || isNaN(bottomRadius) || isNaN(stacks) || isNaN(slices)) {
                             return "[NODES] Invalid values for cylinder leaf. Node id: " + nodeID
                         }
 
@@ -838,8 +821,7 @@ class MySceneGraph {
                             type: "cylinder",
                             object: new MyCylinder(this.scene, height, topRadius, bottomRadius, stacks, slices)
                         })
-                    }
-                    else if (type === "sphere") {
+                    } else if (type === "sphere") {
                         const radius = this.reader.getFloat(descendantsNodes[j], 'radius')
                         const stacks = this.reader.getInteger(descendantsNodes[j], 'stacks')
                         const slices = this.reader.getInteger(descendantsNodes[j], 'slices')
@@ -853,12 +835,11 @@ class MySceneGraph {
                             type: "sphere",
                             object: new MySphere(this.scene, radius, slices, stacks)
                         })
-                    }
-                    else if (type === "torus") {
-                        const inner = this.reader.getFloat(descendantsNodes[j],'inner')
-                        const outer = this.reader.getFloat(descendantsNodes[j],'outer')
-                        const loops = this.reader.getInteger(descendantsNodes[j],'loops')
-                        const slices = this.reader.getInteger(descendantsNodes[j],'slices')
+                    } else if (type === "torus") {
+                        const inner = this.reader.getFloat(descendantsNodes[j], 'inner')
+                        const outer = this.reader.getFloat(descendantsNodes[j], 'outer')
+                        const loops = this.reader.getInteger(descendantsNodes[j], 'loops')
+                        const slices = this.reader.getInteger(descendantsNodes[j], 'slices')
 
                         if (inner == null || outer == null || loops == null || slices == null)
                             return "[NODES] Missing values for torus leaf. Node id: " + nodeID
@@ -898,7 +879,7 @@ class MySceneGraph {
     }
 
 
-    parseBoolean(node, name, messageError){
+    parseBoolean(node, name, messageError) {
         let boolVal = this.reader.getBoolean(node, name);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
             this.onXMLMinorError("unable to parse value component " + messageError + "; assuming 'value = 1'");
@@ -1013,7 +994,7 @@ class MySceneGraph {
         }
 
         /* verificar amplificações - caso a amplificação esteja definda deve
-        *  ser usada, caso contrário deve ser usada a do pai */
+         *  ser usada, caso contrário deve ser usada a do pai */
         if (node.texture.amplification != null) {
             amplification = node.texture.amplification
         } else {
@@ -1030,17 +1011,16 @@ class MySceneGraph {
 
         for (let desc of node.descendants) {
             if (desc.type !== "noderef") {
-                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
+                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null") {
                     this.textures[currentTexture.textureId].bind()
                 }
                 if (!desc.object.updatedTexCoords) {
                     /* once object updates its texCoords we dont need to call this function
-                    *  anymore, this flag - updatedTexCoords helps with that */
+                     *  anymore, this flag - updatedTexCoords helps with that */
                     desc.object.updateTexCoords(amplification)
                 }
                 desc.object.display()
-            }
-            else {
+            } else {
                 this.scene.pushMatrix()
                 this.processNode(this.nodes[desc.id], currentMaterial, currentTexture)
                 this.scene.popMatrix()
