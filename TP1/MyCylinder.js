@@ -79,7 +79,7 @@ class MyCylinderBody extends CGFobject {
                 this.topRadius / Math.sqrt(Math.pow(this.topRadius, 2) + Math.pow(maxheight, 2))
                 );
             }
-            this.texCoords.push(j / this.slices, i / this.stacks);
+            this.texCoords.push(j / this.slices, 1-i / this.stacks);
     
             }
             r = (i + 1) * delta_r + this.bottomRadius;
