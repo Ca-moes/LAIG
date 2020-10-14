@@ -653,7 +653,7 @@
         <node id="tapete_1">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+
             </texture>
 
             <transformations>
@@ -667,7 +667,7 @@
         <node id="tapete_2">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+
             </texture>
 
             <transformations>
@@ -681,7 +681,6 @@
         <node id="tapete_3">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -695,7 +694,6 @@
         <node id="tapete_4">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -709,7 +707,6 @@
         <node id="tapete_5">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -723,7 +720,6 @@
         <node id="tapete_6">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -737,7 +733,6 @@
         <node id="tapete_7">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -751,7 +746,6 @@
         <node id="tapete_8">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -908,7 +902,7 @@
         <node id="paredes">            
             <material id="base" />
             <texture id="wall_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
@@ -939,7 +933,7 @@
         <node id="par_traseira">            
             <material id="null" />
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+
             </texture>
 
             <transformations>
@@ -955,7 +949,7 @@
         <node id="par_lateral">            
             <material id="null" />
             <texture id="null">
-                <amplification afs="1" aft="1" />
+
             </texture>
 
             <transformations>

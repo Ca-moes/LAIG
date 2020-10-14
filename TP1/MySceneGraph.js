@@ -729,10 +729,7 @@ class MySceneGraph {
             }
 
             const textureChildren = grandChildren[textureIndex].children
-            let amplification = {
-                afs: 1,
-                aft: 1
-            }
+            let amplification = null
             let textureChildrenName = []
             for (let j = 0; j < textureChildren.length; j++) {
                 textureChildrenName.push(textureChildren[j].nodeName)
@@ -740,7 +737,7 @@ class MySceneGraph {
 
             let amplificationIndex = textureChildrenName.indexOf('amplification')
             if (amplificationIndex === -1) {
-                this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with afs=1 and aft=1.")
+                this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with no amplification (inherit).")
             }
             else {
                 const afs = this.reader.getFloat(textureChildren[amplificationIndex], 'afs')
@@ -750,6 +747,10 @@ class MySceneGraph {
                 }
                 if (isNaN(aft) || isNaN(afs)) {
                     this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
+                    amplification = {
+                        afs: 1.0,
+                        aft: 1.0
+                    }
                 } else {
                     amplification = {
                         afs: afs,
@@ -1005,9 +1006,18 @@ class MySceneGraph {
 
         let currentMaterial = material
         let currentTexture = texture
+        let amplification
 
         if (node.texture.textureId !== "null") {
             currentTexture = node.texture
+        }
+
+        /* verificar amplificações - caso a amplificação esteja definda deve
+        *  ser usada, caso contrário deve ser usada a do pai */
+        if (node.texture.amplification != null) {
+            amplification = node.texture.amplification
+        } else {
+            amplification = texture.amplification
         }
 
         if (node.material != null) {
@@ -1023,9 +1033,10 @@ class MySceneGraph {
                 if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
                     this.textures[currentTexture.textureId].bind()
                 }
-                if (desc.type === "triangle" || desc.type === "rectangle") {
-                    // we only need to apply amplifications on rectangles and triangles
-                    desc.object.updateTexCoords(currentTexture.amplification)
+                if (!desc.object.updatedTexCoords) {
+                    /* once object updates its texCoords we dont need to call this function
+                    *  anymore, this flag - updatedTexCoords helps with that */
+                    desc.object.updateTexCoords(amplification)
                 }
                 desc.object.display()
             }

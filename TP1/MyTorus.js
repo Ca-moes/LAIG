@@ -7,6 +7,8 @@ class MyTorus extends CGFobject {
         this.slices = slices
         this.loops = loops
 
+        this.updatedTexCoords = true; // no need for updateTexCoords
+
         this.initBuffers()
     }
 
