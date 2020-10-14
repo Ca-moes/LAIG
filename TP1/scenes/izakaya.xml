@@ -41,11 +41,11 @@
         <texture id="dark_wood" path="./scenes/images/dark_wood.jpg" />
         <texture id="semi_clear_wood" path="./scenes/images/semi_clear_wood.jpg" />
         <texture id="floor_wood" path="./scenes/images/floor_wood.jpg" />
-        <texture id="wall_wood" path="./scenes/images/wall_wood.png" />
+        <texture id="wall_wood" path="./scenes/images/wall_wood.jpg" />
         <texture id="rattan" path="./scenes/images/palha.jpg" />
         <texture id="glass" path="./scenes/images/bottle.jpg" />
         <texture id="chalkboard" path="./scenes/images/chalkboard.jpg" />
-        <texture id="televisao" path="./scenes/images/spoiler-alert.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg -->
+        <texture id="televisao" path="./scenes/images/televisao.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg -->
     </textures>
 
     <materials>
