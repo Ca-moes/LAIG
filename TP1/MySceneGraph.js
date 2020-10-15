@@ -717,7 +717,10 @@ class MySceneGraph {
             }
 
             const textureChildren = grandChildren[textureIndex].children
-            let amplification = null
+            let amplification = {
+                afs: 1.0,
+                aft: 1.0
+            }
             let textureChildrenName = []
             for (let j = 0; j < textureChildren.length; j++) {
                 textureChildrenName.push(textureChildren[j].nodeName)
@@ -725,7 +728,7 @@ class MySceneGraph {
 
             let amplificationIndex = textureChildrenName.indexOf('amplification')
             if (amplificationIndex === -1) {
-                this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with no amplification (inherit).")
+                this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with default (1.0).")
             } else {
                 const afs = this.reader.getFloat(textureChildren[amplificationIndex], 'afs')
                 const aft = this.reader.getFloat(textureChildren[amplificationIndex], 'aft')
@@ -733,11 +736,7 @@ class MySceneGraph {
                     return "[NODES] Amplification is not valid. Node ID: " + nodeID
                 }
                 if (isNaN(aft) || isNaN(afs)) {
-                    this.onXMLMinorError("[NODES] Amplification values not set, assuming 1.0")
-                    amplification = {
-                        afs: 1.0,
-                        aft: 1.0
-                    }
+                    this.onXMLMinorError("[NODES] No amplification set for node id: " + nodeID + ", proceeding with default (1.0).")
                 } else {
                     amplification = {
                         afs: afs,
@@ -987,19 +986,11 @@ class MySceneGraph {
 
         let currentMaterial = material
         let currentTexture = texture
-        let amplification
 
         if (node.texture.textureId !== "null") {
             currentTexture = node.texture
         }
-
-        /* verificar amplificações - caso a amplificação esteja definda deve
-         *  ser usada, caso contrário deve ser usada a do pai */
-        if (node.texture.amplification != null) {
-            amplification = node.texture.amplification
-        } else {
-            amplification = texture.amplification
-        }
+        currentTexture.amplification = node.texture.amplification
 
         if (node.material != null) {
             currentMaterial = node.material
@@ -1017,7 +1008,7 @@ class MySceneGraph {
                 if (!desc.object.updatedTexCoords) {
                     /* once object updates its texCoords we dont need to call this function
                      *  anymore, this flag - updatedTexCoords helps with that */
-                    desc.object.updateTexCoords(amplification)
+                    desc.object.updateTexCoords(currentTexture.amplification)
                 }
                 desc.object.display()
             } else {
