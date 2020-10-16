@@ -8,6 +8,7 @@ class MyCircle extends CGFobject{
         super(scene);
         this.radius = radius;
         this.slices = slices;
+        this.updatedTexCoords = true; // no need for updateTexCoords
         this.initBuffers();
     };
 

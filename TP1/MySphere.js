@@ -11,6 +11,8 @@ class MySphere extends CGFobject {
     this.longDivs = slices;
     this.radius = radius;
 
+    this.updatedTexCoords = true; // no need for updateTexCoords
+
     this.initBuffers();
   }
 

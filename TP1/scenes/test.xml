@@ -41,7 +41,7 @@
     <textures>
         <texture id="testTexture" path="./scenes/images/testTexture.png" />
         <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
-        <texture id="demo" path="televisao.jpg" />
+        <texture id="demo" path="bottle.jpg" />
     </textures>
 
 
@@ -62,7 +62,7 @@
             <!-- next two lines are mandatory -->
             <material id="demoMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
-            <texture id="testTexture2">
+            <texture id="demo">
                 <amplification aft="1" afs="1" />
             </texture>
 
@@ -89,11 +89,11 @@
             </texture>
 
             <transformations>
-                <translation x="-7" y="5.0" z="0" />
+                <translation x="-17" y="5.0" z="0" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="4" y2="1" />
+                <leaf type="rectangle" x1="0" y1="0" x2="15" y2="15" />
             </descendants>
         </node>
 

@@ -6,6 +6,8 @@ class MyCylinder extends CGFobject {
         this.bot_circle = new MyCircle(scene, bottomRadius, slices);
         this.top_circle = new MyCircle(scene, topRadius, slices);
 
+        this.updatedTexCoords = true; // no need for updateTexCoords
+
         this.initBuffers()
     }
 

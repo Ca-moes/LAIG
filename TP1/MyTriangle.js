@@ -8,6 +8,8 @@ class MyTriangle extends CGFobject {
         this.x3 = x3
         this.y3 = y3
 
+        this.updatedTexCoords = false;
+
         this.initBuffers()
     }
 
@@ -68,5 +70,6 @@ class MyTriangle extends CGFobject {
             (this.distC * this.cosAlpha) / coords.afs, 1 - (this.distC * this.sinAlpha) / coords.aft,
         ]
         this.updateTexCoordsGLBuffers();
+        this.updatedTexCoords = true;
     }
 }

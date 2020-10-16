@@ -41,11 +41,11 @@
         <texture id="dark_wood" path="./scenes/images/dark_wood.jpg" />
         <texture id="semi_clear_wood" path="./scenes/images/semi_clear_wood.jpg" />
         <texture id="floor_wood" path="./scenes/images/floor_wood.jpg" />
-        <texture id="wall_wood" path="./scenes/images/wall_wood.png" />
+        <texture id="wall_wood" path="./scenes/images/wall_wood.jpg" />
         <texture id="rattan" path="./scenes/images/palha.jpg" />
         <texture id="glass" path="./scenes/images/bottle.jpg" />
         <texture id="chalkboard" path="./scenes/images/chalkboard.jpg" />
-        <texture id="televisao" path="./scenes/images/spoiler-alert.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg -->
+        <texture id="televisao" path="./scenes/images/televisao.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg -->
     </textures>
 
     <materials>
@@ -626,11 +626,11 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
-
+        <!-- Area dos tapetes da bancada -->
         <node id="set_lat_tapetes">            
             <material id="base" />
             <texture id="rattan">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="0.1" aft="0.1" />
             </texture>
 
             <transformations>
@@ -650,24 +650,32 @@
                 <noderef id="tapete_8" />
             </descendants>
         </node>
+        <node id="tapete">
+            <material id="null" />
+            <texture id="null">
+                <amplification aft="0.1" afs="0.1" />
+            </texture>
+            <transformations/>
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
         <node id="tapete_1">
             <material id="null"/>
-            <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
-            </texture>
+            <texture id="null"/>
 
             <transformations>
                 <translation x="0" y="3.7" z="0" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
         <node id="tapete_2">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+
             </texture>
 
             <transformations>
@@ -675,13 +683,12 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
         <node id="tapete_3">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -689,13 +696,12 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
         <node id="tapete_4">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -703,13 +709,12 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
         <node id="tapete_5">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -717,13 +722,12 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
         <node id="tapete_6">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -731,13 +735,12 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
         <node id="tapete_7">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -745,13 +748,12 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
         <node id="tapete_8">
             <material id="null"/>
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
@@ -759,9 +761,10 @@
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <noderef id="tapete" />
             </descendants>
         </node>
+        <!-- fim da area dos tapetes da bancada -->
 
         <node id="bancada">
             <material id="null"/>
@@ -787,7 +790,7 @@
         <node id="ban_suporte_1">
             <material id="base"/>
             <texture id="semi_clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="0.2" aft="1" />
             </texture>
 
             <transformations>
@@ -817,7 +820,7 @@
         <node id="ban_refeicao_1">
             <material id="base"/>
             <texture id="clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="1.0" aft="0.2" />
             </texture>
 
             <transformations>
@@ -847,7 +850,7 @@
         <node id="ban_suporte_sup_1">
             <material id="base"/>
             <texture id="semi_clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="0.2" aft="1.0" />
             </texture>
 
             <transformations>
@@ -877,7 +880,7 @@
         <node id="ban_entrega_1">
             <material id="base"/>
             <texture id="clear_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="1" aft="0.2" />
             </texture>
 
             <transformations>
@@ -908,7 +911,7 @@
         <node id="paredes">            
             <material id="base" />
             <texture id="wall_wood">
-                <amplification afs="1.0" aft="1.0" />
+                <amplification afs="2.0" aft="2.0" />
             </texture>
 
             <transformations>
@@ -939,7 +942,7 @@
         <node id="par_traseira">            
             <material id="null" />
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+
             </texture>
 
             <transformations>
@@ -955,7 +958,7 @@
         <node id="par_lateral">            
             <material id="null" />
             <texture id="null">
-                <amplification afs="1.0" aft="1.0" />
+
             </texture>
 
             <transformations>
