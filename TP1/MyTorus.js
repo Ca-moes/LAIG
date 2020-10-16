@@ -31,7 +31,7 @@ class MyTorus extends CGFobject {
                 const x = (this.outer + (this.inner * cosAlpha)) * cosBeta
                 const y = (this.outer + (this.inner * cosAlpha)) * sinBeta
                 const z = this.inner * sinAlpha;
-                const s = 1 - (loop / this.loops);
+                const s = (loop / this.loops);
                 const t = 1 - (slice / this.slices);
 
                 this.vertices.push(x, y, z);

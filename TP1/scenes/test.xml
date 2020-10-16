@@ -85,7 +85,7 @@
         <node id="testRectangle1">   
             <material id="null" />
             <texture id="null">
-                <amplification afs="5" aft="5" />
+                <amplification afs="1" aft="1" />
             </texture>
 
             <transformations>
@@ -100,7 +100,7 @@
         <node id="testTriangle1">   
             <material id="null" />
             <texture id="null">
-                <amplification aft="5" afs="10" />
+                <amplification aft="1" afs="1" />
             </texture>
 
             <transformations>

@@ -1010,6 +1010,9 @@ class MySceneGraph {
                      *  anymore, this flag - updatedTexCoords helps with that */
                     desc.object.updateTexCoords(currentTexture.amplification)
                 }
+                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
+                    this.textures[currentTexture.textureId].bind()
+                }
                 desc.object.display()
             } else {
                 this.scene.pushMatrix()
