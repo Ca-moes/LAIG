@@ -126,6 +126,9 @@ class XMLscene extends CGFscene {
             this.lights[i].setVisible(true);
             this.lights[i].enable();
         }
+        
+        // Not Sure se é suposto isto estar aqui
+        this.updateLights();
 
         if (this.sceneInited) {
             // Draw axis
