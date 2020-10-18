@@ -5,20 +5,25 @@
         <root id="root" />
     </initials>
 
-    <views default="defaultCamera">
-        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="8" y="4" z="11" />
-            <to x="1.5" y="1.5" z="1" />
+    <views default="Inicial">
+        <perspective id="Inicial" near="0.1" far="500" angle="45">
+            <from x="8" y="3" z="11" />
+            <to x="2.5" y="1" z="6" />
         </perspective>
-        <ortho id="demoOrtho" near="-5" far="100" left="-3" right="3" top="2.1" bottom="-2.1">
+        <ortho id="Ortho_EntryView" near="-5" far="100" left="-4" right="4" top="2.1" bottom="-2.1">
             <from x="2.5" y="2" z="10" />
             <to x="2.5" y="2" z="0" />
             <up x="0" y="1" z="0" />
         </ortho>
-        <ortho id="demoOrtho2" near="-5" far="100" left="-5" right="5" top="2.1" bottom="-2.1">
+        <ortho id="Ortho_SideView" near="-5" far="100" left="-5.2" right="5.2" top="2.5" bottom="-2.5">
             <from x="5" y="2" z="5" />
             <to x="0" y="2" z="5" />
-            <up x="1.675" y="1" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+        <ortho id="Ortho_TopView" near="-5" far="100" left="-8" right="8" top="5.1" bottom="-5.1">
+            <from x="2.5" y="5" z="5" />
+            <to x="2.5" y="0" z="5" />
+            <up x="0" y="1" z="1" />
         </ortho>
     </views>
 
@@ -34,7 +39,7 @@
         <light id="ceilingLight1">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="2.5" y="4" z="2.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="2.5" y="6" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -43,7 +48,7 @@
         <light id="ceilingLight2">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="2.5" y="4" z="7.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="2.5" y="6" z="10" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->

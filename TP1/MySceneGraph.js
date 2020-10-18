@@ -1050,7 +1050,7 @@ class MySceneGraph {
         if (isNaN(elements.to.z)) {
             this.onXMLError('expected a float number o to(z)')
         }
-        return new CGFcamera(elements.angle * DEGREE_TO_RAD, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y))
+        return new CGFcamera(elements.angle * DEGREE_TO_RAD, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.z))
     }
 
     createOrthoCamera(elements) {
@@ -1099,7 +1099,7 @@ class MySceneGraph {
         if (isNaN(elements.top)) {
             this.onXMLError('Perspective Views expected a float number on top.')
         }
-        return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.y), vec3.fromValues(elements.up.x, elements.up.y, elements.up.y))
+        return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.z), vec3.fromValues(elements.up.x, elements.up.y, elements.up.z))
     }
 
     verifyDescendants() {
