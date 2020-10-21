@@ -28,26 +28,29 @@ class MyInterface extends CGFinterface {
     }
 
     /**
-     * initKeys
+     * To be Used Later
      */
     initKeys() {
         this.scene.gui=this;
         this.processKeyboard=function(){};
         this.activeKeys={};
     }
-
     processKeyDown(event) {
         this.activeKeys[event.code]=true;
     };
-
     processKeyUp(event) {
         this.activeKeys[event.code]=false;
     };
-
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
 
+    /**
+     * Creates a Folder in Interface for the Views
+     * @param {*} id Variable to keep the current View
+     * @param {*} list List of Views ID
+     * @param {*} name Name to Display in Interface
+     */
     addViewsGroup(id, list, name) {
         const group = this.gui.addFolder("Views");
         group.open();
@@ -58,6 +61,10 @@ class MyInterface extends CGFinterface {
         group.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
     }
 
+    /**
+     * Creates a Folder in Interface for the Lights
+     * @param {any} lights Map of Lights to pass to Folder
+     */
     addLightsGroup(lights) {
         const group = this.gui.addFolder("Lights");
         group.open();

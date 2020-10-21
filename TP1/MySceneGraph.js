@@ -989,9 +989,9 @@ class MySceneGraph {
 
     /**
      * Apllies all the components to the node and displays it.
-     * @param {*} node Node to Process
-     * @param {*} material Material of Node
-     * @param {*} texture Texture of Node
+     * @param {Node} node Node to Process
+     * @param {any} material Material of Node
+     * @param {any} texture Texture of Node
      */
     processNode(node, material, texture) {
         this.scene.multMatrix(node.matrix)
