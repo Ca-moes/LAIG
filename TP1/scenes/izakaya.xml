@@ -5,7 +5,7 @@
         <root id="root" />
     </initials>
 
-    <views default="Vase">
+    <views default="Inicial">
         <perspective id="Inicial" near="0.1" far="500" angle="45">
             <from x="8" y="3" z="11" />
             <to x="2.5" y="1" z="6" />
