@@ -10,6 +10,10 @@
             <from x="8" y="3" z="11" />
             <to x="2.5" y="1" z="6" />
         </perspective>
+        <perspective id="Zoom_In" near="0.1" far="500" angle="45">
+            <from x="1.1" y="3.3" z="5" />
+            <to x="0.2" y="3.3" z="5" />
+        </perspective>
         <ortho id="Ortho_EntryView" near="-5" far="100" left="-4" right="4" top="2.1" bottom="-2.1">
             <from x="2.5" y="2" z="10" />
             <to x="2.5" y="2" z="0" />
