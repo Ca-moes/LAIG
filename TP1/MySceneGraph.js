@@ -46,7 +46,7 @@ class MySceneGraph {
         this.reader.open('scenes/' + filename, this);
     }
 
-    /*
+    /**
      * Callback to be executed after successful reading
      */
     onXMLReady() {
@@ -67,7 +67,7 @@ class MySceneGraph {
         this.scene.onGraphLoaded();
     }
 
-    /*
+    /**
      * Callback to be executed on any read error, showing an error on the console.
      * @param {string} message
      */
@@ -86,7 +86,7 @@ class MySceneGraph {
 
     /**
      * Callback to be executed on any message.
-     * @param {string} message
+     * @param {String} message
      */
     log(message) {
         console.log("   " + message);
@@ -877,7 +877,12 @@ class MySceneGraph {
         return null
     }
 
-
+    /**
+     * Verifica se consegue dar parse do valor boleano no atributo "name" do "node"
+     * @param {Object} node nó a verificar
+     * @param {String} name Nome do Atributo - "bollean"
+     * @param {String} messageError Mensagem de Erro a apresentar
+     */
     parseBoolean(node, name, messageError) {
         let boolVal = this.reader.getBoolean(node, name);
         if (!(boolVal != null && !isNaN(boolVal) && (boolVal == true || boolVal == false))) {
@@ -886,6 +891,7 @@ class MySceneGraph {
         }
         return boolVal;
     }
+
     /**
      * Parse the coordinates from a node with ID = id
      * @param {block element} node
@@ -916,8 +922,8 @@ class MySceneGraph {
 
     /**
      * Parse the coordinates from a node with ID = id
-     * @param {block element} node
-     * @param {message to be displayed in case of error} messageError
+     * @param {Node} node
+     * @param {String} Error Message
      */
     parseCoordinates4D(node, messageError) {
         var position = [];
@@ -942,7 +948,7 @@ class MySceneGraph {
     /**
      * Parse the color components from a node
      * @param {block element} node
-     * @param {message to be displayed in case of error} messageError
+     * @param {String} messageError Attribute Name
      */
     parseColor(node, messageError) {
         var color = [];
@@ -981,6 +987,12 @@ class MySceneGraph {
         this.scene.popMatrix()
     }
 
+    /**
+     * Apllies all the components to the node and displays it.
+     * @param {*} node Node to Process
+     * @param {*} material Material of Node
+     * @param {*} texture Texture of Node
+     */
     processNode(node, material, texture) {
         this.scene.multMatrix(node.matrix)
 
@@ -1022,6 +1034,10 @@ class MySceneGraph {
         }
     }
 
+    /**
+     * Checks the Perspective Camera parameters and returns a CGFcamera()
+     * @param {Map} elements Parameters of the Perspective Camera {near, far, angle, from, to}
+     */
     createPerspectiveCamera(elements) {
         if (isNaN(elements.near)) {
             this.onXMLError('expected a float number on near.')
@@ -1053,6 +1069,10 @@ class MySceneGraph {
         return new CGFcamera(elements.angle * DEGREE_TO_RAD, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.z))
     }
 
+    /**
+     * Checks the Orthographic Camera parameters and returns a CGFcamera()
+     * @param {Map} elements Parameters of the Orthographic Camera {near, far, from, to, up, left, right, bottom, top}
+     */
     createOrthoCamera(elements) {
         if (isNaN(elements.near)) {
             this.onXMLError('Perspective Views expected a float number on near.')
@@ -1102,6 +1122,9 @@ class MySceneGraph {
         return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.z), vec3.fromValues(elements.up.x, elements.up.y, elements.up.z))
     }
 
+    /**
+     * Checks all child nodes of all the nodes to verify if any child node does not exist
+     */
     verifyDescendants() {
         for (const [nodeID, node] of Object.entries(this.nodes)) {
             for (const desc of node.descendants) {
