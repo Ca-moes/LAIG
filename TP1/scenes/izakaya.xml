@@ -33,6 +33,10 @@
             <to x="2.5" y="0" z="5" />
             <up x="0" y="1" z="1" />
         </ortho>
+        <perspective id="Earth?" near="0.1" far="500" angle="45">
+            <from x="0" y="10" z="5" />
+            <to x="2.5" y="10" z="5" />
+        </perspective>
     </views>
 
     <illumination>
@@ -76,6 +80,7 @@
         <texture id="vase" path="./scenes/images/vase.jpg" /> 
         <texture id="chalk_tex" path="./scenes/images/chalk_tex.jpg" /> 
         <texture id="cork" path="./scenes/images/cork.jpg" /> 
+        <texture id="earth" path="./scenes/images/earth.jpg" /> 
     </textures>
 
     <materials>
@@ -92,6 +97,13 @@
             <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
             <specular r="0.0" g="0.0" b="0.0" a="0.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
+        <material id="emissive">
+            <shininess value="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emissive r="0.5" g="0.5" b="0.5" a="0.0" />
         </material>
         <material id="chrome">
             <shininess value="76.8" />
@@ -149,8 +161,25 @@
                 <noderef id="garrafa_1" />
                 <noderef id="televisao_lat" />
                 <noderef id="quadro_tra" />
-
                 <noderef id="jarro_flor" />
+
+                <noderef id="earth_sphere" />
+            </descendants>
+        </node>
+
+        <node id="earth_sphere">
+            <material id="emissive"/>
+            <texture id="earth">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
+
+            <transformations>
+                <translation x="2.5" y="10" z="5" />
+                <rotation axis="x" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="sphere" radius="0.5" slices="10" stacks="5"/>
             </descendants>
         </node>
 
