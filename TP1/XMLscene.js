@@ -48,6 +48,7 @@ class XMLscene extends CGFscene {
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -92,6 +93,7 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(...this.graph.ambient);
 
         this.initLights();
+        //TO-DO this.initCameras();
 
         // add dropdown for views with default view selected
         this.interface.addViewsGroup("selectedView", this.graph.viewsIds, "View")
@@ -99,6 +101,7 @@ class XMLscene extends CGFscene {
         this.interface.addLightsGroup(this.graph.lights)
         // update view and lights accordingly
         this.updateView()
+        this.updateLights()
 
         this.sceneInited = true;
     }
@@ -127,7 +130,6 @@ class XMLscene extends CGFscene {
             this.lights[i].enable();
         }
         
-        // Not Sure se é suposto isto estar aqui
         this.updateLights();
 
         if (this.sceneInited) {
@@ -154,6 +156,9 @@ class XMLscene extends CGFscene {
         // ---- END Background, camera and axis setup
     }
 
+    /**
+     * Updates the View if the Camera is changed via Interface
+     */
     updateView() {
         if (this.selectedView === "default/reset") {
             this.initCameras()
@@ -163,6 +168,9 @@ class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera)
     }
 
+    /**
+     * Updates the Lights if these are changed via Interface
+     */
     updateLights() {
         let i = 0;
         for (let key in this.lightFlags) {
