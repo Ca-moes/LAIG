@@ -750,7 +750,8 @@ class MySceneGraph {
             }
 
             // Descendants
-            const descendants = []
+            const leaves = []
+            const nodes = []
             const descendantsNodes = grandChildren[descendantsIndex].children
             for (let j = 0; j < descendantsNodes.length; j++) {
                 if (descendantsNodes[j].nodeName === "noderef") {
@@ -761,7 +762,7 @@ class MySceneGraph {
                     else if (descID === nodeID)
                         return " [NODES] duplicated node id: " + nodeID;
 
-                    descendants.push({
+                    nodes.push({
                         type: "noderef",
                         id: descID
                     })
@@ -780,7 +781,7 @@ class MySceneGraph {
                             return "[NODES] Invalid values for rectangle leaf. Node id: " + nodeID
                         }
 
-                        descendants.push({
+                        leaves.push({
                             type: "rectangle",
                             object: new MyRectangle(this.scene, x1, y1, x2, y2)
                         })
@@ -799,7 +800,7 @@ class MySceneGraph {
                             return "[NODES] Invalid values for triangle leaf. Node id: " + nodeID
                         }
 
-                        descendants.push({
+                        leaves.push({
                             type: "triangle",
                             object: new MyTriangle(this.scene, x1, y1, x2, y2, x3, y3)
                         })
@@ -816,7 +817,7 @@ class MySceneGraph {
                             return "[NODES] Invalid values for cylinder leaf. Node id: " + nodeID
                         }
 
-                        descendants.push({
+                        leaves.push({
                             type: "cylinder",
                             object: new MyCylinder(this.scene, height, topRadius, bottomRadius, stacks, slices)
                         })
@@ -830,7 +831,7 @@ class MySceneGraph {
                         else if (isNaN(radius) || isNaN(stacks) || isNaN(slices))
                             return "[NODES] Invalid values for sphere leaf. Node id: " + nodeID
 
-                        descendants.push({
+                        leaves.push({
                             type: "sphere",
                             object: new MySphere(this.scene, radius, slices, stacks)
                         })
@@ -845,15 +846,20 @@ class MySceneGraph {
                         else if (isNaN(inner) || isNaN(outer) || isNaN(loops) || isNaN(slices))
                             return "[NODES] Invalid values for torus leaf. Node id: " + nodeID
 
-                        descendants.push({
+                        leaves.push({
                             type: "torus",
                             object: new MyTorus(this.scene, inner, outer, slices, loops)
                         })
                     }
                 }
             }
-            if (descendants.length === 0) {
+            if (leaves.length === 0 && nodes.length === 0) {
                 return "[NODES] No descendants! Node id: " + nodeID
+            }
+
+            let descendants = {
+                leaves: leaves,
+                nodes: nodes
             }
 
             this.nodes[nodeID] = {
@@ -989,7 +995,7 @@ class MySceneGraph {
 
     /**
      * Apllies all the components to the node and displays it.
-     * @param {Node} node Node to Process
+     * @param {any} node Node to Process
      * @param {any} material Material of Node
      * @param {any} texture Texture of Node
      */
@@ -1012,25 +1018,22 @@ class MySceneGraph {
             currentMaterial.apply()
         }
 
-        for (let desc of node.descendants) {
-            if (desc.type !== "noderef") {
-                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null") {
-                    this.textures[currentTexture.textureId].bind()
-                }
-                if (!desc.object.updatedTexCoords) {
-                    /* once object updates its texCoords we dont need to call this function
-                     *  anymore, this flag - updatedTexCoords helps with that */
-                    desc.object.updateTexCoords(currentTexture.amplification)
-                }
-                if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null")  {
-                    this.textures[currentTexture.textureId].bind()
-                }
-                desc.object.display()
-            } else {
-                this.scene.pushMatrix()
-                this.processNode(this.nodes[desc.id], currentMaterial, currentTexture)
-                this.scene.popMatrix()
+        for (let leaf of node.descendants.leaves) {
+            if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null") {
+                this.textures[currentTexture.textureId].bind()
             }
+            if (!leaf.object.updatedTexCoords) {
+                /* once object updates its texCoords we dont need to call this function
+                 *  anymore, this flag - updatedTexCoords helps with that */
+                leaf.object.updateTexCoords(currentTexture.amplification)
+            }
+            leaf.object.display()
+        }
+
+        for (let noderef of node.descendants.nodes) {
+            this.scene.pushMatrix()
+            this.processNode(this.nodes[noderef.id], currentMaterial, currentTexture)
+            this.scene.popMatrix()
         }
     }
 
@@ -1040,31 +1043,40 @@ class MySceneGraph {
      */
     createPerspectiveCamera(elements) {
         if (isNaN(elements.near)) {
-            this.onXMLError('expected a float number on near.')
+            this.onXMLMinorError('Perspective Views expected a float number on near. Assuming 1.')
+            elements.near = 1
         }
         if (isNaN(elements.far)) {
-            this.onXMLError('expected a float number on far.')
+            this.onXMLMinorError('Perspective Views expected a float number on far. Assuming 1.')
+            elements.far = 1
         }
         if (isNaN(elements.angle)) {
-            this.onXMLError('expected a float number on angle.')
+            this.onXMLMinorError('Perspective Views expected a float number on angle. Assuming 0.')
+            elements.angle = 0
         }
         if (isNaN(elements.from.x)) {
-            this.onXMLError('expected a float number o from(x)')
+            this.onXMLMinorError('Perspective Views expected a float number o from(x). Assuming 1.')
+            elements.from.x = 1
         }
         if (isNaN(elements.from.y)) {
-            this.onXMLError('expected a float number o from(y)')
+            this.onXMLMinorError('Perspective Views expected a float number o from(y). Assuming 1.')
+            elements.from.y = 1
         }
         if (isNaN(elements.from.z)) {
-            this.onXMLError('expected a float number o from(z)')
+            this.onXMLMinorError('Perspective Views expected a float number o from(z). Assuming 1.')
+            elements.from.z = 1
         }
         if (isNaN(elements.to.x)) {
-            this.onXMLError('expected a float number o to(x)')
+            this.onXMLMinorError('Perspective Views expected a float number o to(x). Assuming 1.')
+            elements.to.x = 1
         }
         if (isNaN(elements.to.y)) {
-            this.onXMLError('expected a float number o to(y)')
+            this.onXMLMinorError('Perspective Views expected a float number o to(y). Assuming 1.')
+            elements.to.y = 1
         }
         if (isNaN(elements.to.z)) {
-            this.onXMLError('expected a float number o to(z)')
+            this.onXMLMinorError('Perspective Views expected a float number o to(z). Assuming 1.')
+            elements.to.z = 1
         }
         return new CGFcamera(elements.angle * DEGREE_TO_RAD, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.z))
     }
@@ -1074,50 +1086,65 @@ class MySceneGraph {
      * @param {Map} elements Parameters of the Orthographic Camera {near, far, from, to, up, left, right, bottom, top}
      */
     createOrthoCamera(elements) {
-        if (isNaN(elements.near)) {
-            this.onXMLError('Perspective Views expected a float number on near.')
+        if (isNaN(elements.near) || elements.near <= 0) {
+            this.onXMLMinorError('Ortho Views expected a positive float number on near. Assuming 1.')
+            elements.near = 1
         }
-        if (isNaN(elements.far)) {
-            this.onXMLError('Perspective Views expected a float number on far.')
+        if (isNaN(elements.far) || elements.far <= 0) {
+            this.onXMLMinorError('Ortho Views expected a positive float number on far. Assuming 1.')
+            elements.far = 1
         }
         if (isNaN(elements.from.x)) {
-            this.onXMLError('Perspective Views expected a float number o from(x)')
+            this.onXMLMinorError('Ortho Views expected a float number o from(x). Assuming 1.')
+            elements.from.x = 1
         }
         if (isNaN(elements.from.y)) {
-            this.onXMLError('Perspective Views expected a float number o from(y)')
+            this.onXMLMinorError('Ortho Views expected a float number o from(y). Assuming 1.')
+            elements.from.y = 1
         }
         if (isNaN(elements.from.z)) {
-            this.onXMLError('Perspective Views expected a float number o from(z)')
+            this.onXMLMinorError('Ortho Views expected a float number o from(z). Assuming 1.')
+            elements.from.z = 1
         }
         if (isNaN(elements.to.x)) {
-            this.onXMLError('Perspective Views expected a float number o to(x)')
+            this.onXMLMinorError('Ortho Views expected a float number o to(x). Assuming 1.')
+            elements.to.x = 1
         }
         if (isNaN(elements.to.y)) {
-            this.onXMLError('Perspective Views expected a float number o to(y)')
+            this.onXMLMinorError('Ortho Views expected a float number o to(y). Assuming 1.')
+            elements.to.y = 1
         }
         if (isNaN(elements.to.z)) {
-            this.onXMLError('Perspective Views expected a float number o to(z)')
+            this.onXMLMinorError('Ortho Views expected a float number o to(z). Assuming 1.')
+            elements.to.z = 1
         }
         if (isNaN(elements.up.x)) {
-            this.onXMLError('Perspective Views expected a float number o up(x)')
+            this.onXMLMinorError('Ortho Views expected a float number o up(x). Assuming 1.')
+            elements.up.x = 1
         }
         if (isNaN(elements.up.y)) {
-            this.onXMLError('Perspective Views expected a float number o up(y)')
+            this.onXMLMinorError('Ortho Views expected a float number o up(y). Assuming 1.')
+            elements.up.y = 1
         }
         if (isNaN(elements.up.z)) {
-            this.onXMLError('Perspective Views expected a float number o up(z)')
+            this.onXMLMinorError('Ortho Views expected a float number o up(z). Assuming 1.')
+            elements.up.z = 1
         }
         if (isNaN(elements.left)) {
-            this.onXMLError('Perspective Views expected a float number on left.')
+            this.onXMLMinorError('Ortho Views expected a float number on left. Assuming 1.')
+            elements.left = 1
         }
         if (isNaN(elements.right)) {
-            this.onXMLError('Perspective Views expected a float number on right.')
+            this.onXMLMinorError('Ortho Views expected a float number on right. Assuming 1.')
+            elements.right = 1
         }
         if (isNaN(elements.bottom)) {
-            this.onXMLError('Perspective Views expected a float number on bottom.')
+            this.onXMLMinorError('Ortho Views expected a float number on bottom. Assuming 1.')
+            elements.bottom = 1
         }
         if (isNaN(elements.top)) {
-            this.onXMLError('Perspective Views expected a float number on top.')
+            this.onXMLMinorError('Ortho Views expected a float number on top. Assuming 1.')
+            elements.top = 1
         }
         return new CGFcameraOrtho(elements.left, elements.right, elements.bottom, elements.top, elements.near, elements.far, vec3.fromValues(elements.from.x, elements.from.y, elements.from.z), vec3.fromValues(elements.to.x, elements.to.y, elements.to.z), vec3.fromValues(elements.up.x, elements.up.y, elements.up.z))
     }
@@ -1127,11 +1154,9 @@ class MySceneGraph {
      */
     verifyDescendants() {
         for (const [nodeID, node] of Object.entries(this.nodes)) {
-            for (const desc of node.descendants) {
-                if (desc.type === "noderef") {
-                    if (this.nodes[desc.id] == null) {
-                        return desc.id
-                    }
+            for (const desc of node.descendants.nodes) {
+                if (this.nodes[desc.id] == null) {
+                    return desc.id
                 }
             }
         }
