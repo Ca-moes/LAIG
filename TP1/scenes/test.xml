@@ -12,7 +12,7 @@
             <from x="15" y="7" z="15" />
             <to x="0" y="-2" z="0" />
         </perspective>
-        <ortho id="demoOrtho" near="0.2" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
+        <ortho id="demoOrtho" near="0" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
             <from x="5" y="0" z="10" />
             <to x="5" y="0" z="0" />
             <up x="0" y="1" z="0" />
@@ -41,6 +41,7 @@
     <textures>
         <texture id="testTexture" path="./scenes/images/testTexture.png" />
         <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
+        <texture id="testTexture3" path="./scenes/images/testTexture3.jpg" />
         <texture id="demo" path="bottle.jpg" />
     </textures>
 
@@ -55,6 +56,27 @@
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="red">
+            <shininess value="10" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="1.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="green">
+            <shininess value="10" />
+            <ambient r="0" g="1.0" b="0.0" a="1.0" />
+            <diffuse r="0" g="1.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="blue">
+            <shininess value="10" />
+            <ambient r="0" g="0" b="1.0" a="1.0" />
+            <diffuse r="0" g="0" b="1.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
     <nodes>
@@ -62,7 +84,7 @@
             <!-- next two lines are mandatory -->
             <material id="demoMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
-            <texture id="demo">
+            <texture id="testTexture3">
                 <amplification aft="1" afs="1" />
             </texture>
 
@@ -79,8 +101,56 @@
                 <noderef id="testSphere"/>
                 <noderef id="testRectangle1"/>
                 <noderef id="testTriangle1"/>
+
+                <noderef id="together"/>
             </descendants>
         </node>
+
+        <node id="together">   
+            <material id="red" />
+            <texture id="testTexture">
+                <amplification aft="5" afs="5" />
+            </texture>
+
+            <transformations>
+                <translation x="5" y="15" z="0" />
+            </transformations>
+
+            <descendants>
+                <noderef id="testTorus1"/>
+                <noderef id="testTorus2"/>
+                <leaf type="torus" inner="1" outer="3.0" slices="3" loops="3" />
+            </descendants>
+        </node>
+
+        <node id="testTorus1">   
+            <material id="green" />
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="10" y="0.0" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="1" outer="3.0" slices="4" loops="10" />
+            </descendants>
+        </node>
+
+        <node id="testTorus2">   
+            <material id="blue" />
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="20" y="0.0" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="1" outer="3.0" slices="5" loops="10" />
+            </descendants>
+        </node>
+
 
         <node id="testRectangle1">   
             <material id="null" />
@@ -100,7 +170,7 @@
         <node id="testTriangle1">   
             <material id="null" />
             <texture id="null">
-                <amplification aft="1" afs="1" />
+                <amplification aft="5" afs="5" />
             </texture>
 
             <transformations>
@@ -155,7 +225,6 @@
                 <leaf type="cylinder" height="5" topRadius="2" bottomRadius="1" stacks="10" slices="10"/>
             </descendants>
         </node>
-
 
         <node id="testTorus">   
             <material id="null" />
