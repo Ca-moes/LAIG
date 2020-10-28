@@ -12,7 +12,7 @@ class Animation {
         throw("Abstract class cannot implement methods.");
     }
 
-    updateAnimation(t) {
+    update(t) {
         throw("Abstract class cannot implement methods.");
     }
 }

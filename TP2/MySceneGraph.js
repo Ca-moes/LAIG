@@ -898,11 +898,10 @@ class MySceneGraph {
                 }
             }
 
-
             this.nodes[nodeID] = {
                 matrix: transformationMatrix,
                 material: this.materials[materialId],
-                animations: animation,
+                animation: animation,
                 texture: texture,
                 descendants: descendants
             }
@@ -1062,8 +1061,9 @@ class MySceneGraph {
             currentAnimation = node.animation
         }
 
-        if (currentAnimation != null)
-            animation.apply()
+        if (currentAnimation != null) {
+            currentAnimation.apply(this.scene)
+        }
 
         for (let leaf of node.descendants.leaves) {
             if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null") {
@@ -1102,12 +1102,12 @@ class MySceneGraph {
             let keyframes = [];
             const grandChildren = children[i].children // keyframes
             for (let j = 0; j < grandChildren.length; j++) {
-                if (grandChildren[i].nodeName !== "keyframe") {
-                    this.onXMLMinorError("[ANIMATIONS] unknown tag <" + grandChildren[i].nodeName + ">")
+                if (grandChildren[j].nodeName !== "keyframe") {
+                    this.onXMLMinorError("[ANIMATIONS] unknown tag <" + grandChildren[j].nodeName + ">")
                     continue;
                 }
                 // Get instant of the current keyframe.
-                const keyframeInstant = this.reader.getFloat(children[i], 'instant')
+                const keyframeInstant = this.reader.getFloat(grandChildren[j], 'instant')
                 if (isNaN(keyframeInstant) || keyframeInstant == null) {
                     return "[Keyframe] Instant not valid for animation ID: " + animationID
                 }
@@ -1160,9 +1160,8 @@ class MySceneGraph {
                     scale: scale,
                 })
             }
-            this.animations[animationID] = {
-                keyframeAnimation: new KeyframeAnimation(keyframes),
-            }
+            this.animations[animationID] = new KeyframeAnimation(keyframes)
+
         }
     }
 

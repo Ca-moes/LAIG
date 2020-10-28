@@ -8,18 +8,16 @@ class KeyframeAnimation extends Animation {
     }
 
     apply(scene) {
-        scene.multMatrix(current_matrix);
+        scene.multMatrix(this.current_matrix);
     }
 
-    updateAnimation(t) {
-        /* assumindo que o t está em segundos (float) */
-
+    update(t) {
         /* verificar se a animação está ativa */
-        if (t < this.start && t > this.end) {
+        if (t < this.start || t > this.end) {
             return
         }
 
-        if (this.next_keyframe === this.keyframes.length - 1) {
+        if (this.next_keyframe === this.keyframes.length - 1 && t >= this.keyframes[this.keyframes.length - 1].instant) {
             /* TODO quando estamos no ultimo keyframe queremos manter a posição */
             return
         }
@@ -30,17 +28,12 @@ class KeyframeAnimation extends Animation {
         }
 
         for (let i = 0; i < this.keyframes.length - 1; i++) {
-            if (this.keyframes[i].instant + t <= this.keyframes[i+1].instant) {
+            if (this.keyframes[i].instant <= t && t <= this.keyframes[i+1].instant) {
                 this.current_keyframe = i
                 this.next_keyframe = i+1
                 break;
             }
         }
-
-        console.log("Instant: " + t);
-        console.log("Current KeyFrame: " + this.current_keyframe);
-        console.log("Next KeyFrame: " + this.next_keyframe);
-        console.log();
 
         const translation = {
             x: this.interpolate(this.keyframes[this.current_keyframe].translation.x,
@@ -89,9 +82,9 @@ class KeyframeAnimation extends Animation {
 
         this.current_matrix = mat4.create()
         mat4.translate(this.current_matrix, this.current_matrix, [translation.x, translation.y, translation.z]);
-        mat4.rotation(this.current_matrix, this.current_matrix, rotation.x * DEGREE_TO_RAD, [1, 0, 0]);
-        mat4.rotation(this.current_matrix, this.current_matrix, rotation.y * DEGREE_TO_RAD, [0, 1, 0]);
-        mat4.rotation(this.current_matrix, this.current_matrix, rotation.z * DEGREE_TO_RAD, [0, 0, 1]);
+        mat4.rotate(this.current_matrix, this.current_matrix, rotation.x * DEGREE_TO_RAD, [1, 0, 0]);
+        mat4.rotate(this.current_matrix, this.current_matrix, rotation.y * DEGREE_TO_RAD, [0, 1, 0]);
+        mat4.rotate(this.current_matrix, this.current_matrix, rotation.z * DEGREE_TO_RAD, [0, 0, 1]);
         mat4.scale(this.current_matrix, this.current_matrix, [scale.sx, scale.sy, scale.sz]);
     }
 
