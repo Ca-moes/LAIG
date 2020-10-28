@@ -1018,6 +1018,10 @@ class MySceneGraph {
             currentMaterial.apply()
         }
 
+        if (animation != null) {
+            animation.apply()
+        }
+
         for (let leaf of node.descendants.leaves) {
             if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null") {
                 this.textures[currentTexture.textureId].bind()
@@ -1161,5 +1165,11 @@ class MySceneGraph {
             }
         }
         return null
+    }
+
+    updateAnimations(t) {
+        for (let animation in this.animations) {
+            animation.update(t);
+        }
     }
 }
