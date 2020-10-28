@@ -28,6 +28,7 @@ class MySceneGraph {
         scene.graph = this;
 
         this.nodes = [];
+        this.animations = [];
 
         this.idRoot = null; // The id of the root element.
 
@@ -189,12 +190,12 @@ class MySceneGraph {
         let animations_set = false;
         // <animations>
         if ((index = nodeNames.indexOf("animations")) == -1)
-            this.onXMLMinorError("Tag <materials> does not exist. Proceeding.");
+            this.onXMLMinorError("Tag <animations> does not exist. Proceeding.");
         else {
-            if (index !== MATERIALS_INDEX)
-                this.onXMLMinorError("tag <materials> out of order");
+            if (index !== ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
 
-            //Parse materials block
+            //Parse animations block
             if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
             animations_set = true;
@@ -652,7 +653,7 @@ class MySceneGraph {
             const descendantsIndex = nodeNames.indexOf("descendants");
             const animationsIndex = nodeNames.indexOf("animationref");
 
-            if (animationsIndex - 1 !== transformationsIndex) {
+            if (animationsIndex - 1 !== transformationsIndex && animationsIndex !== -1) {
                 return "[NODES] XML Error - animationref is out of order. Node ID: " + nodeID
             }
 
@@ -884,16 +885,19 @@ class MySceneGraph {
 
             // <animationsref>
             let animation = null
-            const animationId = this.reader.getString(grandChildren[animationsIndex], 'id');
-            if (animationId == null && animationsIndex !== -1) {
-                this.onXMLMinorError("[NODES] No ID for animation on node id: " + nodeID);
-            } else if (animationId != null) {
-                if (this.animations[animationId] == null) {
-                    this.onXMLMinorError("[NODES] Animation ID: " + animationId + "does not exist. Node ID: " + nodeID)
+            if (animationsIndex !== -1) {
+                const animationId = this.reader.getString(grandChildren[animationsIndex], 'id');
+                if (animationId == null) {
+                    this.onXMLMinorError("[NODES] No ID for animation on node id: " + nodeID);
                 } else {
-                    animation = this.animations[animationId]
+                    if (this.animations[animationId] == null) {
+                        this.onXMLMinorError("[NODES] Animation ID: " + animationId + "does not exist. Node ID: " + nodeID)
+                    } else {
+                        animation = this.animations[animationId]
+                    }
                 }
             }
+
 
             this.nodes[nodeID] = {
                 matrix: transformationMatrix,
@@ -1082,7 +1086,6 @@ class MySceneGraph {
 
     parseAnimations(animationsNode) {
         const children = animationsNode.children
-        this.animations = []
         for (let i = 0; i < children.length; i++) {
             if (children[i].nodeName !== "animation") {
                 this.onXMLMinorError("[ANIMATIONS] unknown tag <" + children[i].nodeName + ">")

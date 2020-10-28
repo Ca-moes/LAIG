@@ -37,6 +37,11 @@ class KeyframeAnimation extends Animation {
             }
         }
 
+        console.log("Instant: " + t);
+        console.log("Current KeyFrame: " + this.current_keyframe);
+        console.log("Next KeyFrame: " + this.next_keyframe);
+        console.log();
+
         const translation = {
             x: this.interpolate(this.keyframes[this.current_keyframe].translation.x,
                 this.keyframes[this.next_keyframe].translation.x,
