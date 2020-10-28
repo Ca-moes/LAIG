@@ -39,6 +39,8 @@ class XMLscene extends CGFscene {
 
         this.selectedView = -1
         this.lightFlags = {}
+
+        this.last = performance.now();
     }
 
     /**
@@ -103,7 +105,7 @@ class XMLscene extends CGFscene {
         this.updateLights()
 
         this.sceneInited = true;
-        this.setUpdatePeriod(16.666666666667); // 60Hz
+        this.setUpdatePeriod(1000.0/60.0); // 60Hz
         this.start = Math.round(Date.now())
     }
 
@@ -111,6 +113,11 @@ class XMLscene extends CGFscene {
      * Displays the scene.
      */
     display() {
+        this.now = performance.now();
+        const fps = 1000 / (this.now - this.last);
+        this.last = this.now;
+
+        document.getElementById('fps').firstElementChild.innerHTML = "FPS: " + Math.round(fps)
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
