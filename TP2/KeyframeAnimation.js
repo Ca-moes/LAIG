@@ -1,9 +1,8 @@
 class KeyframeAnimation extends Animation {
-    constructor(id, keyframes) {
+    constructor(keyframes) {
         super(keyframes[0].instant, keyframes[keyframes.length - 1].instant,
             keyframes[0].transformation, keyframes[keyframes.length - 1].transformation);
 
-        this.id = id;
         this.keyframes = keyframes;
         this.current_keyframe = 0;
     }
@@ -16,7 +15,7 @@ class KeyframeAnimation extends Animation {
         /* assumindo que o t está em segundos (float) */
 
         /* verificar se a animação está ativa */
-        if (t < this.keyframes[this.current_keyframe].instant) {
+        if (t < this.start && t > this.end) {
             return
         }
 

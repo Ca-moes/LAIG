@@ -7,7 +7,8 @@ var ILLUMINATION_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 6;
+var NODES_INDEX = 7;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -185,11 +186,25 @@ class MySceneGraph {
                 return error;
         }
 
+        let animations_set = false;
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            this.onXMLMinorError("Tag <materials> does not exist. Proceeding.");
+        else {
+            if (index !== MATERIALS_INDEX)
+                this.onXMLMinorError("tag <materials> out of order");
+
+            //Parse materials block
+            if ((error = this.parseAnimations(nodes[index])) != null)
+                return error;
+            animations_set = true;
+        }
+
         // <nodes>
         if ((index = nodeNames.indexOf("nodes")) == -1)
             return "tag <nodes> missing";
         else {
-            if (index != NODES_INDEX)
+            if ((index != NODES_INDEX && animations_set) || (!animations_set && index != NODES_INDEX - 1))
                 this.onXMLMinorError("tag <nodes> out of order");
 
             //Parse nodes block
@@ -635,6 +650,9 @@ class MySceneGraph {
             const materialIndex = nodeNames.indexOf("material");
             const textureIndex = nodeNames.indexOf("texture");
             const descendantsIndex = nodeNames.indexOf("descendants");
+            const animationsIndex = nodeNames.indexOf("animationref");
+
+            // todo - parse animationsref block
 
             // checking if there is a material or a texture applied
             if (materialIndex === -1 || textureIndex === -1) {
@@ -862,6 +880,9 @@ class MySceneGraph {
                 nodes: nodes
             }
 
+            // <animationsref>
+
+
             this.nodes[nodeID] = {
                 matrix: transformationMatrix,
                 material: this.materials[materialId],
@@ -1041,6 +1062,90 @@ class MySceneGraph {
         }
     }
 
+    parseAnimations(animationsNode) {
+        const children = animationsNode.children
+        this.animations = []
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].nodeName !== "animation") {
+                this.onXMLMinorError("[ANIMATIONS] unknown tag <" + children[i].nodeName + ">")
+                continue;
+            }
+            // Get id of the current animation.
+            const animationID = this.reader.getString(children[i], 'id')
+            if (animationID == null)
+                return "[ANIMATIONS] no ID defined for animation"
+            // Checks for repeated IDs.
+            if (this.animations[animationID] != null)
+                return "[ANIMATIONS] ID must be unique for each animation (conflict: ID = " + animationID + ")"
+            // parsing keyframes
+            let keyframes = [];
+            const grandChildren = children[i].children // keyframes
+            for (let j = 0; j < grandChildren.length; j++) {
+                if (grandChildren[i].nodeName !== "keyframe") {
+                    this.onXMLMinorError("[ANIMATIONS] unknown tag <" + grandChildren[i].nodeName + ">")
+                    continue;
+                }
+                // Get instant of the current keyframe.
+                const keyframeInstant = this.reader.getFloat(children[i], 'instant')
+                if (isNaN(keyframeInstant) || keyframeInstant == null) {
+                    return "[Keyframe] Instant not valid for animation ID: " + animationID
+                }
+                let transformations = grandChildren[j].children
+                let translation = {
+                    x: 0, y: 0, z: 0
+                }
+                let rotation = {
+                    x: 0, y: 0, z: 0,
+                }
+                let scale = {
+                    sx: 1, sy: 1, sz: 1
+                };
+
+                for (let k = 0; k < transformations.length; k++) {
+                    if (transformations[k].nodeName === "translation") {
+                        translation = {
+                            x: this.reader.getFloat(transformations[k], 'x'),
+                            y: this.reader.getFloat(transformations[k], 'y'),
+                            z: this.reader.getFloat(transformations[k], 'z'),
+                        }
+                    }
+                    else if (transformations[k].nodeName === "rotation") {
+                        switch (this.reader.getString(transformations[k], 'axis')) {
+                            case 'x':
+                                rotation.x = this.reader.getFloat(transformations[k], 'angle');
+                                break;
+                            case 'y':
+                                rotation.y = this.reader.getFloat(transformations[k], 'angle');
+                                break;
+                            case 'z':
+                                rotation.z = this.reader.getFloat(transformations[k], 'angle');
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else if (transformations[k].nodeName === "scale") {
+                        scale = {
+                            sx: this.reader.getFloat(transformations[k], 'sx'),
+                            sy: this.reader.getFloat(transformations[k], 'sy'),
+                            sz: this.reader.getFloat(transformations[k], 'sz'),
+                        }
+                    }
+                }
+                keyframes.push({
+                    instant: keyframeInstant,
+                    translation: translation,
+                    rotation: rotation,
+                    scale: scale,
+                })
+            }
+            this.animations[animationID] = {
+                keyframeAnimation: new KeyframeAnimation(keyframes),
+                // spritesheets: null,
+            }
+        }
+    }
+
     /**
      * Checks the Perspective Camera parameters and returns a CGFcamera()
      * @param {Map} elements Parameters of the Perspective Camera {near, far, angle, from, to}
@@ -1168,7 +1273,7 @@ class MySceneGraph {
     }
 
     updateAnimations(t) {
-        for (let animation in this.animations) {
+        for (const [animationID, animation] of Object.entries(this.animations)) {
             animation.update(t);
         }
     }
