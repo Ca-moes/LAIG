@@ -652,7 +652,9 @@ class MySceneGraph {
             const descendantsIndex = nodeNames.indexOf("descendants");
             const animationsIndex = nodeNames.indexOf("animationref");
 
-            // todo - parse animationsref block
+            if (animationsIndex - 1 !== transformationsIndex) {
+                return "[NODES] XML Error - animationref is out of order. Node ID: " + nodeID
+            }
 
             // checking if there is a material or a texture applied
             if (materialIndex === -1 || textureIndex === -1) {
@@ -881,11 +883,22 @@ class MySceneGraph {
             }
 
             // <animationsref>
-
+            let animation = null
+            const animationId = this.reader.getString(grandChildren[animationsIndex], 'id');
+            if (animationId == null && animationsIndex !== -1) {
+                this.onXMLMinorError("[NODES] No ID for animation on node id: " + nodeID);
+            } else if (animationId != null) {
+                if (this.animations[animationId] == null) {
+                    this.onXMLMinorError("[NODES] Animation ID: " + animationId + "does not exist. Node ID: " + nodeID)
+                } else {
+                    animation = this.animations[animationId]
+                }
+            }
 
             this.nodes[nodeID] = {
                 matrix: transformationMatrix,
                 material: this.materials[materialId],
+                animations: animation,
                 texture: texture,
                 descendants: descendants
             }
@@ -1010,7 +1023,7 @@ class MySceneGraph {
      */
     displayScene() {
         this.scene.pushMatrix()
-        this.processNode(this.nodes[this.idRoot], this.nodes[this.idRoot].material, this.nodes[this.idRoot].texture)
+        this.processNode(this.nodes[this.idRoot], this.nodes[this.idRoot].material, this.nodes[this.idRoot].texture, this.nodes[this.idRoot].animation)
         this.scene.popMatrix()
     }
 
@@ -1019,12 +1032,14 @@ class MySceneGraph {
      * @param {any} node Node to Process
      * @param {any} material Material of Node
      * @param {any} texture Texture of Node
+     * @param {any} animation Animation of Node
      */
-    processNode(node, material, texture) {
+    processNode(node, material, texture, animation) {
         this.scene.multMatrix(node.matrix)
 
         let currentMaterial = material
         let currentTexture = texture
+        let currentAnimation = animation
 
         if (node.texture.textureId !== "null") {
             currentTexture = node.texture
@@ -1039,9 +1054,12 @@ class MySceneGraph {
             currentMaterial.apply()
         }
 
-        if (animation != null) {
-            animation.apply()
+        if (node.animation != null) {
+            currentAnimation = node.animation
         }
+
+        if (currentAnimation != null)
+            animation.apply()
 
         for (let leaf of node.descendants.leaves) {
             if (currentTexture.textureId !== "clear" && currentTexture.textureId !== "null") {
@@ -1057,7 +1075,7 @@ class MySceneGraph {
 
         for (let noderef of node.descendants.nodes) {
             this.scene.pushMatrix()
-            this.processNode(this.nodes[noderef.id], currentMaterial, currentTexture)
+            this.processNode(this.nodes[noderef.id], currentMaterial, currentTexture, currentAnimation)
             this.scene.popMatrix()
         }
     }
@@ -1141,7 +1159,6 @@ class MySceneGraph {
             }
             this.animations[animationID] = {
                 keyframeAnimation: new KeyframeAnimation(keyframes),
-                // spritesheets: null,
             }
         }
     }
