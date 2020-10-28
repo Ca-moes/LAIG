@@ -13,9 +13,12 @@ class KeyframeAnimation extends Animation {
 
     update(t) {
         /* verificar se a animação está ativa */
-        if (t < this.start || t > this.end) {
+        if (t < this.start) {
+            this.visible = false;
             return
         }
+
+        this.visible = true;
 
         if (this.next_keyframe === this.keyframes.length - 1 && t >= this.keyframes[this.keyframes.length - 1].instant) {
             /* TODO quando estamos no ultimo keyframe queremos manter a posição */

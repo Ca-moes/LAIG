@@ -80,6 +80,23 @@
     </materials>
 
     <animations>
+      <animation id="no_animation">
+        <keyframe instant="0.0">
+          <translation z="0" x="0" y="0" />
+          <rotation axis="x" angle="0"/>
+          <rotation axis="y" angle="0"/>
+          <rotation axis="z" angle="0"/>
+          <scale sx="1" sy="1" sz="1"/>
+        </keyframe>
+        <keyframe instant="1.0">
+          <translation z="0" x="0" y="0" />
+          <rotation axis="x" angle="0"/>
+          <rotation axis="y" angle="0"/>
+          <rotation axis="z" angle="0"/>
+          <scale sx="1" sy="1" sz="1"/>
+        </keyframe>
+      </animation>
+
       <animation id="test_translate">
         <keyframe instant="3.0">
           <translation x="1" y="1" z="1"/>
@@ -137,7 +154,7 @@
           <translation x="0" y="0" z="0"/>
           <rotation axis="x" angle="0"/>
           <rotation axis="y" angle="0"/>
-          <rotation axis="z" angle="180"/>
+          <rotation axis="z" angle="0"/>
           <scale sx="1" sy="1" sz="1"/>
         </keyframe>
 
@@ -146,14 +163,6 @@
           <rotation axis="x" angle="0"/>
           <rotation axis="y" angle="180"/>
           <rotation axis="z" angle="0"/>
-          <scale sx="1" sy="1" sz="1"/>
-        </keyframe>
-
-        <keyframe instant="8.0">
-          <translation x="0" y="0" z="0"/>
-          <rotation axis="x" angle="0"/>
-          <rotation axis="y" angle="-180"/>
-          <rotation axis="z" angle="-180"/>
           <scale sx="1" sy="1" sz="1"/>
         </keyframe>
       </animation>
@@ -196,7 +205,6 @@
 
             <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
 
-
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
@@ -222,6 +230,8 @@
                 <translation x="5" y="15" z="0" />
             </transformations>
 
+            <animationref id="test_rotate" />
+
             <descendants>
                 <noderef id="testTorus1"/>
                 <noderef id="testTorus2"/>
@@ -237,6 +247,8 @@
             <transformations>
                 <translation x="10" y="0.0" z="0" />
             </transformations>
+
+            <animationref id="test_scale" />
 
             <descendants>
                 <leaf type="torus" inner="1" outer="3.0" slices="4" loops="10" />

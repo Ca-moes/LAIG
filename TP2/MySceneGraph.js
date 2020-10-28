@@ -653,7 +653,7 @@ class MySceneGraph {
             const descendantsIndex = nodeNames.indexOf("descendants");
             const animationsIndex = nodeNames.indexOf("animationref");
 
-            if (animationsIndex - 1 !== transformationsIndex && animationsIndex !== -1) {
+            if (animationsIndex + 1 !== descendantsIndex && animationsIndex !== -1) {
                 return "[NODES] XML Error - animationref is out of order. Node ID: " + nodeID
             }
 
@@ -1061,8 +1061,12 @@ class MySceneGraph {
             currentAnimation = node.animation
         }
 
+        let visible = true;
         if (currentAnimation != null) {
-            currentAnimation.apply(this.scene)
+            // caso o filho tenha animação aplica, caso contrário já foi aplicada anteriormente
+            if (node.animation != null)
+                currentAnimation.apply(this.scene)
+            visible = currentAnimation.visible;
         }
 
         for (let leaf of node.descendants.leaves) {
@@ -1074,7 +1078,8 @@ class MySceneGraph {
                  *  anymore, this flag - updatedTexCoords helps with that */
                 leaf.object.updateTexCoords(currentTexture.amplification)
             }
-            leaf.object.display()
+            if (visible)
+                leaf.object.display()
         }
 
         for (let noderef of node.descendants.nodes) {
@@ -1101,6 +1106,7 @@ class MySceneGraph {
             // parsing keyframes
             let keyframes = [];
             const grandChildren = children[i].children // keyframes
+            let previous_instant = -1;
             for (let j = 0; j < grandChildren.length; j++) {
                 if (grandChildren[j].nodeName !== "keyframe") {
                     this.onXMLMinorError("[ANIMATIONS] unknown tag <" + grandChildren[j].nodeName + ">")
@@ -1110,6 +1116,11 @@ class MySceneGraph {
                 const keyframeInstant = this.reader.getFloat(grandChildren[j], 'instant')
                 if (isNaN(keyframeInstant) || keyframeInstant == null) {
                     return "[Keyframe] Instant not valid for animation ID: " + animationID
+                }
+                if (keyframeInstant <= previous_instant) {
+                    return "[KeyFrame] Instant not valid for animation ID: " + animationID
+                } else {
+                    previous_instant = keyframeInstant
                 }
                 let transformations = grandChildren[j].children
                 let translation = {
