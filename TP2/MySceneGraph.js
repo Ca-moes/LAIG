@@ -1166,9 +1166,9 @@ class MySceneGraph {
                 }
                 keyframes.push({
                     instant: keyframeInstant,
-                    translation: translation,
-                    rotation: rotation,
-                    scale: scale,
+                    translation: vec3.fromValues(translation.x, translation.y, translation.z),
+                    rotation: vec3.fromValues(rotation.x, rotation.y, rotation.z),
+                    scale: vec3.fromValues(scale.sx, scale.sy, scale.sz)
                 })
             }
             this.animations[animationID] = new KeyframeAnimation(keyframes)

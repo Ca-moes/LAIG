@@ -21,12 +21,22 @@ class KeyframeAnimation extends Animation {
         this.visible = true;
 
         if (this.next_keyframe === this.keyframes.length - 1 && t >= this.keyframes[this.keyframes.length - 1].instant) {
-            /* TODO quando estamos no ultimo keyframe queremos manter a posição */
+            /* quando estamos no ultimo keyframe queremos manter a posição */
             return
         }
 
+        /* caso exista apenas um keyframe deve ser aplicado quando o tempo for oportuno */
         if (this.keyframes.length === 1) {
-            /* TODO cenas para quando so temos um keyframe */
+            this.current_matrix = mat4.create()
+            mat4.translate(this.current_matrix, this.current_matrix, this.keyframes[this.current_keyframe].translation);
+            mat4.rotate(this.current_matrix, this.current_matrix, this.keyframes[this.current_keyframe].rotation[0] * DEGREE_TO_RAD, [1, 0, 0]);
+            mat4.rotate(this.current_matrix, this.current_matrix, this.keyframes[this.current_keyframe].rotation[1] * DEGREE_TO_RAD, [0, 1, 0]);
+            mat4.rotate(this.current_matrix, this.current_matrix, this.keyframes[this.current_keyframe].rotation[2] * DEGREE_TO_RAD, [0, 0, 1]);
+            mat4.scale(this.current_matrix, this.current_matrix, this.keyframes[this.current_keyframe].scale);
+
+            /* definir o keyframe proximo key-frame para que este if não seja processado mais vezes que o necessário
+            * utilizando o `if` anterior */
+            this.next_keyframe = this.current_keyframe;
             return
         }
 
@@ -38,60 +48,22 @@ class KeyframeAnimation extends Animation {
             }
         }
 
-        const translation = {
-            x: this.interpolate(this.keyframes[this.current_keyframe].translation.x,
-                this.keyframes[this.next_keyframe].translation.x,
-                t - this.keyframes[this.current_keyframe].instant ,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant),
-            y: this.interpolate(this.keyframes[this.current_keyframe].translation.y,
-                this.keyframes[this.next_keyframe].translation.y,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant),
-            z: this.interpolate(this.keyframes[this.current_keyframe].translation.z,
-                this.keyframes[this.next_keyframe].translation.z,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant)
-        }
+        let time = (t - this.keyframes[this.current_keyframe].instant) / (this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant);
 
-        const rotation = {
-            x: this.interpolate(this.keyframes[this.current_keyframe].rotation.x,
-                this.keyframes[this.next_keyframe].rotation.x,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant),
-            y: this.interpolate(this.keyframes[this.current_keyframe].rotation.y,
-                this.keyframes[this.next_keyframe].rotation.y,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant),
-            z: this.interpolate(this.keyframes[this.current_keyframe].rotation.z,
-                this.keyframes[this.next_keyframe].rotation.z,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant)
-        }
+        let translation = vec3.create()
+        vec3.lerp(translation, this.keyframes[this.current_keyframe].translation, this.keyframes[this.next_keyframe].translation, time)
 
-        const scale = {
-            sx: this.interpolate(this.keyframes[this.current_keyframe].scale.sx,
-                this.keyframes[this.next_keyframe].scale.sx,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant),
-            sy: this.interpolate(this.keyframes[this.current_keyframe].scale.sy,
-                this.keyframes[this.next_keyframe].scale.sy,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant),
-            sz: this.interpolate(this.keyframes[this.current_keyframe].scale.sz,
-                this.keyframes[this.next_keyframe].scale.sz,
-                t - this.keyframes[this.current_keyframe].instant,
-                this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant)
-        }
+        let rotation = vec3.create()
+        vec3.lerp(rotation, this.keyframes[this.current_keyframe].rotation, this.keyframes[this.next_keyframe].rotation, time)
+
+        let scale = vec3.create()
+        vec3.lerp(scale, this.keyframes[this.current_keyframe].scale, this.keyframes[this.next_keyframe].scale, time)
 
         this.current_matrix = mat4.create()
-        mat4.translate(this.current_matrix, this.current_matrix, [translation.x, translation.y, translation.z]);
-        mat4.rotate(this.current_matrix, this.current_matrix, rotation.x * DEGREE_TO_RAD, [1, 0, 0]);
-        mat4.rotate(this.current_matrix, this.current_matrix, rotation.y * DEGREE_TO_RAD, [0, 1, 0]);
-        mat4.rotate(this.current_matrix, this.current_matrix, rotation.z * DEGREE_TO_RAD, [0, 0, 1]);
-        mat4.scale(this.current_matrix, this.current_matrix, [scale.sx, scale.sy, scale.sz]);
-    }
-
-    interpolate(value1, value2, delta, time) {
-        return value1 + (value2 - value1) * delta / time
+        mat4.translate(this.current_matrix, this.current_matrix, translation);
+        mat4.rotate(this.current_matrix, this.current_matrix, rotation[0] * DEGREE_TO_RAD, [1, 0, 0]);
+        mat4.rotate(this.current_matrix, this.current_matrix, rotation[1] * DEGREE_TO_RAD, [0, 1, 0]);
+        mat4.rotate(this.current_matrix, this.current_matrix, rotation[2] * DEGREE_TO_RAD, [0, 0, 1]);
+        mat4.scale(this.current_matrix, this.current_matrix, scale);
     }
 }

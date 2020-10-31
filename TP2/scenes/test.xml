@@ -107,7 +107,7 @@
         </keyframe>
 
         <keyframe instant="5.0">
-          <translation x="-2" y="-2" z="-2"/>
+          <translation x="-5" y="-2" z="-2"/>
           <rotation axis="x" angle="0"/>
           <rotation axis="y" angle="0"/>
           <rotation axis="z" angle="0"/>
@@ -115,7 +115,7 @@
         </keyframe>
 
         <keyframe instant="8.0">
-          <translation x="1" y="1" z="1"/>
+          <translation x="10" y="1" z="1"/>
           <rotation axis="x" angle="0"/>
           <rotation axis="y" angle="0"/>
           <rotation axis="z" angle="0"/>
@@ -295,6 +295,8 @@
                 <translation x="5" y="5.0" z="0" />
             </transformations>
 
+          <animationref id="test_rotate" />
+
             <descendants>
                 <leaf type="triangle" x1="0" y1="0" x2="10" y2="0" x3="5" y3="5" />
             </descendants>
@@ -374,6 +376,8 @@
             <transformations>
                 <translation x="-7" y="0.0" z="0" />
             </transformations>
+
+            <animationref id="test_translate" />
 
             <descendants>
                 <leaf type="sphere" radius="3" slices="10" stacks="5"/>
