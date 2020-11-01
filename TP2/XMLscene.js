@@ -31,7 +31,6 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
-        this.setUpdatePeriod(100);
 
         this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
         this.loadingProgress=0;
@@ -40,6 +39,8 @@ class XMLscene extends CGFscene {
 
         this.selectedView = -1
         this.lightFlags = {}
+
+        this.last = performance.now();
     }
 
     /**
@@ -104,12 +105,19 @@ class XMLscene extends CGFscene {
         this.updateLights()
 
         this.sceneInited = true;
+        this.setUpdatePeriod(1000.0/60.0); // 60Hz
+        this.start = Math.round(Date.now())
     }
 
     /**
      * Displays the scene.
      */
     display() {
+        this.now = performance.now();
+        const fps = 1000 / (this.now - this.last);
+        this.last = this.now;
+
+        document.getElementById('fps').firstElementChild.innerHTML = "FPS: " + Math.round(fps)
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -154,6 +162,10 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    update(t) {
+        this.graph.updateAnimations((t - this.start) / 1000);
     }
 
     /**
