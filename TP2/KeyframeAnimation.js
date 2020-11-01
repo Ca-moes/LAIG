@@ -27,6 +27,7 @@ class KeyframeAnimation extends Animation {
 
         /* caso exista apenas um keyframe deve ser aplicado quando o tempo for oportuno */
         if (this.keyframes.length === 1) {
+            // ? Não deve ser preciso esta linha abaixo
             this.current_matrix = mat4.create()
             mat4.translate(this.current_matrix, this.current_matrix, this.keyframes[this.current_keyframe].translation);
             mat4.rotate(this.current_matrix, this.current_matrix, this.keyframes[this.current_keyframe].rotation[0] * DEGREE_TO_RAD, [1, 0, 0]);

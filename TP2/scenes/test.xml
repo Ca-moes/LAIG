@@ -97,6 +97,16 @@
         </keyframe>
       </animation>
 
+      <animation id="single_keyframe">
+        <keyframe instant="1.0">
+          <translation z="0" x="0" y="0" />
+          <rotation axis="x" angle="0"/>
+          <rotation axis="y" angle="45"/>
+          <rotation axis="z" angle="0"/>
+          <scale sx="1" sy="1" sz="1"/>
+        </keyframe>
+      </animation>
+
       <animation id="test_translate">
         <keyframe instant="3.0">
           <translation x="1" y="1" z="1"/>
@@ -279,6 +289,8 @@
             <transformations>
                 <translation x="-17" y="5.0" z="0" />
             </transformations>
+            
+            <animationref id="single_keyframe" />
 
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="15" y2="15" />
@@ -295,7 +307,7 @@
                 <translation x="5" y="5.0" z="0" />
             </transformations>
 
-          <animationref id="test_rotate" />
+            <animationref id="test_rotate" />
 
             <descendants>
                 <leaf type="triangle" x1="0" y1="0" x2="10" y2="0" x3="5" y3="5" />
