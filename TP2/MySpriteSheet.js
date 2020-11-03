@@ -13,7 +13,7 @@ class MySpriteSheet {
         this.sizeN = sizeN;
 
         this.testShader = new CGFshader(this.scene.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag");
-        this.testShader.setUniformsValues({cols:1/this.sizeM});
+        this.testShader.setUniformsValues({cols:1/this.sizeM}); // divisor para focar na primeira dvisão
         this.testShader.setUniformsValues({rows:1/this.sizeN});
         this.testShader.setUniformsValues({uSampler: 0});
     }   
@@ -26,7 +26,7 @@ class MySpriteSheet {
      */
     activateCellMN(m, n){
         // Passar a .vert shader as coordenadas de textura, que vão ser passadas a varying vec2 vTextureCoord;
-        this.testShader.setUniformsValues({m:m/this.sizeM});
+        this.testShader.setUniformsValues({m:m/this.sizeM}); // ratio em relação a tudo
         this.testShader.setUniformsValues({n:n/this.sizeN});
     }
 
