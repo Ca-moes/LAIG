@@ -225,6 +225,7 @@
                 <noderef id="testSphere"/>
                 <noderef id="testRectangle1"/>
                 <noderef id="testTriangle1"/>
+                <noderef id="testSpriteText"/>
 
                 <noderef id="together"/>
             </descendants>
@@ -386,13 +387,27 @@
             </texture>
 
             <transformations>
-                <translation x="-7" y="0.0" z="0" />
+                <translation x="-13" y="-5.0" z="0" />
             </transformations>
 
             <animationref id="test_translate" />
 
             <descendants>
                 <leaf type="sphere" radius="3" slices="10" stacks="5"/>
+            </descendants>
+        </node>
+
+        <node id="testSpriteText">   
+            <material id="red" />
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="spritetext" text="201806224" />
             </descendants>
         </node>
 

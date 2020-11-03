@@ -14,8 +14,10 @@ class MySpriteText{
     constructor(scene, text){
         this.scene = scene
         this.string = text
-        this.spritesheet = new MySpriteSheet(scene, new CGFtexture(this.scene, "./shaders/font_16x16.png"), 16, 16)
+        this.spritesheet = new MySpriteSheet(scene, "./shaders/font_16x16.png", 16, 16)
         this.square = new MyRectangle(this.scene, 0, 0, 1, 1)
+
+        this.updatedTexCoords = true; // no need for updateTexCoords
     }
 
     /**
@@ -40,20 +42,18 @@ class MySpriteText{
      * Cada caracter será mapeado na geometria utilizando a função MySpritesheet.activateCellP().
      */
     display(){
+        this.scene.setActiveShader(this.spritesheet.testShader);
+        this.spritesheet.texture.bind(0);
+        
+        this.scene.translate(-this.string.length/2, -0.5, 0);
+
         [...this.string].forEach(c => {
-            let pos = this.getCharacterPosition(c)
-            this.spritesheet.activateCellP(pos);
-            this.scene.setActiveShader(this.spritesheet.testShader)
+            this.spritesheet.activateCellP(this.getCharacterPosition(c));
             this.square.display()
             this.scene.translate(1,0,0);
-            this.scene.setActiveShader(this.scene.defaultShader)
         })
+
+        this.scene.setActiveShader(this.scene.defaultShader)
     }
 
-    /** 
-     * TODO:
-     * Adicione suporte na aplicação a um novo tipo de primitiva - spritetext - e adicione uma ou mais instâncias dessa primitiva no ficheiro de cena 
-     * (ver extensão ao LSF no final do enunciado)
-     * <leaf type=”spritetext” text=”ss” />    
-    */
 }

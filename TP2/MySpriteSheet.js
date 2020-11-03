@@ -8,25 +8,26 @@ class MySpriteSheet {
      */
     constructor(scene, texture, sizeM, sizeN){
         this.scene = scene;
-        this.texture = texture;
+        this.texture = new CGFtexture(this.scene, texture);
         this.sizeM = sizeM;
         this.sizeN = sizeN;
 
         this.testShader = new CGFshader(this.scene.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag");
-        this.testShader.setUniformsValues({cols:this.sizeM});
-        this.testShader.setUniformsValues({rows:this.sizeN});
-    }
+        this.testShader.setUniformsValues({cols:1/this.sizeM});
+        this.testShader.setUniformsValues({rows:1/this.sizeN});
+        this.testShader.setUniformsValues({uSampler: 0});
+    }   
 
     /**
      * “ativa” a célula de coordenadas (m, n). 
      * Para isso, deve ativar a textura e o shader, e definir os parâmetros do shader de acordo com as coordenadas de entrada.
-     * @param {*} m 
-     * @param {*} n 
+     * @param {*} m eixo dos x
+     * @param {*} n eixo dos y
      */
     activateCellMN(m, n){
         // Passar a .vert shader as coordenadas de textura, que vão ser passadas a varying vec2 vTextureCoord;
-        this.testShader.setUniformsValues({m:m});
-        this.testShader.setUniformsValues({n:n});
+        this.testShader.setUniformsValues({m:m/this.sizeM});
+        this.testShader.setUniformsValues({n:n/this.sizeN});
     }
 
     /**
