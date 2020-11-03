@@ -8,14 +8,13 @@ uniform mat4 uNMatrix;    // Normal transformation matrix
 
 varying vec2 vTextureCoord;
 
-void main() {
+uniform float cols;
+uniform float rows;
+uniform float m; // indice a começar em 0
+uniform float n; // indice a começar em 0
 
+void main() {
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 
-    const float n_total_cols = 1.0;
-    const float n_total_rows = 1.0;
-    const float m = 0.0; // indice a começar em 0
-    const float n = 0.0; // indice a começar em 0
-    vTextureCoord = (aTextureCoord * vec2(1.0/n_total_cols,1.0/n_total_rows)) + vec2(m/n_total_cols, n/n_total_rows);
-
+    vTextureCoord = (aTextureCoord * vec2(1.0/cols,1.0/rows)) + vec2(m/cols, n/rows);
 }

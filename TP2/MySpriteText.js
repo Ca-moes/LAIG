@@ -12,10 +12,10 @@ class MySpriteText{
      * @param {*} text 
      */
     constructor(scene, text){
-        this.scene = scene;
-        this.string = text;
-
-        // TODO inicializar MyRectangle e MySpriteSheet
+        this.scene = scene
+        this.string = text
+        this.spritesheet = new MySpriteSheet(scene, new CGFtexture(this.scene, "./shaders/font_16x16.png"), 16, 16)
+        this.square = new MyRectangle(this.scene, 0, 0, 1, 1)
     }
 
     /**
@@ -23,15 +23,15 @@ class MySpriteText{
      * Retorna apenas index do caracter, calcula-se as coordenadas:
      * 
      * coords (m,n)-> position(x) (em 16x16)
-     * 16*m + n = x --> (4,1) -> 65
+     * 16*n + m = x --> (4,1) -> 65
      * position (x) -> coords (m,n) (em 16x16)
      * x%16 = m; x/16 = n
      * @param {*} character 
      */
     getCharacterPosition(character){
-        const maping = [];
-        maping['A'] = 65;
-        maping['B'] = 66;
+        const maping = {
+        '0':48, '1':49, '2':50, '3':51, '4':52, '5':53, '6':54, '7':55, '8':56, '9':57, 
+        'A':65, 'B':66, 'C':67, 'D':65};
         return maping[character];
     }
 
@@ -40,12 +40,14 @@ class MySpriteText{
      * Cada caracter será mapeado na geometria utilizando a função MySpritesheet.activateCellP().
      */
     display(){
-        /*
-        aplica textura
-        display retangulo
-        shift
-        repeat
-        */
+        [...this.string].forEach(c => {
+            let pos = this.getCharacterPosition(c)
+            this.spritesheet.activateCellP(pos);
+            this.scene.setActiveShader(this.spritesheet.testShader)
+            this.square.display()
+            this.scene.translate(1,0,0);
+            this.scene.setActiveShader(this.scene.defaultShader)
+        })
     }
 
     /** 
