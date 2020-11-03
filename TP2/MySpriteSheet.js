@@ -10,6 +10,7 @@ class MySpriteSheet {
         this.texture = texture;
         this.sizeM = sizeM;
         this.sizeN = sizeN;
+        this.testShader = new CGFshader(this.gl, "shaders/test.vert", "shaders/test.frag");
     }
 
     /**
@@ -19,7 +20,7 @@ class MySpriteSheet {
      * @param {*} n 
      */
     activateCellMN(m, n){
-
+        // Passar a .vert shader as coordenadas de textura, que vão ser passadas a varying vec2 vTextureCoord;
     }
 
     /**
@@ -28,6 +29,6 @@ class MySpriteSheet {
      * @param {*} p 
      */
     activateCellP(p){
-
+        this.activateCellMN(p%this.sizeM, p/this.sizeN);
     }
 }

@@ -18,16 +18,19 @@ class MySpriteText{
 
     /**
      * função auxiliar que recebe o caracter a ser renderizado, e devolve a posição da sprite correspondente na grelha da spritesheet.
+     * Retorna apenas index do caracter, calcula-se as coordenadas:
+     * 
+     * coords (m,n)-> position(x) (em 16x16)
+     * 16*m + n = x --> (4,1) -> 65
+     * position (x) -> coords (m,n) (em 16x16)
+     * x%16 = m; x/16 = n
      * @param {*} character 
      */
     getCharacterPosition(character){
-        return {
-            coords : {
-                m: 1,
-                n: 1
-            },
-            position : 1
-        };
+        const maping = [];
+        maping['A'] = 65;
+        maping['B'] = 66;
+        return maping[character];
     }
 
     /**
@@ -35,12 +38,18 @@ class MySpriteText{
      * Cada caracter será mapeado na geometria utilizando a função MySpritesheet.activateCellP().
      */
     display(){
-
+        /*
+        aplica textura
+        display retangulo
+        shift
+        repeat
+        */
     }
 
     /** 
      * TODO:
-     * Adicione suporte na aplicação a um novo tipo de primitiva - spritetext - e adicione uma ou mais instâncias dessa primitiva no ficheiro de cena (ver extensão ao LSF no final do enunciado)
+     * Adicione suporte na aplicação a um novo tipo de primitiva - spritetext - e adicione uma ou mais instâncias dessa primitiva no ficheiro de cena 
+     * (ver extensão ao LSF no final do enunciado)
      * <leaf type=”spritetext” text=”ss” />    
     */
 }

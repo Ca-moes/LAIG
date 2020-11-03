@@ -871,6 +871,17 @@ class MySceneGraph {
                             type: "torus",
                             object: new MyTorus(this.scene, inner, outer, slices, loops)
                         })
+                    } else if (type == "spritetext") {
+                        const text = this.reader.getString(descendantsNodes[j], 'text')
+                        if (text == null)
+                            this.onXMLMinorError("[NODES] No text for spritetext on node id: " + nodeID);
+                        
+                        leaves.push({
+                            type: "spritetext",
+                            object: new MySpriteText(this.scene, text)
+                        })
+                    } else if (type == "spriteanim") {
+                        // TODO
                     }
                 }
             }
@@ -1074,7 +1085,8 @@ class MySceneGraph {
                 this.textures[currentTexture.textureId].bind()
             }
             if (!leaf.object.updatedTexCoords) {
-                /* once object updates its texCoords we dont need to call this function
+                /*
+                 *  once object updates its texCoords we dont need to call this function
                  *  anymore, this flag - updatedTexCoords helps with that */
                 leaf.object.updateTexCoords(currentTexture.amplification)
             }
