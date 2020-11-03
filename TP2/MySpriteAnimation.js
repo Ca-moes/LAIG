@@ -5,7 +5,16 @@
  * (sugestão: usar uma função update()).
  */
 class MySpriteAnimation{
-    constructor(spritesheet, initial, final, period){
+    /**
+     * 
+     * @param {*} scene 
+     * @param {*} spritesheet id or reference to MySpriteSheet
+     * @param {*} initial index of first sprite
+     * @param {*} final index of last sprite
+     * @param {FLoat} period seconds
+     */
+    constructor(scene, spritesheet, initial, final, period){
+        this.scene = scene;
         this.spritesheet = spritesheet;
         this.initial = initial;
         this.final = final;

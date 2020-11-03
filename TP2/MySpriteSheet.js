@@ -6,11 +6,13 @@ class MySpriteSheet {
      * @param {*} sizeM 
      * @param {*} sizeN 
      */
-    constructor(texture, sizeM, sizeN){
+    constructor(scene, texture, sizeM, sizeN){
         this.texture = texture;
         this.sizeM = sizeM;
         this.sizeN = sizeN;
-        this.testShader = new CGFshader(this.gl, "shaders/test.vert", "shaders/test.frag");
+        this.scene = scene;
+
+        this.testShader = new CGFshader(this.scene.gl, "shaders/test.vert", "shaders/test.frag");
     }
 
     /**

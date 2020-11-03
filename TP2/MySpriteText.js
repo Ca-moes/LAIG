@@ -14,6 +14,8 @@ class MySpriteText{
     constructor(scene, text){
         this.scene = scene;
         this.string = text;
+
+        // TODO inicializar MyRectangle e MySpriteSheet
     }
 
     /**

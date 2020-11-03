@@ -1,7 +1,9 @@
 class KeyframeAnimation extends Animation {
     constructor(keyframes) {
-        super(keyframes[0].instant, keyframes[keyframes.length - 1].instant,
-            keyframes[0].transformation, keyframes[keyframes.length - 1].transformation);
+        super(keyframes[0].instant, 
+            keyframes[keyframes.length - 1].instant,
+            keyframes[0].transformation, 
+            keyframes[keyframes.length - 1].transformation);
 
         this.keyframes = keyframes;
         this.current_keyframe = 0;
