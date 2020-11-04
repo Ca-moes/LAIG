@@ -45,6 +45,12 @@
         <texture id="demo" path="bottle.jpg" />
     </textures>
 
+    <spritesheets>
+        <spritesheet id="boom" path="./shaders/explosion_4x2.png" sizeM="4" sizeN="4" />
+        <spritesheet id="dance" path="./shaders/dance_8x10.png" sizeM="8" sizeN="10" />
+        <spritesheet id="stick" path="./shaders/stick_24x4.png" sizeM="24" sizeN="4" />
+        <spritesheet id="horse" path="./shaders/horse_20x13.png" sizeM="20" sizeN="13" />
+    </spritesheets>
 
     <materials>
         <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
@@ -226,6 +232,7 @@
                 <noderef id="testRectangle1"/>
                 <noderef id="testTriangle1"/>
                 <noderef id="testSpriteText"/>
+                <noderef id="testSpriteAnim"/>
 
                 <noderef id="together"/>
             </descendants>
@@ -403,11 +410,25 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="0" z="0" />
+                <translation x="0" y="2" z="0" />
             </transformations>
 
             <descendants>
                 <leaf type="spritetext" text="El Real Heineken" />
+            </descendants>
+        </node>
+
+        <node id="testSpriteAnim">   
+            <material id="null" />
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="spriteanim" ssid="boom" startCell="0" endCell="15" duration="15" />
             </descendants>
         </node>
 

@@ -47,9 +47,7 @@ class MySpriteText{
      * Cada caracter será mapeado na geometria utilizando a função MySpritesheet.activateCellP().
      */
     display(){
-        this.scene.setActiveShader(this.scene.spriteShader);
-        this.spritesheet.texture.bind(0);
-
+        this.spritesheet.activate()
         this.scene.translate(-this.string.length/2, -0.5, 0);
 
         [...this.string].forEach(c => {

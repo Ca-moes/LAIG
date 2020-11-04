@@ -7,21 +7,26 @@
 class MySpriteAnimation extends Animation{
     /**
      * @param {*} scene 
-     * @param {*} spritesheet id or reference to MySpriteSheet
+     * @param {MySpriteSheet} spritesheet id or reference to MySpriteSheet
      * @param {*} initial index of first sprite
      * @param {*} final index of last sprite
      * @param {Float} period seconds
      */
     constructor(scene, spritesheet, initial, final, period){
+        super(0,0,0,0)
         this.scene = scene;
         this.initial = initial;
         this.final = final;
         this.period = period;
 
-        this.spritesheet = new MySpriteSheet(scene);
+        this.spritesheet = spritesheet
         this.square = new MyRectangle(this.scene, 0, 0, 1, 1)
 
         this.index = initial;
+        this.deltaTime = period/(final-initial);
+        this.lastUpdate = 0;
+
+        this.updatedTexCoords = true; // no need for updateTexCoords
     }
 
     /**
@@ -32,16 +37,16 @@ class MySpriteAnimation extends Animation{
      *      index of current sprite
      */
     update(t){
-        // initial: 3    final: 8
-        // 3 4 5 6 7 8
-        // period: 5 secs
-        // 8 - 3 = 5
-        // 1 sec
+        if (t - this.lastUpdate >= this.deltaTime) {
+            this.index = this.index+1
+            this.lastUpdate = t
+        }
+        if (this.index == this.final + 1) 
+            this.index = this.initial
     }
 
     display(){
-        this.scene.setActiveShader(this.spritesheet.testShader);
-        this.spritesheet.texture.bind(0);
+        this.spritesheet.activate()
         
         this.spritesheet.activateCellP(this.index);
         this.square.display()

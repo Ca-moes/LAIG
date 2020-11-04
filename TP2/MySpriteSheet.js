@@ -12,11 +12,17 @@ class MySpriteSheet {
         this.sizeM = sizeM;
         this.sizeN = sizeN;
 
-        this.scene.spriteShader.setUniformsValues({cols:1/this.sizeM}); // divisor para focar na primeira dvisão
-        this.scene.spriteShader.setUniformsValues({rows:1/this.sizeN});
+        
         this.scene.spriteShader.setUniformsValues({uSampler: 0});
 
     }   
+
+    activate(){
+        this.scene.setActiveShader(this.scene.spriteShader);
+        this.texture.bind(0);
+        this.scene.spriteShader.setUniformsValues({cols:1/this.sizeM}); // divisor para focar na primeira dvisão
+        this.scene.spriteShader.setUniformsValues({rows:1/this.sizeN});
+    }
 
     /**
      * “ativa” a célula de coordenadas (m, n). 
