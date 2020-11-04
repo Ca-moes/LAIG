@@ -42,6 +42,6 @@ class MySpriteSheet {
      * @param {*} p 
      */
     activateCellP(p){
-        this.activateCellMN(p%this.sizeM, Math.floor(p/this.sizeN));
+        this.activateCellMN(p%this.sizeM, Math.floor(p/this.sizeM));
     }
 }

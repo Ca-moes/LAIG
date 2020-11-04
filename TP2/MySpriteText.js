@@ -23,11 +23,6 @@ class MySpriteText{
     /**
      * função auxiliar que recebe o caracter a ser renderizado, e devolve a posição da sprite correspondente na grelha da spritesheet.
      * Retorna apenas index do caracter, calcula-se as coordenadas:
-     * 
-     * coords (m,n)-> position(x) (em 16x16)
-     * 16*n + m = x --> (4,1) -> 65
-     * position (x) -> coords (m,n) (em 16x16)
-     * x%16 = m; Math.floor(x/16) = n
      * @param {*} character 
      */
     getCharacterPosition(character){

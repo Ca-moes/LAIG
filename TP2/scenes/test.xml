@@ -428,7 +428,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="spriteanim" ssid="boom" startCell="0" endCell="15" duration="15" />
+                <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="13" />
             </descendants>
         </node>
 
