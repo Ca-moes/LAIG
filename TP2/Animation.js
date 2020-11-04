@@ -15,4 +15,16 @@ class Animation {
     update(t) {
         throw("Abstract class cannot implement methods.");
     }
+
+    clone() {
+        return Object.assign(
+            Object.create(
+                // Set the prototype of the new object to the prototype of the instance.
+                // Used to allow new object behave like class instance.
+                Object.getPrototypeOf(this),
+            ),
+            // Prevent shallow copies of nested structures like arrays, etc
+            JSON.parse(JSON.stringify(this)),
+        );
+    }
 }

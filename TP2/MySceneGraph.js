@@ -19,7 +19,7 @@ class MySceneGraph {
      * Constructor for MySceneGraph class.
      * Initializes necessary variables and starts the XML file reading process.
      * @param {string} filename - File that defines the 3D scene
-     * @param {XMLScene} scene
+     * @param {XMLscene} scene
      */
     constructor(filename, scene) {
         this.loadedOk = null;
@@ -180,7 +180,7 @@ class MySceneGraph {
         if ((index = nodeNames.indexOf("spritesheets")) == -1)
             return "tag <spritesheets> missing";
         else {
-            if (index != SPRITESHEETS_INDEX)
+            if (index !== SPRITESHEETS_INDEX)
                 this.onXMLMinorError("tag <spritesheets> out of order");
 
             //Parse spritesheets block
@@ -573,16 +573,15 @@ class MySceneGraph {
             const file = this.reader.getString(children[i], 'path');
 
             const sizeM = this.reader.getInteger(children[i], 'sizeM')
-            if (sizeM == null || isNaN(sizeM)) {
+            if (sizeM == null || isNaN(sizeM) || sizeM <= 0) {
                 return "[SPRITESHEETS] Size M is not valid. SpritesheetID: " + spritesheetId;
             }
             const sizeN = this.reader.getInteger(children[i], 'sizeN')
-            if (sizeN == null || isNaN(sizeN)) {
+            if (sizeN == null || isNaN(sizeN) || sizeN <= 0) {
                 return "[SPRITESHEETS] Size N is not valid. SpritesheetID: " + spritesheetId;
             }
 
             this.spritesheets[spritesheetId] = new MySpriteSheet(this.scene, file, sizeM, sizeN)
-            console.log()
         }
         this.log("Parsed spritesheets.")
         return null;
@@ -935,10 +934,25 @@ class MySceneGraph {
                     } else if (type == "spriteanim") {
                         // TODO parse da leaf
                         const ssid = this.reader.getString(descendantsNodes[j], 'ssid');
-                        const start = this.reader.getInteger(descendantsNodes[j], 'startCell');
-                        const end = this.reader.getInteger(descendantsNodes[j], 'endCell');
-                        const duration = this.reader.getFloat(descendantsNodes[j], 'duration');
-                        console.log(this.spritesheets[ssid])
+                        let start = this.reader.getInteger(descendantsNodes[j], 'startCell');
+                        let end = this.reader.getInteger(descendantsNodes[j], 'endCell');
+                        let duration = this.reader.getFloat(descendantsNodes[j], 'duration');
+
+                        if (this.spritesheets[ssid] == null) {
+                            return `[NODES] No Spritesheet defined with ID: ${ssid}. Error on Node ID: ${nodeID}`
+                        }
+                        if (start == null || isNaN(start) || start < 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "start". SSID: ${ssid}. NodeID: ${nodeID}`)
+                            start = 0;
+                        }
+                        if (end == null || isNaN(end) || end >= this.spritesheets[ssid].sizeM * this.spritesheets[ssid].sizeN || end < start) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "end". SSID: ${ssid}. NodeID: ${nodeID}`)
+                            end = 1;
+                        }
+                        if (duration == null || isNaN(duration) || duration <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "duration". SSID: ${ssid}. NodeID: ${nodeID}`)
+                            duration = 1;
+                        }
                         let spriteAnim = new MySpriteAnimation(this.scene, this.spritesheets[ssid], start, end, duration)
                         this.animations.push(spriteAnim)
                         leaves.push({
@@ -1148,8 +1162,7 @@ class MySceneGraph {
                 this.textures[currentTexture.textureId].bind()
             }
             if (!leaf.object.updatedTexCoords) {
-                /*
-                 *  once object updates its texCoords we dont need to call this function
+                /*  once object updates its texCoords we dont need to call this function
                  *  anymore, this flag - updatedTexCoords helps with that */
                 leaf.object.updateTexCoords(currentTexture.amplification)
             }

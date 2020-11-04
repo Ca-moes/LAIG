@@ -414,7 +414,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="spritetext" text="El Real Heineken" />
+                <leaf type="spritetext" text="El Real Heineken and Ilario" />
             </descendants>
         </node>
 
@@ -428,7 +428,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="13" />
+                <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="1" />
             </descendants>
         </node>
 
