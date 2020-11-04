@@ -881,7 +881,17 @@ class MySceneGraph {
                             object: new MySpriteText(this.scene, text)
                         })
                     } else if (type == "spriteanim") {
-                        // TODO
+                        // TODO ver erros
+                        let spritesheetId = "1";
+                        let startCell = 1;
+                        let endCell = 1;
+                        let duration = 5.0;
+                        let spriteAnim = new MySpriteAnimation(this.scene, this.spritesheets[spritesheetId], startCell, endCell, duration)
+                        this.animations.push(spriteAnim)
+                        leaves.push({
+                            type: "spriteanim",
+                            object : spriteAnim
+                        })
                     }
                 }
             }

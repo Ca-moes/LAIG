@@ -27,7 +27,7 @@ class MySpriteText{
      * coords (m,n)-> position(x) (em 16x16)
      * 16*n + m = x --> (4,1) -> 65
      * position (x) -> coords (m,n) (em 16x16)
-     * x%16 = m; x/16 = n
+     * x%16 = m; Math.floor(x/16) = n
      * @param {*} character 
      */
     getCharacterPosition(character){
@@ -47,9 +47,9 @@ class MySpriteText{
      * Cada caracter será mapeado na geometria utilizando a função MySpritesheet.activateCellP().
      */
     display(){
-        this.scene.setActiveShader(this.spritesheet.testShader);
+        this.scene.setActiveShader(this.scene.spriteShader);
         this.spritesheet.texture.bind(0);
-        
+
         this.scene.translate(-this.string.length/2, -0.5, 0);
 
         [...this.string].forEach(c => {
