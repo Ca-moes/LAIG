@@ -41,6 +41,10 @@ class XMLscene extends CGFscene {
         this.lightFlags = {}
 
         this.last = performance.now();
+
+        // Sprites
+        this.shaderAppearance = new CGFappearance(this);
+        this.spriteShader = new CGFshader(this.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag"); 
     }
 
     /**

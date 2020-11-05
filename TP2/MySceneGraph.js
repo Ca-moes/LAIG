@@ -1,14 +1,15 @@
 const DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
-var INITIALS_INDEX = 0;
-var VIEWS_INDEX = 1;
-var ILLUMINATION_INDEX = 2;
-var LIGHTS_INDEX = 3;
-var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var ANIMATIONS_INDEX = 6;
-var NODES_INDEX = 7;
+const INITIALS_INDEX = 0;
+const VIEWS_INDEX = 1;
+const ILLUMINATION_INDEX = 2;
+const LIGHTS_INDEX = 3;
+const TEXTURES_INDEX = 4;
+const SPRITESHEETS_INDEX = 5
+const MATERIALS_INDEX = 6;
+const ANIMATIONS_INDEX = 7;
+const NODES_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -18,7 +19,7 @@ class MySceneGraph {
      * Constructor for MySceneGraph class.
      * Initializes necessary variables and starts the XML file reading process.
      * @param {string} filename - File that defines the 3D scene
-     * @param {XMLScene} scene
+     * @param {XMLscene} scene
      */
     constructor(filename, scene) {
         this.loadedOk = null;
@@ -172,6 +173,18 @@ class MySceneGraph {
 
             //Parse textures block
             if ((error = this.parseTextures(nodes[index])) != null)
+                return error;
+        }
+
+        // <spritesheets>
+        if ((index = nodeNames.indexOf("spritesheets")) == -1)
+            return "tag <spritesheets> missing";
+        else {
+            if (index !== SPRITESHEETS_INDEX)
+                this.onXMLMinorError("tag <spritesheets> out of order");
+
+            //Parse spritesheets block
+            if ((error = this.parseSpriteSheets(nodes[index])) != null)
                 return error;
         }
 
@@ -537,6 +550,44 @@ class MySceneGraph {
         return null;
     }
 
+
+    parseSpriteSheets(spritesheetsNode) {
+        let children = spritesheetsNode.children
+
+        this.spritesheets = []
+
+        //For each spritesheet in spritesheets block, check ID, file URL, sizeM, sizeN
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].nodeName !== "spritesheet") {
+                this.onXMLMinorError("[spritesheetS] unknown tag <" + children[i].nodeName + ">");
+                continue
+            }
+            const spritesheetId = this.reader.getString(children[i], 'id')
+            if (spritesheetId.length === 0) {
+                return "[spritesheetS] no spritesheet ID defined"
+            }
+            if (this.spritesheets[spritesheetId] != null) {
+                return "ID must be unique for each spritesheet (conflict: ID = " + spritesheetId + ")";
+            }
+
+            const file = this.reader.getString(children[i], 'path');
+
+            const sizeM = this.reader.getInteger(children[i], 'sizeM')
+            if (sizeM == null || isNaN(sizeM) || sizeM <= 0) {
+                return "[SPRITESHEETS] Size M is not valid. SpritesheetID: " + spritesheetId;
+            }
+            const sizeN = this.reader.getInteger(children[i], 'sizeN')
+            if (sizeN == null || isNaN(sizeN) || sizeN <= 0) {
+                return "[SPRITESHEETS] Size N is not valid. SpritesheetID: " + spritesheetId;
+            }
+
+            this.spritesheets[spritesheetId] = new MySpriteSheet(this.scene, file, sizeM, sizeN)
+        }
+        this.log("Parsed spritesheets.")
+        return null;
+    }
+
+
     /**
      * Parses the <materials> node.
      * @param {materials block element} materialsNode
@@ -871,6 +922,43 @@ class MySceneGraph {
                             type: "torus",
                             object: new MyTorus(this.scene, inner, outer, slices, loops)
                         })
+                    } else if (type == "spritetext") {
+                        const text = this.reader.getString(descendantsNodes[j], 'text')
+                        if (text == null)
+                            this.onXMLMinorError("[NODES] No text for spritetext on node id: " + nodeID);
+                        
+                        leaves.push({
+                            type: "spritetext",
+                            object: new MySpriteText(this.scene, text)
+                        })
+                    } else if (type == "spriteanim") {
+                        // TODO parse da leaf
+                        const ssid = this.reader.getString(descendantsNodes[j], 'ssid');
+                        let start = this.reader.getInteger(descendantsNodes[j], 'startCell');
+                        let end = this.reader.getInteger(descendantsNodes[j], 'endCell');
+                        let duration = this.reader.getFloat(descendantsNodes[j], 'duration');
+
+                        if (this.spritesheets[ssid] == null) {
+                            return `[NODES] No Spritesheet defined with ID: ${ssid}. Error on Node ID: ${nodeID}`
+                        }
+                        if (start == null || isNaN(start) || start < 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "start". SSID: ${ssid}. NodeID: ${nodeID}`)
+                            start = 0;
+                        }
+                        if (end == null || isNaN(end) || end >= this.spritesheets[ssid].sizeM * this.spritesheets[ssid].sizeN || end < start) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "end". SSID: ${ssid}. NodeID: ${nodeID}`)
+                            end = 1;
+                        }
+                        if (duration == null || isNaN(duration) || duration <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "duration". SSID: ${ssid}. NodeID: ${nodeID}`)
+                            duration = 1;
+                        }
+                        let spriteAnim = new MySpriteAnimation(this.scene, this.spritesheets[ssid], start, end, duration)
+                        this.animations.push(spriteAnim)
+                        leaves.push({
+                            type: "spriteanim",
+                            object : spriteAnim
+                        })
                     }
                 }
             }
@@ -1074,7 +1162,7 @@ class MySceneGraph {
                 this.textures[currentTexture.textureId].bind()
             }
             if (!leaf.object.updatedTexCoords) {
-                /* once object updates its texCoords we dont need to call this function
+                /*  once object updates its texCoords we dont need to call this function
                  *  anymore, this flag - updatedTexCoords helps with that */
                 leaf.object.updateTexCoords(currentTexture.amplification)
             }

@@ -1,7 +1,9 @@
 class KeyframeAnimation extends Animation {
     constructor(keyframes) {
-        super(keyframes[0].instant, keyframes[keyframes.length - 1].instant,
-            keyframes[0].transformation, keyframes[keyframes.length - 1].transformation);
+        super(keyframes[0].instant, 
+            keyframes[keyframes.length - 1].instant,
+            keyframes[0].transformation, 
+            keyframes[keyframes.length - 1].transformation);
 
         this.keyframes = keyframes;
         this.current_keyframe = 0;
@@ -12,6 +14,7 @@ class KeyframeAnimation extends Animation {
     }
 
     update(t) {
+        // console.log(t);
         /* verificar se a animação está ativa */
         if (t < this.start) {
             this.visible = false;
@@ -49,6 +52,8 @@ class KeyframeAnimation extends Animation {
             }
         }
 
+        /* console.log(this.keyframes[this.current_keyframe]);
+        console.log(this.keyframes[this.next_keyframe]); */
         let time = (t - this.keyframes[this.current_keyframe].instant) / (this.keyframes[this.next_keyframe].instant - this.keyframes[this.current_keyframe].instant);
 
         let translation = vec3.create()

@@ -24,6 +24,9 @@ serialInclude(['../lib/CGF.js',
     './primitives/MyCircle.js',
     'Animation.js',
     'KeyframeAnimation.js',
+    'MySpriteSheet.js',
+    'MySpriteText.js',
+    'MySpriteAnimation.js',
 
 main=function()
 {
