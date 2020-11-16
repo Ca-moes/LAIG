@@ -109,7 +109,7 @@ class XMLscene extends CGFscene {
         this.updateLights()
 
         this.sceneInited = true;
-        this.setUpdatePeriod(1000.0/144.0); // 60Hz
+        this.setUpdatePeriod(1000.0/20.0); // 60Hz
         this.start = Math.round(Date.now())
     }
 

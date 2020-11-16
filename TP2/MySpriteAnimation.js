@@ -42,8 +42,9 @@ class MySpriteAnimation extends Animation{
             this.index = this.index+updatedFrames
             this.lastUpdate = t
         }
-        if (this.index >= this.final + 1) 
-            this.index = this.initial
+        if (this.index >=  this.final + 1)
+            this.index = this.index - this.final
+        
     }
 
     display(){
