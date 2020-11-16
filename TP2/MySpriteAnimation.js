@@ -38,11 +38,13 @@ class MySpriteAnimation extends Animation{
      */
     update(t){
         if (t - this.lastUpdate >= this.deltaTime) {
-            this.index = this.index+1
+            let updatedFrames = Math.floor((t - this.lastUpdate)/this.deltaTime)
+            this.index = this.index+updatedFrames
             this.lastUpdate = t
         }
-        if (this.index == this.final + 1) 
-            this.index = this.initial
+        if (this.index >=  this.final + 1)
+            this.index = this.index - this.final
+        
     }
 
     display(){

@@ -18,7 +18,7 @@ class MySpriteSheet {
     }   
 
     activate(){
-        this.scene.setActiveShader(this.scene.spriteShader);
+        this.scene.setActiveShaderSimple(this.scene.spriteShader);
         this.texture.bind(0);
         this.scene.spriteShader.setUniformsValues({cols:1/this.sizeM}); // divisor para focar na primeira dvisão
         this.scene.spriteShader.setUniformsValues({rows:1/this.sizeN});

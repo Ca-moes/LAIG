@@ -18,5 +18,5 @@ void main() {
 
     vec2 focus = vec2(cols,rows); // se não tiver shift foca no primeiro elemento
     vec2 shift = vec2(m, n);     // dá shift para o elemento que queremos
-    vTextureCoord = (aTextureCoord * focus) + shift;
+    vTextureCoord = aTextureCoord * focus + shift;
 }
