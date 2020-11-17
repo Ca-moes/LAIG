@@ -932,7 +932,6 @@ class MySceneGraph {
                             object: new MySpriteText(this.scene, text)
                         })
                     } else if (type == "spriteanim") {
-                        // TODO parse da leaf
                         const ssid = this.reader.getString(descendantsNodes[j], 'ssid');
                         let start = this.reader.getInteger(descendantsNodes[j], 'startCell');
                         let end = this.reader.getInteger(descendantsNodes[j], 'endCell');
@@ -958,6 +957,23 @@ class MySceneGraph {
                         leaves.push({
                             type: "spriteanim",
                             object : spriteAnim
+                        })
+                    } else if (type === "plane") {
+                        let npartsU = this.reader.getInteger(descendantsNodes[j], 'npartsU');
+                        let npartsV = this.reader.getInteger(descendantsNodes[j], 'npartsV');
+
+                        if (npartsU == null || isNaN(npartsU) || npartsU <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "npartsU". NodeID: ${nodeID}`)
+                            npartsU = 10;
+                        }
+                        if (npartsV == null || isNaN(npartsV) || npartsV <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "npartsV". NodeID: ${nodeID}`)
+                            npartsV = 10;
+                        }
+                        const plane = new Plane(this.scene, npartsU, npartsV)
+                        leaves.push({
+                            type: "plane",
+                            object: plane
                         })
                     }
                 }

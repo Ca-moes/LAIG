@@ -235,6 +235,7 @@
                 <noderef id="testSpriteAnim"/>
 
                 <noderef id="together"/>
+              <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
 
