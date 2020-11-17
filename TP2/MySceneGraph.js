@@ -994,6 +994,46 @@ class MySceneGraph {
                                 updateTexCoords() { }
                             }
                         })
+                    } else if (type === "patch") {
+                        let npointsU = this.reader.getInteger(descendantsNodes[j], "npointsU")
+                        let npointsV = this.reader.getInteger(descendantsNodes[j], "npointsV")
+                        let npartsU = this.reader.getInteger(descendantsNodes[j], "npartsU")
+                        let npartsV = this.reader.getInteger(descendantsNodes[j], "npartsV")
+
+                        // TODO - Fazer verificação dos valores
+
+                        const controlPointsNodes = descendantsNodes[j].children
+                        let controlPoints = []
+                        let index = 0;
+                        for (let u = 0; u < npointsU; u++) {
+                            let uList = []
+                            for (let v = 0; v < npointsV; v++) {
+                                let x = this.reader.getFloat(controlPointsNodes[index], 'xx')
+                                let y = this.reader.getFloat(controlPointsNodes[index], 'yy')
+                                let z = this.reader.getFloat(controlPointsNodes[index], 'zz')
+
+                                uList.push([x, y, z, 1]);
+                            }
+                            controlPoints.push(uList)
+                        }
+
+                        leaves.push({
+                            type: "patch",
+                            object: {
+                                updatedTexCoords: true,
+                                display() {
+                                    console.log(
+                                        `npointsU: ${npointsU}\n` +
+                                        `npointsV: ${npointsV}\n` +
+                                        `npartsU: ${npartsU}\n` +
+                                        `npartsV: ${npartsV}\n`
+                                    )
+                                    console.log(controlPoints)
+                                },
+                                updateTexCoords() {
+                                }
+                            }
+                        })
                     }
                 }
             }
