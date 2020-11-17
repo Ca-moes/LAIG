@@ -236,6 +236,7 @@
 
                 <noderef id="together"/>
               <leaf type="plane" npartsU="10" npartsV="10" />
+              <leaf type="defbarrel" base="15.0" height="10.0" middle="18.0" slices="10" stacks="10" />
             </descendants>
         </node>
 

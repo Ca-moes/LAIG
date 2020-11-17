@@ -975,6 +975,25 @@ class MySceneGraph {
                             type: "plane",
                             object: plane
                         })
+                    } else if (type === "defbarrel") {
+                        let base = this.reader.getFloat(descendantsNodes[j], 'base')
+                        let middle = this.reader.getFloat(descendantsNodes[j], 'middle')
+                        let height = this.reader.getFloat(descendantsNodes[j], 'height')
+                        let slices = this.reader.getInteger(descendantsNodes[j], 'slices')
+                        let stacks = this.reader.getInteger(descendantsNodes[j], 'stacks')
+
+                        // TODO - Verificação dos valores
+                        // TODO - DefBarrel
+                        leaves.push({
+                            type: "defbarrel",
+                            object: {
+                                updatedTexCoords: true,
+                                display() {
+                                    console.log(`Base ${base} ; middle ${middle} ; height ${height} ; slices ${slices} ; stacks ${stacks}`)
+                                },
+                                updateTexCoords() { }
+                            }
+                        })
                     }
                 }
             }
@@ -1410,5 +1429,9 @@ class MySceneGraph {
         for (const [animationID, animation] of Object.entries(this.animations)) {
             animation.update(t);
         }
+    }
+
+    verififyValues(/* tipo pretendido, id, mensagem predefinida */) {
+
     }
 }
