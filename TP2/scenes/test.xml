@@ -245,6 +245,7 @@
                 <controlpoint xx="2.0" yy="2.0" zz="2.0" />
                 <controlpoint xx="1.5" yy="1.5" zz="0.0" />
               </leaf>
+              <leaf type="defbarrel" base="5" middle="6" height="10" slices="10" stacks="10" />
             </descendants>
         </node>
 

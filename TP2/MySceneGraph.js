@@ -986,13 +986,7 @@ class MySceneGraph {
                         // TODO - DefBarrel
                         leaves.push({
                             type: "defbarrel",
-                            object: {
-                                updatedTexCoords: true,
-                                display() {
-                                    console.log(`Base ${base} ; middle ${middle} ; height ${height} ; slices ${slices} ; stacks ${stacks}`)
-                                },
-                                updateTexCoords() { }
-                            }
+                            object: new MyDefbarrel(this.scene, base, middle, height, stacks, slices)
                         })
                     } else if (type === "patch") {
                         let npointsU = this.reader.getInteger(descendantsNodes[j], "npointsU")
