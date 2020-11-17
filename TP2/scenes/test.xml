@@ -224,23 +224,26 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <noderef id="testCylinder"/>
-                <noderef id="testCylinderBt"/>
-                <noderef id="testCylinderTb"/>
-                <noderef id="testTorus"/>
-                <noderef id="testSphere"/>
-                <noderef id="testRectangle1"/>
-                <noderef id="testTriangle1"/>
+
                 <noderef id="testSpriteText"/>
                 <noderef id="testSpriteAnim"/>
 
                 <noderef id="together"/>
-              <leaf type="plane" npartsU="10" npartsV="10" />
-              <leaf type="patch" npointsU="2" npointsV="2" npartsU="20" npartsV="20" >
-                <controlpoint xx="-2" yy="-2" zz="0" />
-                <controlpoint xx="-2" yy="2" zz="0" />
-                <controlpoint xx="2" yy="-2" zz="0" />
-                <controlpoint xx="2" yy="2" zz="0" />
+              <leaf type="patch" npointsU="3" npointsV="4" npartsU="20" npartsV="20" >
+                <controlpoint xx="-1.5" yy="-1.5" zz="0" />
+                <controlpoint xx="-2.0" yy="-2.0" zz="2.0" />
+                <controlpoint xx="-2.0" yy="2.0" zz="2.0" />
+                <controlpoint xx="-1.5" yy="1.5" zz="0.0" />
+
+                <controlpoint xx="0" yy="0" zz="3.0" />
+                <controlpoint xx="0" yy="-2" zz="3.0" />
+                <controlpoint xx="0" yy="2" zz="3.0" />
+                <controlpoint xx="0" yy="0" zz="3.0" />
+
+                <controlpoint xx="1.5" yy="-1.5" zz="0" />
+                <controlpoint xx="2.0" yy="-2.0" zz="2.0" />
+                <controlpoint xx="2.0" yy="2.0" zz="2.0" />
+                <controlpoint xx="1.5" yy="1.5" zz="0.0" />
               </leaf>
             </descendants>
         </node>

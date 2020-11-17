@@ -1010,7 +1010,7 @@ class MySceneGraph {
                             for (let v = 0; v < npointsV; v++) {
                                 let x = this.reader.getFloat(controlPointsNodes[index], 'xx')
                                 let y = this.reader.getFloat(controlPointsNodes[index], 'yy')
-                                let z = this.reader.getFloat(controlPointsNodes[index], 'zz')
+                                let z = this.reader.getFloat(controlPointsNodes[index++], 'zz')
 
                                 uList.push([x, y, z, 1]);
                             }
@@ -1019,20 +1019,7 @@ class MySceneGraph {
 
                         leaves.push({
                             type: "patch",
-                            object: {
-                                updatedTexCoords: true,
-                                display() {
-                                    console.log(
-                                        `npointsU: ${npointsU}\n` +
-                                        `npointsV: ${npointsV}\n` +
-                                        `npartsU: ${npartsU}\n` +
-                                        `npartsV: ${npartsV}\n`
-                                    )
-                                    console.log(controlPoints)
-                                },
-                                updateTexCoords() {
-                                }
-                            }
+                            object: new Patch(this.scene, npartsU, npartsV, npointsU - 1, npointsV - 1, controlPoints)
                         })
                     }
                 }
