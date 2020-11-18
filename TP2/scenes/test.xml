@@ -83,6 +83,13 @@
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="testmat">
+            <shininess value="10" />
+            <ambient r="1" g="1" b="1" a="1.0" />
+            <diffuse r="0" g="0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
+        </material>
     </materials>
 
     <animations>
@@ -213,7 +220,7 @@
     <nodes>
         <node id="demoRoot">            <!-- defines one intermediate node; may be repeated as necessary -->
             <!-- next two lines are mandatory -->
-            <material id="demoMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <material id="testmat" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
             <texture id="testTexture3">
                 <amplification aft="1" afs="1" />
@@ -227,6 +234,8 @@
 
                 <noderef id="testSpriteText"/>
                 <noderef id="testSpriteAnim"/>
+                <noderef id="testbarrel1"/>
+                <noderef id="testbarrel2"/>
 
                 <noderef id="together"/>
               <leaf type="patch" npointsU="3" npointsV="4" npartsU="20" npartsV="20" >
@@ -245,7 +254,6 @@
                 <controlpoint xx="2.0" yy="2.0" zz="2.0" />
                 <controlpoint xx="1.5" yy="1.5" zz="0.0" />
               </leaf>
-              <leaf type="defbarrel" base="2" middle="4" height="10" slices="10" stacks="10" />
             </descendants>
         </node>
 
@@ -443,5 +451,33 @@
             </descendants>
         </node>
 
+        <node id="testbarrel1">   
+            <material id="null" />
+            <texture id="null">
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="0" />
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="2" middle="4" height="10" slices="10" stacks="10" />
+            </descendants>
+        </node>
+
+        <node id="testbarrel2">   
+            <material id="null" />
+            <texture id="testTexture">
+            </texture>
+
+            <transformations>
+                <translation x="10" y="0" z="0" />
+                <rotation axis="z" angle="90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="2" middle="4" height="10" slices="10" stacks="10" />
+            </descendants>
+        </node>
     </nodes>
 </lsf>
