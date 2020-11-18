@@ -229,23 +229,9 @@
                 <noderef id="testSpriteAnim"/>
 
                 <noderef id="together"/>
-              <leaf type="patch" npointsU="3" npointsV="4" npartsU="20" npartsV="20" >
-                <controlpoint xx="-1.5" yy="-1.5" zz="0" />
-                <controlpoint xx="-2.0" yy="-2.0" zz="2.0" />
-                <controlpoint xx="-2.0" yy="2.0" zz="2.0" />
-                <controlpoint xx="-1.5" yy="1.5" zz="0.0" />
+              <noderef id="testBarrel1"/>
+              <noderef id="testBarrel2"/>
 
-                <controlpoint xx="0" yy="0" zz="3.0" />
-                <controlpoint xx="0" yy="-2" zz="3.0" />
-                <controlpoint xx="0" yy="2" zz="3.0" />
-                <controlpoint xx="0" yy="0" zz="3.0" />
-
-                <controlpoint xx="1.5" yy="-1.5" zz="0" />
-                <controlpoint xx="2.0" yy="-2.0" zz="2.0" />
-                <controlpoint xx="2.0" yy="2.0" zz="2.0" />
-                <controlpoint xx="1.5" yy="1.5" zz="0.0" />
-              </leaf>
-              <leaf type="defbarrel" base="5" middle="6" height="10" slices="10" stacks="10" />
             </descendants>
         </node>
 
@@ -379,7 +365,7 @@
             <animationref id="test_rotate"/>
 
             <descendants>
-                <leaf type="cylinder" height="5" topRadius="2" bottomRadius="1" stacks="10" slices="10"/>
+                <leaf type="cylinder" height="2" topRadius="2" bottomRadius="1" stacks="10" slices="10"/>
             </descendants>
         </node>
 
@@ -442,6 +428,35 @@
                 <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="2" />
             </descendants>
         </node>
+
+      <node id="testBarrel1">
+        <material id="null" />
+        <texture id="testTexture2">
+        </texture>
+
+        <transformations>
+          <translation x="0" y="0" z="0" />
+        </transformations>
+
+        <descendants>
+          <leaf type="defbarrel" base="5" middle="7" height="20" slices="10" stacks="10" />
+        </descendants>
+      </node>
+
+      <node id="testBarrel2">
+        <material id="null" />
+        <texture id="testTexture3">
+        </texture>
+
+        <transformations>
+          <translation x="0" y="0" z="0" />
+          <rotation axis="z" angle="90" />
+        </transformations>
+
+        <descendants>
+          <leaf type="defbarrel" base="5" middle="7" height="20" slices="10" stacks="10" />
+        </descendants>
+      </node>
 
     </nodes>
 </lsf>
