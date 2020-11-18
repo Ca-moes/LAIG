@@ -10,7 +10,7 @@ class MyDefbarrel extends CGFobject {
         const h = (4/3) * base
 
         let angle = Math.atan(h/base)
-        let aux = height / Math.tan(Math.PI / 3)
+        let aux = height / Math.tan(Math.PI / 2.5)
 
         this.surface = new Patch(scene, stacks, slices, 3, 3,
             [
@@ -22,14 +22,14 @@ class MyDefbarrel extends CGFobject {
                     ],
                     [
                         [-base, h, height, 1],
-                        [(base + H) * Math.cos(Math.PI - angle), Math.sin(Math.PI - angle) * (base + h), height - aux , 1],
-                        [(base + H) * Math.cos(Math.PI - angle), Math.sin(Math.PI - angle) * (base + h), aux, 1],
+                        [(base + H - base) * Math.cos(Math.PI - angle) - base, Math.sin(Math.PI - angle) * (base + h) + base, height - aux , 1],
+                        [(base + H - base) * Math.cos(Math.PI - angle) - base, Math.sin(Math.PI - angle) * (base + h) + base, aux, 1],
                         [-base, h, 0, 1],
                     ],
                     [
                         [base, h, height, 1],
-                        [(base + H) * Math.cos(angle), Math.sin(angle) * (base + h), height - aux , 1],
-                        [(base + H) * Math.cos(angle), Math.sin(angle) * (base + h), aux, 1],
+                        [(base + H - base) * Math.cos(angle) + base, Math.sin(angle) * (base + h) + base, height - aux , 1],
+                        [(base + H - base) * Math.cos(angle) + base, Math.sin(angle) * (base + h) + base, aux, 1],
                         [base, h, 0, 1],
                     ],
                     [
