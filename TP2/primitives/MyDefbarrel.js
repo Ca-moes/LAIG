@@ -6,41 +6,39 @@ class MyDefbarrel extends CGFobject {
 
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        const r = base
-        const R = middle
-        const L = height
-        const H = (4/3) * (R - r)
-        const h = (4/3) * r
+        const H = (4 / 3) * (middle - base)
+        const h = (4 / 3) * base
 
-        let angle = Math.atan(h/r) // atan(4/3)
-        let aux = L / Math.tan(Math.PI / 2.5)
+        const alpha = 30 * DEGREE_TO_RAD
+
+        let aux = H / Math.tan(alpha)
 
         this.surface = new Patch(scene, stacks, slices, 3, 3,
             [
-                    [
-                        [-r, 0, L, 1],
-                        [-(r + H), 0, L - aux , 1],
-                        [-(r + H), 0, aux, 1],
-                        [-r, 0, 0, 1],
-                    ],
-                    [
-                        [-r, h, L, 1],
-                        [(H) * Math.cos(Math.PI - angle) - r, Math.sin(Math.PI - angle) * (r+h) + r, L - aux , 1],
-                        [(H) * Math.cos(Math.PI - angle) - r, Math.sin(Math.PI - angle) * (r+h) + r, aux, 1],
-                        [-r, h, 0, 1],
-                    ],
-                    [
-                        [r, h, L, 1],
-                        [(H) * Math.cos(angle) + r, Math.sin(angle) * (r+h) + r, L - aux , 1],
-                        [(H) * Math.cos(angle) + r, Math.sin(angle) * (r+h) + r, aux, 1],
-                        [r, h, 0, 1],
-                    ],
-                    [
-                        [r, 0, L, 1],
-                        [r + H, 0, L - aux , 1],
-                        [r + H, 0, aux, 1],
-                        [r, 0, 0, 1],
-                    ],
+                [
+                    [base, 0, 0, 1],
+                    [base + H, 0, aux, 1],
+                    [base + H, 0, height - aux, 1],
+                    [base, 0, height, 1],
+                ],
+                [
+                    [base, h, 0, 1],
+                    [base + H, (4 / 3) * (base + H), aux, 1],
+                    [base + H, (4 / 3) * (base + H), height - aux, 1],
+                    [base, h, height, 1],
+                ],
+                [
+                    [-base, h, 0, 1],
+                    [-base - H, (4 / 3) * (base + H), aux, 1],
+                    [-base - H, (4 / 3) * (base + H), height - aux, 1],
+                    [-base, h, height, 1],
+                ],
+                [
+                    [-base, 0, 0, 1],
+                    [-base - H, 0, aux, 1],
+                    [-base - H, 0, height - aux, 1],
+                    [-base, 0, height, 1],
+                ],
             ])
     }
 

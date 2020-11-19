@@ -982,8 +982,27 @@ class MySceneGraph {
                         let slices = this.reader.getInteger(descendantsNodes[j], 'slices')
                         let stacks = this.reader.getInteger(descendantsNodes[j], 'stacks')
 
-                        // TODO - Verificação dos valores
-                        // TODO - DefBarrel
+                        if (base == null || isNaN(base) || base <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "base". NodeID: ${nodeID}`)
+                            base = 1
+                        }
+                        if (middle == null || isNaN(middle) || middle <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "middle". NodeID: ${nodeID}`)
+                            middle = 1
+                        }
+                        if (height == null || isNaN(height) || height <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "height". NodeID: ${nodeID}`)
+                            height = 1
+                        }
+                        if (slices == null || isNaN(slices) || slices <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "slices". NodeID: ${nodeID}`)
+                            slices = 10
+                        }
+                        if (stacks == null || isNaN(stacks) || stacks <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "stacks". NodeID: ${nodeID}`)
+                            stacks = 10
+                        }
+
                         leaves.push({
                             type: "defbarrel",
                             object: new MyDefbarrel(this.scene, base, middle, height, stacks, slices)
