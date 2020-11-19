@@ -449,7 +449,7 @@
         </texture>
 
         <transformations>
-          <translation x="0" y="0" z="0" />
+          <translation x="30" y="0" z="0" />
           <rotation axis="z" angle="90" />
         </transformations>
 
