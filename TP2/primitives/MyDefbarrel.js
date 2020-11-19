@@ -9,8 +9,9 @@ class MyDefbarrel extends CGFobject {
         const H = (4 / 3) * (middle - base)
         const h = (4 / 3) * base
 
-        const alpha = 30 * DEGREE_TO_RAD
-
+        let alpha = Math.atan(3*H/height)
+        if (alpha == 0) 
+            alpha = 0.0000001
         let aux = H / Math.tan(alpha)
 
         this.surface = new Patch(scene, stacks, slices, 3, 3,

@@ -447,7 +447,7 @@
         </transformations>
 
         <descendants>
-          <leaf type="defbarrel" base="5" middle="7" height="20" slices="10" stacks="10" />
+          <leaf type="defbarrel" base="2" middle="10" height="10" slices="10" stacks="10" />
         </descendants>
       </node>
 
