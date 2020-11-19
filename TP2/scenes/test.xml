@@ -43,6 +43,7 @@
         <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
         <texture id="testTexture3" path="./scenes/images/testTexture3.jpg" />
         <texture id="demo" path="bottle.jpg" />
+        <texture id="floor_wood" path="./scenes/images/floor_wood.jpg" />
     </textures>
 
     <spritesheets>
@@ -447,7 +448,7 @@
         </transformations>
 
         <descendants>
-          <leaf type="defbarrel" base="2" middle="10" height="10" slices="10" stacks="10" />
+          <leaf type="defbarrel" base="2" middle="3" height="10" slices="10" stacks="10" />
         </descendants>
       </node>
 
@@ -462,7 +463,7 @@
         </transformations>
 
         <descendants>
-          <leaf type="defbarrel" base="5" middle="7" height="20" slices="10" stacks="10" />
+          <leaf type="defbarrel" base="3" middle="7" height="10" slices="10" stacks="10" />
         </descendants>
       </node>
 
