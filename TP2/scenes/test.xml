@@ -43,6 +43,7 @@
         <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
         <texture id="testTexture3" path="./scenes/images/testTexture3.jpg" />
         <texture id="demo" path="bottle.jpg" />
+        <texture id="floor_wood" path="./scenes/images/floor_wood.jpg" />
     </textures>
 
     <spritesheets>
@@ -82,6 +83,13 @@
             <diffuse r="0" g="0" b="1.0" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="testmat">
+            <shininess value="10" />
+            <ambient r="1" g="1" b="1" a="1.0" />
+            <diffuse r="0" g="0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
         </material>
     </materials>
 
@@ -213,7 +221,7 @@
     <nodes>
         <node id="demoRoot">            <!-- defines one intermediate node; may be repeated as necessary -->
             <!-- next two lines are mandatory -->
-            <material id="demoMaterial" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+            <material id="testmat" /><!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
 
             <texture id="testTexture3">
                 <amplification aft="1" afs="1" />
@@ -224,17 +232,15 @@
             <!-- declaring descendants, at least one node or one leaf must be present
              descendants may be mixed, nodes and leafs -->
             <descendants>
-                <noderef id="testCylinder"/>
-                <noderef id="testCylinderBt"/>
-                <noderef id="testCylinderTb"/>
-                <noderef id="testTorus"/>
-                <noderef id="testSphere"/>
-                <noderef id="testRectangle1"/>
-                <noderef id="testTriangle1"/>
+
                 <noderef id="testSpriteText"/>
                 <noderef id="testSpriteAnim"/>
+                <noderef id="testBarrel1"/>
+                <noderef id="testBarrel2"/>
 
                 <noderef id="together"/>
+            
+
             </descendants>
         </node>
 
@@ -368,7 +374,7 @@
             <animationref id="test_rotate"/>
 
             <descendants>
-                <leaf type="cylinder" height="5" topRadius="2" bottomRadius="1" stacks="10" slices="10"/>
+                <leaf type="cylinder" height="2" topRadius="2" bottomRadius="1" stacks="10" slices="10"/>
             </descendants>
         </node>
 
@@ -431,6 +437,35 @@
                 <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="2" />
             </descendants>
         </node>
+
+      <node id="testBarrel1">
+        <material id="null" />
+        <texture id="testTexture2">
+        </texture>
+
+        <transformations>
+          <translation x="0" y="0" z="0" />
+        </transformations>
+
+        <descendants>
+          <leaf type="defbarrel" base="2" middle="3" height="10" slices="10" stacks="10" />
+        </descendants>
+      </node>
+
+      <node id="testBarrel2">
+        <material id="null" />
+        <texture id="testTexture3">
+        </texture>
+
+        <transformations>
+          <translation x="30" y="0" z="0" />
+          <rotation axis="z" angle="90" />
+        </transformations>
+
+        <descendants>
+          <leaf type="defbarrel" base="3" middle="7" height="10" slices="10" stacks="10" />
+        </descendants>
+      </node>
 
     </nodes>
 </lsf>

@@ -28,6 +28,8 @@ serialInclude(['../lib/CGF.js',
     'MySpriteSheet.js',
     'MySpriteText.js',
     'MySpriteAnimation.js',
+    './primitives/Patch.js',
+    './primitives/MyDefbarrel.js',
 
 main=function()
 {

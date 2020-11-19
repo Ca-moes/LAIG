@@ -932,7 +932,6 @@ class MySceneGraph {
                             object: new MySpriteText(this.scene, text)
                         })
                     } else if (type == "spriteanim") {
-                        // TODO parse da leaf
                         const ssid = this.reader.getString(descendantsNodes[j], 'ssid');
                         let start = this.reader.getInteger(descendantsNodes[j], 'startCell');
                         let end = this.reader.getInteger(descendantsNodes[j], 'endCell');
@@ -958,6 +957,82 @@ class MySceneGraph {
                         leaves.push({
                             type: "spriteanim",
                             object : spriteAnim
+                        })
+                    } else if (type === "plane") {
+                        let npartsU = this.reader.getInteger(descendantsNodes[j], 'npartsU');
+                        let npartsV = this.reader.getInteger(descendantsNodes[j], 'npartsV');
+
+                        if (npartsU == null || isNaN(npartsU) || npartsU <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "npartsU". NodeID: ${nodeID}`)
+                            npartsU = 10;
+                        }
+                        if (npartsV == null || isNaN(npartsV) || npartsV <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "npartsV". NodeID: ${nodeID}`)
+                            npartsV = 10;
+                        }
+                        const plane = new Plane(this.scene, npartsU, npartsV)
+                        leaves.push({
+                            type: "plane",
+                            object: plane
+                        })
+                    } else if (type === "defbarrel") {
+                        let base = this.reader.getFloat(descendantsNodes[j], 'base')
+                        let middle = this.reader.getFloat(descendantsNodes[j], 'middle')
+                        let height = this.reader.getFloat(descendantsNodes[j], 'height')
+                        let slices = this.reader.getInteger(descendantsNodes[j], 'slices')
+                        let stacks = this.reader.getInteger(descendantsNodes[j], 'stacks')
+
+                        if (base == null || isNaN(base) || base <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "base". NodeID: ${nodeID}`)
+                            base = 1
+                        }
+                        if (middle == null || isNaN(middle) || middle <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "middle". NodeID: ${nodeID}`)
+                            middle = 1
+                        }
+                        if (height == null || isNaN(height) || height <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "height". NodeID: ${nodeID}`)
+                            height = 1
+                        }
+                        if (slices == null || isNaN(slices) || slices <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "slices". NodeID: ${nodeID}`)
+                            slices = 10
+                        }
+                        if (stacks == null || isNaN(stacks) || stacks <= 0) {
+                            this.onXMLMinorError(`[NODES] Wrong/missing value for "stacks". NodeID: ${nodeID}`)
+                            stacks = 10
+                        }
+
+                        leaves.push({
+                            type: "defbarrel",
+                            object: new MyDefbarrel(this.scene, base, middle, height, stacks, slices)
+                        })
+                    } else if (type === "patch") {
+                        let npointsU = this.reader.getInteger(descendantsNodes[j], "npointsU")
+                        let npointsV = this.reader.getInteger(descendantsNodes[j], "npointsV")
+                        let npartsU = this.reader.getInteger(descendantsNodes[j], "npartsU")
+                        let npartsV = this.reader.getInteger(descendantsNodes[j], "npartsV")
+
+                        // TODO - Fazer verificação dos valores
+
+                        const controlPointsNodes = descendantsNodes[j].children
+                        let controlPoints = []
+                        let index = 0;
+                        for (let u = 0; u < npointsU; u++) {
+                            let uList = []
+                            for (let v = 0; v < npointsV; v++) {
+                                let x = this.reader.getFloat(controlPointsNodes[index], 'xx')
+                                let y = this.reader.getFloat(controlPointsNodes[index], 'yy')
+                                let z = this.reader.getFloat(controlPointsNodes[index++], 'zz')
+
+                                uList.push([x, y, z, 1]);
+                            }
+                            controlPoints.push(uList)
+                        }
+
+                        leaves.push({
+                            type: "patch",
+                            object: new Patch(this.scene, npartsU, npartsV, npointsU - 1, npointsV - 1, controlPoints)
                         })
                     }
                 }
@@ -1394,5 +1469,9 @@ class MySceneGraph {
         for (const [animationID, animation] of Object.entries(this.animations)) {
             animation.update(t);
         }
+    }
+
+    verififyValues(/* tipo pretendido, id, mensagem predefinida */) {
+
     }
 }
