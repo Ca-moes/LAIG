@@ -96,17 +96,17 @@
         </material>
         <material id="base">
             <shininess value="2" />
-            <ambient r="0.5" g="0.5" b="0.5" a="0.0" />
-            <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
         <material id="emissive">
             <shininess value="2" />
-            <ambient r="0.5" g="0.5" b="0.5" a="0.0" />
-            <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
-            <emissive r="0.5" g="0.5" b="0.5" a="0.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
         </material>
         <material id="chrome">
             <shininess value="76.8" />
