@@ -9,7 +9,7 @@ class MyDefbarrel extends CGFobject {
         const H = (4 / 3) * (middle - base)
         const h = (4 / 3) * base
 
-        const alpha = 20 * DEGREE_TO_RAD
+        const alpha = 30 * DEGREE_TO_RAD
 
         let aux = H / Math.tan(alpha)
 
