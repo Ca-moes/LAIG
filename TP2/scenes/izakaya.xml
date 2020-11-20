@@ -224,6 +224,7 @@
             </descendants>
         </node>
 
+        <!-- region jarro -->
         <node id="jarro_flor">
             <material id="base"/>
             <texture id="vase">
@@ -422,8 +423,8 @@
                 <leaf type="triangle" x1="-1" y1="0" x2="0" y2="0" x3="0" y3="1"/>
             </descendants>
         </node>
-
-
+        <!-- endregion -->
+        <!-- region televisão -->
         <node id="televisao_lat">
             <material id="null"/>
             <texture id="null">
@@ -482,7 +483,8 @@
                 <noderef id="quad_sup_esq" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region quadro -->
         <node id="quadro_tra">
             <material id="null"/>
             <texture id="null">
@@ -679,7 +681,8 @@
                 <noderef id="cube" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region garrafas -->
         <node id="garrafa_1">
             <material id="null"/>
             <texture id="null">
@@ -777,7 +780,8 @@
                 <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-
+        <!-- endregion garrafas -->
+        <!-- region prateleira -->
         <node id="prateleira">
             <material id="base"/>
             <texture id="null">
@@ -888,7 +892,8 @@
                 <noderef id="cube" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region cube -->
         <node id="cube">
             <material id="null" />
             <texture id="null">
@@ -996,7 +1001,8 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
-        <!-- Area dos tapetes da bancada -->
+        <!-- endregion -->
+        <!-- region tapetes da bancada -->
         <node id="set_lat_tapetes">
             <material id="base" />
             <texture id="rattan">
@@ -1134,8 +1140,8 @@
                 <noderef id="tapete" />
             </descendants>
         </node>
-        <!-- fim da area dos tapetes da bancada -->
-
+        <!-- endregion tapetes da bancada -->
+        <!-- region bancada -->
         <node id="bancada">
             <material id="null"/>
             <texture id="clear">
@@ -1277,7 +1283,8 @@
                 <noderef id="cube" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region paredes -->
         <node id="paredes">
             <material id="base" />
             <texture id="wall_wood">
@@ -1339,7 +1346,8 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="10" y2="4" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region clock -->
         <node id="clock">
             <material id="black_plastic"/>
             <texture id="clear"/>
@@ -1384,9 +1392,8 @@
                 <leaf type="cylinder" stacks="10" slices="10" topRadius="0.01" bottomRadius="0.02" height="0.4"/>
             </descendants>
         </node>
-
-
-
+        <!-- endregion -->
+        <!-- region cadeiras -->
         <node id="set_lat_cadeiras">
             <material id="null" />
             <texture id="clear">
@@ -1705,7 +1712,8 @@
                 <noderef id="cube" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region barrels -->
         <node id="barrel">
             <material id="null"/>
             <texture id="null" />
@@ -1783,8 +1791,6 @@
                 <noderef id="barrel3"/>
             </descendants>
         </node>
-
-
-
+        <!-- endregion -->
     </nodes>
 </lsf>
