@@ -44,7 +44,11 @@ class XMLscene extends CGFscene {
 
         // Sprites
         this.shaderAppearance = new CGFappearance(this);
-        this.spriteShader = new CGFshader(this.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag"); 
+        this.spriteShader = new CGFshader(this.gl, "shaders/spritesheet.vert", "shaders/spritesheet.frag");
+
+        this.gl.enable(this.gl.BLEND);         // enables blending
+        this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+
     }
 
     /**
