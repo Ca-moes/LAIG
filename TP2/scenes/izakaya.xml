@@ -85,7 +85,9 @@
         <texture id="barro" path="./scenes/images/barro.png" />
     </textures>
 
-    <spritesheets></spritesheets>
+    <spritesheets>
+        <spritesheet id="color_pattern" path="./shaders/color_pattern.png" sizeM="5" sizeN="5"/>
+    </spritesheets>
 
     <materials>
         <material id="demoMaterial">
@@ -100,6 +102,13 @@
             <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
             <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
+        <material id="base_transparent">
+            <shininess value="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="0.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
             <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
         <material id="emissive">
@@ -494,10 +503,11 @@
             </texture>
 
             <transformations>
+                <scale sz="1" sy="2" sx="2" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="2" y2="2" />
+                <leaf type="spriteanim" ssid="color_pattern" startCell="0" endCell="22" duration="2" />
             </descendants>
         </node>
         <node id="tel_sup_set">
@@ -1368,6 +1378,20 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
+        <node id="spritetext_izakaya">
+            <material id="emerald" />
+            <texture id="clear">
+            </texture>
+
+            <transformations>
+                <translation y="3" x="5.5" z="0.01"/>
+                <scale sx="0.4" sy="0.4" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="spritetext" text="IZAKAYA LAIG" />
+            </descendants>
+        </node>
         <node id="par_traseira">
             <material id="null" />
             <texture id="null">
@@ -1382,6 +1406,7 @@
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="15" y2="4" />
                 <noderef id="clock" />
+                <noderef id="spritetext_izakaya"/>
             </descendants>
         </node>
         <node id="par_traseira2">
@@ -2349,7 +2374,6 @@
         </node>
         <!-- endregion -->
         <!-- endregion -->
-
 
     </nodes>
 </lsf>
