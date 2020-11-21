@@ -50,7 +50,7 @@
         <light id="ceilingLight1">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="2.5" y="6" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="5" y="3.5" z="1.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -59,7 +59,7 @@
         <light id="ceilingLight2">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="2.5" y="6" z="10" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="5" y="3.5" z="12" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -201,9 +201,11 @@
                 <noderef id="quadro_tra" />
                 <noderef id="jarro_flor" />
 
-                <noderef id="setBarrels1" />
+                <!--<noderef id="setBarrels1" />-->
                 <noderef id="setBarrels2" />
 
+
+                <noderef id="mesa_refeicao" />
                 <noderef id="earth_sphere" />
             </descendants>
         </node>
@@ -1298,6 +1300,25 @@
                 <noderef id="par_chao" />
                 <noderef id="par_traseira" />
                 <noderef id="par_lateral" />
+                <noderef id="par_lateral2" />
+                <noderef id="par_teto" />
+                <noderef id="par_traseira2" />
+            </descendants>
+        </node>
+        <node id="par_teto">
+            <material id="base" />
+            <texture id="floor_wood">
+                <amplification afs="0.7" aft="1" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="4" z="0" />
+                <scale sx="10" sy="1" sz="15" />
+                <rotation axis="x" angle="90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
         <node id="par_chao">
@@ -1332,6 +1353,21 @@
                 <noderef id="clock" />
             </descendants>
         </node>
+        <node id="par_traseira2">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="15" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation x="10" y="0.0" z="0" />
+                <rotation axis="y" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="15" y2="4" />
+            </descendants>
+        </node>
         <node id="par_lateral">
             <material id="null" />
             <texture id="null">
@@ -1340,6 +1376,21 @@
 
             <transformations>
 
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="4" />
+            </descendants>
+        </node>
+        <node id="par_lateral2">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation z="15" x="10" y="0" />
+                <rotation angle="180" axis="y" />
             </transformations>
 
             <descendants>
@@ -1792,5 +1843,256 @@
             </descendants>
         </node>
         <!-- endregion -->
+        <!-- region mesa_refeição -->
+        <node id="mesa_refeicao">
+            <material id="base" />
+            <texture id="clear_wood" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="tampo_mesa_refeicao"/>
+                <noderef id="perna1_mesa_refeicao"/>
+                <noderef id="perna2_mesa_refeicao"/>
+                <noderef id="perna3_mesa_refeicao"/>
+                <noderef id="perna4_mesa_refeicao"/>
+                <noderef id="perna5_mesa_refeicao"/>
+
+                <noderef id="pilar1"/>
+                <noderef id="pilar2"/>
+                <noderef id="pilar3"/>
+
+                <noderef id="set1_cadeiras_mesa"/>
+                <noderef id="set2_cadeiras_mesa"/>
+                <noderef id="set3_cadeiras_mesa"/>
+                <noderef id="set4_cadeiras_mesa"/>
+                <noderef id="set5_cadeiras_mesa"/>
+                <noderef id="set6_cadeiras_mesa"/>
+                <noderef id="set7_cadeiras_mesa"/>
+                <noderef id="set8_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <!-- region tampo mesa refeicao -->
+        <node id="tampo_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="1.2" z="5"/>
+                <scale sz="10" sy="0.1" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna1_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="5"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna2_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="2.5"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna3_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="7.5"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna4_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="9.95"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna5_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="0.05"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region pilares mesa refeicao -->
+        <node id="pilar1">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="1.2" z="7.5" x="7.5" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="2.8" stacks="10" slices="10" middle="0.1" base="0.15" />
+            </descendants>
+        </node>
+        <node id="pilar2">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="1.2" z="5" x="7.5" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="2.8" stacks="10" slices="10" middle="0.1" base="0.15" />
+            </descendants>
+        </node>
+        <node id="pilar3">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="1.2" z="2.5" x="7.5" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="2.8" stacks="10" slices="10" middle="0.1" base="0.15" />
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region sets cadeiras mesa refeicao -->
+        <node id="set1_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="0.75"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set2_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="3.25"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set3_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="5.75"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set4_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="8.25"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set5_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="0.75"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set6_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="3.25"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set7_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="5.75"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set8_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="8.25"/>
+            </transformations>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+
+        <node id="set_cadeiras_mesa">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="0.45" x="0" z="0" />
+            </transformations>
+            <descendants>
+                <noderef id="cadeira1_mesa"/>
+                <noderef id="cadeira2_mesa"/>
+            </descendants>
+        </node>
+        <node id="cadeira1_mesa">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <scale sx="0.2" sy="0.2" sz="0.2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cadeira"/>
+            </descendants>
+        </node>
+        <node id="cadeira2_mesa">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation z="1" x="0" y="0" />
+                <scale sx="0.2" sy="0.2" sz="0.2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cadeira"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+
+        <!-- endregion -->
+
+
     </nodes>
 </lsf>
