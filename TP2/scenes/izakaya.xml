@@ -7,7 +7,7 @@
 
     <views default="Inicial">
         <perspective id="Inicial" near="0.1" far="500" angle="45">
-            <from x="8" y="3" z="11" />
+            <from x="10" y="3" z="18" />
             <to x="2.5" y="1" z="6" />
         </perspective>
         <perspective id="Vase" near="0.1" far="500" angle="45">
@@ -82,6 +82,7 @@
         <texture id="cork" path="./scenes/images/cork.jpg" />
         <texture id="earth" path="./scenes/images/earth.jpg" />
         <texture id="barrel" path="./scenes/images/barrel.jpg" />
+        <texture id="barro" path="./scenes/images/barro.png" />
     </textures>
 
     <spritesheets></spritesheets>
@@ -178,6 +179,38 @@
                 <scale sx="1" sy="1" sz="1"/>
             </keyframe>
         </animation>
+        <animation id="slide_left">
+            <keyframe instant="0.0">
+                <translation z="0" x="0.5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="2.0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="slide_right">
+            <keyframe instant="0.0">
+                <translation z="0" x="-0.5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="2.0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
     </animations>
 
     <nodes>
@@ -201,9 +234,7 @@
                 <noderef id="quadro_tra" />
                 <noderef id="jarro_flor" />
 
-                <!--<noderef id="setBarrels1" />-->
-                <noderef id="setBarrels2" />
-
+                <noderef id="set_barrels" />
 
                 <noderef id="mesa_refeicao" />
                 <noderef id="earth_sphere" />
@@ -1455,7 +1486,7 @@
                 <translation x="3.2" y="0.4" z="4" />
                 <scale sx="0.2" sy="0.18" sz="0.2" />
             </transformations>
-
+            <animationref id="slide_left"/>
             <descendants>
                 <noderef id="cadeira_1" />
                 <noderef id="cadeira_2" />
@@ -1817,19 +1848,7 @@
             </descendants>
         </node>
 
-        <node id="setBarrels1">
-            <material id="base"/>
-            <texture id="barrel"/>
-            <transformations>
-                <translation x="7" y="0" z="1"/>
-            </transformations>
-            <descendants>
-                <noderef id="barrel1"/>
-                <noderef id="barrel2"/>
-                <noderef id="barrel3"/>
-            </descendants>
-        </node>
-        <node id="setBarrels2">
+        <node id="set_barrels">
             <material id="base"/>
             <texture id="barrel"/>
             <transformations>
@@ -1870,6 +1889,15 @@
                 <noderef id="set6_cadeiras_mesa"/>
                 <noderef id="set7_cadeiras_mesa"/>
                 <noderef id="set8_cadeiras_mesa"/>
+
+                <noderef id="set1_pratos_mesa"/>
+                <noderef id="set2_pratos_mesa"/>
+                <noderef id="set3_pratos_mesa"/>
+                <noderef id="set4_pratos_mesa"/>
+                <noderef id="set5_pratos_mesa"/>
+                <noderef id="set6_pratos_mesa"/>
+                <noderef id="set7_pratos_mesa"/>
+                <noderef id="set8_pratos_mesa"/>
             </descendants>
         </node>
         <!-- region tampo mesa refeicao -->
@@ -1942,7 +1970,7 @@
         <!-- endregion -->
         <!-- region pilares mesa refeicao -->
         <node id="pilar1">
-            <material id="base"/>
+            <material id="black_plastic"/>
             <texture id="clear"/>
             <transformations>
                 <translation y="1.2" z="7.5" x="7.5" />
@@ -1953,7 +1981,7 @@
             </descendants>
         </node>
         <node id="pilar2">
-            <material id="base"/>
+            <material id="black_plastic"/>
             <texture id="clear"/>
             <transformations>
                 <translation y="1.2" z="5" x="7.5" />
@@ -1964,7 +1992,7 @@
             </descendants>
         </node>
         <node id="pilar3">
-            <material id="base"/>
+            <material id="black_plastic"/>
             <texture id="clear"/>
             <transformations>
                 <translation y="1.2" z="2.5" x="7.5" />
@@ -1982,6 +2010,7 @@
             <transformations>
                 <translation y="0" x="6.4" z="0.75"/>
             </transformations>
+            <animationref id="slide_right"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -1992,6 +2021,7 @@
             <transformations>
                 <translation y="0" x="6.4" z="3.25"/>
             </transformations>
+            <animationref id="slide_right"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -2002,6 +2032,7 @@
             <transformations>
                 <translation y="0" x="6.4" z="5.75"/>
             </transformations>
+            <animationref id="slide_right"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -2012,6 +2043,7 @@
             <transformations>
                 <translation y="0" x="6.4" z="8.25"/>
             </transformations>
+            <animationref id="slide_right"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -2022,6 +2054,7 @@
             <transformations>
                 <translation y="0" x="8.6" z="0.75"/>
             </transformations>
+            <animationref id="slide_left"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -2032,6 +2065,7 @@
             <transformations>
                 <translation y="0" x="8.6" z="3.25"/>
             </transformations>
+            <animationref id="slide_left"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -2042,6 +2076,7 @@
             <transformations>
                 <translation y="0" x="8.6" z="5.75"/>
             </transformations>
+            <animationref id="slide_left"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -2052,6 +2087,7 @@
             <transformations>
                 <translation y="0" x="8.6" z="8.25"/>
             </transformations>
+            <animationref id="slide_left"/>
             <descendants>
                 <noderef id="set_cadeiras_mesa"/>
             </descendants>
@@ -2090,7 +2126,228 @@
             </descendants>
         </node>
         <!-- endregion -->
+        <!-- region sets pratos mesa refeicao -->
+        <node id="set1_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set2_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="2.5" y="0" x="0"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set3_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="5" y="0" x="0"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set4_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="7.5" y="0" x="0"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set5_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="0" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set6_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="2.5" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set7_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="5" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set8_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="7.5" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
 
+        <node id="set_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation x="6.8" y="1.4" z="0.8"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato1_mesa"/>
+                <noderef id="prato2_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato1_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+            </transformations>
+            <descendants>
+                <noderef id="prato_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato2_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="1" y="0" x="0"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato_mesa">
+            <material id="base"/>
+            <texture id="barro" />
+            <transformations>
+                <scale sz="0.3" sy="0.3" sx="0.3"/>
+                <scale sz="0.5" sy="0.8" sx="0.6"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato_lado1_mesa"/>
+                <noderef id="prato_lado2_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato_lado_dentro_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <leaf type="patch" npointsU="6" npointsV="3" npartsU="20" npartsV="20">
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+
+                    <controlpoint x="1" y="0" z="1.333" />
+                    <controlpoint x="1" y="-0.667" z="1.333" />
+                    <controlpoint x="1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="0.5" y="0" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="-0.5" y="0" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="-1" y="0" z="1.333" />
+                    <controlpoint x="-1" y="-0.667" z="1.333" />
+                    <controlpoint x="-1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+                </leaf>
+            </descendants>
+        </node>
+        <node id="prato_lado_fora_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <leaf type="patch" npointsU="6" npointsV="3" npartsU="20" npartsV="20">
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+
+                    <controlpoint x="-1" y="0" z="1.333" />
+                    <controlpoint x="-1" y="-0.667" z="1.333" />
+                    <controlpoint x="-1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="-0.5" y="0" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="0.5" y="0" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="1" y="0" z="1.333" />
+                    <controlpoint x="1" y="-0.667" z="1.333" />
+                    <controlpoint x="1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+                </leaf>
+            </descendants>
+        </node>
+        <node id="prato_lado1_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="prato_lado_fora_mesa"/>
+                <noderef id="prato_lado_dentro_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato_lado2_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+                <rotation axis="y" angle="180"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato_lado_fora_mesa"/>
+                <noderef id="prato_lado_dentro_mesa"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
         <!-- endregion -->
 
 
