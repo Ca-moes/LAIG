@@ -64,6 +64,23 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
         </light>
+
+        <light id="streetLight1">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="-1" y="4" z="17" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />             <!-- diffuse component -->
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />            <!-- specular component -->
+        </light>
+        <light id="streetLight2">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="11" y="4" z="17" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />             <!-- diffuse component -->
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />            <!-- specular component -->
+        </light>
     </lights>
 
     <textures>
@@ -243,13 +260,12 @@
                 <noderef id="televisao_lat" />
                 <noderef id="quadro_tra" />
                 <noderef id="jarro_flor" />
-
                 <noderef id="set_barrels" />
-
                 <noderef id="mesa_refeicao" />
-                <noderef id="earth_sphere" />
 
                 <noderef id="plane_outside" />
+                <noderef id="poste_iluminacao1" />
+                <noderef id="poste_iluminacao2" />
             </descendants>
         </node>
 
@@ -2470,6 +2486,61 @@
                 <leaf type="plane" npartsU="10" npartsV="10"/>
             </descendants>
         </node>
+
+        <node id="poste_iluminacao1">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation x="-1" z="17" y="0"/>
+            </transformations>
+            <descendants>
+                <noderef id="poste_iluminacao"/>
+            </descendants>
+        </node>
+        <node id="poste_iluminacao2">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation x="11" z="17" y="0"/>
+            </transformations>
+            <descendants>
+                <noderef id="poste_iluminacao"/>
+            </descendants>
+        </node>
+
+        <node id="poste_iluminacao">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="poste"/>
+                <noderef id="luz"/>
+            </descendants>
+        </node>
+
+        <node id="poste">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" base="0.1" middle="0.05" slices="20" stacks="20" height="4"/>
+            </descendants>1
+        </node>
+        <node id="luz">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="4" z="0" x="0"/>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" stacks="20" slices="20" radius="0.3" />
+            </descendants>
+        </node>
+
 
     </nodes>
 </lsf>
