@@ -7,7 +7,7 @@
 
     <views default="Inicial">
         <perspective id="Inicial" near="0.1" far="500" angle="45">
-            <from x="5" y="7" z="35" />
+            <from x="5" y="7" z="30" />
             <to x="5" y="3" z="6" />
         </perspective>
         <perspective id="Interior 1" near="0.1" far="500" angle="45">
@@ -120,6 +120,9 @@
         <texture id="skybox_right" path="./scenes/images/right.png" />
         <texture id="skybox_top" path="./scenes/images/top.png" />
         <texture id="skybox_left" path="./scenes/images/left.png" />
+        <texture id="asfalto" path="./scenes/images/asfalto.jpg" />
+        <texture id="parking" path="./scenes/images/parking.jpg" />
+        <texture id="chinese_lamp" path="./scenes/images/chinese_lamp.jpg" />
 
     </textures>
 
@@ -302,6 +305,9 @@
                 <noderef id="poste_iluminacao2" />
 
                 <noderef id="billboard" />
+
+                <noderef id="parking_lot" />
+                <noderef id="roof" />
 
                 <noderef id="skybox" />
             </descendants>
@@ -2672,6 +2678,261 @@
                 <leaf type="plane" npartsU="10" npartsV="10"/>
             </descendants>
         </node>
+
+        <!-- region parking lot -->
+        <node id="parking_lot">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="0" x="10" y="0.01"/>
+            </transformations>
+            <descendants>
+                <noderef id="parking_lot_floor"/>
+            </descendants>
+        </node>
+        <node id="parking_lot_floor">
+            <texture id="parking">
+                <amplification aft="15" afs="10"/>
+            </texture>
+            <material id="base"/>
+            <transformations>
+                <rotation axis="z" angle="180"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="0" x2="0" y2="15" />
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region roof -->
+        <node id="roof">
+            <texture id="wall_wood"/>
+            <material id="base"/>
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="roof1"/>
+                <noderef id="roof2"/>
+                <noderef id="roof3"/>
+                <noderef id="roof4"/>
+
+                <noderef id="chinese_lamp1"/>
+                <noderef id="chinese_lamp2"/>
+                <noderef id="chinese_lamp3"/>
+                <noderef id="chinese_lamp4"/>
+                <noderef id="chinese_lamp5"/>
+                <noderef id="chinese_lamp6"/>
+                <noderef id="chinese_lamp7"/>
+                <noderef id="chinese_lamp8"/>
+                <noderef id="chinese_lamp9"/>
+                <noderef id="chinese_lamp10"/>
+                <noderef id="chinese_lamp11"/>
+                <noderef id="chinese_lamp12"/>
+            </descendants>
+        </node>
+        <node id="roof1">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="5" z="15.55"/>
+                <scale sz="1" sy="0.1" sx="10.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="roof2">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="5" z="-0.55"/>
+                <scale sz="1" sy="0.1" sx="10.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="roof3">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="-0.55" z="7.5"/>
+                <scale sz="17.1" sy="0.1" sx="1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="roof4">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="10.55" z="7.5"/>
+                <scale sz="17.1" sy="0.1" sx="1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <!-- region chinese lamps -->
+        <node id="chinese_lamp1">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="-0.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp2">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="0.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp3">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="1.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp4">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="2.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp5">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="3.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp6">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="4.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp7">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="5.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp8">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="6.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp9">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="7.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp10">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="8.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp11">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="9.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp12">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="10.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+
+        <node id="chinese_lamp">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <scale sx="0.7" sy="0.7" sz="0.7"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp_bulb"/>
+                <noderef id="chinese_lamp_thread"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp_bulb">
+            <texture id="chinese_lamp"/>
+            <material id="emissive"/>
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="1" middle="0.65" base="0.2" slices="20" stacks="20" />
+            </descendants>
+        </node>
+        <node id="chinese_lamp_thread">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="1" x="0" z="0" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="cylinder" stacks="20" slices="20" topRadius="0.03" bottomRadius="0.03" height="0.3"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- endregion -->
+
+        <!-- region skybox -->
         <node id="skybox">
             <material id="base"/>
             <texture id="clear"/>
@@ -2765,7 +3026,7 @@
                 <leaf type="rectangle" x1="-100" x2="100" y1="-100" y2="100"/>
             </descendants>
         </node>
-
+        <!-- endregion -->
 
     </nodes>
 </lsf>
