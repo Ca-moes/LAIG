@@ -83,6 +83,7 @@
         <texture id="earth" path="./scenes/images/earth.jpg" />
         <texture id="barrel" path="./scenes/images/barrel.jpg" />
         <texture id="barro" path="./scenes/images/barro.png" />
+        <texture id="porta" path="./scenes/images/door.jpg" />
     </textures>
 
     <spritesheets>
@@ -247,6 +248,8 @@
 
                 <noderef id="mesa_refeicao" />
                 <noderef id="earth_sphere" />
+
+                <noderef id="plane_outside" />
             </descendants>
         </node>
 
@@ -1341,9 +1344,13 @@
                 <noderef id="par_chao" />
                 <noderef id="par_traseira" />
                 <noderef id="par_lateral" />
-                <noderef id="par_lateral2" />
                 <noderef id="par_teto" />
                 <noderef id="par_traseira2" />
+
+                <noderef id="par_traseira_outside" />
+                <noderef id="par_lateral_outside" />
+                <noderef id="parede_frente" />
+                <noderef id="par_teto_outside" />
             </descendants>
         </node>
         <node id="par_teto">
@@ -1356,6 +1363,22 @@
                 <translation x="0" y="4" z="0" />
                 <scale sx="10" sy="1" sz="15" />
                 <rotation axis="x" angle="90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+            </descendants>
+        </node>
+        <node id="par_teto_outside">
+            <material id="base" />
+            <texture id="floor_wood">
+                <amplification afs="0.7" aft="1" />
+            </texture>
+
+            <transformations>
+                <translation x="0" y="4" z="15" />
+                <scale sx="10" sy="1" sz="15" />
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
@@ -1409,6 +1432,21 @@
                 <noderef id="spritetext_izakaya"/>
             </descendants>
         </node>
+        <node id="par_traseira_outside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="15" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.05" y="2.0" z="7.5" />
+                <scale sz="15" sy="4" sx="0.1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
         <node id="par_traseira2">
             <material id="null" />
             <texture id="null">
@@ -1416,12 +1454,12 @@
             </texture>
 
             <transformations>
-                <translation x="10" y="0.0" z="0" />
-                <rotation axis="y" angle="-90" />
+                <translation x="10.05" y="2.0" z="7.5" />
+                <scale sz="15" sy="4" sx="0.1" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="15" y2="4" />
+                <noderef id="cube" />
             </descendants>
         </node>
         <node id="par_lateral">
@@ -1438,6 +1476,21 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="10" y2="4" />
             </descendants>
         </node>
+        <node id="par_lateral_outside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation z="-0.05" x="5" y="2" />
+                <scale sx="10" sy="4" sz="0.1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
         <node id="par_lateral2">
             <material id="null" />
             <texture id="null">
@@ -1451,6 +1504,37 @@
 
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="10" y2="4" />
+            </descendants>
+        </node>
+        <node id="parede_frente">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="0.5" aft="0.5" />
+            </texture>
+
+            <transformations>
+                <translation z="15.05" x="5" y="2" />
+                <scale sx="10" sy="4" sz="0.1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="cube"/>
+                <noderef id="porta"/>
+            </descendants>
+        </node>
+        <node id="porta">
+            <material id="null" />
+            <texture id="porta">
+                <amplification afs="1" aft="2" />
+            </texture>
+
+            <transformations>
+                <translation z="0.6" x="-0.07" y="-0.5" />
+                <scale sx="0.1" sy="0.25" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" x2="1" y1="0" y2="2"/>
             </descendants>
         </node>
         <!-- endregion -->
@@ -2374,6 +2458,18 @@
         </node>
         <!-- endregion -->
         <!-- endregion -->
+
+        <node id="plane_outside">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="-0.01" x="0" z="0"/>
+                <scale sx="60" sy="1" sz="50"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="10" npartsV="10"/>
+            </descendants>
+        </node>
 
     </nodes>
 </lsf>
