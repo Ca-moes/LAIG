@@ -7,8 +7,20 @@
 
     <views default="Inicial">
         <perspective id="Inicial" near="0.1" far="500" angle="45">
-            <from x="10" y="3" z="18" />
+            <from x="5" y="5" z="28" />
+            <to x="5" y="3" z="6" />
+        </perspective>
+        <perspective id="Interior 1" near="0.1" far="500" angle="45">
+            <from x="10" y="3" z="1" />
             <to x="2.5" y="1" z="6" />
+        </perspective>
+        <perspective id="Interior 2" near="0.1" far="500" angle="45">
+            <from x="5" y="2" z="14.5" />
+            <to x="5" y="1" z="6" />
+        </perspective>
+        <perspective id="Interior 3" near="0.1" far="500" angle="45">
+            <from x="5" y="2" z="7.5" />
+            <to x="5" y="2" z="5" />
         </perspective>
         <perspective id="Vase" near="0.1" far="500" angle="45">
             <from x="1.4" y="3.3" z="5.2" />
@@ -18,9 +30,13 @@
             <from x="3" y="2.7" z="2" />
             <to x="0.2" y="2.7" z="2" />
         </perspective>
-        <ortho id="Ortho_EntryView" near="0.1" far="100" left="-4" right="4" top="2.1" bottom="-2.1">
-            <from x="2.5" y="2" z="10" />
-            <to x="2.5" y="2" z="0" />
+        <perspective id="Clock" near="0.1" far="500" angle="45">
+            <from x="2" y="3" z="13" />
+            <to x="0.2" y="3" z="13" />
+        </perspective>
+        <ortho id="Ortho_EntryView" near="0.1" far="100" left="-3.5" right="6.5" top="2.1" bottom="-2.1">
+            <from x="3.5" y="2" z="15" />
+            <to x="3.5" y="2" z="0" />
             <up x="0" y="1" z="0" />
         </ortho>
         <ortho id="Ortho_SideView" near="0.1" far="100" left="-5.2" right="5.2" top="2.5" bottom="-2.5">
@@ -29,14 +45,10 @@
             <up x="0" y="1" z="0" />
         </ortho>
         <ortho id="Ortho_TopView" near="0.1" far="100" left="-8" right="8" top="5.1" bottom="-5.1">
-            <from x="2.5" y="5" z="5" />
+            <from x="2.5" y="3.5" z="5" />
             <to x="2.5" y="0" z="5" />
             <up x="0" y="1" z="1" />
         </ortho>
-        <perspective id="Earth?" near="0.1" far="500" angle="45">
-            <from x="0" y="10" z="5" />
-            <to x="2.5" y="10" z="5" />
-        </perspective>
     </views>
 
     <illumination>
@@ -101,6 +113,7 @@
         <texture id="barrel" path="./scenes/images/barrel.jpg" />
         <texture id="barro" path="./scenes/images/barro.png" />
         <texture id="porta" path="./scenes/images/door.jpg" />
+        <texture id="ground" path="./scenes/images/ground.jpg" />
     </textures>
 
     <spritesheets>
@@ -169,6 +182,20 @@
             <ambient r="0.0215" g="0.1745" b="0.0215" a="0.55" />
             <diffuse r="0.07568" g="0.61424" b="0.07568" a="0.55" />
             <specular r="0.633 " g="0.727811 " b="0.633" a="0.55" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="yellow">
+            <shininess value="32" />
+            <ambient r="1.0" g="1.0" b="0" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.0" a="1" />
+            <specular r="0.6 " g="0.6 " b="0.5" a="1" />
+            <emissive r="0.6" g="0.6" b="0.0" a="1.0" />
+        </material>
+        <material id="white">
+            <shininess value="32" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1" />
+            <specular r="1.0" g="1.0" b="1.0" a="1" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
@@ -266,22 +293,8 @@
                 <noderef id="plane_outside" />
                 <noderef id="poste_iluminacao1" />
                 <noderef id="poste_iluminacao2" />
-            </descendants>
-        </node>
 
-        <node id="earth_sphere">
-            <material id="emissive"/>
-            <texture id="earth">
-                <amplification afs="1.0" aft="1.0" />
-            </texture>
-
-            <transformations>
-                <translation x="2.5" y="10" z="5" />
-                <rotation axis="x" angle="-90" />
-            </transformations>
-
-            <descendants>
-                <leaf type="sphere" radius="0.5" slices="10" stacks="5"/>
+                <noderef id="billboard" />
             </descendants>
         </node>
 
@@ -1507,21 +1520,7 @@
                 <noderef id="cube"/>
             </descendants>
         </node>
-        <node id="par_lateral2">
-            <material id="null" />
-            <texture id="null">
-                <amplification afs="10" aft="4" />
-            </texture>
 
-            <transformations>
-                <translation z="15" x="10" y="0" />
-                <rotation angle="180" axis="y" />
-            </transformations>
-
-            <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="4" />
-            </descendants>
-        </node>
         <node id="parede_frente">
             <material id="null" />
             <texture id="null">
@@ -1535,10 +1534,11 @@
 
             <descendants>
                 <noderef id="cube"/>
-                <noderef id="porta"/>
+                <noderef id="porta_fora"/>
+                <noderef id="porta_dentro"/>
             </descendants>
         </node>
-        <node id="porta">
+        <node id="porta_fora">
             <material id="null" />
             <texture id="porta">
                 <amplification afs="1" aft="2" />
@@ -1551,6 +1551,22 @@
 
             <descendants>
                 <leaf type="rectangle" x1="0" x2="1" y1="0" y2="2"/>
+            </descendants>
+        </node>
+        <node id="porta_dentro">
+            <material id="null" />
+            <texture id="porta">
+                <amplification afs="1" aft="2" />
+            </texture>
+
+            <transformations>
+                <translation z="-1" x="-0.07" y="-0.5" />
+                <scale sx="0.1" sy="0.25" sz="1"/>
+                <rotation angle="180" axis="y" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="2"/>
             </descendants>
         </node>
         <!-- endregion -->
@@ -2474,19 +2490,7 @@
         </node>
         <!-- endregion -->
         <!-- endregion -->
-
-        <node id="plane_outside">
-            <texture id="clear"/>
-            <material id="base"/>
-            <transformations>
-                <translation y="-0.01" x="0" z="0"/>
-                <scale sx="60" sy="1" sz="50"/>
-            </transformations>
-            <descendants>
-                <leaf type="plane" npartsU="10" npartsV="10"/>
-            </descendants>
-        </node>
-
+        <!-- region postes iluminacao -->
         <node id="poste_iluminacao1">
             <texture id="clear"/>
             <material id="base"/>
@@ -2522,7 +2526,7 @@
 
         <node id="poste">
             <texture id="clear"/>
-            <material id="base"/>
+            <material id="black_plastic"/>
             <transformations>
                 <rotation axis="x" angle="-90"/>
             </transformations>
@@ -2532,7 +2536,7 @@
         </node>
         <node id="luz">
             <texture id="clear"/>
-            <material id="base"/>
+            <material id="yellow"/>
             <transformations>
                 <translation y="4" z="0" x="0"/>
             </transformations>
@@ -2540,7 +2544,125 @@
                 <leaf type="sphere" stacks="20" slices="20" radius="0.3" />
             </descendants>
         </node>
+        <!-- endregion -->
+        <!-- region billboard -->
+        <node id="billboard">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="0" z="17" x="2"/>
+                <rotation angle="30" axis="y" />
+            </transformations>
+            <descendants>
+                <noderef id="pata1_billboard"/>
+                <noderef id="pata2_billboard"/>
+                <noderef id="frame_billboard"/>
+                <noderef id="display_billboard"/>
+            </descendants>
+        </node>
+        <node id="pata1_billboard">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="0.5" z="0" x="-1" />
+                <scale sz="0.1" sy="1" sx="0.1" />
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="pata2_billboard">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="0.5" z="0" x="1" />
+                <scale sz="0.1" sy="1" sx="0.1" />
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="frame_billboard">
+            <texture id="clear"/>
+            <material id="chrome"/>
+            <transformations>
+                <translation y="1.5" z="0" x="0" />
+                <scale sz="0.1" sy="1.5" sx="4" />
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="display_billboard">
+            <texture id="clear"/>
+            <material id="null"/>
+            <transformations>
+                <translation y="0" z="0.1" x="0" />
+            </transformations>
+            <descendants>
+                <noderef id="message_1" />
+                <noderef id="message_2" />
+                <noderef id="message_3" />
+                <noderef id="message_4" />
+            </descendants>
+        </node>
+        <node id="message_1">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="2" z="0" x="0" />
+                <scale sx="0.3" sy="0.3" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="Izakaya T7G8" />
+            </descendants>
+        </node>
+        <node id="message_2">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="1.7" z="0" x="0" />
+                <scale sx="0.2" sy="0.2" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="Come In" />
+            </descendants>
+        </node>
+        <node id="message_3">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="1.4" z="0" x="0" />
+                <scale sx="0.2" sy="0.2" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="OR" />
+            </descendants>
+        </node>
+        <node id="message_4">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="1.1" z="0" x="0" />
+                <scale sx="0.2" sy="0.2" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="Change Camera" />
+            </descendants>
+        </node>
+        <!-- endregion -->
 
+        <node id="plane_outside">
+            <texture id="ground"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="-0.01" x="0" z="0"/>
+                <scale sx="60" sy="1" sz="50"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="10" npartsV="10"/>
+            </descendants>
+        </node>
 
     </nodes>
 </lsf>
