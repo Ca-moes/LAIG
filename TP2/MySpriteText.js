@@ -44,13 +44,11 @@ class MySpriteText{
     display(){
         this.spritesheet.activate()
         this.scene.translate(-this.string.length/2, -0.5, 0);
-
         [...this.string].forEach(c => {
             this.spritesheet.activateCellP(this.getCharacterPosition(c));
             this.square.display()
             this.scene.translate(1,0,0);
         })
-
         this.scene.setActiveShader(this.scene.defaultShader)
     }
 

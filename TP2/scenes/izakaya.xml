@@ -7,8 +7,20 @@
 
     <views default="Inicial">
         <perspective id="Inicial" near="0.1" far="500" angle="45">
-            <from x="8" y="3" z="11" />
+            <from x="5" y="7" z="30" />
+            <to x="5" y="3" z="6" />
+        </perspective>
+        <perspective id="Interior 1" near="0.1" far="500" angle="45">
+            <from x="10" y="3" z="1" />
             <to x="2.5" y="1" z="6" />
+        </perspective>
+        <perspective id="Interior 2" near="0.1" far="500" angle="45">
+            <from x="5" y="2" z="14.5" />
+            <to x="5" y="1" z="6" />
+        </perspective>
+        <perspective id="Interior 3" near="0.1" far="500" angle="45">
+            <from x="5" y="2" z="7.5" />
+            <to x="5" y="2" z="5" />
         </perspective>
         <perspective id="Vase" near="0.1" far="500" angle="45">
             <from x="1.4" y="3.3" z="5.2" />
@@ -18,9 +30,13 @@
             <from x="3" y="2.7" z="2" />
             <to x="0.2" y="2.7" z="2" />
         </perspective>
-        <ortho id="Ortho_EntryView" near="0.1" far="100" left="-4" right="4" top="2.1" bottom="-2.1">
-            <from x="2.5" y="2" z="10" />
-            <to x="2.5" y="2" z="0" />
+        <perspective id="Clock" near="0.1" far="500" angle="45">
+            <from x="2" y="3" z="13" />
+            <to x="0.2" y="3" z="13" />
+        </perspective>
+        <ortho id="Ortho_EntryView" near="0.1" far="100" left="-3.5" right="6.5" top="2.1" bottom="-2.1">
+            <from x="3.5" y="2" z="15" />
+            <to x="3.5" y="2" z="0" />
             <up x="0" y="1" z="0" />
         </ortho>
         <ortho id="Ortho_SideView" near="0.1" far="100" left="-5.2" right="5.2" top="2.5" bottom="-2.5">
@@ -29,14 +45,10 @@
             <up x="0" y="1" z="0" />
         </ortho>
         <ortho id="Ortho_TopView" near="0.1" far="100" left="-8" right="8" top="5.1" bottom="-5.1">
-            <from x="2.5" y="5" z="5" />
+            <from x="2.5" y="3.5" z="5" />
             <to x="2.5" y="0" z="5" />
             <up x="0" y="1" z="1" />
         </ortho>
-        <perspective id="Earth?" near="0.1" far="500" angle="45">
-            <from x="0" y="10" z="5" />
-            <to x="2.5" y="10" z="5" />
-        </perspective>
     </views>
 
     <illumination>
@@ -50,7 +62,7 @@
         <light id="ceilingLight1">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="2.5" y="6" z="0" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="5" y="3.5" z="1.5" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
@@ -59,10 +71,27 @@
         <light id="ceilingLight2">            <!-- light identifier -->
             <enable value="1" />
             <!-- enable/disable -->
-            <position x="2.5" y="6" z="10" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <position x="5" y="3.5" z="12" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
             <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />             <!-- diffuse component -->
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />            <!-- specular component -->
+        </light>
+
+        <light id="streetLight1">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="-1" y="4" z="17" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />             <!-- diffuse component -->
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />            <!-- specular component -->
+        </light>
+        <light id="streetLight2">            <!-- light identifier -->
+            <enable value="1" />
+            <!-- enable/disable -->
+            <position x="11" y="4" z="17" w="1.0" /><!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0" />                   <!-- ambient component -->
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />             <!-- diffuse component -->
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />            <!-- specular component -->
         </light>
     </lights>
 
@@ -76,12 +105,32 @@
         <texture id="glass" path="./scenes/images/bottle.jpg" />
         <texture id="chalkboard" path="./scenes/images/chalkboard.jpg" />
         <texture id="televisao" path="./scenes/images/televisao.jpg" /> <!-- televisao.jpg OU spoiler-alert.jpg -->
-        <texture id="white_clay" path="./scenes/images/white_clay.jpg" /> 
-        <texture id="vase" path="./scenes/images/vase.jpg" /> 
-        <texture id="chalk_tex" path="./scenes/images/chalk_tex.jpg" /> 
-        <texture id="cork" path="./scenes/images/cork.jpg" /> 
-        <texture id="earth" path="./scenes/images/earth.jpg" /> 
+        <texture id="white_clay" path="./scenes/images/white_clay.jpg" />
+        <texture id="vase" path="./scenes/images/vase.jpg" />
+        <texture id="chalk_tex" path="./scenes/images/chalk_tex.jpg" />
+        <texture id="cork" path="./scenes/images/cork.jpg" />
+        <texture id="earth" path="./scenes/images/earth.jpg" />
+        <texture id="barrel" path="./scenes/images/barrel.jpg" />
+        <texture id="barro" path="./scenes/images/barro.png" />
+        <texture id="porta" path="./scenes/images/door.jpg" />
+        <texture id="outside_ground" path="./scenes/images/outside_ground.jpg" />
+        <texture id="skybox_back" path="./scenes/images/back.png" />
+        <texture id="skybox_bottom" path="./scenes/images/bottom.png" />
+        <texture id="skybox_front" path="./scenes/images/front.png" />
+        <texture id="skybox_right" path="./scenes/images/right.png" />
+        <texture id="skybox_top" path="./scenes/images/top.png" />
+        <texture id="skybox_left" path="./scenes/images/left.png" />
+        <texture id="asfalto" path="./scenes/images/asfalto.jpg" />
+        <texture id="parking" path="./scenes/images/parking.jpg" />
+        <texture id="chinese_lamp" path="./scenes/images/chinese_lamp.jpg" />
+        <texture id="goodyear_blimp" path="./scenes/images/goodyear_blimp.jpg" />
+        <texture id="inside" path="./scenes/images/inside.jpg" />
+
     </textures>
+
+    <spritesheets>
+        <spritesheet id="color_pattern" path="./shaders/color_pattern.png" sizeM="5" sizeN="5"/>
+    </spritesheets>
 
     <materials>
         <material id="demoMaterial">
@@ -93,6 +142,13 @@
         </material>
         <material id="base">
             <shininess value="2" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
+        <material id="base_transparent">
+            <shininess value="2" />
             <ambient r="0.5" g="0.5" b="0.5" a="0.0" />
             <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
             <specular r="0.0" g="0.0" b="0.0" a="0.0" />
@@ -100,10 +156,10 @@
         </material>
         <material id="emissive">
             <shininess value="2" />
-            <ambient r="0.5" g="0.5" b="0.5" a="0.0" />
-            <diffuse r="0.7" g="0.7" b="0.7" a="0.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
-            <emissive r="0.5" g="0.5" b="0.5" a="0.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+            <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
         </material>
         <material id="chrome">
             <shininess value="76.8" />
@@ -140,10 +196,207 @@
             <specular r="0.633 " g="0.727811 " b="0.633" a="0.55" />
             <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="yellow">
+            <shininess value="32" />
+            <ambient r="1.0" g="1.0" b="0" a="1" />
+            <diffuse r="0.5" g="0.5" b="0.0" a="1" />
+            <specular r="0.6 " g="0.6 " b="0.5" a="1" />
+            <emissive r="0.6" g="0.6" b="0.0" a="1.0" />
+        </material>
+        <material id="white">
+            <shininess value="32" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1" />
+            <specular r="1.0" g="1.0" b="1.0" a="1" />
+            <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
     </materials>
 
+    <animations>
+        <animation id="clock_tick_seconds">
+            <keyframe instant="0.0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="300">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="18000"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="clock_tick_minutes">
+            <keyframe instant="0.0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="300">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="300"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="slide_left">
+            <keyframe instant="0.0">
+                <translation z="0" x="0.5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="2.0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="slide_right">
+            <keyframe instant="0.0">
+                <translation z="0" x="-0.5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="2.0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="blimp">
+            <keyframe instant="0.0">
+                <translation z="0" x="15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="12">
+                <translation z="0" x="-5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="17">
+                <translation z="0" x="-5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1.3" sy="1.3" sz="1.3"/>
+            </keyframe>
+            <keyframe instant="19">
+                <translation z="0" x="-5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="25.0">
+                <translation z="0" x="-15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="26.0">
+                <translation z="0" x="-15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="180"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="27.0">
+                <translation z="0" x="-15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="180"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="52.0">
+                <translation z="0" x="15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="180"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="door_open">
+            <keyframe instant="0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="3">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="5">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="8">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="10">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="13">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="15">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="18">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+    </animations>
+
     <nodes>
-        <node id="root">            
+        <node id="root">
             <material id="demoMaterial" />
             <texture id="clear_wood">
                 <amplification afs="1.0" aft="1.0" />
@@ -162,27 +415,25 @@
                 <noderef id="televisao_lat" />
                 <noderef id="quadro_tra" />
                 <noderef id="jarro_flor" />
+                <noderef id="set_barrels" />
+                <noderef id="mesa_refeicao" />
 
-                <noderef id="earth_sphere" />
+                <noderef id="plane_outside" />
+                <noderef id="poste_iluminacao1" />
+                <noderef id="poste_iluminacao2" />
+
+                <noderef id="billboard" />
+
+                <noderef id="parking_lot" />
+                <noderef id="roof" />
+
+                <noderef id="skybox" />
+
+                <noderef id="blimp" />
             </descendants>
         </node>
 
-        <node id="earth_sphere">
-            <material id="emissive"/>
-            <texture id="earth">
-                <amplification afs="1.0" aft="1.0" />
-            </texture>
-
-            <transformations>
-                <translation x="2.5" y="10" z="5" />
-                <rotation axis="x" angle="-90" />
-            </transformations>
-
-            <descendants>
-                <leaf type="sphere" radius="0.5" slices="10" stacks="5"/>
-            </descendants>
-        </node>
-
+        <!-- region jarro -->
         <node id="jarro_flor">
             <material id="base"/>
             <texture id="vase">
@@ -346,7 +597,7 @@
             </transformations>
 
             <descendants>
-                 <leaf type="torus" inner="0.4" outer="0.5" slices="4" loops="20" />
+                <leaf type="torus" inner="0.4" outer="0.5" slices="4" loops="20" />
             </descendants>
         </node>
         <node id="flor_folha1">
@@ -381,8 +632,8 @@
                 <leaf type="triangle" x1="-1" y1="0" x2="0" y2="0" x3="0" y3="1"/>
             </descendants>
         </node>
-
-
+        <!-- endregion -->
+        <!-- region televisão -->
         <node id="televisao_lat">
             <material id="null"/>
             <texture id="null">
@@ -412,20 +663,21 @@
                 <noderef id="tel_sup_set" />
             </descendants>
         </node>
-        <node id="tel_escrita">            
+        <node id="tel_escrita">
             <material id="black_plastic_dif" />
             <texture id="televisao">
                 <amplification afs="2" aft="2" />
             </texture>
 
             <transformations>
+                <scale sz="1" sy="2" sx="2" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="2" y2="2" />
+                <leaf type="spriteanim" ssid="color_pattern" startCell="0" endCell="22" duration="2" />
             </descendants>
         </node>
-        <node id="tel_sup_set">            
+        <node id="tel_sup_set">
             <material id="black_plastic" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -441,7 +693,8 @@
                 <noderef id="quad_sup_esq" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region quadro -->
         <node id="quadro_tra">
             <material id="null"/>
             <texture id="null">
@@ -472,7 +725,7 @@
                 <noderef id="quad_sup_set" />
             </descendants>
         </node>
-        <node id="quad_escrita">            
+        <node id="quad_escrita">
             <material id="chalk" />
             <texture id="chalkboard">
                 <amplification afs="2.0" aft="2.0" />
@@ -489,7 +742,7 @@
                 <noderef id="quad_escrita_triangle4" />
             </descendants>
         </node>
-        <node id="quad_escrita_triangle1">            
+        <node id="quad_escrita_triangle1">
             <material id="base" />
             <texture id="chalk_tex">
                 <amplification afs="2.0" aft="2.0" />
@@ -503,7 +756,7 @@
                 <leaf type="triangle" x1="-1" y1="0" x2="1" y2="0" x3="0" y3="1"/>
             </descendants>
         </node>
-        <node id="quad_escrita_triangle2">            
+        <node id="quad_escrita_triangle2">
             <material id="base" />
             <texture id="chalk_tex">
                 <amplification afs="2.0" aft="2.0" />
@@ -518,7 +771,7 @@
                 <leaf type="triangle" x1="-1" y1="0" x2="1" y2="0" x3="0" y3="1"/>
             </descendants>
         </node>
-        <node id="quad_escrita_triangle3">            
+        <node id="quad_escrita_triangle3">
             <material id="base" />
             <texture id="chalk_tex">
                 <amplification afs="-2.0" aft="2.0" />
@@ -533,7 +786,7 @@
                 <leaf type="triangle" x1="-1" y1="0" x2="1" y2="0" x3="0" y3="1"/>
             </descendants>
         </node>
-        <node id="quad_escrita_triangle4">            
+        <node id="quad_escrita_triangle4">
             <material id="base" />
             <texture id="chalk_tex">
                 <amplification afs="-2.0" aft="2.0" />
@@ -548,7 +801,7 @@
                 <leaf type="triangle" x1="-1" y1="0" x2="1" y2="0" x3="0" y3="1"/>
             </descendants>
         </node>
-        <node id="quad_sup_set">            
+        <node id="quad_sup_set">
             <material id="base" />
             <texture id="clear_wood">
                 <amplification afs="1.0" aft="1.0" />
@@ -564,7 +817,7 @@
                 <noderef id="quad_sup_esq" />
             </descendants>
         </node>
-        <node id="quad_sup_sup">            
+        <node id="quad_sup_sup">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -578,7 +831,7 @@
                 <noderef id="quad_sup" />
             </descendants>
         </node>
-        <node id="quad_sup_inf">            
+        <node id="quad_sup_inf">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -592,7 +845,7 @@
                 <noderef id="quad_sup" />
             </descendants>
         </node>
-        <node id="quad_sup_dir">            
+        <node id="quad_sup_dir">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -608,7 +861,7 @@
                 <noderef id="quad_sup" />
             </descendants>
         </node>
-        <node id="quad_sup_esq">            
+        <node id="quad_sup_esq">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -624,7 +877,7 @@
                 <noderef id="quad_sup" />
             </descendants>
         </node>
-        <node id="quad_sup">            
+        <node id="quad_sup">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -638,7 +891,8 @@
                 <noderef id="cube" />
             </descendants>
         </node>
-
+        <!-- endregion -->
+        <!-- region garrafas -->
         <node id="garrafa_1">
             <material id="null"/>
             <texture id="null">
@@ -736,7 +990,8 @@
                 <leaf type="cylinder" height="2" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-
+        <!-- endregion garrafas -->
+        <!-- region prateleira -->
         <node id="prateleira">
             <material id="base"/>
             <texture id="null">
@@ -847,8 +1102,9 @@
                 <noderef id="cube" />
             </descendants>
         </node>
-
-        <node id="cube">            
+        <!-- endregion -->
+        <!-- region cube -->
+        <node id="cube">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
@@ -866,97 +1122,98 @@
                 <noderef id="cub_lado_6" />
             </descendants>
         </node>
-        <node id="cub_lado_1">            
+        <node id="cub_lado_1">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="0.5" y="-0.5" z="0.5" />
-                <rotation axis="y" angle="90" />
+                <translation x="0.5" y="0" z="0" />
+                <rotation axis="z" angle="-90" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
-        <node id="cub_lado_2">            
+        <node id="cub_lado_2">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="-0.5" z="-0.5" />
-                <rotation axis="y" angle="270" />
+                <translation x="-0.5" y="0" z="0" />
+                <rotation axis="z" angle="90" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
-        <node id="cub_lado_3">            
+        <node id="cub_lado_3">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="-0.5" z="-0.5" />
-                <rotation axis="x" angle="90" /> 
+                <translation x="0" y="-0.5" z="0" />
+                <rotation axis="x" angle="180" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
-        <node id="cub_lado_4">            
+        <node id="cub_lado_4">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="0.5" z="0.5" />
-                <rotation axis="x" angle="-90" />  
+                <translation x="0" y="0.5" z="0" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
-        <node id="cub_lado_5">            
+        <node id="cub_lado_5">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="0.5" y="-0.5" z="-0.5" />
-                <rotation axis="y" angle="180" />   
+                <translation y="0" z="-0.5" x="0" />
+                <rotation angle="-90" axis="x"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
-        <node id="cub_lado_6">            
+        <node id="cub_lado_6">
             <material id="null" />
             <texture id="null">
                 <amplification afs="1.0" aft="1.0" />
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="-0.5" z="0.5" />
+                <translation x="0" z="0.5" y="0" />
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
-        <!-- Area dos tapetes da bancada -->
-        <node id="set_lat_tapetes">            
+        <!-- endregion -->
+        <!-- region tapetes da bancada -->
+        <node id="set_lat_tapetes">
             <material id="base" />
             <texture id="rattan">
                 <amplification afs="0.1" aft="0.1" />
@@ -1093,8 +1350,8 @@
                 <noderef id="tapete" />
             </descendants>
         </node>
-        <!-- fim da area dos tapetes da bancada -->
-
+        <!-- endregion tapetes da bancada -->
+        <!-- region bancada -->
         <node id="bancada">
             <material id="null"/>
             <texture id="clear">
@@ -1154,13 +1411,13 @@
 
             <transformations>
                 <translation x="0.8" y="0.65" z="0.25" />
-                <scale sx="0.9" sy="0.1" sz="8.5" /> 
+                <scale sx="0.9" sy="0.1" sz="8.5" />
             </transformations>
 
             <descendants>
                 <noderef id="cube" />
             </descendants>
-        </node> 
+        </node>
         <node id="ban_refeicao_2">
             <material id="base"/>
             <texture id="clear_wood">
@@ -1169,13 +1426,13 @@
 
             <transformations>
                 <translation x="-0.3" y="0.65" z="4" />
-                <scale sx="1.3" sy="0.1" sz="1" />  
+                <scale sx="1.3" sy="0.1" sz="1" />
             </transformations>
 
             <descendants>
                 <noderef id="cube" />
             </descendants>
-        </node> 
+        </node>
         <node id="ban_suporte_sup_1">
             <material id="base"/>
             <texture id="semi_clear_wood">
@@ -1192,19 +1449,19 @@
             </descendants>
         </node>
         <node id="ban_suporte_sup_2">
-                <material id="base"/>
-                <texture id="semi_clear_wood">
-                    <amplification afs="1.0" aft="1.0" />
-                </texture>
+            <material id="base"/>
+            <texture id="semi_clear_wood">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
 
-                <transformations>
-                    <translation x="-0.312" y="0.9" z="3.455" />
+            <transformations>
+                <translation x="-0.312" y="0.9" z="3.455" />
                 <scale sx="1.25" sy="0.5" sz="0.1" />
-                </transformations>
+            </transformations>
 
-                <descendants>
-                    <noderef id="cube" />
-                </descendants>
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
         </node>
         <node id="ban_entrega_1">
             <material id="base"/>
@@ -1222,22 +1479,23 @@
             </descendants>
         </node>
         <node id="ban_entrega_2">
-                <material id="base"/>
-                <texture id="clear_wood">
-                    <amplification afs="1.0" aft="1.0" />
-                </texture>
+            <material id="base"/>
+            <texture id="clear_wood">
+                <amplification afs="1.0" aft="1.0" />
+            </texture>
 
-                <transformations>
-                    <translation x="-0.5" y="1.15" z="3.35" />
-                    <scale sx="0.87" sy="0.05" sz="0.5" />
-                </transformations>
+            <transformations>
+                <translation x="-0.5" y="1.15" z="3.35" />
+                <scale sx="0.87" sy="0.05" sz="0.5" />
+            </transformations>
 
-                <descendants>
-                    <noderef id="cube" />
-                </descendants>
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
         </node>
-
-        <node id="paredes">            
+        <!-- endregion -->
+        <!-- region paredes -->
+        <node id="paredes">
             <material id="base" />
             <texture id="wall_wood">
                 <amplification afs="2.0" aft="2.0" />
@@ -1250,56 +1508,342 @@
                 <noderef id="par_chao" />
                 <noderef id="par_traseira" />
                 <noderef id="par_lateral" />
+                <noderef id="par_teto" />
+                <noderef id="par_traseira2" />
+                <noderef id="par_traseira2_inside" />
+
+                <noderef id="par_traseira_outside" />
+                <noderef id="par_lateral_outside" />
+                <noderef id="parede_frente" />
+                <noderef id="par_teto_outside" />
+
+                <noderef id="porta_entrada"/>
+                <noderef id="door_frame"/>
             </descendants>
         </node>
-        <node id="par_chao">            
+        <node id="par_teto">
             <material id="base" />
             <texture id="floor_wood">
                 <amplification afs="0.7" aft="1" />
             </texture>
 
             <transformations>
-                <scale sx="5" sy="1" sz="10" />
-                <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="x" angle="-90" /> 
+                <translation x="0" y="4" z="0" />
+                <scale sx="10" sy="1" sz="15" />
+                <rotation axis="x" angle="90" />
             </transformations>
 
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
-        <node id="par_traseira">            
-            <material id="null" />
-            <texture id="null">
-                <amplification afs="1" aft="0.5" />
+        <node id="par_teto_outside">
+            <material id="base" />
+            <texture id="floor_wood">
+                <amplification afs="0.7" aft="1" />
             </texture>
 
             <transformations>
-                <scale sx="1" sy="4" sz="10" />
-                <translation x="0" y="0.0" z="1.0" />
-                <rotation axis="y" angle="90" /> 
+                <translation x="0" y="4" z="15" />
+                <scale sx="10" sy="1" sz="15" />
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
-        <node id="par_lateral">            
-            <material id="null" />
-            <texture id="null">
-                 <amplification afs="1" aft="0.5" />
+        <node id="par_chao">
+            <material id="base" />
+            <texture id="floor_wood">
+                <amplification afs="0.7" aft="1" />
             </texture>
 
             <transformations>
-                <scale sx="5" sy="4" sz="1" />
+                <scale sx="10" sy="1" sz="15" />
+                <translation x="0" y="0.0" z="1.0" />
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
             </descendants>
         </node>
-    
-        <node id="set_lat_cadeiras">            
+        <node id="spritetext_izakaya">
+            <material id="emerald" />
+            <texture id="clear">
+            </texture>
+
+            <transformations>
+                <translation y="3" x="5.5" z="0.01"/>
+                <scale sx="0.4" sy="0.4" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="spritetext" text="IZAKAYA LAIG" />
+            </descendants>
+        </node>
+        <node id="par_traseira">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="15" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation x="0.05" y="0.0" z="15" />
+                <rotation axis="y" angle="90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="15" y2="4" />
+                <noderef id="clock" />
+                <noderef id="spritetext_izakaya"/>
+            </descendants>
+        </node>
+        <node id="par_traseira_outside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="15" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation x="-0.05" y="2.0" z="7.5" />
+                <scale sz="15" sy="4" sx="0.1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="par_traseira2_inside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="15" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation x="9.95" y="0.0" z="0" />
+                <rotation axis="y" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="15" y2="4" />
+            </descendants>
+        </node>
+        <node id="par_traseira2">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="15" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation x="10.05" y="2.0" z="7.5" />
+                <scale sz="15" sy="4" sx="0.1" />
+            </transformations>
+
+            <descendants>
+                <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="par_lateral">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="4" />
+            </texture>
+
+            <transformations>
+
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="10" y2="4" />
+            </descendants>
+        </node>
+        <node id="par_lateral_outside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="10" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation z="-0.05" x="5" y="2" />
+                <scale sx="10" sy="4" sz="0.1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+
+        <node id="parede_frente">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="0.5" aft="0.5" />
+            </texture>
+
+            <transformations>
+                <translation z="15.05" x="5" y="2" />
+                <scale sx="10" sy="4" sz="0.1"/>
+            </transformations>
+
+            <descendants>
+                <noderef id="cube"/>
+                <noderef id="porta_fora"/>
+                <noderef id="porta_dentro"/>
+            </descendants>
+        </node>
+        <node id="porta_fora">
+            <material id="null" />
+            <texture id="inside">
+                <amplification afs="1" aft="2" />
+            </texture>
+
+            <transformations>
+                <translation z="0.6" x="-0.07" y="-0.5" />
+                <scale sx="0.1" sy="0.25" sz="1"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" x2="1" y1="0" y2="2"/>
+            </descendants>
+        </node>
+        <node id="porta_dentro">
+            <material id="null" />
+            <texture id="porta">
+                <amplification afs="1" aft="2" />
+            </texture>
+
+            <transformations>
+                <translation z="-1" x="-0.07" y="-0.5" />
+                <scale sx="0.1" sy="0.25" sz="1"/>
+                <rotation angle="180" axis="y" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="2"/>
+            </descendants>
+        </node>
+        <!-- region animated door -->
+        <node id="porta">
+            <material id="null" />
+            <texture id="porta">
+
+            </texture>
+
+            <transformations>
+                <translation x="-0.5" z="0" y="0"/>
+                <scale sy="2" sx="1" sz="0.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="porta_entrada">
+            <material id="base"/>
+            <texture id="porta"/>
+            <transformations>
+                <translation y="1" z="15.1" x="5.3"/>
+            </transformations>
+            <animationref id="door_open"/>
+            <descendants>
+                <noderef id="porta"/>
+            </descendants>
+        </node>
+        <node id="door_frame">
+            <material id="base"/>
+            <texture id="dark_wood"/>
+            <transformations>
+                <translation y="1" z="15.1" x="5.3"/>
+            </transformations>
+            <descendants>
+                <noderef id="door_frame1"/>
+                <noderef id="door_frame2"/>
+                <noderef id="door_frame3"/>
+            </descendants>
+        </node>
+        <node id="door_frame1">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="0" z="0" x="-1.05"/>
+                <scale sz="0.1" sx="0.1" sy="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="door_frame2">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="0" z="0" x="0.05"/>
+                <scale sz="0.1" sx="0.1" sy="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="door_frame3">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="1.05" z="0.01" x="-0.5"/>
+                <scale sz="0.1" sx="1.2" sy="0.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- endregion -->
+        <!-- region clock -->
+        <node id="clock">
+            <material id="black_plastic"/>
+            <texture id="clear"/>
+
+            <transformations>
+                <translation x="2" y="3" z="0"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.07" outer="0.6" loops="40" slices="10" />
+                <leaf type="cylinder" topRadius=".05" bottomRadius=".05" slices="10" stacks="10" height="0.02"/>
+                <noderef id="minutes_pointer"/>
+                <noderef id="seconds_pointer"/>
+            </descendants>
+        </node>
+        <node id="seconds_pointer">
+            <material id="base"/>
+            <texture id="null"/>
+
+            <transformations>
+                <rotation angle="-90" axis="x" />
+            </transformations>
+
+            <animationref id="clock_tick_seconds" />
+
+            <descendants>
+                <leaf type="cylinder" stacks="10" slices="10" topRadius="0.01" bottomRadius="0.02" height="0.5"/>
+            </descendants>
+        </node>
+        <node id="minutes_pointer">
+            <material id="base"/>
+            <texture id="null"/>
+
+            <transformations>
+                <rotation angle="60" axis="z" />
+                <rotation angle="-90" axis="x" />
+            </transformations>
+
+            <animationref id="clock_tick_minutes" />
+
+            <descendants>
+                <leaf type="cylinder" stacks="10" slices="10" topRadius="0.01" bottomRadius="0.02" height="0.4"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region cadeiras -->
+        <node id="set_lat_cadeiras">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1309,7 +1853,7 @@
                 <translation x="3.2" y="0.4" z="4" />
                 <scale sx="0.2" sy="0.18" sz="0.2" />
             </transformations>
-
+            <animationref id="slide_left"/>
             <descendants>
                 <noderef id="cadeira_1" />
                 <noderef id="cadeira_2" />
@@ -1321,7 +1865,7 @@
                 <noderef id="cadeira_8" />
             </descendants>
         </node>
-        <node id="cadeira_1">            
+        <node id="cadeira_1">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1335,7 +1879,7 @@
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <node id="cadeira_2">            
+        <node id="cadeira_2">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1349,7 +1893,7 @@
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <node id="cadeira_3">            
+        <node id="cadeira_3">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1363,7 +1907,7 @@
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <node id="cadeira_4">            
+        <node id="cadeira_4">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1377,7 +1921,7 @@
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <node id="cadeira_5">            
+        <node id="cadeira_5">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1385,13 +1929,13 @@
 
             <transformations>
                 <translation x="0" y="0" z="2.5" />
-            </transformations> 
+            </transformations>
 
             <descendants>
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <node id="cadeira_6">            
+        <node id="cadeira_6">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1399,13 +1943,13 @@
 
             <transformations>
                 <translation x="0" y="0" z="7.5" />
-            </transformations> 
+            </transformations>
 
             <descendants>
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <node id="cadeira_7">            
+        <node id="cadeira_7">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1413,13 +1957,13 @@
 
             <transformations>
                 <translation x="0" y="0" z="12.5" />
-            </transformations> 
+            </transformations>
 
             <descendants>
                 <noderef id="cadeira" />
             </descendants>
         </node>
-        <node id="cadeira_8">            
+        <node id="cadeira_8">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1427,14 +1971,14 @@
 
             <transformations>
                 <translation x="0" y="0" z="17.5" />
-            </transformations> 
+            </transformations>
 
             <descendants>
                 <noderef id="cadeira" />
             </descendants>
         </node>
 
-        <node id="cadeira">            
+        <node id="cadeira">
             <material id="chrome" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1456,7 +2000,7 @@
                 <noderef id="cad_sup_perna_4" />
             </descendants>
         </node>
-        <node id="cad_suporte">            
+        <node id="cad_suporte">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1464,14 +2008,14 @@
 
             <transformations>
                 <scale sx="0.3" sy="0.8" sz="0.3" />
-                <rotation axis="x" angle="-90" />  
+                <rotation axis="x" angle="-90" />
             </transformations>
 
             <descendants>
                 <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-        <node id="cad_assento">            
+        <node id="cad_assento">
             <material id="black_plastic" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1486,7 +2030,7 @@
                 <noderef id="cube" />
             </descendants>
         </node>
-        <node id="cad_perna_1">            
+        <node id="cad_perna_1">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1503,7 +2047,7 @@
                 <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-        <node id="cad_perna_2">            
+        <node id="cad_perna_2">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1520,7 +2064,7 @@
                 <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-        <node id="cad_perna_3">            
+        <node id="cad_perna_3">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1537,7 +2081,7 @@
                 <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-        <node id="cad_perna_4">            
+        <node id="cad_perna_4">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1554,7 +2098,7 @@
                 <leaf type="cylinder" height="2.3" topRadius="1" bottomRadius="1" stacks="1" slices="8"/>
             </descendants>
         </node>
-        <node id="cad_sup_perna_1">            
+        <node id="cad_sup_perna_1">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1562,14 +2106,14 @@
 
             <transformations>
                 <translation x="0" y="-1.45" z="0.7" />
-                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+                <scale sx="1.4" sy="0.2" sz="0.2" />
             </transformations>
 
             <descendants>
                 <noderef id="cube" />
             </descendants>
         </node>
-        <node id="cad_sup_perna_2">            
+        <node id="cad_sup_perna_2">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1578,14 +2122,14 @@
             <transformations>
                 <rotation axis="y" angle="90" />
                 <translation x="0" y="-1.45" z="0.7" />
-                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+                <scale sx="1.4" sy="0.2" sz="0.2" />
             </transformations>
 
             <descendants>
                 <noderef id="cube" />
             </descendants>
         </node>
-        <node id="cad_sup_perna_3">            
+        <node id="cad_sup_perna_3">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1594,14 +2138,14 @@
             <transformations>
                 <rotation axis="y" angle="180" />
                 <translation x="0" y="-1.45" z="0.7" />
-                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+                <scale sx="1.4" sy="0.2" sz="0.2" />
             </transformations>
 
             <descendants>
                 <noderef id="cube" />
             </descendants>
         </node>
-        <node id="cad_sup_perna_4">            
+        <node id="cad_sup_perna_4">
             <material id="null" />
             <texture id="clear">
                 <amplification afs="1.0" aft="1.0" />
@@ -1610,13 +2154,1189 @@
             <transformations>
                 <rotation axis="y" angle="270" />
                 <translation x="0" y="-1.45" z="0.7" />
-                <scale sx="1.4" sy="0.2" sz="0.2" /> 
+                <scale sx="1.4" sy="0.2" sz="0.2" />
             </transformations>
 
             <descendants>
                 <noderef id="cube" />
             </descendants>
         </node>
+        <!-- endregion -->
+        <!-- region barrels -->
+        <node id="barrel">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10" />
+                <noderef id="capBarrel"/>
+            </descendants>
+        </node>
+        <node id="capBarrel">
+            <material id="null"/>
+            <texture id="clear_wood" />
+            <transformations>
+                <translation y="0" z="2" x="0"/>
+            </transformations>
+            <descendants>
+                <leaf type="cylinder" height="0.01" topRadius="0.5" bottomRadius="0.5" stacks="10" slices="20"/>
+            </descendants>
+        </node>
+
+        <node id="barrel1">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="0" z="0" x="-1.5"/>
+            </transformations>
+            <descendants>
+                <noderef id="barrel"/>
+            </descendants>
+        </node>
+        <node id="barrel2">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+            </transformations>
+            <descendants>
+                <noderef id="barrel"/>
+            </descendants>
+        </node>
+        <node id="barrel3">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="0" z="0" x="1.5"/>
+            </transformations>
+            <descendants>
+                <noderef id="barrel"/>
+            </descendants>
+        </node>
+
+        <node id="set_barrels">
+            <material id="base"/>
+            <texture id="barrel"/>
+            <transformations>
+                <translation y="0" z="12" x="1" />
+                <rotation angle="90" axis="y"/>
+            </transformations>
+            <descendants>
+                <noderef id="barrel1"/>
+                <noderef id="barrel2"/>
+                <noderef id="barrel3"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region mesa_refeição -->
+        <node id="mesa_refeicao">
+            <material id="base" />
+            <texture id="clear_wood" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="tampo_mesa_refeicao"/>
+                <noderef id="perna1_mesa_refeicao"/>
+                <noderef id="perna2_mesa_refeicao"/>
+                <noderef id="perna3_mesa_refeicao"/>
+                <noderef id="perna4_mesa_refeicao"/>
+                <noderef id="perna5_mesa_refeicao"/>
+
+                <noderef id="pilar1"/>
+                <noderef id="pilar2"/>
+                <noderef id="pilar3"/>
+
+                <noderef id="set1_cadeiras_mesa"/>
+                <noderef id="set2_cadeiras_mesa"/>
+                <noderef id="set3_cadeiras_mesa"/>
+                <noderef id="set4_cadeiras_mesa"/>
+                <noderef id="set5_cadeiras_mesa"/>
+                <noderef id="set6_cadeiras_mesa"/>
+                <noderef id="set7_cadeiras_mesa"/>
+                <noderef id="set8_cadeiras_mesa"/>
+
+                <noderef id="set1_pratos_mesa"/>
+                <noderef id="set2_pratos_mesa"/>
+                <noderef id="set3_pratos_mesa"/>
+                <noderef id="set4_pratos_mesa"/>
+                <noderef id="set5_pratos_mesa"/>
+                <noderef id="set6_pratos_mesa"/>
+                <noderef id="set7_pratos_mesa"/>
+                <noderef id="set8_pratos_mesa"/>
+            </descendants>
+        </node>
+        <!-- region tampo mesa refeicao -->
+        <node id="tampo_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="1.2" z="5"/>
+                <scale sz="10" sy="0.1" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna1_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="5"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna2_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="2.5"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna3_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="7.5"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna4_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="9.95"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="perna5_mesa_refeicao">
+            <material id="null" />
+            <texture id="null" />
+            <transformations>
+                <translation x="7.5" y="0.6" z="0.05"/>
+                <scale sz="0.1" sy="1.2" sx="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region pilares mesa refeicao -->
+        <node id="pilar1">
+            <material id="black_plastic"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="1.2" z="7.5" x="7.5" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="2.8" stacks="10" slices="10" middle="0.1" base="0.15" />
+            </descendants>
+        </node>
+        <node id="pilar2">
+            <material id="black_plastic"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="1.2" z="5" x="7.5" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="2.8" stacks="10" slices="10" middle="0.1" base="0.15" />
+            </descendants>
+        </node>
+        <node id="pilar3">
+            <material id="black_plastic"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="1.2" z="2.5" x="7.5" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="2.8" stacks="10" slices="10" middle="0.1" base="0.15" />
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region sets cadeiras mesa refeicao -->
+        <node id="set1_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="0.75"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set2_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="3.25"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set3_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="5.75"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set4_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="6.4" z="8.25"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set5_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="0.75"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set6_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="3.25"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set7_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="5.75"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+        <node id="set8_cadeiras_mesa">
+            <texture id="null"/>
+            <material id="null" />
+            <transformations>
+                <translation y="0" x="8.6" z="8.25"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_cadeiras_mesa"/>
+            </descendants>
+        </node>
+
+        <node id="set_cadeiras_mesa">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="0.45" x="0" z="0" />
+            </transformations>
+            <descendants>
+                <noderef id="cadeira1_mesa"/>
+                <noderef id="cadeira2_mesa"/>
+            </descendants>
+        </node>
+        <node id="cadeira1_mesa">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <scale sx="0.2" sy="0.2" sz="0.2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cadeira"/>
+            </descendants>
+        </node>
+        <node id="cadeira2_mesa">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation z="1" x="0" y="0" />
+                <scale sx="0.2" sy="0.2" sz="0.2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cadeira"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region sets pratos mesa refeicao -->
+        <node id="set1_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set2_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="2.5" y="0" x="0"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set3_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="5" y="0" x="0"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set4_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="7.5" y="0" x="0"/>
+            </transformations>
+            <animationref id="slide_left"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set5_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="0" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set6_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="2.5" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set7_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="5" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+        <node id="set8_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="7.5" y="0" x="1.4"/>
+            </transformations>
+            <animationref id="slide_right"/>
+            <descendants>
+                <noderef id="set_pratos_mesa"/>
+            </descendants>
+        </node>
+
+        <node id="set_pratos_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation x="6.8" y="1.4" z="0.8"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato1_mesa"/>
+                <noderef id="prato2_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato1_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+            </transformations>
+            <descendants>
+                <noderef id="prato_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato2_mesa">
+            <material id="base"/>
+            <texture id="clear" />
+            <transformations>
+                <translation z="1" y="0" x="0"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato_mesa">
+            <material id="base"/>
+            <texture id="barro" />
+            <transformations>
+                <scale sz="0.3" sy="0.3" sx="0.3"/>
+                <scale sz="0.5" sy="0.8" sx="0.6"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato_lado1_mesa"/>
+                <noderef id="prato_lado2_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato_lado_dentro_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <leaf type="patch" npointsU="6" npointsV="3" npartsU="20" npartsV="20">
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+
+                    <controlpoint x="1" y="0" z="1.333" />
+                    <controlpoint x="1" y="-0.667" z="1.333" />
+                    <controlpoint x="1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="0.5" y="0" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="-0.5" y="0" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="-1" y="0" z="1.333" />
+                    <controlpoint x="-1" y="-0.667" z="1.333" />
+                    <controlpoint x="-1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+                </leaf>
+            </descendants>
+        </node>
+        <node id="prato_lado_fora_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <leaf type="patch" npointsU="6" npointsV="3" npartsU="20" npartsV="20">
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+                    <controlpoint x="-1" y="0" z="0" />
+
+                    <controlpoint x="-1" y="0" z="1.333" />
+                    <controlpoint x="-1" y="-0.667" z="1.333" />
+                    <controlpoint x="-1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="-0.5" y="0" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="-0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="0.5" y="0" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="1.333" />
+                    <controlpoint x="0.5" y="-0.667" z="0" />
+
+                    <controlpoint x="1" y="0" z="1.333" />
+                    <controlpoint x="1" y="-0.667" z="1.333" />
+                    <controlpoint x="1.167" y="-0.667" z="0" />
+
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+                    <controlpoint x="1" y="0" z="0" />
+                </leaf>
+            </descendants>
+        </node>
+        <node id="prato_lado1_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="prato_lado_fora_mesa"/>
+                <noderef id="prato_lado_dentro_mesa"/>
+            </descendants>
+        </node>
+        <node id="prato_lado2_mesa">
+            <material id="null"/>
+            <texture id="null" />
+            <transformations>
+                <rotation axis="y" angle="180"/>
+            </transformations>
+            <descendants>
+                <noderef id="prato_lado_fora_mesa"/>
+                <noderef id="prato_lado_dentro_mesa"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- endregion -->
+        <!-- region postes iluminacao -->
+        <node id="poste_iluminacao1">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation x="-1" z="17" y="0"/>
+            </transformations>
+            <descendants>
+                <noderef id="poste_iluminacao"/>
+            </descendants>
+        </node>
+        <node id="poste_iluminacao2">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation x="11" z="17" y="0"/>
+            </transformations>
+            <descendants>
+                <noderef id="poste_iluminacao"/>
+            </descendants>
+        </node>
+
+        <node id="poste_iluminacao">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="poste"/>
+                <noderef id="luz"/>
+            </descendants>
+        </node>
+
+        <node id="poste">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" base="0.1" middle="0.05" slices="20" stacks="20" height="4"/>
+            </descendants>1
+        </node>
+        <node id="luz">
+            <texture id="clear"/>
+            <material id="yellow"/>
+            <transformations>
+                <translation y="4" z="0" x="0"/>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" stacks="20" slices="20" radius="0.3" />
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region billboard -->
+        <node id="billboard">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="0" z="17" x="2"/>
+                <rotation angle="30" axis="y" />
+            </transformations>
+            <descendants>
+                <noderef id="pata1_billboard"/>
+                <noderef id="pata2_billboard"/>
+                <noderef id="frame_billboard"/>
+                <noderef id="display_billboard"/>
+            </descendants>
+        </node>
+        <node id="pata1_billboard">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="0.5" z="0" x="-1" />
+                <scale sz="0.08" sy="1" sx="0.1" />
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="pata2_billboard">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="0.5" z="0" x="1" />
+                <scale sz="0.08" sy="1" sx="0.1" />
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="frame_billboard">
+            <texture id="clear"/>
+            <material id="chrome"/>
+            <transformations>
+                <translation y="1.5" z="0" x="0" />
+                <scale sz="0.1" sy="1.5" sx="4" />
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="display_billboard">
+            <texture id="clear"/>
+            <material id="null"/>
+            <transformations>
+                <translation y="0" z="0.1" x="0" />
+            </transformations>
+            <descendants>
+                <noderef id="message_1" />
+                <noderef id="message_2" />
+                <noderef id="message_3" />
+                <noderef id="message_4" />
+            </descendants>
+        </node>
+        <node id="message_1">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="2" z="0" x="0" />
+                <scale sx="0.3" sy="0.3" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="Izakaya T7G8" />
+            </descendants>
+        </node>
+        <node id="message_2">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="1.7" z="0" x="0" />
+                <scale sx="0.2" sy="0.2" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="Come In" />
+            </descendants>
+        </node>
+        <node id="message_3">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="1.4" z="0" x="0" />
+                <scale sx="0.2" sy="0.2" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="OR" />
+            </descendants>
+        </node>
+        <node id="message_4">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="1.1" z="0" x="0" />
+                <scale sx="0.2" sy="0.2" sz="1"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="Change Camera" />
+            </descendants>
+        </node>
+        <!-- endregion -->
+
+        <node id="plane_outside">
+            <texture id="outside_ground">
+                <amplification afs="5" aft="5"/>
+            </texture>
+            <material id="base"/>
+            <transformations>
+                <translation x="0" z="0" y="-0.01"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="-25" x2="25" y2="10"/>
+            </descendants>
+        </node>
+
+        <!-- region parking lot -->
+        <node id="parking_lot">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="0" x="10" y="0.01"/>
+            </transformations>
+            <descendants>
+                <noderef id="parking_lot_floor"/>
+            </descendants>
+        </node>
+        <node id="parking_lot_floor">
+            <texture id="parking">
+                <amplification aft="15" afs="10"/>
+            </texture>
+            <material id="base"/>
+            <transformations>
+                <rotation axis="z" angle="180"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="rectangle" x1="-10" y1="0" x2="0" y2="15" />
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region roof -->
+        <node id="roof">
+            <texture id="wall_wood"/>
+            <material id="base"/>
+            <transformations>
+
+            </transformations>
+            <descendants>
+                <noderef id="roof1"/>
+                <noderef id="roof2"/>
+                <noderef id="roof3"/>
+                <noderef id="roof4"/>
+
+                <noderef id="chinese_lamp1"/>
+                <noderef id="chinese_lamp2"/>
+                <noderef id="chinese_lamp3"/>
+                <noderef id="chinese_lamp4"/>
+                <noderef id="chinese_lamp5"/>
+                <noderef id="chinese_lamp6"/>
+                <noderef id="chinese_lamp7"/>
+                <noderef id="chinese_lamp8"/>
+                <noderef id="chinese_lamp9"/>
+                <noderef id="chinese_lamp10"/>
+                <noderef id="chinese_lamp11"/>
+                <noderef id="chinese_lamp12"/>
+            </descendants>
+        </node>
+        <node id="roof1">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="5" z="15.55"/>
+                <scale sz="1" sy="0.1" sx="10.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="roof2">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="5" z="-0.55"/>
+                <scale sz="1" sy="0.1" sx="10.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="roof3">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="-0.55" z="7.5"/>
+                <scale sz="17.1" sy="0.1" sx="1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="roof4">
+            <texture id="null"/>
+            <material id="base"/>
+            <transformations>
+                <translation y="3.5" x="10.55" z="7.5"/>
+                <scale sz="17.1" sy="0.1" sx="1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <!-- region chinese lamps -->
+        <node id="chinese_lamp1">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="-0.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp2">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="0.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp3">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="1.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp4">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="2.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp5">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="3.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp6">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="4.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp7">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="5.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp8">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="6.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp9">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="7.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp10">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="8.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp11">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="9.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp12">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <translation z="15.6" x="10.5" y="2.55"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp"/>
+            </descendants>
+        </node>
+
+        <node id="chinese_lamp">
+            <texture id="clear"/>
+            <material id="base"/>
+            <transformations>
+                <scale sx="0.7" sy="0.7" sz="0.7"/>
+            </transformations>
+            <descendants>
+                <noderef id="chinese_lamp_bulb"/>
+                <noderef id="chinese_lamp_thread"/>
+            </descendants>
+        </node>
+        <node id="chinese_lamp_bulb">
+            <texture id="chinese_lamp"/>
+            <material id="emissive"/>
+            <transformations>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="defbarrel" height="1" middle="0.65" base="0.2" slices="20" stacks="20" />
+            </descendants>
+        </node>
+        <node id="chinese_lamp_thread">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="1" x="0" z="0" />
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+            <descendants>
+                <leaf type="cylinder" stacks="20" slices="20" topRadius="0.03" bottomRadius="0.03" height="0.3"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- endregion -->
+
+        <!-- region skybox -->
+        <node id="skybox">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="20" x="0" z="0"/>
+               <scale sx="100" sy="100" sz="100"/>
+            </transformations>
+            <descendants>
+                <noderef id="skybox_side1"/>
+                <noderef id="skybox_side2"/>
+                <noderef id="skybox_side3"/>
+                <noderef id="skybox_side4"/>
+                <noderef id="skybox_side5"/>
+                <noderef id="skybox_side6"/>
+            </descendants>
+        </node>
+        <node id="skybox_side1">
+            <material id="base"/>
+            <texture id="skybox_bottom">
+                <amplification afs="100" aft="100" />
+            </texture>
+            <transformations>
+                <translation x="0" z="0" y="-0.5"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
+            </descendants>
+        </node>
+        <node id="skybox_side2">
+            <material id="base"/>
+            <texture id="skybox_left">
+                <amplification afs="200" aft="200" />
+            </texture>
+            <transformations>
+                <translation x="0.5" z="0" y="0"/>
+                <rotation axis="y" angle="-90"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
+            </descendants>
+        </node>
+        <node id="skybox_side3">
+            <material id="base"/>
+            <texture id="skybox_right">
+                <amplification afs="200" aft="200" />
+            </texture>
+            <transformations>
+                <translation x="-0.5" z="0" y="0"/>
+                <rotation axis="y" angle="90"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
+            </descendants>
+        </node>
+        <node id="skybox_side4">
+            <material id="base"/>
+            <texture id="skybox_back">
+                <amplification afs="200" aft="200" />
+            </texture>
+            <transformations>
+                <translation x="0" z="-0.5" y="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
+            </descendants>
+        </node>
+        <node id="skybox_side5">
+            <material id="base"/>
+            <texture id="skybox_front">
+                <amplification afs="200" aft="200" />
+            </texture>
+            <transformations>
+                <translation x="0" z="0.5" y="0"/>
+                <rotation angle="180" axis="y"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
+            </descendants>
+        </node>
+        <node id="skybox_side6">
+            <material id="base"/>
+            <texture id="skybox_top">
+                <amplification afs="200" aft="200" />
+            </texture>
+            <transformations>
+                <translation x="0" z="0" y="0.5"/>
+                <rotation axis="x" angle="180"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region blimp -->
+        <node id="blimp">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="20" z="-50" x="0"/>
+                <scale sx="3" sy="3" sz="3" />
+            </transformations>
+            <animationref id="blimp"/>
+            <descendants>
+                <noderef id="blimp_body"/>
+                <noderef id="blimp_cabin"/>
+                <noderef id="blimp_flag"/>
+                <noderef id="blimp_flag_display_1"/>
+                <noderef id="blimp_flag_display_2"/>
+            </descendants>
+        </node>
+        <node id="blimp_body">
+            <texture id="goodyear_blimp"/>
+            <material id="base"/>
+            <transformations>
+                <scale sz="1" sy="1" sx="2.5"/>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" radius="1" slices="20" stacks="20"/>
+            </descendants>
+        </node>
+        <node id="blimp_cabin">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="-1" z="0" x="-0.75"/>
+                <rotation angle="90" axis="y"/>
+            </transformations>
+            <descendants>
+                <leaf type="cylinder" slices="20" stacks="20" height="1.5" topRadius="0.3" bottomRadius="0.3"/>
+                <noderef id="blimp_cabin_sphere1"/>
+                <noderef id="blimp_cabin_sphere2"/>
+            </descendants>
+        </node>
+        <node id="blimp_cabin_sphere1">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation y="0" z="1.5" x="0"/>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" radius="0.3" slices="20" stacks="20"/>
+            </descendants>
+        </node>
+        <node id="blimp_cabin_sphere2">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" radius="0.3" slices="20" stacks="20"/>
+            </descendants>
+        </node>
+        <node id="blimp_flag">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation x="6.7" z="0" y="0"/>
+                <scale sz="0.01" sy="1" sx="7"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="blimp_flag_display_1">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation x="6.75" z="0.01" y="0"/>
+                <scale sz="0.01" sy="0.45" sx="0.45"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="LAIG 2020 T7G8"/>
+            </descendants>
+        </node>
+        <node id="blimp_flag_display_2">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation x="6.75" z="-0.01" y="0"/>
+                <scale sz="-0.01" sy="0.45" sx="0.45"/>
+                <rotation axis="y" angle="180"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="LAIG 2020 T7G8"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
 
     </nodes>
 </lsf>

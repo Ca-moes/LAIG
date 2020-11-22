@@ -1021,9 +1021,9 @@ class MySceneGraph {
                         for (let u = 0; u < npointsU; u++) {
                             let uList = []
                             for (let v = 0; v < npointsV; v++) {
-                                let x = this.reader.getFloat(controlPointsNodes[index], 'xx')
-                                let y = this.reader.getFloat(controlPointsNodes[index], 'yy')
-                                let z = this.reader.getFloat(controlPointsNodes[index++], 'zz')
+                                let x = this.reader.getFloat(controlPointsNodes[index], 'x')
+                                let y = this.reader.getFloat(controlPointsNodes[index], 'y')
+                                let z = this.reader.getFloat(controlPointsNodes[index++], 'z')
 
                                 uList.push([x, y, z, 1]);
                             }

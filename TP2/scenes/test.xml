@@ -434,7 +434,7 @@
             </transformations>
 
             <descendants>
-                <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="2" />
+              <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="2" />
             </descendants>
         </node>
 
