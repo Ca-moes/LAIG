@@ -1070,12 +1070,12 @@
             </texture>
 
             <transformations>
-                <translation x="0.5" y="-0.5" z="0.5" />
-                <rotation axis="y" angle="90" />
+                <translation x="0.5" y="0" z="0" />
+                <rotation axis="z" angle="-90" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
         <node id="cub_lado_2">
@@ -1085,12 +1085,12 @@
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="-0.5" z="-0.5" />
-                <rotation axis="y" angle="270" />
+                <translation x="-0.5" y="0" z="0" />
+                <rotation axis="z" angle="90" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
         <node id="cub_lado_3">
@@ -1100,12 +1100,12 @@
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="-0.5" z="-0.5" />
-                <rotation axis="x" angle="90" />
+                <translation x="0" y="-0.5" z="0" />
+                <rotation axis="x" angle="180" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
         <node id="cub_lado_4">
@@ -1115,12 +1115,11 @@
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="0.5" z="0.5" />
-                <rotation axis="x" angle="-90" />
+                <translation x="0" y="0.5" z="0" />
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
         <node id="cub_lado_5">
@@ -1130,12 +1129,12 @@
             </texture>
 
             <transformations>
-                <translation x="0.5" y="-0.5" z="-0.5" />
-                <rotation axis="y" angle="180" />
+                <translation y="0" z="-0.5" x="0" />
+                <rotation angle="-90" axis="x"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
         <node id="cub_lado_6">
@@ -1145,11 +1144,12 @@
             </texture>
 
             <transformations>
-                <translation x="-0.5" y="-0.5" z="0.5" />
+                <translation x="0" z="0.5" y="0" />
+                <rotation axis="x" angle="90"/>
             </transformations>
 
             <descendants>
-                <leaf type="rectangle" x1="0" y1="0" x2="1" y2="1" />
+                <leaf type="plane" npartsU="10" npartsV="10" />
             </descendants>
         </node>
         <!-- endregion -->
@@ -1451,6 +1451,7 @@
                 <noderef id="par_lateral" />
                 <noderef id="par_teto" />
                 <noderef id="par_traseira2" />
+                <noderef id="par_traseira2_inside" />
 
                 <noderef id="par_traseira_outside" />
                 <noderef id="par_lateral_outside" />
@@ -1527,7 +1528,7 @@
             </texture>
 
             <transformations>
-                <translation x="0" y="0.0" z="15" />
+                <translation x="0.05" y="0.0" z="15" />
                 <rotation axis="y" angle="90" />
             </transformations>
 
@@ -1550,6 +1551,21 @@
 
             <descendants>
                 <noderef id="cube" />
+            </descendants>
+        </node>
+        <node id="par_traseira2_inside">
+            <material id="null" />
+            <texture id="null">
+                <amplification afs="15" aft="4" />
+            </texture>
+
+            <transformations>
+                <translation x="9.95" y="0.0" z="0" />
+                <rotation axis="y" angle="-90" />
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="15" y2="4" />
             </descendants>
         </node>
         <node id="par_traseira2">
@@ -2732,6 +2748,7 @@
             <texture id="ground"/>
             <material id="base"/>
             <transformations>
+                <translation x="0" z="0" y="-0.01"/>
                 <scale sx="100" sy="1" sz="100"/>
             </transformations>
             <descendants>
