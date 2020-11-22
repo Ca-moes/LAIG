@@ -123,7 +123,8 @@
         <texture id="asfalto" path="./scenes/images/asfalto.jpg" />
         <texture id="parking" path="./scenes/images/parking.jpg" />
         <texture id="chinese_lamp" path="./scenes/images/chinese_lamp.jpg" />
-        <texture id="goodyear" path="./scenes/images/goodyear.jpg" />
+        <texture id="goodyear_blimp" path="./scenes/images/goodyear_blimp.jpg" />
+        <texture id="inside" path="./scenes/images/inside.jpg" />
 
     </textures>
 
@@ -330,6 +331,64 @@
                 <translation z="0" x="15" y="0" />
                 <rotation axis="x" angle="0"/>
                 <rotation axis="y" angle="180"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
+        <animation id="door_open">
+            <keyframe instant="0">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="3">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="5">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="8">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="10">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="13">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="15">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="50"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="18">
+                <translation z="0" x="0" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
                 <rotation axis="z" angle="0"/>
                 <scale sx="1" sy="1" sz="1"/>
             </keyframe>
@@ -1457,6 +1516,9 @@
                 <noderef id="par_lateral_outside" />
                 <noderef id="parede_frente" />
                 <noderef id="par_teto_outside" />
+
+                <noderef id="porta_entrada"/>
+                <noderef id="door_frame"/>
             </descendants>
         </node>
         <node id="par_teto">
@@ -1632,7 +1694,7 @@
         </node>
         <node id="porta_fora">
             <material id="null" />
-            <texture id="porta">
+            <texture id="inside">
                 <amplification afs="1" aft="2" />
             </texture>
 
@@ -1661,6 +1723,78 @@
                 <leaf type="rectangle" x1="0" y1="0" x2="1" y2="2"/>
             </descendants>
         </node>
+        <!-- region animated door -->
+        <node id="porta">
+            <material id="null" />
+            <texture id="porta">
+
+            </texture>
+
+            <transformations>
+                <translation x="-0.5" z="0" y="0"/>
+                <scale sy="2" sx="1" sz="0.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="porta_entrada">
+            <material id="base"/>
+            <texture id="porta"/>
+            <transformations>
+                <translation y="1" z="15.1" x="5.3"/>
+            </transformations>
+            <animationref id="door_open"/>
+            <descendants>
+                <noderef id="porta"/>
+            </descendants>
+        </node>
+        <node id="door_frame">
+            <material id="base"/>
+            <texture id="dark_wood"/>
+            <transformations>
+                <translation y="1" z="15.1" x="5.3"/>
+            </transformations>
+            <descendants>
+                <noderef id="door_frame1"/>
+                <noderef id="door_frame2"/>
+                <noderef id="door_frame3"/>
+            </descendants>
+        </node>
+        <node id="door_frame1">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="0" z="0" x="-1.05"/>
+                <scale sz="0.1" sx="0.1" sy="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="door_frame2">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="0" z="0" x="0.05"/>
+                <scale sz="0.1" sx="0.1" sy="2"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="door_frame3">
+            <material id="null"/>
+            <texture id="null"/>
+            <transformations>
+                <translation y="1.05" z="0.01" x="-0.5"/>
+                <scale sz="0.1" sx="1.2" sy="0.1"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
         <!-- endregion -->
         <!-- region clock -->
         <node id="clock">
@@ -3125,8 +3259,8 @@
             </descendants>
         </node>
         <node id="blimp_body">
-            <texture id="goodyear"/>
-            <material id="black_plastic"/>
+            <texture id="goodyear_blimp"/>
+            <material id="base"/>
             <transformations>
                 <scale sz="1" sy="1" sx="2.5"/>
             </transformations>
