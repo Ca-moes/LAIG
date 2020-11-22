@@ -2671,8 +2671,7 @@
             <texture id="ground"/>
             <material id="base"/>
             <transformations>
-                <translation y="-0.01" x="0" z="0"/>
-                <scale sx="150" sy="1" sz="150"/>
+                <scale sx="100" sy="1" sz="100"/>
             </transformations>
             <descendants>
                 <leaf type="plane" npartsU="10" npartsV="10"/>
@@ -2938,7 +2937,7 @@
             <texture id="clear"/>
             <transformations>
                 <translation y="20" x="0" z="0"/>
-
+               <scale sx="100" sy="100" sz="100"/>
             </transformations>
             <descendants>
                 <noderef id="skybox_side1"/>
@@ -2955,11 +2954,10 @@
                 <amplification afs="100" aft="100" />
             </texture>
             <transformations>
-                <translation x="0" z="0" y="-100"/>
-                <rotation axis="x" angle="-90"/>
+                <translation x="0" z="0" y="-0.5"/>
             </transformations>
             <descendants>
-                <leaf type="rectangle" x1="-100" x2="100" y1="-100" y2="100"/>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
             </descendants>
         </node>
         <node id="skybox_side2">
@@ -2968,11 +2966,12 @@
                 <amplification afs="200" aft="200" />
             </texture>
             <transformations>
-                <translation x="100" z="0" y="0"/>
+                <translation x="0.5" z="0" y="0"/>
                 <rotation axis="y" angle="-90"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
             <descendants>
-                <leaf type="rectangle" x1="-100" x2="100" y1="-100" y2="100"/>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
             </descendants>
         </node>
         <node id="skybox_side3">
@@ -2981,11 +2980,12 @@
                 <amplification afs="200" aft="200" />
             </texture>
             <transformations>
-                <translation x="-100" z="0" y="0"/>
+                <translation x="-0.5" z="0" y="0"/>
                 <rotation axis="y" angle="90"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
             <descendants>
-                <leaf type="rectangle" x1="-100" x2="100" y1="-100" y2="100"/>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
             </descendants>
         </node>
         <node id="skybox_side4">
@@ -2994,10 +2994,11 @@
                 <amplification afs="200" aft="200" />
             </texture>
             <transformations>
-                <translation x="0" z="-100" y="0"/>
+                <translation x="0" z="-0.5" y="0"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
             <descendants>
-                <leaf type="rectangle" x1="-100" x2="100" y1="-100" y2="100"/>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
             </descendants>
         </node>
         <node id="skybox_side5">
@@ -3006,11 +3007,12 @@
                 <amplification afs="200" aft="200" />
             </texture>
             <transformations>
-                <translation x="0" z="100" y="0"/>
+                <translation x="0" z="0.5" y="0"/>
                 <rotation angle="180" axis="y"/>
+                <rotation axis="x" angle="90"/>
             </transformations>
             <descendants>
-                <leaf type="rectangle" x1="-100" x2="100" y1="-100" y2="100"/>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
             </descendants>
         </node>
         <node id="skybox_side6">
@@ -3019,11 +3021,11 @@
                 <amplification afs="200" aft="200" />
             </texture>
             <transformations>
-                <translation x="0" z="0" y="100"/>
-                <rotation axis="x" angle="90"/>
+                <translation x="0" z="0" y="0.5"/>
+                <rotation axis="x" angle="180"/>
             </transformations>
             <descendants>
-                <leaf type="rectangle" x1="-100" x2="100" y1="-100" y2="100"/>
+                <leaf type="plane" npartsU="5" npartsV="5"/>
             </descendants>
         </node>
         <!-- endregion -->
