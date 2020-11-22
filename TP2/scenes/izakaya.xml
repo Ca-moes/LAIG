@@ -123,6 +123,7 @@
         <texture id="asfalto" path="./scenes/images/asfalto.jpg" />
         <texture id="parking" path="./scenes/images/parking.jpg" />
         <texture id="chinese_lamp" path="./scenes/images/chinese_lamp.jpg" />
+        <texture id="goodyear" path="./scenes/images/goodyear.jpg" />
 
     </textures>
 
@@ -275,6 +276,64 @@
                 <scale sx="1" sy="1" sz="1"/>
             </keyframe>
         </animation>
+        <animation id="blimp">
+            <keyframe instant="0.0">
+                <translation z="0" x="15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="12">
+                <translation z="0" x="-5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="17">
+                <translation z="0" x="-5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1.3" sy="1.3" sz="1.3"/>
+            </keyframe>
+            <keyframe instant="19">
+                <translation z="0" x="-5" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="25.0">
+                <translation z="0" x="-15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="26.0">
+                <translation z="0" x="-15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="180"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="27.0">
+                <translation z="0" x="-15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="180"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="52.0">
+                <translation z="0" x="15" y="0" />
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="180"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
     </animations>
 
     <nodes>
@@ -310,6 +369,8 @@
                 <noderef id="roof" />
 
                 <noderef id="skybox" />
+
+                <noderef id="blimp" />
             </descendants>
         </node>
 
@@ -3026,6 +3087,100 @@
             </transformations>
             <descendants>
                 <leaf type="plane" npartsU="5" npartsV="5"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+        <!-- region blimp -->
+        <node id="blimp">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="20" z="-50" x="0"/>
+                <scale sx="3" sy="3" sz="3" />
+            </transformations>
+            <animationref id="blimp"/>
+            <descendants>
+                <noderef id="blimp_body"/>
+                <noderef id="blimp_cabin"/>
+                <noderef id="blimp_flag"/>
+                <noderef id="blimp_flag_display_1"/>
+                <noderef id="blimp_flag_display_2"/>
+            </descendants>
+        </node>
+        <node id="blimp_body">
+            <texture id="goodyear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <scale sz="1" sy="1" sx="2.5"/>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" radius="1" slices="20" stacks="20"/>
+            </descendants>
+        </node>
+        <node id="blimp_cabin">
+            <texture id="clear"/>
+            <material id="black_plastic"/>
+            <transformations>
+                <translation y="-1" z="0" x="-0.75"/>
+                <rotation angle="90" axis="y"/>
+            </transformations>
+            <descendants>
+                <leaf type="cylinder" slices="20" stacks="20" height="1.5" topRadius="0.3" bottomRadius="0.3"/>
+                <noderef id="blimp_cabin_sphere1"/>
+                <noderef id="blimp_cabin_sphere2"/>
+            </descendants>
+        </node>
+        <node id="blimp_cabin_sphere1">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation y="0" z="1.5" x="0"/>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" radius="0.3" slices="20" stacks="20"/>
+            </descendants>
+        </node>
+        <node id="blimp_cabin_sphere2">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+            </transformations>
+            <descendants>
+                <leaf type="sphere" radius="0.3" slices="20" stacks="20"/>
+            </descendants>
+        </node>
+        <node id="blimp_flag">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation x="6.7" z="0" y="0"/>
+                <scale sz="0.01" sy="1" sx="7"/>
+            </transformations>
+            <descendants>
+                <noderef id="cube"/>
+            </descendants>
+        </node>
+        <node id="blimp_flag_display_1">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation x="6.75" z="0.01" y="0"/>
+                <scale sz="0.01" sy="0.45" sx="0.45"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="LAIG 2020 T7G8"/>
+            </descendants>
+        </node>
+        <node id="blimp_flag_display_2">
+            <texture id="null"/>
+            <material id="null"/>
+            <transformations>
+                <translation x="6.75" z="-0.01" y="0"/>
+                <scale sz="-0.01" sy="0.45" sx="0.45"/>
+                <rotation axis="y" angle="180"/>
+            </transformations>
+            <descendants>
+                <leaf type="spritetext" text="LAIG 2020 T7G8"/>
             </descendants>
         </node>
         <!-- endregion -->
