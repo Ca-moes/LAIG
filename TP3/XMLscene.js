@@ -49,6 +49,7 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.BLEND);         // enables blending
         this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
+        this.gameboard = new MyGameBoard(this, 6)
     }
 
     /**
@@ -156,6 +157,8 @@ class XMLscene extends CGFscene {
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
+
+            this.gameboard.display()
         }
         else
         {

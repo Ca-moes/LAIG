@@ -1,4 +1,16 @@
+/**
+ * 
+ */
 class MyCylinder extends CGFobject {
+    /**
+     * 
+     * @param {XMLscene} scene 
+     * @param {Float} height 
+     * @param {Float} topRadius 
+     * @param {Float} bottomRadius 
+     * @param {Integer} stacks 
+     * @param {Integer} slices 
+     */
     constructor(scene, height, topRadius, bottomRadius, stacks, slices) {
         super(scene);
         this.height = height;
