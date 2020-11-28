@@ -52,8 +52,6 @@ class XMLscene extends CGFscene {
 
         // enable picking
         this.setPickEnabled(true);
-        
-        this.gameboard = new MyGameBoard(this, 6)
     }
 
     /**
@@ -161,8 +159,6 @@ class XMLscene extends CGFscene {
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
-
-            this.gameboard.display()
         }
         else
         {

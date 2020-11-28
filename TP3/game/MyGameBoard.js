@@ -1,9 +1,13 @@
 class MyGameBoard extends CGFobject{
-    constructor(scene, size){
+    constructor(scene, centerx, centery, size){
         super(scene)
         this.scene = scene
+        this.centerx = centerx
+        this.centery = centery
         this.size = size
         this.board = []
+        this.updatedTexCoords = true; // no need for updateTexCoords
+
         this.createBoard()
     }
 
@@ -18,7 +22,8 @@ class MyGameBoard extends CGFobject{
                 this.board.push(tile)
                 pieceType = -pieceType
             }
-            pieceType = -pieceType
+            if (this.size%2 == 0)
+                pieceType = -pieceType
         }
     }
 
@@ -48,7 +53,8 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                this.scene.translate(x*1.03, -y*1.03, 0)
+                this.scene.translate(this.centerx,this.centery, 0)
+                this.scene.translate(x*1.03 - (this.size/2) + 0.5, -y*1.03 + (this.size/2) - 0.5, 0)
                 this.board[index].display()
                 this.scene.popMatrix()
                 index++

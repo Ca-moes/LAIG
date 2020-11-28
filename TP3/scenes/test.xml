@@ -240,6 +240,7 @@
              descendants may be mixed, nodes and leafs -->
       <descendants>
         <noderef id="example"/>
+        <noderef id="board"/>
       </descendants>
     </node>
 
@@ -270,5 +271,20 @@
       </descendants>
     </node>
 
+    <node id="board">
+      <material id="null" />
+      <texture id="null">
+        <amplification afs="1" aft="1" />
+      </texture>
+
+      <transformations>
+      </transformations>
+
+      <!-- <animationref id="test_scale" /> -->
+
+      <descendants>
+        <leaf type="gameboard" x="1" y="1" size="6"/>
+      </descendants>
+    </node>
   </nodes>
 </lsf>

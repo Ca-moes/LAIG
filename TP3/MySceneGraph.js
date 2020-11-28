@@ -1034,6 +1034,15 @@ class MySceneGraph {
                             type: "patch",
                             object: new Patch(this.scene, npartsU, npartsV, npointsU - 1, npointsV - 1, controlPoints)
                         })
+                    } else if (type === "gameboard") {
+                        let x = this.reader.getInteger(descendantsNodes[j], "x")
+                        let y = this.reader.getInteger(descendantsNodes[j], "y")
+                        let size = this.reader.getInteger(descendantsNodes[j], "size")
+
+                        leaves.push({
+                            type: "gameboard",
+                            object: new MyGameBoard(this.scene, x, y, size)
+                        })
                     }
                 }
             }
