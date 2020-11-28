@@ -8,12 +8,13 @@ class MyGameBoard extends CGFobject{
     }
 
     createBoard(){
-        let pieceType = 1
+        let pieceType = -1
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
                 this.board.push( new MyTile(this.scene, this, new MyPiece(this.scene, pieceType), x, y) )
                 pieceType = -pieceType
             }
+            pieceType = -pieceType
         }
     }
 
