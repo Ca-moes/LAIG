@@ -48,18 +48,33 @@
     <texture id="testTexture" path="./scenes/images/testTexture.png" />
     <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
     <texture id="testTexture3" path="./scenes/images/testTexture3.jpg" />
+    <texture id="tile" path="./scenes/images/tile.jpg" />
   </textures>
 
   <spritesheets>
   </spritesheets>
 
   <materials>
-    <material id="testmat">
+    <material id="base">
       <shininess value="10" />
       <ambient r="1" g="1" b="1" a="1.0" />
       <diffuse r="0" g="0" b="0.0" a="1.0" />
       <specular r="0.0" g="0.0" b="0.0" a="1.0" />
       <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
+    </material>
+    <material id="red">
+      <shininess value="10"/>
+      <ambient r="0.3" g="0.2" b="0.2" a="1.0"/>
+      <diffuse r="0.6" g="0.05" b="0.08" a="1.0" />
+      <specular r="0.1" g="0.2" b="0.2" a="1.0" />
+      <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
+    </material>
+    <material id="blue">
+      <shininess value="10"/>
+      <ambient r="0.2" g="0.2" b="0.3" a="1.0"/>
+      <diffuse r="0.06" g="0.2" b="0.5" a="1.0" />
+      <specular r="0.1" g="0.1" b="0.2" a="1.0" />
+      <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
     </material>
   </materials>
 
@@ -69,7 +84,7 @@
   <gameboard x="0" z="0" size="8">
     <player1 material="red" texture="clear"/>
     <player2 material="blue" texture="clear"/>
-    <tiles material="testmat" texture="tile"/>
+    <tiles material="base" texture="tile"/>
     <transformations>
         <translation x="0" y="0" z="0"/>
         <rotation angle="0" axis="x"/>
@@ -79,7 +94,7 @@
 
   <nodes>
     <node id="demoRoot">      <!-- defines one intermediate node; may be repeated as necessary -->
-      <material id="testmat" />
+      <material id="base" />
       <texture id="testTexture3">
         <amplification aft="1" afs="1" />
       </texture>

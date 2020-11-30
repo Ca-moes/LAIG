@@ -1,11 +1,11 @@
 class MyGameBoard extends CGFobject{
-    constructor(scene, centerx, centerz, size, propreties){
+    constructor(scene, centerx, centerz, size, properties){
         super(scene)
         this.scene = scene
         this.centerx = centerx
         this.centerz = centerz
         this.size = size
-        this.propreties = propreties
+        this.properties = properties
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
@@ -16,14 +16,22 @@ class MyGameBoard extends CGFobject{
         let pieceType = 1
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
-                let tile = new MyTile(this.scene, this, x, y)
-                let piece = new MyPiece(this.scene, pieceType)
+                let tile = new MyTile(
+                    this.scene,
+                    this, x, y,
+                    this.properties.tiles.material,
+                    this.properties.tiles.texture)
+                let piece = new MyPiece(
+                    this.scene,
+                    pieceType,
+                    (pieceType === 1) ? this.properties.player1.material : this.properties.player2.material,
+                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture)
                 tile.setPiece(piece)
                 piece.setTile(tile)
                 this.board.push(tile)
                 pieceType = -pieceType
             }
-            if (this.size%2 == 0)
+            if (this.size % 2 === 0)
                 pieceType = -pieceType
         }
     }
@@ -46,6 +54,8 @@ class MyGameBoard extends CGFobject{
     display(){
         this.logPicking()
         this.scene.clearPickRegistration();
+
+        this.scene.multMatrix(this.properties.transformations)
 
         let index = 0
         for (let y = 0; y < this.size; y++) {
