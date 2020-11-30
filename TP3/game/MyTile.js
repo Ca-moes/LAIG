@@ -19,7 +19,7 @@ class MyTile extends CGFobject {
     };
 
     toString() {
-        return `Tile X:${this.x} | Y:${String.fromCharCode(65 + this.y)} with Piece:${this.piece}`
+        return `Tile X:${this.x} | Y:${String.fromCharCode(65 + this.y)} with Piece: ${this.piece}`
     }
 
     getPiece() {
@@ -41,8 +41,6 @@ class MyTile extends CGFobject {
         if (this.texture)
             this.texture.bind()
 
-        this.scene.scale(1, 1, 1)
-        this.scene.rotate(Math.PI / 2, 1, 0, 0)
         this.obj.display()
         this.scene.popMatrix()
 
