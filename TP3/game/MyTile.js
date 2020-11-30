@@ -9,6 +9,8 @@ class MyTile extends CGFobject{
         this.scene = scene;
         this.gameboard = gameboard;
         this.piece = null
+        this.x = x;
+        this.y = y;
         this.updatedTexCoords = true; // no need for updateTexCoords
 
         this.obj = new Plane(scene, 5, 5)
@@ -17,12 +19,16 @@ class MyTile extends CGFobject{
 
         this.material.setShininess(10)
         this.material.setEmission(0, 0, 0, 0)
-        this.material.setAmbient(0.1, 0.1, 0.1, 1)
-        this.material.setDiffuse(0.3, 0.3, 0.3, 1)
+        this.material.setAmbient(0.3, 0.3, 0.3, 1)
+        this.material.setDiffuse(0.5, 0.5, 0.5, 1)
         this.material.setSpecular(0.1, 0.1, 0.1, 1)
 
         this.texture = new CGFtexture(this.scene, './scenes/images/tile.jpg')
     };
+
+    toString() {
+        return `Tile X:${this.x} | Y:${String.fromCharCode(65 + this.y)} with Piece:${this.piece}`
+    }
 
     getPiece(){
         return this.piece

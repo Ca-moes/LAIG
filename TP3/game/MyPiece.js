@@ -57,6 +57,10 @@ class MyPiece extends CGFobject{
         this.obj.display()
         this.scene.popMatrix()
     }
+
+    toString() {
+        return (this.type === 1) ? "Red Piece" : "Blue Piece"
+    }
 }
 
 /*

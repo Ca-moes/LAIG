@@ -32,9 +32,10 @@ class MyGameBoard extends CGFobject{
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
 				for (var i = 0; i < this.scene.pickResults.length; i++) {
 					var obj = this.scene.pickResults[i][0];
-					if (obj) {
+					if (obj instanceof MyTile) {
 						var customId = this.scene.pickResults[i][1];
-						console.log("Picked object: " + obj + ", with pick id " + customId);						
+						console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
+						this.movePiece(obj, this.board[0])
 					}
 				}
 				this.scene.pickResults.splice(0, this.scene.pickResults.length);
@@ -61,6 +62,32 @@ class MyGameBoard extends CGFobject{
                 index++
             }
         }
+    }
+
+    /**
+     * Low-Level Method to move a piece from one tile to another
+     * as the original tile should have a piece, we dont need to pass
+     * it as an argument, instead, we throw an exception in case the original
+     * tile does not contain a piece
+     *
+     * The exception is just here to remind us that we cannot initiate a move
+     * when no piece is available on the tile, but this will be handled by prolog
+     * backend
+     *
+     * @param originalTile      {MyTile} Original Tile
+     * @param destinationTile   {MyTile} Destination Tile
+     * @return {MyPiece} moved
+     */
+    movePiece(originalTile, destinationTile) {
+        const piece = originalTile.getPiece()
+        if (piece == null) throw "movePiece(): Tile does not contain a piece to move!"
+
+        destinationTile.setPiece(piece)
+        originalTile.unsetPiece()
+
+        console.log("Piece Moved")
+
+        return piece
     }
 
 }
