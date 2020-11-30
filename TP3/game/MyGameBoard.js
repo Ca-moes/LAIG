@@ -35,7 +35,6 @@ class MyGameBoard extends CGFobject{
 					if (obj instanceof MyTile) {
 						var customId = this.scene.pickResults[i][1];
 						console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
-						this.movePiece(obj, this.board[0])
 					}
 				}
 				this.scene.pickResults.splice(0, this.scene.pickResults.length);
@@ -90,4 +89,20 @@ class MyGameBoard extends CGFobject{
         return piece
     }
 
+    clone() {
+        let board = new MyGameBoard(this.scene, this.centerx, this.centery, this.size)
+        board.board.clear()
+        let clonedBoard = []
+        this.board.forEach((value => {
+            /*let piece = null
+            if (value.getPiece())
+                piece = new MyPiece(this.scene, value.getPiece().getType())
+            let tile = new MyTile(this.scene, board, value, value.x, value.y)
+            tile.setPiece(piece)
+            clonedBoard.push(tile)*/
+            clonedBoard.push(value)
+        }))
+        board.board = clonedBoard
+        return board
+    }
 }

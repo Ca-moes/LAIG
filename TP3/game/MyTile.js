@@ -3,7 +3,7 @@
  * @constructor
  */
 
-class MyTile extends CGFobject{
+class MyTile extends CGFobject {
     constructor(scene, gameboard, x, y) {
         super(scene);
         this.scene = scene;
@@ -30,15 +30,15 @@ class MyTile extends CGFobject{
         return `Tile X:${this.x} | Y:${String.fromCharCode(65 + this.y)} with Piece:${this.piece}`
     }
 
-    getPiece(){
+    getPiece() {
         return this.piece
     }
 
-    setPiece(piece){
+    setPiece(piece) {
         this.piece = piece
     }
 
-    unsetPiece(){
+    unsetPiece() {
         this.piece = null
     }
 
@@ -48,10 +48,10 @@ class MyTile extends CGFobject{
 
         this.scene.pushMatrix()
         this.scene.scale(1, 1, 1)
-        this.scene.rotate(Math.PI/2, 1, 0, 0 )
+        this.scene.rotate(Math.PI / 2, 1, 0, 0)
         this.obj.display()
         this.scene.popMatrix()
-        
+
         if (this.piece) {
             this.piece.display()
         }
