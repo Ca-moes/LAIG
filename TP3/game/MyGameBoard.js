@@ -1,11 +1,11 @@
 class MyGameBoard extends CGFobject{
-    constructor(scene, centerx, centery, centerz, size){
+    constructor(scene, centerx, centerz, size, propreties){
         super(scene)
         this.scene = scene
         this.centerx = centerx
-        this.centery = centery
         this.centerz = centerz
         this.size = size
+        this.propreties = propreties
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
@@ -54,7 +54,6 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                this.scene.translate(0, this.centery, 0)
                 this.scene.rotate(-Math.PI/2, 1, 0, 0)
                 this.scene.translate(this.centerx,this.centerz, 0)
                 this.scene.translate(x - (this.size/2) + 0.5, -y + (this.size/2) - 0.5, 0)

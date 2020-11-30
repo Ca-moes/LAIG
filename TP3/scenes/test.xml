@@ -5,7 +5,6 @@
     <root id="demoRoot" />
     <!-- identifier of root node of the scene graph; this node -->
     <!-- must be defined in one of the following NODE declarations -->
-    <board x="0" y="0" z="0" size="8" />
   </initials>
 
   <views default="defaultCamera">
@@ -66,6 +65,17 @@
 
   <animations>
   </animations>
+
+  <gameboard x="0" z="0" size="8">
+    <player1 material="red" texture="clear"/>
+    <player2 material="blue" texture="clear"/>
+    <tiles material="testmat" texture="tile"/>
+    <transformations>
+        <translation x="0" y="0" z="0"/>
+        <rotation angle="0" axis="x"/>
+        <scale sx="1" sy="1" sz="1"/>
+    </transformations>
+  </gameboard>
 
   <nodes>
     <node id="demoRoot">      <!-- defines one intermediate node; may be repeated as necessary -->

@@ -9,7 +9,8 @@ const TEXTURES_INDEX = 4;
 const SPRITESHEETS_INDEX = 5
 const MATERIALS_INDEX = 6;
 const ANIMATIONS_INDEX = 7;
-const NODES_INDEX = 8;
+const BOARD_INDEX = 8;
+const NODES_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -225,6 +226,15 @@ class MySceneGraph {
             if ((error = this.parseNodes(nodes[index])) != null)
                 return error;
         }
+
+        // <board>
+        if ((index = nodeNames.indexOf("gameboard")) == -1)
+            return "tag <board> missing";
+        else {
+            //Parse board block
+            if ((error = this.parseBoard(nodes[index])) != null)
+                return error;
+        }
         this.log("all parsed");
     }
 
@@ -264,17 +274,6 @@ class MySceneGraph {
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
         this.referenceLength = axis_length;
-
-        if (boardIndex === -1)
-            return "No Board Defined!"
-
-        const boardNode = children[boardIndex]
-        let x = this.reader.getInteger(boardNode, "x")
-        let y = this.reader.getFloat(boardNode, "y")
-        let z = this.reader.getInteger(boardNode, "z")
-        let size = this.reader.getInteger(boardNode, "size")
-
-        this.gameboard = new MyGameBoard(this.scene, x, y, z, size);
 
         this.log("Parsed initials");
 
@@ -1093,6 +1092,113 @@ class MySceneGraph {
 
         this.log("Parsed Nodes.")
         return null
+    }
+
+    parseBoard(boardNode) {
+        let x = this.reader.getFloat(boardNode, "x")
+        let z = this.reader.getFloat(boardNode, "z")
+        let size = this.reader.getInteger(boardNode, "size")
+
+        let children = boardNode.children
+
+        const nodeNames = [];
+
+        for (let i = 0; i < children.length; i++) {
+            nodeNames.push(children[i].nodeName);
+        }
+
+        let index;
+        if ((index = nodeNames.indexOf("player1")) === -1) {
+            return "missing <player1> tag"
+        }
+        const materialIDPiece1 = this.reader.getString(children[index], "material")
+        const textureIDPiece1 = this.reader.getString(children[index], "texture")
+
+        if ((index = nodeNames.indexOf("player2")) === -1) {
+            return "missing <player2> tag"
+        }
+        const materialIDPiece2 = this.reader.getString(children[index], "material")
+        const textureIDPiece2 = this.reader.getString(children[index], "texture")
+
+        if ((index = nodeNames.indexOf("tiles")) === -1) {
+            return "missing <tiles> tag"
+        }
+        const materialIDTile = this.reader.getString(children[index], "material")
+        const textureIDTile = this.reader.getString(children[index], "texture")
+
+        // Transformations
+        // when theres no <transformation> block we simply pass the identity matrix
+        // and warn the user about it!
+        index = nodeNames.indexOf("transformations")
+        const transformationMatrix = mat4.create()
+        if (index === -1) {
+            this.onXMLMinorError("[NODES] Lack of transformation tag on node ID: " + nodeID + ", proceeding with no transformations.")
+        } else {
+            const transformationsNode = children[index].children
+            for (let j = 0; j < transformationsNode.length; j++) {
+                if (transformationsNode[j].nodeName === "rotation") {
+                    const axis = this.reader.getString(transformationsNode[j], 'axis')
+                    const angle = this.reader.getFloat(transformationsNode[j], 'angle')
+
+                    if (axis == null || (axis !== "x" && axis !== "y" && axis !== "z")) {
+                        return "[NODES] wrong value for axis on rotation - board"
+                    }
+                    if (angle == null || isNaN(angle)) {
+                        return "[NODES] wrong value for angle on rotation - board"
+                    }
+
+                    mat4.rotate(transformationMatrix, transformationMatrix, angle * DEGREE_TO_RAD, this.axisCoords[axis])
+                } else if (transformationsNode[j].nodeName === "translation") {
+                    const x = this.reader.getFloat(transformationsNode[j], "x")
+                    const y = this.reader.getFloat(transformationsNode[j], "y")
+                    const z = this.reader.getFloat(transformationsNode[j], "z")
+
+                    if (x == null || y == null || z == null) {
+                        return "[NODES] missing values for translation - board"
+                    }
+                    if (isNaN(x) || isNaN(y) || isNaN(z)) {
+                        return "[NODES] wrong values for translation - board"
+                    }
+
+                    mat4.translate(transformationMatrix, transformationMatrix, [x, y, z])
+                } else if (transformationsNode[j].nodeName === "scale") {
+                    const sx = this.reader.getFloat(transformationsNode[j], "sx")
+                    const sy = this.reader.getFloat(transformationsNode[j], "sy")
+                    const sz = this.reader.getFloat(transformationsNode[j], "sz")
+
+                    if (sx == null || sy == null || sz == null) {
+                        return "[NODES] missing values for scale - board"
+                    }
+                    if (isNaN(sx) || isNaN(sy) || isNaN(sz)) {
+                        return "[NODES] wrong values for scale - board"
+                    }
+
+                    mat4.scale(transformationMatrix, transformationMatrix, [sx, sy, sz])
+                } else {
+                    this.onXMLMinorError("[NODES] unknown tag <" + transformationsNode[j].nodeName + ">")
+                }
+            }
+        }
+
+        let properties = {
+            player1: {
+                material: this.materials[materialIDPiece1],
+                texture: (textureIDPiece1 !== "clear") ? this.textures[textureIDPiece1] : null
+            },
+            player2: {
+                material: this.materials[materialIDPiece2],
+                texture: (textureIDPiece2 !== "clear") ? this.textures[textureIDPiece2] : null
+            },
+            tiles: {
+                material: this.materials[materialIDTile],
+                texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null
+            },
+            transformations: transformationMatrix
+        }
+
+        this.gameboard = new MyGameBoard(this.scene, x, z, size, properties)
+
+        console.log("Parsed Gameboard")
     }
 
     /**

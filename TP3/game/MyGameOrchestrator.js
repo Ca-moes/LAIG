@@ -17,7 +17,7 @@ class MyGameOrchestrator {
         this.theme.displayScene()
         // linter may say its unresolved but as soon as the XMLScene is loaded
         // gameboard is assigned here
-        this.theme.gameboard.display()
+        this.gameboard.display()
         this.animator.display()
     }
 
