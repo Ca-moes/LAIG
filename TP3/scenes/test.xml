@@ -1,0 +1,290 @@
+<lsf>
+  <initials>
+    <reference length="2" />
+    <!-- axis length; "0" means no axis displayed -->
+    <root id="demoRoot" />
+    <!-- identifier of root node of the scene graph; this node -->
+    <!-- must be defined in one of the following NODE declarations -->
+  </initials>
+
+  <views default="defaultCamera">
+    <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+      <from x="15" y="7" z="15" />
+      <to x="0" y="-2" z="0" />
+    </perspective>
+    <ortho id="demoOrtho" near="1" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
+      <from x="5" y="0" z="10" />
+      <to x="5" y="0" z="0" />
+      <up x="0" y="1" z="0" />
+    </ortho>
+  </views>
+
+  <illumination>
+    <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+    <!-- global ambient -->
+    <background r="0.1" g="0.7" b="1.0" a="1.0" />
+    <!-- background color -->
+  </illumination>
+
+
+  <lights>
+    <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
+    <light id="demoLight">      <!-- light identifier -->
+      <enable value="1" />
+      <!-- enable/disable -->
+      <position x="0" y="20" z="0" w="1.0" />
+      <!-- light position; w=1: point light; w=0: directional light -->
+      <ambient r="0" g="0" b="0" a="1.0" />
+      <!-- ambient component -->
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <!-- diffuse component -->
+      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+      <!-- specular component -->
+    </light>
+  </lights>
+
+
+  <textures>
+    <texture id="testTexture" path="./scenes/images/testTexture.png" />
+    <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
+    <texture id="testTexture3" path="./scenes/images/testTexture3.jpg" />
+  </textures>
+
+  <spritesheets>
+    <spritesheet id="boom" path="./shaders/explosion_4x2.png" sizeM="4" sizeN="4" />
+    <spritesheet id="dance" path="./shaders/dance_8x10.png" sizeM="8" sizeN="10" />
+    <spritesheet id="stick" path="./shaders/stick_24x4.png" sizeM="24" sizeN="4" />
+    <spritesheet id="horse" path="./shaders/horse_20x13.png" sizeM="20" sizeN="13" />
+  </spritesheets>
+
+  <materials>
+    <!-- NOTE: the "MATERIAL" block may be repeated as required. Each defined material
+         requires a distinct "id". At least one material should be present. -->
+    <material id="demoMaterial">
+      <shininess value="10" />
+      <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+      <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+      <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+    </material>
+    <material id="red">
+      <shininess value="10" />
+      <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+      <diffuse r="1.0" g="0.0" b="0.0" a="1.0" />
+      <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+      <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+    </material>
+    <material id="green">
+      <shininess value="10" />
+      <ambient r="0" g="1.0" b="0.0" a="1.0" />
+      <diffuse r="0" g="1.0" b="0.0" a="1.0" />
+      <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+      <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+    </material>
+    <material id="blue">
+      <shininess value="10" />
+      <ambient r="0" g="0" b="1.0" a="1.0" />
+      <diffuse r="0" g="0" b="1.0" a="1.0" />
+      <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+      <emissive r="0.0" g="0.0" b="0.0" a="1.0" />
+    </material>
+    <material id="testmat">
+      <shininess value="10" />
+      <ambient r="1" g="1" b="1" a="1.0" />
+      <diffuse r="0" g="0" b="0.0" a="1.0" />
+      <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+      <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
+    </material>
+  </materials>
+
+  <animations>
+    <animation id="no_animation">
+      <keyframe instant="0.0">
+        <translation z="0" x="0" y="0" />
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+      <keyframe instant="1.0">
+        <translation z="0" x="0" y="0" />
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+    </animation>
+
+    <animation id="single_keyframe">
+      <keyframe instant="1.0">
+        <translation z="0" x="0" y="0" />
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="45"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+    </animation>
+
+    <animation id="test_translate">
+      <keyframe instant="3.0">
+        <translation x="1" y="1" z="1"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+
+      <keyframe instant="5.0">
+        <translation x="-5" y="-2" z="-2"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+
+      <keyframe instant="8.0">
+        <translation x="10" y="1" z="1"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+    </animation>
+
+    <animation id="test_scale">
+      <keyframe instant="3.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+
+      <keyframe instant="5.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="2" sy="2" sz="2"/>
+      </keyframe>
+
+      <keyframe instant="8.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+    </animation>
+
+    <animation id="test_rotate">
+      <keyframe instant="3.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+
+      <keyframe instant="5.0">
+        <translation x="0" y="0" z="0"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="180"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+    </animation>
+
+    <animation id="test_all">
+      <keyframe instant="3.0">
+        <translation x="1" y="1" z="1"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="0"/>
+        <rotation axis="z" angle="180"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+
+      <keyframe instant="5.0">
+        <translation x="-2" y="-2" z="-2"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="180"/>
+        <rotation axis="z" angle="0"/>
+        <scale sx="2" sy="2" sz="2"/>
+      </keyframe>
+
+      <keyframe instant="8.0">
+        <translation x="1" y="1" z="1"/>
+        <rotation axis="x" angle="0"/>
+        <rotation axis="y" angle="-180"/>
+        <rotation axis="z" angle="-180"/>
+        <scale sx="1" sy="1" sz="1"/>
+      </keyframe>
+    </animation>
+  </animations>
+
+  <nodes>
+    <node id="demoRoot">      <!-- defines one intermediate node; may be repeated as necessary -->
+      <!-- next two lines are mandatory -->
+      <material id="testmat" />
+      <!-- this superimposes the material received from parent node id="null" maintains material from parent node -->
+
+      <texture id="testTexture3">
+        <amplification aft="1" afs="1" />
+      </texture>
+
+      <!-- geom. transf. are optional and may be repeated, in any order, as necessary: -->
+      <transformations>
+      </transformations>
+
+      <!-- declaring descendants, at least one node or one leaf must be present
+             descendants may be mixed, nodes and leafs -->
+      <descendants>
+        <noderef id="example"/>
+        <noderef id="board"/>
+      </descendants>
+    </node>
+
+    <!-- Nó exemplo com todas transformations e leafs -->
+    <node id="example">
+      <material id="green" />
+      <texture id="null">
+        <amplification afs="1" aft="1" />
+      </texture>
+
+      <transformations>
+        <translation x="1110" y="0.0" z="0" />
+        <rotation axis="x" angle="0" />
+        <scale sx="1" sy="1" sz="1"/>
+      </transformations>
+
+      <!-- <animationref id="test_scale" /> -->
+
+      <descendants>
+        <leaf type="triangle" x1="0" y1="0" x2="1" y2="0" x3="1" y3="1" />
+        <!--  <leaf type="rectangle" x1="0" y1="0" x2="15" y2="15" />
+        <leaf type="cylinder" height="5" topRadius="1" bottomRadius="2" stacks="10" slices="10"/>
+        <leaf type="sphere" radius="3" slices="10" stacks="5"/>
+        <leaf type="torus" inner="1" outer="3.0" slices="4" loops="10" />
+        <leaf type="spritetext" text="El Real Heineken and Ilario" />
+        <leaf type="spriteanim" ssid="horse" startCell="0" endCell="249" duration="2" />
+        <leaf type="defbarrel" base="2" middle="3" height="10" slices="10" stacks="10" /> -->
+      </descendants>
+    </node>
+
+    <node id="board">
+      <material id="null" />
+      <texture id="null">
+        <amplification afs="1" aft="1" />
+      </texture>
+
+      <transformations>
+      </transformations>
+
+      <!-- <animationref id="test_scale" /> -->
+
+      <descendants>
+        <leaf type="gameboard" x="0" y="0" size="6"/>
+      </descendants>
+    </node>
+  </nodes>
+</lsf>
