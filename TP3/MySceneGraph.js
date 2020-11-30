@@ -241,6 +241,7 @@ class MySceneGraph {
 
         var rootIndex = nodeNames.indexOf("root");
         var referenceIndex = nodeNames.indexOf("reference");
+        var boardIndex = nodeNames.indexOf("board");
 
         // Get root of the scene.
         if (rootIndex == -1)
@@ -263,6 +264,17 @@ class MySceneGraph {
             this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
 
         this.referenceLength = axis_length;
+
+        if (boardIndex === -1)
+            return "No Board Defined!"
+
+        const boardNode = children[boardIndex]
+        let x = this.reader.getInteger(boardNode, "x")
+        let y = this.reader.getFloat(boardNode, "y")
+        let z = this.reader.getInteger(boardNode, "z")
+        let size = this.reader.getInteger(boardNode, "size")
+
+        this.gameboard = new MyGameBoard(this.scene, x, y, z, size);
 
         this.log("Parsed initials");
 
@@ -1033,15 +1045,6 @@ class MySceneGraph {
                         leaves.push({
                             type: "patch",
                             object: new Patch(this.scene, npartsU, npartsV, npointsU - 1, npointsV - 1, controlPoints)
-                        })
-                    } else if (type === "gameboard") {
-                        let x = this.reader.getInteger(descendantsNodes[j], "x")
-                        let y = this.reader.getInteger(descendantsNodes[j], "y")
-                        let size = this.reader.getInteger(descendantsNodes[j], "size")
-
-                        leaves.push({
-                            type: "gameboard",
-                            object: new MyGameBoard(this.scene, x, y, size)
                         })
                     }
                 }

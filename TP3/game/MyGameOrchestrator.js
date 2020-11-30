@@ -1,21 +1,23 @@
 class MyGameOrchestrator {
-    constructor(scene, gameBoard, gameSequence, animator, theme, prolog) {
+    constructor(scene) {
         this.scene = scene
         this.gameSequence = new MyGameSequence()
-        this.animator = new MyAnimator(this, gameSequence)
-        // we have this on XML, we need to remove it, as XML should only contain SCENE elements
-        this.gameboard = new MyGameBoard(this.scene, 0, 0, 8)
+        this.animator = new MyAnimator(this, this.gameSequence)
+        // The gameboard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
         // this.prolog = new MyPrologInterface(…)
     }
 
     update(time) {
         this.animator.update(time)
+        this.theme.updateAnimations(time / 1000);
     }
 
     display() {
-        this.theme.display()
-        this.gameboard.display()
+        this.theme.displayScene()
+        // linter may say its unresolved but as soon as the XMLScene is loaded
+        // gameboard is assigned here
+        this.theme.gameboard.display()
         this.animator.display()
     }
 

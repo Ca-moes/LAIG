@@ -19,6 +19,8 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
+        this.orchestrator = new MyGameOrchestrator(this)
+
         this.sceneInited = false;
 
         this.initCameras();
@@ -115,6 +117,9 @@ class XMLscene extends CGFscene {
         this.updateView()
         this.updateLights()
 
+        // gameboard is assigned to the orchestrator here
+        this.orchestrator.gameboard = this.orchestrator.theme.gameboard
+
         this.sceneInited = true;
         this.setUpdatePeriod(1000.0/20.0); // 60Hz
         this.start = Math.round(Date.now())
@@ -158,7 +163,7 @@ class XMLscene extends CGFscene {
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+            this.orchestrator.display();
         }
         else
         {
@@ -176,7 +181,7 @@ class XMLscene extends CGFscene {
     }
 
     update(t) {
-        this.graph.updateAnimations((t - this.start) / 1000);
+        this.orchestrator.update(t - this.start)
     }
 
     /**
