@@ -30,6 +30,10 @@ serialInclude(['../lib/CGF.js',
     './game/MyGameBoard.js', 
     './game/CGFResourceReader.js',
     './game/CGFOBJModel.js',
+    './game/MyAnimator.js',
+    './game/MyGameMove.js',
+    './game/MyGameOrchestrator.js',
+    './game/MyGameSequence.js',
     'Animation.js',
     'KeyframeAnimation.js',
     'MySpriteSheet.js',
@@ -50,15 +54,6 @@ main=function()
     app.setInterface(myInterface);
 
     myInterface.setActiveCamera(myScene.camera);
-
-	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
-	
-    var filename=getUrlVars()['file'] || "test.xml";
-
-	// create and load graph, and associate it to scene. 
-	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene);
 	
 	// start
     app.run();
