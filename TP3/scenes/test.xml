@@ -85,7 +85,7 @@
     <player1 material="red" texture="clear"/>
     <player2 material="blue" texture="clear"/>
     <tiles material="base" texture="tile"/>
-    <model path="models/round_chip_piece.obj" height="1" />
+    <model path="models/flat_chip_piece.obj" height="1" />
     <transformations>
         <translation x="0" y="0" z="0"/>
         <rotation angle="0" axis="x"/>

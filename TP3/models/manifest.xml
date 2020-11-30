@@ -1,4 +1,5 @@
 <pmf>
     <model path="models/default_piece.obj" height="1"/>
     <model path="models/round_chip_piece.obj" height="1"/>
+    <model path="models/flat_chip_piece.obj" height="1"/>
 </pmf>
