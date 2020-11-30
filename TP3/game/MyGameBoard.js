@@ -53,8 +53,9 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
+                this.scene.rotate(-Math.PI/2, 1, 0, 0)
                 this.scene.translate(this.centerx,this.centery, 0)
-                this.scene.translate(x*1.03 - (this.size/2) + 0.5, -y*1.03 + (this.size/2) - 0.5, 0)
+                this.scene.translate(x - (this.size/2) + 0.5, -y + (this.size/2) - 0.5, 0)
                 this.board[index].display()
                 this.scene.popMatrix()
                 index++

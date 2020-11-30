@@ -12,7 +12,7 @@ class MyPiece extends CGFobject{
 
         this.tile = null
 
-        this.obj = new MyCylinder(scene, 0.1, 0.6, 0.6, 4, 4)
+        this.obj = new MyCylinder(scene, 0.1, 0.5, 0.5, 4, 4)
 
         this.redmaterial = new CGFappearance(this.scene)
         this.redmaterial.setShininess(10)

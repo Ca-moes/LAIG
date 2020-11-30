@@ -32,7 +32,7 @@
     <light id="demoLight">      <!-- light identifier -->
       <enable value="1" />
       <!-- enable/disable -->
-      <position x="5" y="6" z="20" w="1.0" />
+      <position x="0" y="20" z="0" w="1.0" />
       <!-- light position; w=1: point light; w=0: directional light -->
       <ambient r="0" g="0" b="0" a="1.0" />
       <!-- ambient component -->
@@ -283,7 +283,7 @@
       <!-- <animationref id="test_scale" /> -->
 
       <descendants>
-        <leaf type="gameboard" x="1" y="1" size="6"/>
+        <leaf type="gameboard" x="0" y="0" size="6"/>
       </descendants>
     </node>
   </nodes>

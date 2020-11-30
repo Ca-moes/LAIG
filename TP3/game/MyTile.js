@@ -20,6 +20,8 @@ class MyTile extends CGFobject{
         this.material.setAmbient(0.1, 0.1, 0.1, 1)
         this.material.setDiffuse(0.3, 0.3, 0.3, 1)
         this.material.setSpecular(0.1, 0.1, 0.1, 1)
+
+        this.texture = new CGFtexture(this.scene, './scenes/images/tile.jpg')
     };
 
     getPiece(){
@@ -30,8 +32,13 @@ class MyTile extends CGFobject{
         this.piece = piece
     }
 
+    unsetPiece(){
+        this.piece = null
+    }
+
     display() {
         this.material.apply()
+        this.texture.bind()
 
         this.scene.pushMatrix()
         this.scene.scale(1, 1, 1)
@@ -39,6 +46,8 @@ class MyTile extends CGFobject{
         this.obj.display()
         this.scene.popMatrix()
         
-        this.piece.display()
+        if (this.piece) {
+            this.piece.display()
+        }
     }
 }
