@@ -1127,7 +1127,7 @@ class MySceneGraph {
         const textureIDTile = this.reader.getString(children[index], "texture")
 
         if ((index = nodeNames.indexOf("model")) === -1) {
-            return "missing <tiles> tag"
+            return "missing <model> tag"
         }
         const modelPath = this.reader.getString(children[index], "path")
         const modelHeight = this.reader.getFloat(children[index], "height")
