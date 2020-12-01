@@ -9,8 +9,15 @@ class MyGameOrchestrator {
     }
 
     update(time) {
+        if (this.scene.sceneInited && !this.scene.timeSet) {
+            this.theme.setAnimationsStartTime(time / 1000);
+            this.scene.timeSet = true;
+        }
+        else if (this.scene.sceneInited && this.scene.timeSet) {
+            this.theme.updateAnimations(time / 1000);
+        }
+
         this.animator.update(time)
-        this.theme.updateAnimations(time / 1000);
     }
 
     display() {
