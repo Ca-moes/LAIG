@@ -1126,6 +1126,12 @@ class MySceneGraph {
         const materialIDTile = this.reader.getString(children[index], "material")
         const textureIDTile = this.reader.getString(children[index], "texture")
 
+        if ((index = nodeNames.indexOf("model")) === -1) {
+            return "missing <model> tag"
+        }
+        const modelPath = this.reader.getString(children[index], "path")
+        const modelHeight = this.reader.getFloat(children[index], "height")
+
         // Transformations
         // when theres no <transformation> block we simply pass the identity matrix
         // and warn the user about it!
@@ -1192,6 +1198,10 @@ class MySceneGraph {
             tiles: {
                 material: this.materials[materialIDTile],
                 texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null
+            },
+            model: {
+                height: modelHeight,
+                obj: new CGFOBJModel(this.scene, modelPath, false)
             },
             transformations: transformationMatrix
         }

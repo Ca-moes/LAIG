@@ -25,7 +25,8 @@ class MyGameBoard extends CGFobject{
                     this.scene,
                     pieceType,
                     (pieceType === 1) ? this.properties.player1.material : this.properties.player2.material,
-                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture)
+                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture,
+                    this.properties.model)
                 tile.setPiece(piece)
                 piece.setTile(tile)
                 this.board.push(tile)
@@ -58,15 +59,14 @@ class MyGameBoard extends CGFobject{
         this.scene.multMatrix(this.properties.transformations)
 
         let index = 0
-        for (let y = 0; y < this.size; y++) {
+        for (let z = 0; z < this.size; z++) {
             for (let x = 0; x < this.size; x++) {
 
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                this.scene.rotate(-Math.PI/2, 1, 0, 0)
                 this.scene.translate(this.centerx,this.centerz, 0)
-                this.scene.translate(x - (this.size/2) + 0.5, -y + (this.size/2) - 0.5, 0)
+                this.scene.translate(x - (this.size/2) + 0.5, 0, -z + (this.size/2) - 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()
                 index++
