@@ -5,7 +5,6 @@ class KeyframeAnimation extends Animation {
 
         this.keyframes = keyframes
         this.startTime = 0
-        this.visible = true
 
         // to make object invisible when animation is not yet performed
         this.current_matrix = mat4.create()
@@ -14,7 +13,7 @@ class KeyframeAnimation extends Animation {
         this.current_matrix[10] = 0
         this.current_matrix[15] = 0
 
-        this.completed = false;
+        this.completed = false
     }
 
     setStartingTime(time) {
@@ -59,7 +58,7 @@ class KeyframeAnimation extends Animation {
             mat4.rotate(this.current_matrix, this.current_matrix, this.keyframes[lastKeyframe].rotation[2] * DEGREE_TO_RAD, [0, 0, 1])
             mat4.scale(this.current_matrix, this.current_matrix, this.keyframes[lastKeyframe].scale)
 
-            this.completed = true;
+            this.completed = true
         } else {
             for (let i = 0; i < this.keyframes.length; i++) {
                 // antes do primeiro keyframe
