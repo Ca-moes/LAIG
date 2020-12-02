@@ -79,23 +79,6 @@
   </materials>
 
   <animations>
-    <animation id="test_rotate">
-      <keyframe instant="3.0">
-        <translation x="0" y="0" z="0"/>
-        <rotation axis="x" angle="0"/>
-        <rotation axis="y" angle="0"/>
-        <rotation axis="z" angle="0"/>
-        <scale sx="1" sy="1" sz="1"/>
-      </keyframe>
-
-      <keyframe instant="5.0">
-        <translation x="0" y="5" z="0"/>
-        <rotation axis="x" angle="0"/>
-        <rotation axis="y" angle="0"/>
-        <rotation axis="z" angle="0"/>
-        <scale sx="1" sy="1" sz="1"/>
-      </keyframe>
-    </animation>
   </animations>
 
   <gameboard x="0" z="0" size="8">
@@ -120,10 +103,8 @@
       <transformations>
       </transformations>
 
-      <animationref id="test_rotate" />
-
       <descendants>
-        <leaf type="rectangle" x1="0" y1="0" x2="5" y2="5"/>
+        <leaf type="rectangle" x1="0" y1="0" x2="0" y2="0"/>
       </descendants>
     </node>
   </nodes>

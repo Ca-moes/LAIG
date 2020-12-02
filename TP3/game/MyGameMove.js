@@ -10,13 +10,17 @@ class MyGameMove {
         this.piece = piece
         this.origTile = origTile
         this.destTile = destTile
-        this.gameboard = gameboard.clone()
+        this.gameboard = gameboard
     }
 
     /**
      * Method to animate a game movement
      */
-    animate() {
-        // TODO
+    animate(t) {
+        this.piece.startAnimation(this, t)
+    }
+
+    notifyMoveAnimationCompleted() {
+        this.gameboard.movePiece(this.origTile, this.destTile)
     }
 }

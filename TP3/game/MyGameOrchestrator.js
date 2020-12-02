@@ -8,13 +8,18 @@ class MyGameOrchestrator {
         // this.prolog = new MyPrologInterface(…)
     }
 
+    /**
+     * Method to update orchestrator elements
+     * @param time time in seconds
+     */
     update(time) {
         if (this.scene.sceneInited && !this.scene.timeSet) {
-            this.theme.setAnimationsStartTime(time / 1000);
+            this.theme.setAnimationsStartTime(time);
             this.scene.timeSet = true;
         }
         else if (this.scene.sceneInited && this.scene.timeSet) {
-            this.theme.updateAnimations(time / 1000);
+            this.theme.updateAnimations(time);
+            this.gameboard.update(time)
         }
 
         this.animator.update(time)
@@ -29,6 +34,6 @@ class MyGameOrchestrator {
     }
 
     orchestrate() {
-        // TODO still not sure what to do here
+        // TODO state machine
     }
 }

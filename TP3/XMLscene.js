@@ -182,7 +182,7 @@ class XMLscene extends CGFscene {
     }
 
     update(t) {
-        this.orchestrator.update(t)
+        this.orchestrator.update(t / 1000)
     }
 
     /**

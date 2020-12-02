@@ -1,7 +1,7 @@
 class MyAnimator {
-    constructor(orchestrator, gameSequence) {
+    constructor(orchestrator) {
         this.orchestrator = orchestrator
-        this.gameSequence = gameSequence
+        this.gameSequence = orchestrator.gameSequence
     }
 
     reset() {
