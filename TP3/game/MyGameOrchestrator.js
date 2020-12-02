@@ -7,29 +7,54 @@ class MyGameOrchestrator {
         this.theme = new MySceneGraph("test.xml", this.scene)
         // this.prolog = new MyPrologInterface(…)
 
-        this.state = new ReadyState(this)
+        this.state = new GameState(this)
+
+        this.changeState(new ReadyState(this))
     }
 
+    /**
+     * Changes the current Game State
+     * @param {GameState} state
+     */
     changeState(state) {
         this.state = state
     }
 
+    /**
+     * Method to handle a 'pickValidTile' event
+     * @param {MyTile} tile
+     */
     pickValidTile(tile) {
         this.state.pickValidTile(tile)
     }
 
+    /**
+     * Method to handle a 'pickInvalidTile' event
+     * @param {MyTile} tile
+     */
     pickInvalidTile(tile) {
         this.state.pickInvalidTile(tile)
     }
 
+    /**
+     * Method to handle a 'animationEnd' event
+     */
     animationEnd() {
         this.state.animationEnd()
     }
 
+    /**
+     * Method to start a game movement
+     * @param {MyTile} tile Starting Point
+     */
     startPicking(tile) {
         this.currentMovement = new MyGameMove(tile, null, this.gameboard)
     }
 
+    /**
+     * Method to perform a full movement
+     * @param {MyTile} tile Ending Point
+     */
     performMove(tile) {
         this.currentMovement.destTile = tile
         this.currentMovement.processAnimations()
@@ -37,6 +62,9 @@ class MyGameOrchestrator {
         this.currentMovement.animate(Date.now() / 1000)
     }
 
+    /**
+     * Method to cancel an existing move as an Invalid Tile was picked
+     */
     cancelMove() {
         this.currentMovement = null
     }
@@ -46,6 +74,7 @@ class MyGameOrchestrator {
      * @param time time in seconds
      */
     update(time) {
+        // prints on the console the current game state
         console.log(this.state.constructor.name)
 
         if (this.scene.sceneInited && !this.scene.timeSet) {
