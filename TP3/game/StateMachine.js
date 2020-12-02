@@ -22,7 +22,6 @@ class StateMachine {
             case SubState.MoveState:
                 if (this.currentState === State.STARTMOVE) {
                     this.substate = {
-                        piece: context.piece,
                         startTile: context.startTile
                     }
                 }

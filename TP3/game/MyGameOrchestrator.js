@@ -44,12 +44,12 @@ class MyGameOrchestrator {
             case State.MOVE:
                 this.stateMachine.initSubState(SubState.MoveState, {endTile: tile})
 
-                const move = new MyGameMove(this.stateMachine.substate.piece,
+                const move = new MyGameMove(
                     this.stateMachine.substate.startTile,
                     this.stateMachine.substate.endTile,
                     this.gameboard)
 
-                move.animate(Date.now() / 1000)
+                move.animate(Date.now() / 1000) /* passing to seconds */
                 this.gameSequence.addMove(move)
                 break
             default:

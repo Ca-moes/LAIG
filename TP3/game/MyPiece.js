@@ -32,53 +32,23 @@ class MyPiece extends CGFobject{
     }
 
     /**
-     * Initializes an animation
+     * Initializes an Animation
      * @param {MyGameMove} gameMove
-     * @param {Number} time
+     * @param {KeyframeAnimation} animation
+     * @param {int} time
+     * @param {String} type
      */
-    startAnimation(gameMove, time) {
-        // TODO : Animation height and speed to change accordingly to distance
-        this.animation = new KeyframeAnimation([
-            {
-                instant: 0,
-                translation: vec3.fromValues(0, 0, 0),
-                rotation: vec3.fromValues(0, 0, 0),
-                scale: vec3.fromValues(1, 1, 1)
-            },
-            {
-                instant: 0.3,
-                translation: vec3.fromValues((gameMove.destTile.x - gameMove.origTile.x) / 5, 0.66, (-gameMove.destTile.y + gameMove.origTile.y) / 5),
-                rotation: vec3.fromValues(0, 0, 0),
-                scale: vec3.fromValues(1, 1, 1)
-            },
-            {
-                instant: 0.6,
-                translation: vec3.fromValues(2 * (gameMove.destTile.x - gameMove.origTile.x) / 5, 1, 2 * (-gameMove.destTile.y + gameMove.origTile.y) / 5),
-                rotation: vec3.fromValues(0, 0, 0),
-                scale: vec3.fromValues(1, 1, 1)
-            },
-            {
-                instant: 0.9,
-                translation: vec3.fromValues(3 * (gameMove.destTile.x - gameMove.origTile.x) / 5, 1, 3 * (-gameMove.destTile.y + gameMove.origTile.y) / 5),
-                rotation: vec3.fromValues(0, 0, 0),
-                scale: vec3.fromValues(1, 1, 1)
-            },
-            {
-                instant: 1.2,
-                translation: vec3.fromValues(4 * (gameMove.destTile.x - gameMove.origTile.x) / 5, 0.66, 4 * (-gameMove.destTile.y + gameMove.origTile.y) / 5),
-                rotation: vec3.fromValues(0, 0, 0),
-                scale: vec3.fromValues(1, 1, 1)
-            },
-            {
-                instant: 1.5,
-                translation: vec3.fromValues(gameMove.destTile.x - gameMove.origTile.x, 0,-gameMove.destTile.y + gameMove.origTile.y),
-                rotation: vec3.fromValues(0, 0, 0),
-                scale: vec3.fromValues(1, 1, 1)
-            },
-        ])
+    startAnimation(gameMove, animation, time, type) {
         this.gameMove = gameMove
+        this.type = type
+        this.animation = animation
         this.animation.setStartingTime(time)
         this.animationComplete = false
+    }
+
+    stopAnimation() {
+        this.animation = null
+        this.animationComplete = true
     }
 
     setTile(tile){
@@ -88,9 +58,7 @@ class MyPiece extends CGFobject{
     update(t) {
         if (this.animation != null) {
             if (this.animation.completed) {
-                this.animationComplete = true;
-                this.animation = null
-                this.gameMove.notifyMoveAnimationCompleted()
+                this.gameMove.notifyMoveAnimationCompleted(this.type)
             }
 
             if (!this.animationComplete) {
