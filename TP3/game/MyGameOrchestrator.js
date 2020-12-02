@@ -66,6 +66,7 @@ class MyGameOrchestrator {
      * Method to cancel an existing move as an Invalid Tile was picked
      */
     cancelMove() {
+        this.currentMovement.origTile.getPiece().reset()
         this.currentMovement = null
     }
 

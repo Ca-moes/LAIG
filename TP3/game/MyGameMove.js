@@ -84,14 +84,14 @@ class MyGameMove {
     }
 
     notifyMoveAnimationCompleted(type) {
-        if (type === "move") {
+        if (this.destTile === this.origTile) {
             this.origTile.getPiece().stopAnimation()
             this.destTile.getPiece().stopAnimation()
 
             this.animationCompleted = true
             this.gameboard.movePiece(this.origTile, this.destTile)
         }
-        if (this.destTile === this.origTile) {
+        else if (type === "move") {
             this.origTile.getPiece().stopAnimation()
             this.destTile.getPiece().stopAnimation()
 

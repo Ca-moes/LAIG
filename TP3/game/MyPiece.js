@@ -4,10 +4,10 @@
  */
 
 class MyPiece extends CGFobject{
-    constructor(scene, type, material, texture, model) {
+    constructor(scene, player, material, texture, model) {
         super(scene);
         this.scene = scene;
-        this.type = type;
+        this.player = player;
         this.updatedTexCoords = true; // no need for updateTexCoords
 
         this.material = material
@@ -17,18 +17,36 @@ class MyPiece extends CGFobject{
         this.height = model.height
 
         this.animationComplete = true
+
+        this.state = new StaticPieceState(this)
     };
 
-    getType(){
-        return this.type
+    getPlayer(){
+        return this.player
     }
 
-    setType(type){
-        this.type = type
+    setPlayer(player){
+        this.player = player
     }
 
     getTile(){
         return this.tile
+    }
+
+    /**
+     * Changes the piece state
+     * @param {PieceState} state
+     */
+    changeState(state) {
+        this.state = state
+    }
+
+    pickPiece() {
+        this.state.pickPiece()
+    }
+
+    reset() {
+        this.state.reset()
     }
 
     /**
@@ -39,16 +57,11 @@ class MyPiece extends CGFobject{
      * @param {String} type
      */
     startAnimation(gameMove, animation, time, type) {
-        this.gameMove = gameMove
-        this.type = type
-        this.animation = animation
-        this.animation.setStartingTime(time)
-        this.animationComplete = false
+        this.state.startAnimation(gameMove, animation, time, type)
     }
 
     stopAnimation() {
-        this.animation = null
-        this.animationComplete = true
+        this.state.stopAnimation()
     }
 
     setTile(tile){
@@ -56,34 +69,11 @@ class MyPiece extends CGFobject{
     }
 
     update(t) {
-        if (this.animation != null) {
-            if (this.animation.completed) {
-                this.gameMove.notifyMoveAnimationCompleted(this.type)
-            }
-
-            if (!this.animationComplete) {
-                this.animation.update(t)
-            }
-        }
+        this.state.update(t)
     }
 
     display() {
-        this.scene.pushMatrix()
-
-        this.material.apply()
-        if (this.texture)
-            this.texture.bind()
-
-        if (!this.animationComplete) {
-            this.animation.apply(this.scene)
-        }
-
-        // as the models are being made on a 5x5 XY Plane, we need to rescale them
-        this.scene.scale(0.2, 0.2, 0.2)
-        this.scene.translate(0, this.height/2, 0)
-
-        this.obj.display()
-        this.scene.popMatrix()
+        this.state.display()
     }
 
     toString() {
