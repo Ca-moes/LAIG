@@ -6,9 +6,18 @@ class GameState {
     /**
      * @abstract
      * Method to handle "picking a tile" event
+     * @param {MyTile} tile
      */
-    pickTile(tile) {
-        throw new Error("Abstract method pickTile()")
+    pickValidTile(tile) {
+        throw new Error("Abstract method pickValidTile()")
+    }
+
+    /**
+     * @abstract
+     * @param {MyTile} tile
+     */
+    pickInvalidTile(tile) {
+        throw new Error("Abstract method pickInvalidTile()")
     }
 
     /**

@@ -14,8 +14,12 @@ class MyGameOrchestrator {
         this.state = state
     }
 
-    pickTile(tile) {
-        this.state.pickTile(tile)
+    pickValidTile(tile) {
+        this.state.pickValidTile(tile)
+    }
+
+    pickInvalidTile(tile) {
+        this.state.pickInvalidTile(tile)
     }
 
     animationEnd() {
@@ -31,6 +35,10 @@ class MyGameOrchestrator {
         this.currentMovement.processAnimations()
         this.gameSequence.addMove(this.currentMovement)
         this.currentMovement.animate(Date.now() / 1000)
+    }
+
+    cancelMove() {
+        this.currentMovement = null
     }
 
     /**
