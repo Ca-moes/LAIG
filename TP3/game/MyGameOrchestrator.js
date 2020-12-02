@@ -39,10 +39,10 @@ class MyGameOrchestrator {
         this.stateMachine.manageEvent(Event.PickPiece)
         switch (this.stateMachine.currentState) {
             case State.STARTMOVE:
-                this.stateMachine.initState(SubState.MoveState, {piece: tile.getPiece(), startTile: tile})
+                this.stateMachine.initSubState(SubState.MoveState, {piece: tile.getPiece(), startTile: tile})
                 break
             case State.MOVE:
-                this.stateMachine.initState(SubState.MoveState, {endTile: tile})
+                this.stateMachine.initSubState(SubState.MoveState, {endTile: tile})
 
                 const move = new MyGameMove(this.stateMachine.substate.piece,
                     this.stateMachine.substate.startTile,

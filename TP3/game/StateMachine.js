@@ -17,7 +17,7 @@ class StateMachine {
         this.currentState = State.READY
     }
 
-    initState(substate, context) {
+    initSubState(substate, context) {
         switch (substate) {
             case SubState.MoveState:
                 if (this.currentState === State.STARTMOVE) {
@@ -52,6 +52,7 @@ class StateMachine {
                 }
                 break
             case State.MOVE:
+                /* Pick 2nd Piece */
                 if (event === Event.PickPiece) {
                     this.currentState = State.STARTMOVE
                 }
