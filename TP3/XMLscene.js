@@ -119,6 +119,7 @@ class XMLscene extends CGFscene {
 
         // gameboard is assigned to the orchestrator here
         this.orchestrator.gameboard = this.orchestrator.theme.gameboard
+        this.orchestrator.gameboard.orchestrator = this.orchestrator
 
         this.sceneInited = true;
         this.setUpdatePeriod(1000.0/20.0); // 60Hz

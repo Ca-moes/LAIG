@@ -6,6 +6,8 @@ class MyGameOrchestrator {
         // The gameboard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
         // this.prolog = new MyPrologInterface(…)
+
+        this.stateMachine = new StateMachine()
     }
 
     /**
@@ -31,6 +33,30 @@ class MyGameOrchestrator {
         // gameboard is assigned here
         this.gameboard.display()
         this.animator.display()
+    }
+
+    notifyTileSelection(tile) {
+        this.stateMachine.manageEvent(Event.PickPiece)
+        switch (this.stateMachine.currentState) {
+            case State.STARTMOVE:
+                this.stateMachine.initState(SubState.MoveState, {piece: tile.getPiece(), startTile: tile})
+                break
+            case State.MOVE:
+                this.stateMachine.initState(SubState.MoveState, {endTile: tile})
+
+                const move = new MyGameMove(this.stateMachine.substate.piece,
+                    this.stateMachine.substate.startTile,
+                    this.stateMachine.substate.endTile,
+                    this.gameboard)
+
+                move.animate(Date.now() / 1000)
+                this.gameSequence.addMove(move)
+                break
+            default:
+                break
+        }
+
+
     }
 
     orchestrate() {

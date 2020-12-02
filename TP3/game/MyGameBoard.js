@@ -46,15 +46,15 @@ class MyGameBoard extends CGFobject{
     }
 
     logPicking() {
-		if (this.scene.pickMode == false) {
+		if (this.scene.pickMode === false) {
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-				for (var i = 0; i < this.scene.pickResults.length; i++) {
-					var obj = this.scene.pickResults[i][0];
-					if (obj instanceof MyTile) {
-					    // testing game move, this line is to remove when state machine is implemented
-					    new MyGameMove(obj.getPiece(), obj, this.board[0], this).animate(Date.now() / 1000)
-						var customId = this.scene.pickResults[i][1];
-						console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
+				for (let i = 0; i < this.scene.pickResults.length; i++) {
+                    const obj = this.scene.pickResults[i][0];
+                    if (obj instanceof MyTile) {
+                        this.orchestrator.notifyTileSelection(obj)
+
+                        const customId = this.scene.pickResults[i][1];
+                        console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
 					}
 				}
 				this.scene.pickResults.splice(0, this.scene.pickResults.length);
