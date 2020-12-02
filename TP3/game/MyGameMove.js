@@ -12,7 +12,9 @@ class MyGameMove {
         this.gameboard = gameboard
 
         this.animationCompleted = false
+    }
 
+    processAnimations() {
         this.moveAnimation = new KeyframeAnimation([
             {
                 instant: 0,
@@ -83,6 +85,13 @@ class MyGameMove {
 
     notifyMoveAnimationCompleted(type) {
         if (type === "move") {
+            this.origTile.getPiece().stopAnimation()
+            this.destTile.getPiece().stopAnimation()
+
+            this.animationCompleted = true
+            this.gameboard.movePiece(this.origTile, this.destTile)
+        }
+        if (this.destTile === this.origTile) {
             this.origTile.getPiece().stopAnimation()
             this.destTile.getPiece().stopAnimation()
 

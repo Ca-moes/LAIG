@@ -7,7 +7,30 @@ class MyGameOrchestrator {
         this.theme = new MySceneGraph("test.xml", this.scene)
         // this.prolog = new MyPrologInterface(…)
 
-        this.stateMachine = new StateMachine()
+        this.state = new ReadyState(this)
+    }
+
+    changeState(state) {
+        this.state = state
+    }
+
+    pickTile(tile) {
+        this.state.pickTile(tile)
+    }
+
+    animationEnd() {
+        this.state.animationEnd()
+    }
+
+    startPicking(tile) {
+        this.currentMovement = new MyGameMove(tile, null, this.gameboard)
+    }
+
+    performMove(tile) {
+        this.currentMovement.destTile = tile
+        this.currentMovement.processAnimations()
+        this.gameSequence.addMove(this.currentMovement)
+        this.currentMovement.animate(Date.now() / 1000)
     }
 
     /**
@@ -15,6 +38,8 @@ class MyGameOrchestrator {
      * @param time time in seconds
      */
     update(time) {
+        console.log(this.state.constructor.name)
+
         if (this.scene.sceneInited && !this.scene.timeSet) {
             this.theme.setAnimationsStartTime(time);
             this.scene.timeSet = true;
@@ -23,7 +48,12 @@ class MyGameOrchestrator {
             this.theme.updateAnimations(time);
             this.gameboard.update(time)
         }
-
+        if (this.currentMovement) {
+            if (this.currentMovement.animationCompleted) {
+                this.currentMovement = null
+                this.animationEnd()
+            }
+        }
         this.animator.update(time)
     }
 
@@ -33,30 +63,6 @@ class MyGameOrchestrator {
         // gameboard is assigned here
         this.gameboard.display()
         this.animator.display()
-    }
-
-    notifyTileSelection(tile) {
-        this.stateMachine.manageEvent(Event.PickPiece)
-        switch (this.stateMachine.currentState) {
-            case State.STARTMOVE:
-                this.stateMachine.initSubState(SubState.MoveState, {piece: tile.getPiece(), startTile: tile})
-                break
-            case State.MOVE:
-                this.stateMachine.initSubState(SubState.MoveState, {endTile: tile})
-
-                const move = new MyGameMove(
-                    this.stateMachine.substate.startTile,
-                    this.stateMachine.substate.endTile,
-                    this.gameboard)
-
-                move.animate(Date.now() / 1000) /* passing to seconds */
-                this.gameSequence.addMove(move)
-                break
-            default:
-                break
-        }
-
-
     }
 
     orchestrate() {
