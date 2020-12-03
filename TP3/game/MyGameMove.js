@@ -24,31 +24,31 @@ class MyGameMove {
             },
             {
                 instant: 0.1,
-                translation: vec3.fromValues((this.destTile.x - this.origTile.x) / 5, 0.33, (-this.destTile.y + this.origTile.y) / 5),
+                translation: vec3.fromValues((this.destTile.x - this.origTile.x) / 5, 0.33, (this.destTile.y - this.origTile.y) / 5),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 0.2,
-                translation: vec3.fromValues(2 * (this.destTile.x - this.origTile.x) / 5, 0.5, 2 * (-this.destTile.y + this.origTile.y) / 5),
+                translation: vec3.fromValues(2 * (this.destTile.x - this.origTile.x) / 5, 0.5, 2 * (this.destTile.y - this.origTile.y) / 5),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 0.3,
-                translation: vec3.fromValues(3 * (this.destTile.x - this.origTile.x) / 5, 0.5, 3 * (-this.destTile.y + this.origTile.y) / 5),
+                translation: vec3.fromValues(3 * (this.destTile.x - this.origTile.x) / 5, 0.5, 3 * (this.destTile.y - this.origTile.y) / 5),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 0.4,
-                translation: vec3.fromValues(4 * (this.destTile.x - this.origTile.x) / 5, 0.33, 4 * (-this.destTile.y + this.origTile.y) / 5),
+                translation: vec3.fromValues(4 * (this.destTile.x - this.origTile.x) / 5, 0.33, 4 * (this.destTile.y - this.origTile.y) / 5),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 0.5,
-                translation: vec3.fromValues(this.destTile.x - this.origTile.x, 0,-this.destTile.y + this.origTile.y),
+                translation: vec3.fromValues(this.destTile.x - this.origTile.x, 0, this.destTile.y - this.origTile.y),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },

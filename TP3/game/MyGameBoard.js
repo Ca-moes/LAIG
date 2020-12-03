@@ -37,6 +37,24 @@ class MyGameBoard extends CGFobject{
         }
     }
 
+    toJson() {
+        let board = [];
+        let index = 0;
+        for (let y = 0; y < this.size; y++) {
+            let row = []
+            for (let x = 0; x < this.size; x++) {
+                if (this.board[index].piece) {
+                    row.push(this.board[index].piece.player)
+                } else {
+                    row.push(0)
+                }
+                index++;
+            }
+            board.push(row)
+        }
+        return board
+    }
+
     update(t) {
         for (let i = 0; i < this.board.length; i++) {
             this.board[i].update(t)
@@ -76,7 +94,7 @@ class MyGameBoard extends CGFobject{
 
                 this.scene.pushMatrix()
                 this.scene.translate(this.centerx,this.centerz, 0)
-                this.scene.translate(x - (this.size/2) + 0.5, 0, -z + (this.size/2) - 0.5)
+                this.scene.translate(x - (this.size/2) + 0.5, 0, z - (this.size/2) + 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()
                 index++
