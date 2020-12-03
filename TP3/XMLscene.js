@@ -51,6 +51,8 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.BLEND);         // enables blending
         this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
+        // shaders
+        this.piecePickingShader = new CGFshader(this.gl, "shaders/gourard.vert", "shaders/piecepicking.frag")
 
         // enable picking
         this.setPickEnabled(true);

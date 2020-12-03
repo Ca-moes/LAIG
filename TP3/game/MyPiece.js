@@ -77,6 +77,6 @@ class MyPiece extends CGFobject{
     }
 
     toString() {
-        return (this.type === 1) ? "Red Piece" : "Blue Piece"
+        return (this.player === 1) ? "Red Piece" : "Blue Piece"
     }
 }

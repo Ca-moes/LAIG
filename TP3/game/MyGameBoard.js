@@ -39,9 +39,7 @@ class MyGameBoard extends CGFobject{
 
     update(t) {
         for (let i = 0; i < this.board.length; i++) {
-            const piece = this.board[i].getPiece()
-            if (piece)
-                piece.update(t)
+            this.board[i].update(t)
         }
     }
 

@@ -37,15 +37,38 @@ class MyTile extends CGFobject {
     display() {
         this.scene.pushMatrix()
 
+        if (this.piece && this.piece.state instanceof PickedPieceState) {
+            this.scene.setActiveShader(this.scene.piecePickingShader)
+        }
+
         this.material.apply()
         if (this.texture)
             this.texture.bind()
 
         this.obj.display()
+
+        if (this.piece && this.piece.state instanceof PickedPieceState) {
+            this.scene.setActiveShader(this.scene.defaultShader)
+        }
+
         this.scene.popMatrix()
 
         if (this.piece) {
             this.piece.display()
+        }
+    }
+
+    pickPiece() {
+        if (this.piece) this.piece.pickPiece()
+    }
+
+
+    update(t) {
+        if (this.piece) {
+            this.piece.update(t)
+        }
+        if (this.piece && this.piece.state instanceof PickedPieceState) {
+            this.scene.piecePickingShader.setUniformsValues({timeFactor: t * 10 % 1000})
         }
     }
 }

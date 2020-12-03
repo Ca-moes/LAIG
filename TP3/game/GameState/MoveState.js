@@ -4,7 +4,7 @@ class MoveState extends GameState {
     }
 
     pickValidTile(tile) {
-        tile.getPiece().pickPiece()
+        tile.pickPiece()
         this.orchestrator.performMove(tile)
         this.orchestrator.changeState(new AnimationState(this.orchestrator))
     }
