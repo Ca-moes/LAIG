@@ -5,7 +5,7 @@ class MyGameOrchestrator {
         this.animator = new MyAnimator(this, this.gameSequence)
         // The gameboard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
-        // this.prolog = new MyPrologInterface(…)
+        this.prolog = new MyPrologInterface()
 
         this.state = new GameState(this)
 
