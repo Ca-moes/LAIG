@@ -15,6 +15,7 @@ test:-
  * Player - 'Player 1'; 'Player 2'
  * X-Y - 0-0, 0-1
 */
+%-------------------
 available_moves(GameState, Player, X-Y, List):-
     available_dirs(GameState, X, Y, Player, DirsList),
     dirs_to_spots(DirsList, X-Y, List).
@@ -109,6 +110,7 @@ make_remove(Difficulty, GameState, Player, NewGameState):-
  * GameState - [[],[],[]]
  * Player - 'Player 1'; 'Player 2'
 */
+%-------------------
 check_winner(GameState, Player, WinnerReturn):-
     game_over(GameState, Player, WinnerReturn).
 
