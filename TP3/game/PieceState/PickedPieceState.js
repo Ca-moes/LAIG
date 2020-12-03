@@ -6,9 +6,6 @@ class PickedPieceState extends PieceState {
     display() {
         this.piece.scene.pushMatrix()
 
-        this.piece.scene.setActiveShader(this.piece.scene.piecePickingShader)
-        this.piece.scene.piecePickingShader.setUniformsValues({material: this.piece.material})
-
         this.piece.material.apply()
         if (this.piece.texture)
             this.piece.texture.bind()
@@ -19,7 +16,6 @@ class PickedPieceState extends PieceState {
 
         this.piece.obj.display()
 
-        this.piece.scene.setActiveShader(this.piece.scene.defaultShader)
         this.piece.scene.popMatrix()
     }
 
@@ -32,7 +28,7 @@ class PickedPieceState extends PieceState {
     }
 
     update(t) {
-        this.piece.scene.piecePickingShader.setUniformsValues({timeFactor: t*10 % 1000})
+        // no need to update, only if we have shaders
     }
 
     startAnimation(gameMove, animation, time, type) {
