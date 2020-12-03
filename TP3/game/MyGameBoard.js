@@ -37,14 +37,43 @@ class MyGameBoard extends CGFobject{
         }
     }
 
+    toJson() {
+        let board = [];
+        let index = 0;
+        for (let y = 0; y < this.size; y++) {
+            let row = []
+            for (let x = 0; x < this.size; x++) {
+                if (this.board[index].piece) {
+                    row.push(this.board[index].piece.player)
+                } else {
+                    row.push(0)
+                }
+                index++;
+            }
+            board.push(row)
+        }
+        return board
+    }
+
+    update(t) {
+        for (let i = 0; i < this.board.length; i++) {
+            this.board[i].update(t)
+        }
+    }
+
     logPicking() {
-		if (this.scene.pickMode == false) {
+		if (this.scene.pickMode === false) {
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-				for (var i = 0; i < this.scene.pickResults.length; i++) {
-					var obj = this.scene.pickResults[i][0];
-					if (obj instanceof MyTile) {
-						var customId = this.scene.pickResults[i][1];
-						console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
+				for (let i = 0; i < this.scene.pickResults.length; i++) {
+                    const obj = this.scene.pickResults[i][0];
+                    if (obj instanceof MyTile) {
+                        if (obj.getPiece())
+                            this.orchestrator.pickValidTile(obj)
+                        else
+                            this.orchestrator.pickInvalidTile(obj)
+
+                        const customId = this.scene.pickResults[i][1];
+                        console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
 					}
 				}
 				this.scene.pickResults.splice(0, this.scene.pickResults.length);
@@ -61,12 +90,11 @@ class MyGameBoard extends CGFobject{
         let index = 0
         for (let z = 0; z < this.size; z++) {
             for (let x = 0; x < this.size; x++) {
-
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
                 this.scene.translate(this.centerx,this.centerz, 0)
-                this.scene.translate(x - (this.size/2) + 0.5, 0, -z + (this.size/2) - 0.5)
+                this.scene.translate(x - (this.size/2) + 0.5, 0, z - (this.size/2) + 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()
                 index++
@@ -90,7 +118,7 @@ class MyGameBoard extends CGFobject{
      */
     movePiece(originalTile, destinationTile) {
         const piece = originalTile.getPiece()
-        if (piece == null) throw "movePiece(): Tile does not contain a piece to move!"
+        if (piece == null) throw new Error("movePiece(): Tile does not contain a piece to move!")
 
         destinationTile.setPiece(piece)
         originalTile.unsetPiece()

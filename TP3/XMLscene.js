@@ -51,6 +51,8 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.BLEND);         // enables blending
         this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
 
+        // shaders
+        this.tileHighlightingShader = new CGFshader(this.gl, "shaders/tilehighlighting.vert", "shaders/tilehighlighting.frag")
 
         // enable picking
         this.setPickEnabled(true);
@@ -119,10 +121,12 @@ class XMLscene extends CGFscene {
 
         // gameboard is assigned to the orchestrator here
         this.orchestrator.gameboard = this.orchestrator.theme.gameboard
+        this.orchestrator.gameboard.orchestrator = this.orchestrator
 
         this.sceneInited = true;
         this.setUpdatePeriod(1000.0/20.0); // 60Hz
-        this.start = Math.round(Date.now())
+
+        this.timeSet = false
     }
 
     /**
@@ -181,7 +185,7 @@ class XMLscene extends CGFscene {
     }
 
     update(t) {
-        this.orchestrator.update(t - this.start)
+        this.orchestrator.update(t / 1000)
     }
 
     /**

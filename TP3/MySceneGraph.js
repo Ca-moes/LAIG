@@ -1352,12 +1352,10 @@ class MySceneGraph {
             currentAnimation = node.animation
         }
 
-        let visible = true;
         if (currentAnimation != null) {
             // caso o filho tenha animação aplica, caso contrário já foi aplicada anteriormente
             if (node.animation != null)
                 currentAnimation.apply(this.scene)
-            visible = currentAnimation.visible;
         }
 
         for (let leaf of node.descendants.leaves) {
@@ -1369,8 +1367,7 @@ class MySceneGraph {
                  *  anymore, this flag - updatedTexCoords helps with that */
                 leaf.object.updateTexCoords(currentTexture.amplification)
             }
-            if (visible)
-                leaf.object.display()
+            leaf.object.display()
         }
 
         for (let noderef of node.descendants.nodes) {
@@ -1591,6 +1588,12 @@ class MySceneGraph {
             }
         }
         return null
+    }
+
+    setAnimationsStartTime(t) {
+        for (const [animationID, animation] of Object.entries(this.animations)) {
+            animation.setStartingTime(t)
+        }
     }
 
     updateAnimations(t) {
