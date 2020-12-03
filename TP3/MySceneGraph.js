@@ -1126,6 +1126,12 @@ class MySceneGraph {
         const materialIDTile = this.reader.getString(children[index], "material")
         const textureIDTile = this.reader.getString(children[index], "texture")
 
+        if ((index = nodeNames.indexOf("model")) === -1) {
+            return "missing <model> tag"
+        }
+        const modelPath = this.reader.getString(children[index], "path")
+        const modelHeight = this.reader.getFloat(children[index], "height")
+
         // Transformations
         // when theres no <transformation> block we simply pass the identity matrix
         // and warn the user about it!
@@ -1192,6 +1198,10 @@ class MySceneGraph {
             tiles: {
                 material: this.materials[materialIDTile],
                 texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null
+            },
+            model: {
+                height: modelHeight,
+                obj: new CGFOBJModel(this.scene, modelPath, false)
             },
             transformations: transformationMatrix
         }
@@ -1342,12 +1352,10 @@ class MySceneGraph {
             currentAnimation = node.animation
         }
 
-        let visible = true;
         if (currentAnimation != null) {
             // caso o filho tenha animação aplica, caso contrário já foi aplicada anteriormente
             if (node.animation != null)
                 currentAnimation.apply(this.scene)
-            visible = currentAnimation.visible;
         }
 
         for (let leaf of node.descendants.leaves) {
@@ -1359,8 +1367,7 @@ class MySceneGraph {
                  *  anymore, this flag - updatedTexCoords helps with that */
                 leaf.object.updateTexCoords(currentTexture.amplification)
             }
-            if (visible)
-                leaf.object.display()
+            leaf.object.display()
         }
 
         for (let noderef of node.descendants.nodes) {
@@ -1581,6 +1588,12 @@ class MySceneGraph {
             }
         }
         return null
+    }
+
+    setAnimationsStartTime(t) {
+        for (const [animationID, animation] of Object.entries(this.animations)) {
+            animation.setStartingTime(t)
+        }
     }
 
     updateAnimations(t) {

@@ -15,11 +15,13 @@ class MyTile extends CGFobject {
         this.texture = texture
         this.updatedTexCoords = true; // no need for updateTexCoords
 
+        this.state = new StaticTIleState(this)
+
         this.obj = new Plane(scene, 5, 5)
     };
 
     toString() {
-        return `Tile X:${this.x} | Y:${String.fromCharCode(65 + this.y)} with Piece:${this.piece}`
+        return `Tile X:${this.x} | Y:${String.fromCharCode(65 + this.y)} with Piece: ${this.piece}`
     }
 
     getPiece() {
@@ -34,20 +36,28 @@ class MyTile extends CGFobject {
         this.piece = null
     }
 
+    changeState(state) {
+        this.state = state
+    }
+
+    highlightTile() {
+        this.state.highlightTile()
+    }
+
+    disableHighlighting() {
+        this.state.disableHighlight()
+    }
+
     display() {
-        this.scene.pushMatrix()
+        this.state.display()
+    }
 
-        this.material.apply()
-        if (this.texture)
-            this.texture.bind()
+    pickPiece() {
+        if (this.piece) this.piece.pickPiece()
+    }
 
-        this.scene.scale(1, 1, 1)
-        this.scene.rotate(Math.PI / 2, 1, 0, 0)
-        this.obj.display()
-        this.scene.popMatrix()
 
-        if (this.piece) {
-            this.piece.display()
-        }
+    update(t) {
+        this.state.update(t)
     }
 }
