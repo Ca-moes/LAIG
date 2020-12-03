@@ -11,7 +11,7 @@ class HighlightedTileState extends TileState {
     display() {
         this.tile.scene.pushMatrix()
 
-        this.tile.scene.setActiveShader(this.tile.scene.tileHighlightingShader)
+        this.tile.scene.setActiveShaderSimple(this.tile.scene.tileHighlightingShader)
 
         this.tile.material.apply()
         if (this.tile.texture)
