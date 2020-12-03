@@ -109,7 +109,7 @@ print_header_line(_).
 
 % Require your Prolog Files here
 
-parse_input(handshake, handshake).
+parse_input(handshake, '"handshake"').
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(len(List), Res) :- length(List, Res). % para testar mandar listas como argumento
 
@@ -126,7 +126,7 @@ parse_input(make_remove(Difficulty, GameState, Player), Res):- make_remove(Diffi
 parse_input(check_winner(GameState, Player), Res):- check_winner(GameState, Player, Res).
 parse_input(check_final(GameState, Player), Res):- check_final(GameState, Player, Res).
 
-parse_input(quit, goodbye).
+parse_input(quit, '"goodbye"').
 
 
 

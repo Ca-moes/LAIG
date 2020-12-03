@@ -1,26 +1,22 @@
 test:-
-    initial(GameState),
-    available_moves(GameState,'Player1',1-1,List),
+    check_winner([[1,-1,1,-1,1,-1],[0,0,0,0,0,0],[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1],[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1]],'Player1', List),
     write(List).
 
 % -------------------------------------- Player --------------------------------------
 
-/**
- * to test:
- * available_moves([[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1],[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1],[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1]],'Player1',1-1)
- * 
+/** 
  * Returns a List in the format [X-Y, X-Y] containing the locations to where the player can move
  * 
  * GameState - [[],[],[]]
  * Player - 'Player 1'; 'Player 2'
  * X-Y - 0-0, 0-1
 */
-%-------------------
 available_moves(GameState, Player, X-Y, List):-
     available_dirs(GameState, X, Y, Player, DirsList),
     dirs_to_spots(DirsList, X-Y, List).
 
 /**
+ * spot([[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1],[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1],[1,-1,1,-1,1,-1],[-1,1,-1,1,-1,1]],'Player1',0-0)
  * Returns 0 if spot belongs to player and has available dirs, 1 otherwise.
  * 
  * GameState - [[],[],[]]
@@ -105,14 +101,15 @@ make_remove(Difficulty, GameState, Player, NewGameState):-
 % -------------------------------------- Final --------------------------------------
 /**
  * ! Do not use with initial board, it won't return !
- * Returns 'Player 1', 'Player 2', 'none'
+ * Returns 1, -1, 0
  * 
  * GameState - [[],[],[]]
- * Player - 'Player 1'; 'Player 2'
+ * Player - 'Player1'; 'Player2'; 'none'
 */
 %-------------------
 check_winner(GameState, Player, WinnerReturn):-
-    game_over(GameState, Player, WinnerReturn).
+    game_over(GameState, Player, TempReturn),
+    player_to_int(TempReturn, WinnerReturn).
 
 /**
  * Returns 0 if Player can't make any moves, only removes, 1 otherwise.
@@ -123,3 +120,17 @@ check_winner(GameState, Player, WinnerReturn):-
 check_final(GameState, Player, 0):-
     check_final_p(GameState, Player).
 check_final(_, _, 1).
+
+/*
+
+[
+[1,0,1,0,1,0],
+[0,0,0,0,0,0],
+[0,-1,0,-1,0,-1],
+[-1,0,-1,0,-1,0],
+[0,-1,0,-1,0,-1],
+[-1,0,-1,0,-1,0]
+]
+
+[[1,0,1,0,1,0],[0,0,0,0,0,0],[0,-1,0,-1,0,-1],[-1,0,-1,0,-1,0],[0,-1,0,-1,0,-1],[-1,0,-1,0,-1,0]]
+*/

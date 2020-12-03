@@ -8,9 +8,12 @@
 		<h1>Sicstus HTTP Test</h1>
 	
 		<div>
-			<input id="query_field" type="Text" value="handshake"/>
+			<input style="min-width: 900px;" id="query_field" type="Text" value="test(1,3)"/>
 			<br>
 			<button id="send_button" type="button" onClick="makeRequest();"> Send </button>
+			<br>
+			<input id="HandShake" type="button" value="HandShake" onclick="getPrologRequest('handshake', handleReply);" />
+			<input id="Quit" type="button" value="Quit" onclick="getPrologRequest('quit', handleReply);" />
 		</div>
 		<h3> Result: </h3>
 		<div id="query_result"></div>
@@ -20,15 +23,17 @@
 			{
 				var requestPort = port || 8081
 				var request = new XMLHttpRequest();
-				request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, false);
+				request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
 
-				/* request.onload = onSuccess || function(data){console.log("Request successful. Reply: " + data.target.response);};
-				request.onerror = onError || function(){console.log("Error waiting for response");}; */
+				request.onload = onSuccess || function(data){console.log("Request successful. Reply: " + data.target.response);};
+				request.onerror = onError || function(){console.log("Error waiting for response");};
 
 				request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 				request.send();
 
-				console.log(request.responseText)
+				/* console.log(request.responseText)
+				console.log(typeof request.responseText)
+				console.log(JSON.parse(request.responseText)) */
 			}
 		
 			function makeRequest()
@@ -42,7 +47,11 @@
 			
 			//Handle the Reply
 			function handleReply(data){
-				document.querySelector("#query_result").innerHTML=data.target.response;
+				let paragraph = document.createElement("p")   
+				paragraph.innerHTML = data.target.response
+
+				document.querySelector("#query_result").appendChild(paragraph)
+				/* document.querySelector("#query_result").innerHTML=data.target.response; */
 			}
 		
 		</script>

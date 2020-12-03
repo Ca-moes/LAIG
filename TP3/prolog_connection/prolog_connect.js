@@ -4,7 +4,7 @@ function getPrologRequest(requestString, port) {
     request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, false);
 
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    request.timeout = 5000
+    request.timeout = 5000  
     request.send();  // bloqueia aqui até receber resposta
 
     return request
@@ -20,3 +20,5 @@ function prologRequest(request) {
     console.log(response.responseText)
     return response.responseText
 }
+
+// string -> () -> result

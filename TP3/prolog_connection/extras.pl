@@ -96,7 +96,7 @@ available_dirs(Board, X, Y, PlayerS, List):-
   check_dir(Board, X, Y, PlayerS, 'left', ListItem4), append(PreList3, ListItem4, List), !.
 
 dirs_to_spots([], _, []).
-dirs_to_spots([Dir|Rest], X-Y, [Xf-Yf|TempListSpots]):-
+dirs_to_spots([Dir|Rest], X-Y, [[Xf,Yf]|TempListSpots]):-
   direction(X-Y, Dir, Xf-Yf),
   dirs_to_spots(Rest, X-Y, TempListSpots).
 
@@ -191,11 +191,11 @@ choose_remove(GameState, Player, 'Normal', X-Y):-
 
 % value(+GameState, +Player, -Value)
 % For the Player 2, we can use the value function for the Player 1, given as the argument the transposed matrix
-value(GameState, 'Player 2', Value):-
+value(GameState, 'Player2', Value):-
   transpose(GameState, Transpose),
-  value(Transpose, 'Player 1', Value).
+  value(Transpose, 'Player1', Value).
 % In-Depth explanation : https://github.com/Ca-moes/feup-plog-proj/issues/19
-value(GameState, 'Player 1', Value):-
+value(GameState, 'Player1', Value):-
   value_part_1(GameState, List),
   value_part_2(GameState, List, ReturnList),
   max_member(Value, ReturnList), !.
@@ -465,3 +465,7 @@ check_no_neighbors(Board, PlayerS, X, Y, Value, 1):-
   available_dirs(Board, X, Y, PlayerS, []).
 % if the player piece is different from the value on the board, no need to check for directions
 check_no_neighbors(_, _, _, _, _, 1).
+
+player_to_int('Player1', 1).
+player_to_int('Player2', -1).
+player_to_int('none', 0).
