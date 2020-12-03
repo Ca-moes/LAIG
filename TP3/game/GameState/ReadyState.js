@@ -4,7 +4,7 @@ class ReadyState extends GameState {
     }
 
     pickTile(tile) {
-        this.orchestrator.prolog.getRequest(`spot(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
+        this.orchestrator.prolog.canPickTile(tile)
         this.tile = tile
     }
 
@@ -28,6 +28,12 @@ class ReadyState extends GameState {
     }
 
 
+    /**
+     * This method is called when request reply is obtained
+     * -> 1 to cant pick
+     * -> 0 to can pick
+     * @param {int} msg
+     */
     notifyReplyReceived(msg) {
         if (msg == 0) this.pickValidTile(this.tile)
     }

@@ -3,6 +3,24 @@ class MyPrologInterface {
         this.orchestrator = orchestrator
     }
 
+    /**
+     * Request prolog
+     * Q: Can user pick a certain tile?
+     * @param {MyTile} tile Tile to be picked
+     */
+    canPickTile(tile) {
+        this.getRequest(`spot(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
+    }
+
+    /**
+     * Request prolog
+     * Q: Can user move to a certain tile?
+     * @param {MyTile} tile Tile to move piece to
+     */
+    canMoveToTile(tile) {
+        this.getRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`)
+    }
+
     getRequest(command) {
         getPrologRequest(command, this.orchestrator.notifyReplyReceived, this.orchestrator)
     }

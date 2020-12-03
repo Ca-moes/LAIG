@@ -109,6 +109,7 @@ class MyGameOrchestrator {
     }
 
     orchestrate() {
-        // TODO state machine
+        /* state machine (we probably wont need this method as we are implementing a state pattern for every
+         * element, State Pattern -> Thank god we had LPOO Last Semester */
     }
 }

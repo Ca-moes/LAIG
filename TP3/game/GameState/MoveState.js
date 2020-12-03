@@ -18,14 +18,20 @@ class MoveState extends GameState {
         this.orchestrator.changeState(new ReadyState(this.orchestrator))
     }
 
-
+    /**
+     * This method is called when request reply is obtained
+     * -> 1 to cant move
+     * -> 0 to can move
+     * @param {int} msg
+     */
     notifyReplyReceived(msg) {
         if (msg == 0) this.pickValidTile(this.tile)
         else this.pickInvalidTile(this.tile)
     }
 
+
     pickTile(tile) {
-        this.orchestrator.prolog.getRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`)
+        this.orchestrator.prolog.canMoveToTile(tile)
         this.tile = tile
     }
 }
