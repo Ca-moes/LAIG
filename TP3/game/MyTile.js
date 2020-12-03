@@ -38,7 +38,7 @@ class MyTile extends CGFobject {
         this.scene.pushMatrix()
 
         if (this.piece && this.piece.state instanceof PickedPieceState) {
-            this.scene.setActiveShader(this.scene.piecePickingShader)
+            this.scene.setActiveShader(this.scene.tilePickingShader)
         }
 
         this.material.apply()
@@ -68,7 +68,7 @@ class MyTile extends CGFobject {
             this.piece.update(t)
         }
         if (this.piece && this.piece.state instanceof PickedPieceState) {
-            this.scene.piecePickingShader.setUniformsValues({timeFactor: t * 10 % 1000})
+            this.scene.tilePickingShader.setUniformsValues({timeFactor: t * 10 % 1000})
         }
     }
 }
