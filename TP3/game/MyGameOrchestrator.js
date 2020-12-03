@@ -56,6 +56,7 @@ class MyGameOrchestrator {
      * @param {MyTile} tile Ending Point
      */
     performMove(tile) {
+        this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.destTile = tile
         this.currentMovement.processAnimations()
         this.gameSequence.addMove(this.currentMovement)
@@ -66,6 +67,7 @@ class MyGameOrchestrator {
      * Method to cancel an existing move as an Invalid Tile was picked
      */
     cancelMove() {
+        this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.origTile.getPiece().reset()
         this.currentMovement = null
     }

@@ -53,7 +53,7 @@ class XMLscene extends CGFscene {
 
         // shaders
         this.piecePickingShader = new CGFshader(this.gl, "shaders/gourard.vert", "shaders/piecepicking.frag")
-        this.tilePickingShader = new CGFshader(this.gl, "shaders/tilepicking.vert", "shaders/tilepicking.frag")
+        this.tileHighlightingShader = new CGFshader(this.gl, "shaders/tilehighlighting.vert", "shaders/tilehighlighting.frag")
 
         // enable picking
         this.setPickEnabled(true);

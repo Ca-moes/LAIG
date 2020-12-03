@@ -15,6 +15,8 @@ class MyTile extends CGFobject {
         this.texture = texture
         this.updatedTexCoords = true; // no need for updateTexCoords
 
+        this.state = new StaticTIleState(this)
+
         this.obj = new Plane(scene, 5, 5)
     };
 
@@ -34,28 +36,20 @@ class MyTile extends CGFobject {
         this.piece = null
     }
 
+    changeState(state) {
+        this.state = state
+    }
+
+    highlightTile() {
+        this.state.highlightTile()
+    }
+
+    disableHighlighting() {
+        this.state.disableHighlight()
+    }
+
     display() {
-        this.scene.pushMatrix()
-
-        if (this.piece && this.piece.state instanceof PickedPieceState) {
-            this.scene.setActiveShader(this.scene.tilePickingShader)
-        }
-
-        this.material.apply()
-        if (this.texture)
-            this.texture.bind()
-
-        this.obj.display()
-
-        if (this.piece && this.piece.state instanceof PickedPieceState) {
-            this.scene.setActiveShader(this.scene.defaultShader)
-        }
-
-        this.scene.popMatrix()
-
-        if (this.piece) {
-            this.piece.display()
-        }
+        this.state.display()
     }
 
     pickPiece() {
@@ -64,11 +58,6 @@ class MyTile extends CGFobject {
 
 
     update(t) {
-        if (this.piece) {
-            this.piece.update(t)
-        }
-        if (this.piece && this.piece.state instanceof PickedPieceState) {
-            this.scene.tilePickingShader.setUniformsValues({timeFactor: t * 10 % 1000})
-        }
+        this.state.update(t)
     }
 }

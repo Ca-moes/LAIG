@@ -5,6 +5,7 @@ class ReadyState extends GameState {
 
     pickValidTile(tile) {
         tile.pickPiece()
+        tile.highlightTile()
         this.orchestrator.startPicking(tile)
         this.orchestrator.changeState(new MoveState(this.orchestrator))
     }
