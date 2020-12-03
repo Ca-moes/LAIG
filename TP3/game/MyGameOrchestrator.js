@@ -7,11 +7,9 @@ class MyGameOrchestrator {
         this.theme = new MySceneGraph("test.xml", this.scene)
         this.prolog = new MyPrologInterface(this)
 
-        this.state = new GameState(this)
+        this.state = new ReadyState(this)
 
         this.currentPlayer = 1
-
-        this.changeState(new ReadyState(this))
     }
 
     /**
