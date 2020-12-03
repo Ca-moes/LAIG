@@ -17,4 +17,15 @@ class MoveState extends GameState {
         this.orchestrator.cancelMove()
         this.orchestrator.changeState(new ReadyState(this.orchestrator))
     }
+
+
+    notifyReplyReceived(msg) {
+        if (msg == 0) this.pickValidTile(this.tile)
+        else this.pickInvalidTile(this.tile)
+    }
+
+    pickTile(tile) {
+        this.orchestrator.prolog.getRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`)
+        this.tile = tile
+    }
 }

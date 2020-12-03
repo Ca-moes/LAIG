@@ -9,6 +9,8 @@ class MyGameOrchestrator {
 
         this.state = new GameState(this)
 
+        this.currentPlayer = 1
+
         this.changeState(new ReadyState(this))
     }
 
@@ -24,8 +26,8 @@ class MyGameOrchestrator {
      * Method to handle a 'pickValidTile' event
      * @param {MyTile} tile
      */
-    pickValidTile(tile) {
-        this.state.pickValidTile(tile)
+    pickTile(tile) {
+        this.state.pickTile(tile)
     }
 
     /**
@@ -77,9 +79,6 @@ class MyGameOrchestrator {
      * @param time time in seconds
      */
     update(time) {
-        // prints on the console the current game state
-        console.log(this.state.constructor.name)
-
         if (this.scene.sceneInited && !this.scene.timeSet) {
             this.theme.setAnimationsStartTime(time);
             this.scene.timeSet = true;
@@ -106,8 +105,7 @@ class MyGameOrchestrator {
     }
 
     notifyReplyReceived(msg) {
-        console.log(msg)
-
+        this.state.notifyReplyReceived(msg)
     }
 
     orchestrate() {

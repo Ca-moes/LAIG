@@ -1,30 +1,30 @@
 class MyPrologInterface {
     constructor(orchestrator) {
         this.orchestrator = orchestrator
-
-        console.log(orchestrator)
     }
 
     getRequest(command) {
-        getPrologRequest(command, this.orchestrator.notifyReplyReceived)
+        getPrologRequest(command, this.orchestrator.notifyReplyReceived, this.orchestrator)
     }
 }
 
 function onSuccess(data) {
-    this.callback(JSON.parse(data.target.response))
+    this.callback.apply(data.target.orchestrator, [data.target.response])
 }
 
 function onError() {
     console.log("error on request")
 }
 
-function  getPrologRequest(requestString, callback) {
-    var requestPort = 8081
-    var request = new XMLHttpRequest();
+function  getPrologRequest(requestString, callback, orchestrator) {
+    const requestPort = 8081
+    const request = new XMLHttpRequest();
     request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, true);
 
     request.callback = callback
     request.arguments = Array.prototype.slice.call(arguments, 2);
+
+    request.orchestrator = orchestrator
 
     request.onload = onSuccess
     request.onerror = onError

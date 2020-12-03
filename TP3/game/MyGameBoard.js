@@ -68,7 +68,7 @@ class MyGameBoard extends CGFobject{
                     const obj = this.scene.pickResults[i][0];
                     if (obj instanceof MyTile) {
                         if (obj.getPiece())
-                            this.orchestrator.pickValidTile(obj)
+                            this.orchestrator.pickTile(obj)
                         else
                             this.orchestrator.pickInvalidTile(obj)
 
