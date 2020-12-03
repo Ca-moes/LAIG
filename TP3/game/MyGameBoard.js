@@ -37,7 +37,7 @@ class MyGameBoard extends CGFobject{
         }
     }
 
-    toJson() {
+    toString() {
         let board = [];
         let index = 0;
         for (let y = 0; y < this.size; y++) {
@@ -52,7 +52,7 @@ class MyGameBoard extends CGFobject{
             }
             board.push(row)
         }
-        return board
+        return JSON.stringify(board)
     }
 
     update(t) {

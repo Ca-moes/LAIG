@@ -5,7 +5,7 @@ class MyGameOrchestrator {
         this.animator = new MyAnimator(this, this.gameSequence)
         // The gameboard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
-        this.prolog = new MyPrologInterface()
+        this.prolog = new MyPrologInterface(this)
 
         this.state = new GameState(this)
 
@@ -103,6 +103,11 @@ class MyGameOrchestrator {
         // gameboard is assigned here
         this.gameboard.display()
         this.animator.display()
+    }
+
+    notifyReplyReceived(msg) {
+        console.log(msg)
+
     }
 
     orchestrate() {

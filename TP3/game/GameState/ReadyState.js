@@ -4,6 +4,8 @@ class ReadyState extends GameState {
     }
 
     pickValidTile(tile) {
+        this.orchestrator.prolog.getRequest("available_moves(" + this.orchestrator.gameboard.toString() + ",'Player1'," + tile.x + "-" + tile.y + ")")
+
         tile.pickPiece()
         tile.highlightTile()
         this.orchestrator.startPicking(tile)
