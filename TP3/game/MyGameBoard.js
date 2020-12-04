@@ -9,7 +9,7 @@ class MyGameBoard extends CGFobject{
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        this.boardsides = new Plane(this.scene, 2, 2)
+        this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
         this.boardsidestexture = new CGFtexture(this.scene, "scenes/images/boardsides1.jpg")
 
         this.createBoard()
@@ -89,12 +89,8 @@ class MyGameBoard extends CGFobject{
         this.scene.clearPickRegistration();
 
         this.scene.pushMatrix()
-
-        this.boardsidestexture.bind()
-        this.scene.translate(this.centerx, -0.01, this.centerz)
-        this.scene.scale(this.size*1.15, 1, this.size*1.15)
+        this.scene.translate(this.centerx, 0, this.centerz)
         this.boardsides.display()
-
         this.scene.popMatrix()
 
         this.scene.multMatrix(this.properties.transformations)
