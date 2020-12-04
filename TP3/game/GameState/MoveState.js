@@ -31,7 +31,7 @@ class MoveState extends GameState {
 
 
     pickTile(tile) {
-        this.orchestrator.prolog.canMoveToTile(tile)
         this.tile = tile
+        this.orchestrator.prolog.canMoveToTile(tile)
     }
 }

@@ -4,8 +4,8 @@ class ReadyState extends GameState {
     }
 
     pickTile(tile) {
-        this.orchestrator.prolog.canPickTile(tile)
         this.tile = tile
+        this.orchestrator.prolog.canPickTile(tile)
     }
 
     pickValidTile(tile) {

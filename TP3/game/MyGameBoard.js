@@ -9,7 +9,7 @@ class MyGameBoard extends CGFobject{
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        this.boardsides = new Plane(this.scene, 10, 10)
+        this.boardsides = new Plane(this.scene, 2, 2)
         this.boardsidestexture = new CGFtexture(this.scene, "scenes/images/boardsides1.jpg")
 
         this.createBoard()

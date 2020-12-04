@@ -22,8 +22,22 @@ class MyPrologInterface {
     }
 
     getRequest(command) {
+        /* async call */
         getPrologRequest(command, this.orchestrator.notifyReplyReceived, this.orchestrator)
     }
+
+    /* Synchronous call */
+    getPrologRequest(requestString) {
+        const requestPort = 8081
+        const request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, false);
+
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+        request.send();  // bloqueia aqui até receber resposta
+        this.orchestrator.notifyReplyReceived(request.responseText)
+    }
+
 }
 
 function onSuccess(data) {
@@ -34,6 +48,7 @@ function onError() {
     console.log("error on request")
 }
 
+/* asynchronous call with a callback */
 function  getPrologRequest(requestString, callback, orchestrator) {
     const requestPort = 8081
     const request = new XMLHttpRequest();
