@@ -21,6 +21,10 @@ class MyPrologInterface {
         this.getRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`)
     }
 
+    checkWinner() {
+        this.getRequest(`check_winner(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`)
+    }
+
     getRequest(command) {
         /* async call */
         getPrologRequest(command, this.orchestrator.notifyReplyReceived, this.orchestrator)

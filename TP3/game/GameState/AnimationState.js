@@ -8,8 +8,8 @@ class AnimationState extends GameState {
     }
 
     animationEnd() {
+        this.orchestrator.prolog.checkWinner()
         this.orchestrator.currentPlayer = 3 - this.orchestrator.currentPlayer
-        this.orchestrator.changeState(new ReadyState(this.orchestrator))
     }
 
 
@@ -17,11 +17,22 @@ class AnimationState extends GameState {
         // do nothing as an animation is taking place
     }
 
-    notifyReplyReceived(msg) {
-        // not sure what to do
-    }
-
     pickTile(tile) {
         // cannot pick tile when animated
+    }
+
+    notifyReplyReceived(msg) {
+        if (msg == 1) {
+            console.log("Winner: Player 1")
+        }
+        else if (msg == -1) {
+            console.log("Winner: Player 2")
+        }
+        else if (msg == 0) {
+            console.log("No Winner Yet")
+        }
+        // still not changing states properly, so when theres a winner
+        // the game will just continue
+        this.orchestrator.changeState(new ReadyState(this.orchestrator))
     }
 }
