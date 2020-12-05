@@ -76,4 +76,16 @@ class MyInterface extends CGFinterface {
             }
         }
     }
+
+    addGameGroup() {
+        const group = this.gui.addFolder("Game")
+        group.open()
+        let undo = { add: () => console.log("Clicked Undo") };
+        let handshake = { add:() => this.scene.orchestrator.prolog.handshake() };
+        let quit = { add:() => this.scene.orchestrator.prolog.quit() };
+
+        group.add(handshake, 'add').name("Handshake");
+        group.add(undo, 'add').name("Undo");
+        group.add(quit, 'add').name("Quit");
+    }
 }

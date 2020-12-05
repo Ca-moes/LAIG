@@ -30,6 +30,31 @@ class MyPrologInterface {
         getPrologRequest(command, this.orchestrator.notifyReplyReceived, this.orchestrator)
     }
 
+    handshake() {
+        const requestPort = 8081
+        const request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:' + requestPort + '/handshake', false);
+
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send();  // bloqueia aqui até receber resposta
+        if (JSON.parse(request.responseText) === "handshake")
+            console.log("Handshake Successful")
+        else
+            console.log("Handshake Failed")
+    }
+
+    quit() {
+        const request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:8081/quit', false);
+
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send();  // bloqueia aqui até receber resposta
+        if (JSON.parse(request.responseText) === "goodbye")
+            console.log("Quit Successful")
+        else
+            console.log("Quit Failed")
+    }
+
     /* Synchronous call */
     getPrologRequest(requestString) {
         const requestPort = 8081
