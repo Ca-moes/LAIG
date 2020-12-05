@@ -18,6 +18,7 @@ class MyGameOrchestrator {
      */
     changeState(state) {
         this.state = state
+        console.log("Changed state: " + this.state.constructor.name)
     }
 
     /**
