@@ -63,6 +63,31 @@ class MyGameBoard extends CGFobject{
         }
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @returns {MyTile} tile
+     */
+    getTile(x, y) {
+        // this needs to be enhanced
+        return this.board[y*this.size + x]
+    }
+
+    highlightEnemyTiles(tiles) {
+        for (let i = 0; i < tiles.length; i++) {
+            let tile = this.getTile(tiles[i][0], tiles[i][1])
+            tile.friend = false
+            tile.highlightTile(false)
+        }
+    }
+
+    disableHighlight() {
+        for (let i = 0; i < this.board.length; i++) {
+            this.board[i].disableHighlighting()
+        }
+    }
+
     logPicking() {
 		if (this.scene.pickMode === false) {
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {

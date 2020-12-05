@@ -16,18 +16,26 @@ class ReadyState extends GameState {
      * This method is called when request reply is obtained
      * -> 1 to cant pick
      * -> 0 to can pick
-     * @param {int} msg
+     * @param {int, Array} msg
      */
     notifyReplyReceived(msg) {
-        if (msg == 0) {
+        if (msg === 0) {
             this.tile.pickPiece()
             this.tile.highlightTile()
 
             this.orchestrator.startPicking(this.tile)
-            this.orchestrator.changeState(new MoveState(this.orchestrator))
+
+            this.orchestrator.prolog.getPossibleTiles(this.tile)
+
+            // this.orchestrator.changeState(new MoveState(this.orchestrator))
         }
-        else if (msg == 1) {
+        else if (msg === 1) {
             // do nothing
+        }
+        // highlight possible movements
+        if (msg instanceof Array) {
+            this.orchestrator.gameboard.highlightEnemyTiles(msg)
+            this.orchestrator.changeState(new MoveState(this.orchestrator))
         }
     }
 }

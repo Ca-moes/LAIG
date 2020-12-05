@@ -12,6 +12,10 @@ class HighlightedTileState extends TileState {
         this.tile.scene.pushMatrix()
 
         this.tile.scene.setActiveShaderSimple(this.tile.scene.tileHighlightingShader)
+        if (this.tile.friend)
+            this.tile.scene.tileHighlightingShader.setUniformsValues({colors: [0.275, 0.412, 1.0]})
+        else
+            this.tile.scene.tileHighlightingShader.setUniformsValues({colors: [0.8, 0.1, 0.1]})
 
         this.tile.material.apply()
         if (this.tile.texture)

@@ -25,6 +25,10 @@ class MyPrologInterface {
         this.getRequest(`check_winner(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`)
     }
 
+    getPossibleTiles(tile) {
+        this.getRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
+    }
+
     getRequest(command) {
         /* async call */
         getPrologRequest(command, this.orchestrator.notifyReplyReceived, this.orchestrator)
@@ -70,7 +74,7 @@ class MyPrologInterface {
 }
 
 function onSuccess(data) {
-    this.callback.apply(data.target.orchestrator, [data.target.response])
+    this.callback.apply(data.target.orchestrator, [JSON.parse(data.target.response)])
 }
 
 function onError() {

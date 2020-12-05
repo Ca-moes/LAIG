@@ -19,12 +19,13 @@ class MoveState extends GameState {
      * @param {int} msg
      */
     notifyReplyReceived(msg) {
-        if (msg == 0) {
+        if (msg === 0) {
             this.tile.pickPiece()
             this.orchestrator.performMove(this.tile)
+            this.orchestrator.gameboard.disableHighlight()
             this.orchestrator.changeState(new AnimationState(this.orchestrator))
         }
-        else if (msg == 1) {
+        else if (msg === 1) {
             this.orchestrator.cancelMove()
             this.orchestrator.changeState(new ReadyState(this.orchestrator))
         }
