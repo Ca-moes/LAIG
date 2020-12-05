@@ -5,11 +5,11 @@ class MyGameOrchestrator {
         this.animator = new MyAnimator(this, this.gameSequence)
         // The gameboard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
-        // this.prolog = new MyPrologInterface(…)
+        this.prolog = new MyPrologInterface(this)
 
-        this.state = new GameState(this)
+        this.state = new ReadyState(this)
 
-        this.changeState(new ReadyState(this))
+        this.currentPlayer = 1
     }
 
     /**
@@ -24,8 +24,8 @@ class MyGameOrchestrator {
      * Method to handle a 'pickValidTile' event
      * @param {MyTile} tile
      */
-    pickValidTile(tile) {
-        this.state.pickValidTile(tile)
+    pickTile(tile) {
+        this.state.pickTile(tile)
     }
 
     /**
@@ -77,9 +77,6 @@ class MyGameOrchestrator {
      * @param time time in seconds
      */
     update(time) {
-        // prints on the console the current game state
-        console.log(this.state.constructor.name)
-
         if (this.scene.sceneInited && !this.scene.timeSet) {
             this.theme.setAnimationsStartTime(time);
             this.scene.timeSet = true;
@@ -105,7 +102,12 @@ class MyGameOrchestrator {
         this.animator.display()
     }
 
+    notifyReplyReceived(msg) {
+        this.state.notifyReplyReceived(msg)
+    }
+
     orchestrate() {
-        // TODO state machine
+        /* state machine (we probably wont need this method as we are implementing a state pattern for every
+         * element, State Pattern -> Thank god we had LPOO Last Semester */
     }
 }

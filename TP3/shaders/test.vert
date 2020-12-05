@@ -55,8 +55,6 @@ void main() {
     const float n_rows = 10;
     vTextureCoord = (aTextureCoord * (1.0/10.0)) + vec2(0.1, 0.2);
 
-
-
 }
 
 /*

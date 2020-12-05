@@ -9,6 +9,9 @@ class MyGameBoard extends CGFobject{
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
+        this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
+        this.boardsidestexture = new CGFtexture(this.scene, "scenes/images/boardsides1.jpg")
+
         this.createBoard()
     }
 
@@ -37,7 +40,7 @@ class MyGameBoard extends CGFobject{
         }
     }
 
-    toJson() {
+    toString() {
         let board = [];
         let index = 0;
         for (let y = 0; y < this.size; y++) {
@@ -52,7 +55,7 @@ class MyGameBoard extends CGFobject{
             }
             board.push(row)
         }
-        return board
+        return JSON.stringify(board)
     }
 
     update(t) {
@@ -68,7 +71,7 @@ class MyGameBoard extends CGFobject{
                     const obj = this.scene.pickResults[i][0];
                     if (obj instanceof MyTile) {
                         if (obj.getPiece())
-                            this.orchestrator.pickValidTile(obj)
+                            this.orchestrator.pickTile(obj)
                         else
                             this.orchestrator.pickInvalidTile(obj)
 
@@ -85,6 +88,11 @@ class MyGameBoard extends CGFobject{
         this.logPicking()
         this.scene.clearPickRegistration();
 
+        this.scene.pushMatrix()
+        this.scene.translate(this.centerx, 0, this.centerz)
+        this.boardsides.display()
+        this.scene.popMatrix()
+
         this.scene.multMatrix(this.properties.transformations)
 
         let index = 0
@@ -93,7 +101,7 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                this.scene.translate(this.centerx,this.centerz, 0)
+                this.scene.translate(this.centerx, 0, this.centerz)
                 this.scene.translate(x - (this.size/2) + 0.5, 0, z - (this.size/2) + 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()
