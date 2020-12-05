@@ -9,7 +9,6 @@ class AnimationState extends GameState {
 
     animationEnd() {
         this.orchestrator.prolog.checkWinner()
-        this.orchestrator.currentPlayer = 3 - this.orchestrator.currentPlayer
     }
 
     notifyReplyReceived(msg) {

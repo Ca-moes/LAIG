@@ -41,7 +41,7 @@ class MyGameOrchestrator {
      * @param {MyTile} tile Starting Point
      */
     startPicking(tile) {
-        this.currentMovement = new MyGameMove(tile, null, this.gameboard)
+        this.currentMovement = new MyGameMove(tile, null, this.gameboard.clone())
     }
 
     /**
@@ -49,6 +49,7 @@ class MyGameOrchestrator {
      * @param {MyTile} tile Ending Point
      */
     performMove(tile) {
+        this.currentPlayer = 3 - this.currentPlayer
         this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.destTile = tile
         this.currentMovement.processAnimations()
@@ -97,6 +98,17 @@ class MyGameOrchestrator {
 
     notifyReplyReceived(msg) {
         this.state.notifyReplyReceived(msg)
+    }
+
+    undo() {
+        let move = this.gameSequence.undo()
+        if (move != null) {
+            this.gameboard = move.gameboard
+            this.gameboard.orchestrator = this
+            this.state = new ReadyState(this)
+            this.currentPlayer = 3 - this.currentPlayer
+            console.log("Undo Movement")
+        }
     }
 
     orchestrate() {

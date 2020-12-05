@@ -10,7 +10,6 @@ class MyGameBoard extends CGFobject{
         this.updatedTexCoords = true; // no need for updateTexCoords
 
         this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
-        this.boardsidestexture = new CGFtexture(this.scene, "scenes/images/boardsides1.jpg")
 
         this.createBoard()
     }
@@ -134,17 +133,26 @@ class MyGameBoard extends CGFobject{
     }
 
     clone() {
-        let board = new MyGameBoard(this.scene, this.centerx, this.centerz, this.size)
-        board.board.clear()
+        let board = new MyGameBoard(this.scene, this.centerx, this.centerz, this.size, this.properties)
+        board.board = []
         let clonedBoard = []
         this.board.forEach((value => {
-            /*let piece = null
-            if (value.getPiece())
-                piece = new MyPiece(this.scene, value.getPiece().getType())
-            let tile = new MyTile(this.scene, board, value, value.x, value.y)
-            tile.setPiece(piece)
-            clonedBoard.push(tile)*/
-            clonedBoard.push(value)
+            let tile = new MyTile(
+                this.scene,
+                board, value.x, value.y,
+                this.properties.tiles.material,
+                this.properties.tiles.texture)
+            if (value.piece) {
+                let piece = new MyPiece(
+                    this.scene,
+                    value.piece.player,
+                    (value.piece.player === 1) ? this.properties.player1.material : this.properties.player2.material,
+                    (value.piece.player === 1) ? this.properties.player1.texture : this.properties.player2.texture,
+                    this.properties.model)
+                tile.setPiece(piece)
+            }
+            clonedBoard.push(tile)
+            // clonedBoard.push(value)
         }))
         board.board = clonedBoard
         return board
