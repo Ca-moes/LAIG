@@ -8,25 +8,9 @@ class ReadyState extends GameState {
         this.orchestrator.prolog.canPickTile(tile)
     }
 
-    pickValidTile(tile) {
-        // this.orchestrator.prolog.getRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
-
-        tile.pickPiece()
-        tile.highlightTile()
-
-        this.orchestrator.startPicking(tile)
-        this.orchestrator.changeState(new MoveState(this.orchestrator))
-    }
-
     animationEnd() {
         // do nothing, as no animation should be happening here
     }
-
-
-    pickInvalidTile(tile) {
-        // do nothing if user picks an empty tile
-    }
-
 
     /**
      * This method is called when request reply is obtained
@@ -35,6 +19,15 @@ class ReadyState extends GameState {
      * @param {int} msg
      */
     notifyReplyReceived(msg) {
-        if (msg == 0) this.pickValidTile(this.tile)
+        if (msg == 0) {
+            this.tile.pickPiece()
+            this.tile.highlightTile()
+
+            this.orchestrator.startPicking(this.tile)
+            this.orchestrator.changeState(new MoveState(this.orchestrator))
+        }
+        else if (msg == 1) {
+            // do nothing
+        }
     }
 }

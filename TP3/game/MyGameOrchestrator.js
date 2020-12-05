@@ -30,14 +30,6 @@ class MyGameOrchestrator {
     }
 
     /**
-     * Method to handle a 'pickInvalidTile' event
-     * @param {MyTile} tile
-     */
-    pickInvalidTile(tile) {
-        this.state.pickInvalidTile(tile)
-    }
-
-    /**
      * Method to handle a 'animationEnd' event
      */
     animationEnd() {

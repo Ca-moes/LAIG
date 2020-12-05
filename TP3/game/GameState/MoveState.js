@@ -3,19 +3,13 @@ class MoveState extends GameState {
         super(orchestrator)
     }
 
-    pickValidTile(tile) {
-        tile.pickPiece()
-        this.orchestrator.performMove(tile)
-        this.orchestrator.changeState(new AnimationState(this.orchestrator))
-    }
-
     animationEnd() {
         // do nothing here
     }
 
-    pickInvalidTile(tile) {
-        this.orchestrator.cancelMove()
-        this.orchestrator.changeState(new ReadyState(this.orchestrator))
+    pickTile(tile) {
+        this.tile = tile
+        this.orchestrator.prolog.canMoveToTile(tile)
     }
 
     /**
@@ -25,13 +19,14 @@ class MoveState extends GameState {
      * @param {int} msg
      */
     notifyReplyReceived(msg) {
-        if (msg == 0) this.pickValidTile(this.tile)
-        else this.pickInvalidTile(this.tile)
-    }
-
-
-    pickTile(tile) {
-        this.tile = tile
-        this.orchestrator.prolog.canMoveToTile(tile)
+        if (msg == 0) {
+            this.tile.pickPiece()
+            this.orchestrator.performMove(this.tile)
+            this.orchestrator.changeState(new AnimationState(this.orchestrator))
+        }
+        else if (msg == 1) {
+            this.orchestrator.cancelMove()
+            this.orchestrator.changeState(new ReadyState(this.orchestrator))
+        }
     }
 }

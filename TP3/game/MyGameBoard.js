@@ -70,10 +70,7 @@ class MyGameBoard extends CGFobject{
 				for (let i = 0; i < this.scene.pickResults.length; i++) {
                     const obj = this.scene.pickResults[i][0];
                     if (obj instanceof MyTile) {
-                        if (obj.getPiece())
-                            this.orchestrator.pickTile(obj)
-                        else
-                            this.orchestrator.pickInvalidTile(obj)
+                        this.orchestrator.pickTile(obj)
 
                         const customId = this.scene.pickResults[i][1];
                         console.log("Picked object: " + obj.toString() + ", with pick id " + customId);

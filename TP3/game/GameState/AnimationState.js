@@ -3,22 +3,13 @@ class AnimationState extends GameState {
         super(orchestrator);
     }
 
-    pickValidTile(tile) {
+    pickTile(tile) {
         // do nothing as an animation is taking place
     }
 
     animationEnd() {
         this.orchestrator.prolog.checkWinner()
         this.orchestrator.currentPlayer = 3 - this.orchestrator.currentPlayer
-    }
-
-
-    pickInvalidTile(tile) {
-        // do nothing as an animation is taking place
-    }
-
-    pickTile(tile) {
-        // cannot pick tile when animated
     }
 
     notifyReplyReceived(msg) {

@@ -1208,7 +1208,7 @@ class MySceneGraph {
 
         this.gameboard = new MyGameBoard(this.scene, x, z, size, properties)
 
-        console.log("Parsed Gameboard")
+        this.log("Parsed Gameboard")
     }
 
     /**
