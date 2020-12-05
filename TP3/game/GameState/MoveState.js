@@ -27,6 +27,7 @@ class MoveState extends GameState {
         }
         else if (msg === 1) {
             this.orchestrator.cancelMove()
+            this.orchestrator.gameboard.disableHighlight()
             this.orchestrator.changeState(new ReadyState(this.orchestrator))
         }
     }
