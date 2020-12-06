@@ -22,12 +22,4 @@ class GameState {
     animationEnd() {
         throw new Error("Abstract method animationEnd()")
     }
-
-    /**
-     * @abstract
-     * @param msg reply message
-     */
-    notifyReplyReceived(msg) {
-        throw new Error("Abstract method notifyReplyReceived()")
-    }
 }

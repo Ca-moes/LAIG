@@ -96,10 +96,6 @@ class MyGameOrchestrator {
         this.animator.display()
     }
 
-    notifyReplyReceived(msg) {
-        this.state.notifyReplyReceived(msg)
-    }
-
     undo() {
         let move = this.gameSequence.undo()
         if (move != null) {

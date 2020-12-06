@@ -8,24 +8,14 @@ class MoveState extends GameState {
     }
 
     pickTile(tile) {
-        this.tile = tile
-        this.orchestrator.prolog.canMoveToTile(tile)
-    }
-
-    /**
-     * This method is called when request reply is obtained
-     * -> 1 to cant move
-     * -> 0 to can move
-     * @param {int} msg
-     */
-    notifyReplyReceived(msg) {
-        if (msg === 0) {
-            this.tile.pickPiece()
-            this.orchestrator.performMove(this.tile)
+        const reply = this.orchestrator.prolog.canMoveToTile(tile)
+        if (reply === 0) {
+            tile.pickPiece()
+            this.orchestrator.performMove(tile)
             this.orchestrator.gameboard.disableHighlight()
             this.orchestrator.changeState(new AnimationState(this.orchestrator))
         }
-        else if (msg === 1) {
+        else if (reply === 1) {
             this.orchestrator.cancelMove()
             this.orchestrator.gameboard.disableHighlight()
             this.orchestrator.changeState(new ReadyState(this.orchestrator))
