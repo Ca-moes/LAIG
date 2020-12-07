@@ -17,6 +17,8 @@ class MyTile extends CGFobject {
 
         this.state = new StaticTIleState(this)
 
+        this.friend = true
+
         this.obj = new Plane(scene, 5, 5)
     };
 
@@ -40,8 +42,8 @@ class MyTile extends CGFobject {
         this.state = state
     }
 
-    highlightTile() {
-        this.state.highlightTile()
+    highlightTile(friend = true) {
+        this.state.highlightTile(friend)
     }
 
     disableHighlighting() {

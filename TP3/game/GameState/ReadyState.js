@@ -4,37 +4,26 @@ class ReadyState extends GameState {
     }
 
     pickTile(tile) {
-        this.tile = tile
-        this.orchestrator.prolog.canPickTile(tile)
-    }
+        let reply = this.orchestrator.prolog.canPickTile(tile)
 
-    pickValidTile(tile) {
-        // this.orchestrator.prolog.getRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
+        if (reply === 0) {
+            tile.pickPiece()
+            tile.highlightTile()
 
-        tile.pickPiece()
-        tile.highlightTile()
+            this.orchestrator.startPicking(tile)
 
-        this.orchestrator.startPicking(tile)
-        this.orchestrator.changeState(new MoveState(this.orchestrator))
+            // highlight possible movements
+            let reply = this.orchestrator.prolog.getPossibleTiles(tile)
+            if (reply instanceof Array) this.orchestrator.gameboard.highlightEnemyTiles(reply)
+
+            this.orchestrator.changeState(new MoveState(this.orchestrator))
+        }
+        else if (reply === 1) {
+            // do nothing
+        }
     }
 
     animationEnd() {
         // do nothing, as no animation should be happening here
-    }
-
-
-    pickInvalidTile(tile) {
-        // do nothing if user picks an empty tile
-    }
-
-
-    /**
-     * This method is called when request reply is obtained
-     * -> 1 to cant pick
-     * -> 0 to can pick
-     * @param {int} msg
-     */
-    notifyReplyReceived(msg) {
-        if (msg == 0) this.pickValidTile(this.tile)
     }
 }

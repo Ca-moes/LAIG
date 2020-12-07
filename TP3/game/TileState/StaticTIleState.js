@@ -27,7 +27,8 @@ class StaticTIleState extends TileState {
         }
     }
 
-    highlightTile() {
+    highlightTile(friend) {
+        this.tile.friend = friend
         this.tile.changeState(new HighlightedTileState(this.tile))
     }
 
