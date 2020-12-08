@@ -40,6 +40,14 @@ class MyPrologInterface {
         return this.getRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
     }
 
+    checkFinalState() {
+        return this.getRequest(`check_final(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`)
+    }
+
+    canRemovePiece(tile) {
+        return this.getRequest(`spot_remove(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
+    }
+
     getRequest(command) {
         /* sync call */
         return this.getPrologRequest(command)

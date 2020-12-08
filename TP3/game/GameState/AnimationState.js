@@ -8,7 +8,7 @@ class AnimationState extends GameState {
     }
 
     animationEnd() {
-        const reply = this.orchestrator.prolog.checkWinner()
+        let reply = this.orchestrator.prolog.checkWinner()
         if (reply === 1) {
             console.log("Winner: Player 1")
             this.orchestrator.changeState(new GameOverState(this.orchestrator))
@@ -19,7 +19,15 @@ class AnimationState extends GameState {
         }
         else if (reply === 0) {
             console.log("No Winner Yet")
-            this.orchestrator.changeState(new ReadyState(this.orchestrator))
+            reply = this.orchestrator.prolog.checkFinalState();
+            if (reply === 0) {
+                console.log("No More Moves for Player " + this.orchestrator.currentPlayer)
+                this.orchestrator.changeState(new RemoveState(this.orchestrator))
+            }
+            else if (reply === 1) {
+                console.log("Moves Available for Player " + this.orchestrator.currentPlayer)
+                this.orchestrator.changeState(new ReadyState(this.orchestrator))
+            }
         }
     }
 }

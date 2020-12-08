@@ -79,19 +79,17 @@ class MyGameMove {
      * Method to animate a game movement
      */
     animate(t) {
-        this.origTile.getPiece().startAnimation(this, this.moveAnimation, t, "move")
-        this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "remove")
+        if (this.origTile === this.destTile) {
+            this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "move")
+        }
+        else {
+            this.origTile.getPiece().startAnimation(this, this.moveAnimation, t, "move")
+            this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "remove")
+        }
     }
 
     notifyMoveAnimationCompleted(type) {
-        if (this.destTile === this.origTile) {
-            this.origTile.getPiece().stopAnimation()
-            this.destTile.getPiece().stopAnimation()
-
-            this.animationCompleted = true
-            this.gameboard.movePiece(this.origTile, this.destTile)
-        }
-        else if (type === "move") {
+        if (type === "move" || this.destTile === this.origTile) {
             this.origTile.getPiece().stopAnimation()
             this.destTile.getPiece().stopAnimation()
 

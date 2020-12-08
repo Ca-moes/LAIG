@@ -27,7 +27,7 @@ server :-
 	write('Closed Server'),nl.
 
 % Server Loop 
-% Uncomment writes for more information on incomming connections
+% Uncomment writes for more information on incoming connections
 server_loop(Socket) :-
 	repeat,
 	socket_server_accept(Socket, _Client, Stream, [type(text)]),  % 2.
