@@ -11,6 +11,9 @@ class MyGameBoard extends CGFobject{
 
         this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
 
+        this.auxiliaryBoard1 = new MyAuxiliaryBoard(scene, this)
+        this.auxiliaryBoard2 = new MyAuxiliaryBoard(scene, this)
+
         this.createBoard()
     }
 
@@ -109,12 +112,22 @@ class MyGameBoard extends CGFobject{
         this.logPicking()
         this.scene.clearPickRegistration();
 
+        this.scene.multMatrix(this.properties.transformations)
+
+        this.scene.pushMatrix()
+        this.scene.translate(this.size*0.85, 0.5, 0)
+        this.auxiliaryBoard1.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(-this.size*0.85, 0.5, 0)
+        this.auxiliaryBoard2.display()
+        this.scene.popMatrix()
+
         this.scene.pushMatrix()
         this.scene.translate(this.centerx, 0, this.centerz)
         this.boardsides.display()
         this.scene.popMatrix()
-
-        this.scene.multMatrix(this.properties.transformations)
 
         let index = 0
         for (let z = 0; z < this.size; z++) {
