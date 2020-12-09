@@ -11,13 +11,12 @@ class MyGameBoard extends CGFobject{
 
         this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
 
-        this.auxiliaryBoard1 = new MyAuxiliaryBoard(scene, this)
-        this.auxiliaryBoard2 = new MyAuxiliaryBoard(scene, this)
+        this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
 
         this.createBoard()
     }
 
-    createBoard(){
+    createBoard() {
         let pieceType = 1
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
@@ -115,13 +114,8 @@ class MyGameBoard extends CGFobject{
         this.scene.multMatrix(this.properties.transformations)
 
         this.scene.pushMatrix()
-        this.scene.translate(this.size*0.85, 0.5, 0)
-        this.auxiliaryBoard1.display()
-        this.scene.popMatrix()
-
-        this.scene.pushMatrix()
-        this.scene.translate(-this.size*0.85, 0.5, 0)
-        this.auxiliaryBoard2.display()
+        this.scene.translate(this.size*0.8, 0.5, 0)
+        this.auxiliaryBoard.display()
         this.scene.popMatrix()
 
         this.scene.pushMatrix()
@@ -165,13 +159,7 @@ class MyGameBoard extends CGFobject{
         destinationTile.setPiece(piece)
         originalTile.unsetPiece()
 
-        if (removed.player === 1) {
-            console.log("removed piece from player 1" + removed)
-            this.auxiliaryBoard1.addPiece(removed)
-        } else {
-            console.log("removed piece from player 2" + removed)
-            this.auxiliaryBoard2.addPiece(removed)
-        }
+        this.auxiliaryBoard.addPiece(removed)
 
         console.log("Piece Moved")
     }
@@ -179,8 +167,7 @@ class MyGameBoard extends CGFobject{
     clone() {
         let board = new MyGameBoard(this.scene, this.centerx, this.centerz, this.size, this.properties)
         board.board = []
-        board.auxiliaryBoard1 = this.auxiliaryBoard1
-        board.auxiliaryBoard2 = this.auxiliaryBoard2
+        board.auxiliaryBoard = this.auxiliaryBoard
         let clonedBoard = []
         this.board.forEach((value => {
             let tile = new MyTile(

@@ -52,7 +52,7 @@ class MyGameOrchestrator {
         this.currentPlayer = 3 - this.currentPlayer
         this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.destTile = tile
-        this.currentMovement.processAnimations()
+        this.currentMovement.processAnimations(this.gameboard.auxiliaryBoard.getNextPieceCoords())
         this.gameSequence.addMove(this.currentMovement)
         this.currentMovement.animate(Date.now() / 1000)
     }
@@ -99,7 +99,7 @@ class MyGameOrchestrator {
     undo() {
         let move = this.gameSequence.undo()
         if (move != null) {
-            this.currentPlayer === 1 ? this.gameboard.auxiliaryBoard1.undo() : this.gameboard.auxiliaryBoard2.undo()
+            this.gameboard.auxiliaryBoard.undo()
 
             this.gameboard = move.gameboard
             this.gameboard.orchestrator = this
