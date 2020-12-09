@@ -14,6 +14,12 @@ class MyGameMove {
         this.animationCompleted = false
     }
 
+    /**
+     * This method could in theory be inside the constructor,
+     * but we are creating this MyGameMove with 2 steps, first we assign the origin tile
+     * then we assign the destination tile, so we can't calculate a trajectory when the
+     * this object is instantiated. We call this method when the object is fully assigned
+     */
     processAnimations() {
         this.moveAnimation = new KeyframeAnimation([
             {
@@ -79,19 +85,21 @@ class MyGameMove {
      * Method to animate a game movement
      */
     animate(t) {
-        this.origTile.getPiece().startAnimation(this, this.moveAnimation, t, "move")
-        this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "remove")
+        if (this.origTile === this.destTile) {
+            this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "move")
+        }
+        else {
+            this.origTile.getPiece().startAnimation(this, this.moveAnimation, t, "move")
+            this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "remove")
+        }
     }
 
+    /**
+     * Method to answer a notification for when animation is completed
+     * @param {string} type type of animation {move|remove}
+     */
     notifyMoveAnimationCompleted(type) {
-        if (this.destTile === this.origTile) {
-            this.origTile.getPiece().stopAnimation()
-            this.destTile.getPiece().stopAnimation()
-
-            this.animationCompleted = true
-            this.gameboard.movePiece(this.origTile, this.destTile)
-        }
-        else if (type === "move") {
+        if (type === "move" || this.destTile === this.origTile) {
             this.origTile.getPiece().stopAnimation()
             this.destTile.getPiece().stopAnimation()
 

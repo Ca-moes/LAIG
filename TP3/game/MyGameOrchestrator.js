@@ -91,7 +91,7 @@ class MyGameOrchestrator {
     display() {
         this.theme.displayScene()
         // linter may say its unresolved but as soon as the XMLScene is loaded
-        // gameboard is assigned here
+        // game board is assigned here
         this.gameboard.display()
         this.animator.display()
     }
@@ -101,7 +101,10 @@ class MyGameOrchestrator {
         if (move != null) {
             this.gameboard = move.gameboard
             this.gameboard.orchestrator = this
-            this.state = new ReadyState(this)
+
+            let reply = this.prolog.checkFinalState();
+
+            this.state = (reply === 0) ? new RemoveState(this) : new ReadyState(this)
             this.currentPlayer = 3 - this.currentPlayer
             console.log("Undo Movement")
         }
