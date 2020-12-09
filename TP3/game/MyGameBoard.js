@@ -156,23 +156,31 @@ class MyGameBoard extends CGFobject{
      *
      * @param originalTile      {MyTile} Original Tile
      * @param destinationTile   {MyTile} Destination Tile
-     * @return {MyPiece} moved
      */
     movePiece(originalTile, destinationTile) {
         const piece = originalTile.getPiece()
         if (piece == null) throw new Error("movePiece(): Tile does not contain a piece to move!")
 
+        const removed = destinationTile.getPiece()
         destinationTile.setPiece(piece)
         originalTile.unsetPiece()
 
-        console.log("Piece Moved")
+        if (removed.player === 1) {
+            console.log("removed piece from player 1" + removed)
+            this.auxiliaryBoard1.addPiece(removed)
+        } else {
+            console.log("removed piece from player 2" + removed)
+            this.auxiliaryBoard2.addPiece(removed)
+        }
 
-        return piece
+        console.log("Piece Moved")
     }
 
     clone() {
         let board = new MyGameBoard(this.scene, this.centerx, this.centerz, this.size, this.properties)
         board.board = []
+        board.auxiliaryBoard1 = this.auxiliaryBoard1
+        board.auxiliaryBoard2 = this.auxiliaryBoard2
         let clonedBoard = []
         this.board.forEach((value => {
             let tile = new MyTile(

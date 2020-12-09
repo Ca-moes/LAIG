@@ -99,13 +99,16 @@ class MyGameOrchestrator {
     undo() {
         let move = this.gameSequence.undo()
         if (move != null) {
+            this.currentPlayer === 1 ? this.gameboard.auxiliaryBoard1.undo() : this.gameboard.auxiliaryBoard2.undo()
+
             this.gameboard = move.gameboard
             this.gameboard.orchestrator = this
 
-            let reply = this.prolog.checkFinalState();
+            let reply = this.prolog.checkFinalState()
 
             this.state = (reply === 0) ? new RemoveState(this) : new ReadyState(this)
             this.currentPlayer = 3 - this.currentPlayer
+
             console.log("Undo Movement")
         }
     }

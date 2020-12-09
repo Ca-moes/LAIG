@@ -7,12 +7,16 @@ class MyAuxiliaryBoard extends CGFobject {
         this.box = new MyBox(scene)
 
         this.pieces = []
+    }
 
-        this.test()
+    undo() {
+        this.pieces.pop()
     }
 
     addPiece(piece) {
+        console.log("added piece: " + piece)
         this.pieces.push(piece)
+        console.log("number of pieces: " + this.pieces.length)
     }
 
     getNextPieceCoords() {
@@ -29,17 +33,6 @@ class MyAuxiliaryBoard extends CGFobject {
             }
         }
         return {x: x, y:y, z:z}
-    }
-
-    test() {
-        for (let i = 0; i < 21; i++) {
-            this.pieces.push(new MyPiece(
-                this.scene,
-                1,
-                this.gameboard.properties.player1.material,
-                this.gameboard.properties.player1.texture,
-                this.gameboard.properties.model))
-        }
     }
 
     display() {
