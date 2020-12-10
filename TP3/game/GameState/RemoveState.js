@@ -3,25 +3,18 @@ class RemoveState extends GameState {
         super(orchestrator);
     }
 
-
     animationEnd() {
         // theres no animation taking place
     }
 
     pickTile(tile) {
-        let reply = this.orchestrator.prolog.canRemovePiece(tile)
-
-        if (reply === 0) {
-            tile.pickPiece()
-            tile.highlightTile(false)
-            this.orchestrator.startPicking(tile)
-
-            console.log("changing state to confirm remove")
-
-            this.orchestrator.changeState(new ConfirmRemoveState(this.orchestrator))
-        }
-        else if (reply === 1) {
-            // do nothing
-        }
+        this.orchestrator.prolog.canRemovePiece(tile, this, (reply) => {
+            if (reply === 0) {
+                tile.pickPiece()
+                tile.highlightTile(false)
+                this.orchestrator.startPicking(tile)
+                this.orchestrator.changeState(new ConfirmRemoveState(this.orchestrator))
+            }
+        })
     }
 }

@@ -8,26 +8,29 @@ class AnimationState extends GameState {
     }
 
     animationEnd() {
-        let reply = this.orchestrator.prolog.checkWinner()
-        if (reply === 1) {
-            console.log("Winner: Player 1")
-            this.orchestrator.changeState(new GameOverState(this.orchestrator))
-        }
-        else if (reply === -1) {
-            console.log("Winner: Player 2")
-            this.orchestrator.changeState(new GameOverState(this.orchestrator))
-        }
-        else if (reply === 0) {
-            console.log("No Winner Yet")
-            reply = this.orchestrator.prolog.checkFinalState();
-            if (reply === 0) {
-                console.log("No More Moves for Player " + this.orchestrator.currentPlayer)
-                this.orchestrator.changeState(new RemoveState(this.orchestrator))
+        this.orchestrator.prolog.checkWinner(this, (reply) => {
+            if (reply === 1) {
+                console.log("Winner: Player 1")
+                this.orchestrator.changeState(new GameOverState(this.orchestrator))
             }
-            else if (reply === 1) {
-                console.log("Moves Available for Player " + this.orchestrator.currentPlayer)
-                this.orchestrator.changeState(new ReadyState(this.orchestrator))
+            else if (reply === -1) {
+                console.log("Winner: Player 2")
+                this.orchestrator.changeState(new GameOverState(this.orchestrator))
             }
-        }
+            else if (reply === 0) {
+                console.log("No Winner Yet")
+                this.orchestrator.prolog.checkFinalState(this, (finalState) => {
+                    if (finalState === 0) {
+                        console.log("No More Moves for Player " + this.orchestrator.currentPlayer)
+                        this.orchestrator.changeState(new RemoveState(this.orchestrator))
+                    }
+                    else if (finalState === 1) {
+                        console.log("Moves Available for Player " + this.orchestrator.currentPlayer)
+                        this.orchestrator.changeState(new ReadyState(this.orchestrator))
+                    }
+                })
+            }
+        })
+
     }
 }

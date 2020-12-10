@@ -7,66 +7,84 @@ class MyPrologInterface {
      * Request prolog
      * Q: Can user pick a certain tile?
      * @param {MyTile} tile Tile to be picked
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
      */
-    canPickTile(tile) {
-        return this.getRequest(`spot(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
+    canPickTile(tile, state, callback) {
+        this.getPrologRequest(`spot(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`, state, callback)
     }
 
     /**
      * Request prolog
      * Q: Can user move to a certain tile?
      * @param {MyTile} tile Tile to move piece to
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
      */
-    canMoveToTile(tile) {
-        return this.getRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`)
+    canMoveToTile(tile, state, callback) {
+        this.getPrologRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`, state, callback)
     }
 
     /**
      * Request prolog
      * Q: Do we have a winner?
-     * @returns {int} 1 - player 1 wins | -1 - player 2 wins | 0 - no winner
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
+     * Answer {int} 1 - player 1 wins | -1 - player 2 wins | 0 - no winner
      */
-    checkWinner() {
-        return this.getRequest(`check_winner(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`)
+    checkWinner(state, callback) {
+        this.getPrologRequest(`check_winner(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`, state, callback)
     }
 
     /**
      * Request prolog
      * Q: To which tiles can the player move its piece?
      * @param {MyTile} tile origin position
-     * @returns {Array<Array<int>>} [[x,y], [x,y]] possible target tiles
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
      */
-    getPossibleTiles(tile) {
-        return this.getRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
+    getPossibleTiles(tile, state, callback) {
+        this.getPrologRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`, state, callback)
     }
 
-    checkFinalState() {
-        return this.getRequest(`check_final(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`)
+    /**
+     * Request prolog
+     * Q: Has Player X reached final game state?
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
+     */
+    checkFinalState(state, callback) {
+        this.getPrologRequest(`check_final(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`, state, callback)
     }
 
-    canRemovePiece(tile) {
-        return this.getRequest(`spot_remove(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`)
-    }
-
-    getRequest(command) {
-        /* sync call */
-        return this.getPrologRequest(command)
+    /**
+     * Request prolog
+     * Q: Can Player X remove this piece?
+     * @param {MyTile} tile containing piece to remove
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
+     */
+    canRemovePiece(tile, state, callback) {
+        this.getPrologRequest(`spot_remove(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`, state, callback)
     }
 
     /**
      * Verify Handshake -> check console
      */
     handshake() {
-        const requestPort = 8081
         const request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:' + requestPort + '/handshake', false);
+        request.open('GET', 'http://localhost:8081/handshake', true);
+
+        request.onload = () => {
+            if (JSON.parse(request.responseText) === "handshake")
+                console.log("Handshake Successful")
+            else
+                console.log("Handshake Failed")
+        }
+        request.onerror = () => console.log("Failed to Contact Server")
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();  // bloqueia aqui até receber resposta
-        if (JSON.parse(request.responseText) === "handshake")
-            console.log("Handshake Successful")
-        else
-            console.log("Handshake Failed")
     }
 
     /**
@@ -74,26 +92,38 @@ class MyPrologInterface {
      */
     quit() {
         const request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:8081/quit', false);
+        request.open('GET', 'http://localhost:8081/quit', true);
+
+        request.onload = () => {
+            if (JSON.parse(request.responseText) === "goodbye")
+                console.log("Quit Successful")
+            else
+                console.log("Quit Failed")
+        }
+        request.onerror = () => console.log("Failed to Contact Server")
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();  // bloqueia aqui até receber resposta
-        if (JSON.parse(request.responseText) === "goodbye")
-            console.log("Quit Successful")
-        else
-            console.log("Quit Failed")
     }
 
-    /* Synchronous call */
-    getPrologRequest(requestString) {
-        const requestPort = 8081
+    /**
+     * Async Call to request Prolog Server
+     * @param {String} requestString Request String for the Server
+     * @param {GameState} state current game state to apply on callback
+     * @param callback
+     */
+    getPrologRequest(requestString, state, callback) {
         const request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, false);
+        request.open('GET', 'http://localhost:8081/' + requestString, true);
+
+        request.onload = () => { callback.apply(state, [JSON.parse(request.responseText)]) }
+        request.onerror = () => console.log("error getting request")
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-        request.send();  // bloqueia aqui até receber resposta
-        return JSON.parse(request.responseText)
+        request.timeout = 5000
+        request.send();
     }
 }
+
+
 
