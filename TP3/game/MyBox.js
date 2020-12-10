@@ -3,7 +3,6 @@ class MyBox extends CGFobject {
         super(scene);
         this.scene = scene
         this.obj = new CGFOBJModel(scene, "models/box.obj", false)
-        this.texture = new CGFtexture(scene, "scenes/images/testTexture2.png")
         this.material = new CGFappearance(scene)
         this.material.setAmbient(0.25, 0.20725, 0.20725, 0.922)
         this.material.setDiffuse(1, 0.829, 0.829, 0.922)
@@ -13,7 +12,6 @@ class MyBox extends CGFobject {
 
     display() {
         this.scene.pushMatrix()
-        // this.texture.bind()
         this.material.apply()
         this.obj.display()
         this.scene.popMatrix()
