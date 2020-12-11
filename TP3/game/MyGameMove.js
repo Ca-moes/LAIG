@@ -20,7 +20,7 @@ class MyGameMove {
      * then we assign the destination tile, so we can't calculate a trajectory when the
      * this object is instantiated. We call this method when the object is fully assigned
      */
-    processAnimations() {
+    processAnimations(coords) {
         this.moveAnimation = new KeyframeAnimation([
             {
                 instant: 0,
@@ -68,15 +68,39 @@ class MyGameMove {
             },
             {
                 instant: 0.1,
-                translation: vec3.fromValues(0, 0.20, 0),
+                translation: vec3.fromValues((coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1, ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
-                instant: 0.2,
-                translation: vec3.fromValues(0, 0.20, 0),
+                instant: 0.3,
+                translation: vec3.fromValues(3 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 3 * ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
                 rotation: vec3.fromValues(0, 0, 0),
-                scale: vec3.fromValues(0, 0, 0)
+                scale: vec3.fromValues(1, 1, 1)
+            },
+            {
+                instant: 0.7,
+                translation: vec3.fromValues(7 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 7 * ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
+                rotation: vec3.fromValues(0, 0, 0),
+                scale: vec3.fromValues(1, 1, 1)
+            },
+            {
+                instant: 0.9,
+                translation: vec3.fromValues(9 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 9 * ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
+                rotation: vec3.fromValues(0, 0, 0),
+                scale: vec3.fromValues(1, 1, 1)
+            },
+            {
+                instant: 1,
+                translation: vec3.fromValues(coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x, 1.5, (this.gameboard.size/2 - 2 + coords.z) - this.destTile.y),
+                rotation: vec3.fromValues(0, 0, 0),
+                scale: vec3.fromValues(1, 1, 1)
+            },
+            {
+                instant: 1.2,
+                translation: vec3.fromValues(coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x, 0.15 + coords.y*0.2, ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y)),
+                rotation: vec3.fromValues(0, 0, 0),
+                scale: vec3.fromValues(1, 1, 1)
             },
         ])
     }
@@ -99,7 +123,7 @@ class MyGameMove {
      * @param {string} type type of animation {move|remove}
      */
     notifyMoveAnimationCompleted(type) {
-        if (type === "move" || this.destTile === this.origTile) {
+        if (type === "remove" || this.destTile === this.origTile) {
             this.origTile.getPiece().stopAnimation()
             this.destTile.getPiece().stopAnimation()
 

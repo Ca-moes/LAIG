@@ -4,22 +4,17 @@ class ReadyState extends GameState {
     }
 
     pickTile(tile) {
-        let reply = this.orchestrator.prolog.canPickTile(tile)
-
-        if (reply === 0) {
-            tile.pickPiece()
-            tile.highlightTile()
-            this.orchestrator.startPicking(tile)
-
-            // highlight possible movements
-            let reply = this.orchestrator.prolog.getPossibleTiles(tile)
-            if (reply instanceof Array) this.orchestrator.gameboard.highlightEnemyTiles(reply)
-
-            this.orchestrator.changeState(new MoveState(this.orchestrator))
-        }
-        else if (reply === 1) {
-            // do nothing
-        }
+        this.orchestrator.prolog.canPickTile(tile, this, (reply) => {
+            if (reply === 0) {
+                tile.pickPiece()
+                tile.highlightTile()
+                this.orchestrator.startPicking(tile)
+                this.orchestrator.prolog.getPossibleTiles(tile, this, (tiles) => {
+                    if (tiles instanceof Array) this.orchestrator.gameboard.highlightEnemyTiles(tiles)
+                    this.orchestrator.changeState(new MoveState(this.orchestrator))
+                })
+            }
+        })
     }
 
     animationEnd() {

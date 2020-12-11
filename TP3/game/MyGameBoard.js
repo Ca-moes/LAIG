@@ -11,10 +11,12 @@ class MyGameBoard extends CGFobject{
 
         this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
 
+        this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
+
         this.createBoard()
     }
 
-    createBoard(){
+    createBoard() {
         let pieceType = 1
         for (let y = 0; y < this.size; y++) {
             for (let x = 0; x < this.size; x++) {
@@ -109,12 +111,17 @@ class MyGameBoard extends CGFobject{
         this.logPicking()
         this.scene.clearPickRegistration();
 
+        this.scene.multMatrix(this.properties.transformations)
+
+        this.scene.pushMatrix()
+        this.scene.translate(this.size*0.8, 0.5, 0)
+        this.auxiliaryBoard.display()
+        this.scene.popMatrix()
+
         this.scene.pushMatrix()
         this.scene.translate(this.centerx, 0, this.centerz)
         this.boardsides.display()
         this.scene.popMatrix()
-
-        this.scene.multMatrix(this.properties.transformations)
 
         let index = 0
         for (let z = 0; z < this.size; z++) {
@@ -143,23 +150,24 @@ class MyGameBoard extends CGFobject{
      *
      * @param originalTile      {MyTile} Original Tile
      * @param destinationTile   {MyTile} Destination Tile
-     * @return {MyPiece} moved
      */
     movePiece(originalTile, destinationTile) {
         const piece = originalTile.getPiece()
         if (piece == null) throw new Error("movePiece(): Tile does not contain a piece to move!")
 
+        const removed = destinationTile.getPiece()
         destinationTile.setPiece(piece)
         originalTile.unsetPiece()
 
-        console.log("Piece Moved")
+        this.auxiliaryBoard.addPiece(removed)
 
-        return piece
+        console.log("Piece Moved")
     }
 
     clone() {
         let board = new MyGameBoard(this.scene, this.centerx, this.centerz, this.size, this.properties)
         board.board = []
+        board.auxiliaryBoard = this.auxiliaryBoard
         let clonedBoard = []
         this.board.forEach((value => {
             let tile = new MyTile(
