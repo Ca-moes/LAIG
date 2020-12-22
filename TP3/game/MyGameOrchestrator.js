@@ -9,7 +9,8 @@ class MyGameOrchestrator {
         this.scene = scene
 
         this.preferences = {
-            timeout: 0 //!< bots delay in milliseconds
+            timeout: 0, //!< bots delay in milliseconds
+            cameraAnimationTime: 1500
         }
 
         // The gameBoard is assigned to the orchestrator as soon as the XMLScene is Loaded
@@ -34,7 +35,7 @@ class MyGameOrchestrator {
 
         this.state = new ReadyState(this)
 
-        this.camera = new MyAnimatedCamera(this, 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, -2, 0))
+        this.camera = new MyAnimatedCamera(this, Animations.easeInOutQuart, 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, -2, 0))
         this.scene.camera = this.camera
     }
 
