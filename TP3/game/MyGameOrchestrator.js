@@ -12,7 +12,7 @@ class MyGameOrchestrator {
             timeout: 2000 //!< bots delay in milliseconds
         }
 
-        // The gameboard is assigned to the orchestrator as soon as the XMLScene is Loaded
+        // The gameBoard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
         this.state = new LoadingState(this)
     }
