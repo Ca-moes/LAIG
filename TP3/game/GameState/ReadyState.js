@@ -36,4 +36,10 @@ class ReadyState extends GameState {
     animationEnd() {
         // do nothing, as no animation should be happening here
     }
+
+    update(time) {
+        this.orchestrator.theme.updateAnimations(time);
+        this.orchestrator.gameboard.update(time)
+        this.orchestrator.animator.update(time)
+    }
 }

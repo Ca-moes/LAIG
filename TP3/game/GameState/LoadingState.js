@@ -10,4 +10,8 @@ class LoadingState extends GameState {
     pickTile(tile) {
         // cannot pick a tile when components are loading
     }
+
+    update(time) {
+        // no update just yet
+    }
 }
