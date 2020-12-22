@@ -11,7 +11,7 @@ class MyPrologInterface {
      * @param {Function} callback callback to be called when a reply is available
      */
     canPickTile(tile, state, callback) {
-        this.getPrologRequest(`spot(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`, state, callback)
+        this.getPrologRequest(`spot(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer.code}',${tile.x}-${tile.y})`, state, callback)
     }
 
     /**
@@ -22,7 +22,7 @@ class MyPrologInterface {
      * @param {Function} callback callback to be called when a reply is available
      */
     canMoveToTile(tile, state, callback) {
-        this.getPrologRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`, state, callback)
+        this.getPrologRequest(`moveto(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer.code}',${this.orchestrator.currentMovement.origTile.x}-${this.orchestrator.currentMovement.origTile.y}-${tile.x}-${tile.y})`, state, callback)
     }
 
     /**
@@ -33,7 +33,7 @@ class MyPrologInterface {
      * Answer {int} 1 - player 1 wins | -1 - player 2 wins | 0 - no winner
      */
     checkWinner(state, callback) {
-        this.getPrologRequest(`check_winner(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`, state, callback)
+        this.getPrologRequest(`check_winner(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer.code}')`, state, callback)
     }
 
     /**
@@ -44,7 +44,7 @@ class MyPrologInterface {
      * @param {Function} callback callback to be called when a reply is available
      */
     getPossibleTiles(tile, state, callback) {
-        this.getPrologRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`, state, callback)
+        this.getPrologRequest(`available_moves(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer.code}',${tile.x}-${tile.y})`, state, callback)
     }
 
     /**
@@ -54,7 +54,7 @@ class MyPrologInterface {
      * @param {Function} callback callback to be called when a reply is available
      */
     checkFinalState(state, callback) {
-        this.getPrologRequest(`check_final(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}')`, state, callback)
+        this.getPrologRequest(`check_final(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer.code}')`, state, callback)
     }
 
     /**
@@ -65,7 +65,33 @@ class MyPrologInterface {
      * @param {Function} callback callback to be called when a reply is available
      */
     canRemovePiece(tile, state, callback) {
-        this.getPrologRequest(`spot_remove(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer}',${tile.x}-${tile.y})`, state, callback)
+        this.getPrologRequest(`spot_remove(${this.orchestrator.gameboard.toString()},'Player${this.orchestrator.currentPlayer.code}',${tile.x}-${tile.y})`, state, callback)
+    }
+
+    /**
+     * Request Prolog
+     * Q: Where to move?
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
+     */
+    getBotNextMove(state, callback) {
+        const diff = (this.orchestrator.currentPlayer.type === Players.BOT_EASY) ? "'Easy'" : "'Normal'"
+        const player = "'Player" + this.orchestrator.currentPlayer.code + "'"
+
+        this.getPrologRequest(`make_move(${diff},${this.orchestrator.gameboard.toString()},${player})`, state, callback)
+    }
+
+    /**
+     * Request Prolog
+     * Q: Where to remove?
+     * @param {GameState} state current game state
+     * @param {Function} callback callback to be called when a reply is available
+     */
+    getBotRemoveMove(state, callback) {
+        const diff = (this.orchestrator.currentPlayer.type === Players.BOT_EASY) ? "'Easy'" : "'Normal'"
+        const player = "'Player" + this.orchestrator.currentPlayer.code + "'"
+
+        this.getPrologRequest(`make_remove(${diff},${this.orchestrator.gameboard.toString()},${player})`, state, callback)
     }
 
     /**

@@ -18,14 +18,15 @@ class AnimationState extends GameState {
                 this.orchestrator.changeState(new GameOverState(this.orchestrator))
             }
             else if (reply === 0) {
+                this.orchestrator.nextTurn()
                 console.log("No Winner Yet")
                 this.orchestrator.prolog.checkFinalState(this, (finalState) => {
                     if (finalState === 0) {
-                        console.log("No More Moves for Player " + this.orchestrator.currentPlayer)
+                        console.log("No More Moves for Player " + this.orchestrator.currentPlayer.code)
                         this.orchestrator.changeState(new RemoveState(this.orchestrator))
                     }
                     else if (finalState === 1) {
-                        console.log("Moves Available for Player " + this.orchestrator.currentPlayer)
+                        console.log("Moves Available for Player " + this.orchestrator.currentPlayer.code)
                         this.orchestrator.changeState(new ReadyState(this.orchestrator))
                     }
                 })

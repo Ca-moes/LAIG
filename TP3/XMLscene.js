@@ -122,6 +122,7 @@ class XMLscene extends CGFscene {
         // gameboard is assigned to the orchestrator here
         this.orchestrator.gameboard = this.orchestrator.theme.gameboard
         this.orchestrator.gameboard.orchestrator = this.orchestrator
+        this.orchestrator.init()
 
         this.interface.addGameGroup()
 

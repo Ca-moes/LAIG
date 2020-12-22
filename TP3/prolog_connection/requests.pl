@@ -82,7 +82,7 @@ remove(GameState, X-Y, NewGameState):-
  * GameState - [[],[],[]]
  * Player - 'Player 1'; 'Player 2'
 */
-make_move(Difficulty, GameState, Player, NewGameState):-
+make_move(Difficulty, GameState, Player, NewGameState, [[X, Y], [Xr, Yr]]):-
     choose_move(GameState, Player, Difficulty, X-Y-Direction),
     direction(X-Y, Direction, Xr-Yr),
     move(GameState, X-Y-Xr-Yr, NewGameState).
@@ -94,7 +94,7 @@ make_move(Difficulty, GameState, Player, NewGameState):-
  * GameState - [[],[],[]]
  * Player - 'Player 1'; 'Player 2'
 */
-make_remove(Difficulty, GameState, Player, NewGameState):-
+make_remove(Difficulty, GameState, Player, NewGameState, [X,Y]):-
     choose_remove(GameState, Player, Difficulty, X-Y),
     replace(GameState, X, Y, 0, NewGameState).
 
