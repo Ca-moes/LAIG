@@ -42,17 +42,6 @@ moveto(GameState, Player, X-Y-Xf-Yf, 0):-
 moveto(_, _, _, 1).
 
 /**
- * Returns List of Lists representing new Board.
- * 
- * GameState - [[],[],[]]
- * X-Y-Xf-Yf - 0-0-0-1, 0-1-1-1
-*/
-move(GameState, X-Y-Xf-Yf, NewGameState):-
-    value_in_board(GameState, X, Y, Code),
-    replace(GameState, X, Y, 0, Board1),
-    replace(Board1, Xf, Yf, Code, NewGameState).
-
-/**
  * Only used when game is in final state
  * Returns 0 if spot belongs to player, 1 otherwise.
  * 
@@ -64,15 +53,6 @@ spot_remove(GameState, Player, X-Y, 0):-
     validate_choice(GameState, X, Y, Player).
 spot_remove(_, _, _, 1).
 
-/**
- * Returns List of Lists representing new Board after removing a piece.
- * 
- * GameState - [[],[],[]]
- * X-Y - 0-0, 0-1
-*/
-remove(GameState, X-Y, NewGameState):-
-    replace(GameState, X, Y, 0, NewGameState).
-
 % -------------------------------------- Bots --------------------------------------
 
 /**
@@ -80,23 +60,21 @@ remove(GameState, X-Y, NewGameState):-
  * 
  * Difficulty - 'Easy'; 'Normal'
  * GameState - [[],[],[]]
- * Player - 'Player 1'; 'Player 2'
+ * Player - 'Player1'; 'Player2'
 */
-make_move(Difficulty, GameState, Player, NewGameState, [[X, Y], [Xr, Yr]]):-
+make_move(Difficulty, GameState, Player, [[X, Y], [Xr, Yr]]):-
     choose_move(GameState, Player, Difficulty, X-Y-Direction),
-    direction(X-Y, Direction, Xr-Yr),
-    move(GameState, X-Y-Xr-Yr, NewGameState).
+    direction(X-Y, Direction, Xr-Yr).
 
 /**
  * Returns List of Lists representing new Board.
  * 
  * Difficulty - 'Easy'; 'Normal'
  * GameState - [[],[],[]]
- * Player - 'Player 1'; 'Player 2'
+ * Player - 'Player1'; 'Player2'
 */
-make_remove(Difficulty, GameState, Player, NewGameState, [X,Y]):-
-    choose_remove(GameState, Player, Difficulty, X-Y),
-    replace(GameState, X, Y, 0, NewGameState).
+make_remove(Difficulty, GameState, Player, [X,Y]):-
+    choose_remove(GameState, Player, Difficulty, X-Y).
 
 % -------------------------------------- Final --------------------------------------
 /**

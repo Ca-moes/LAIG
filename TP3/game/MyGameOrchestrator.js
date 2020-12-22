@@ -19,7 +19,7 @@ class MyGameOrchestrator {
 
     init() {
         this.player1 = {
-            type: Players.BOT_EASY,
+            type: Players.BOT_NORMAL,
             code: 1
         }
         this.player2 = {
