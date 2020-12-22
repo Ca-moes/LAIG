@@ -9,7 +9,7 @@ class MyGameOrchestrator {
         this.scene = scene
 
         this.preferences = {
-            timeout: 2000 //!< bots delay in milliseconds
+            timeout: 0 //!< bots delay in milliseconds
         }
 
         // The gameBoard is assigned to the orchestrator as soon as the XMLScene is Loaded
@@ -19,7 +19,7 @@ class MyGameOrchestrator {
 
     init() {
         this.player1 = {
-            type: Players.BOT_NORMAL,
+            type: Players.BOT_EASY,
             code: 1
         }
         this.player2 = {
@@ -77,7 +77,7 @@ class MyGameOrchestrator {
      * @param {MyTile} tile Ending Point
      */
     performMove(tile) {
-        this.nextTurn()
+        // this.nextTurn()
         this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.destTile = tile
         this.currentMovement.processAnimations(this.gameboard.auxiliaryBoard.getNextPieceCoords())
