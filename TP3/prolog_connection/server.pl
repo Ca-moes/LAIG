@@ -120,8 +120,8 @@ parse_input(move(GameState, X-Y-Xf-Yf), Res):- move(GameState, X-Y-Xf-Yf, Res).
 parse_input(spot_remove(GameState, Player, X-Y), Res):- spot_remove(GameState, Player, X-Y, Res).
 parse_input(remove(GameState, X-Y), Res):- remove(GameState, X-Y, Res).
 
-parse_input(make_move(Difficulty, GameState, Player), Res):- make_move(Difficulty, GameState, Player, Res).
-parse_input(make_remove(Difficulty, GameState, Player), Res):- make_remove(Difficulty, GameState, Player, Res).
+parse_input(make_move(Difficulty, GameState, Player), Res):- make_move(Difficulty, GameState, Player, NewGameState, Res).
+parse_input(make_remove(Difficulty, GameState, Player), Res):- make_remove(Difficulty, GameState, Player, NewGameState, Res).
 
 parse_input(check_winner(GameState, Player), Res):- check_winner(GameState, Player, Res).
 parse_input(check_final(GameState, Player), Res):- check_final(GameState, Player, Res).

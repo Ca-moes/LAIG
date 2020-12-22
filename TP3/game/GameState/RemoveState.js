@@ -1,6 +1,21 @@
 class RemoveState extends GameState {
     constructor(orchestrator) {
         super(orchestrator);
+
+        if (orchestrator.currentPlayer.type !== Players.HUMAN) {
+            this.pickTile = (_) => {
+                console.log("Bot move, can't pick")
+            }
+            this.orchestrator.prolog.getBotRemoveMove(this, async (reply) => {
+                let tile = this.orchestrator.gameboard.getTile(reply[0], reply[1])
+                tile.pickPiece()
+                tile.highlightTile(false)
+                await new Promise(r => setTimeout(r, this.orchestrator.preferences.timeout));
+
+                this.orchestrator.performBotRemove(tile)
+                this.orchestrator.changeState(new AnimationState(this.orchestrator))
+            })
+        }
     }
 
     animationEnd() {

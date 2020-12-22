@@ -1,6 +1,22 @@
 class ReadyState extends GameState {
     constructor(orchestrator) {
         super(orchestrator);
+
+        if (orchestrator.currentPlayer.type !== Players.HUMAN) {
+            this.pickTile = (_) => {
+                console.log("Bot move, can't pick")
+            }
+            this.orchestrator.prolog.getBotNextMove(this, async (reply) => {
+                let origin = this.orchestrator.gameboard.getTile(reply[0][0], reply[0][1])
+                origin.pickPiece()
+                await new Promise(r => setTimeout(r, this.orchestrator.preferences.timeout));
+                let destination = this.orchestrator.gameboard.getTile(reply[1][0], reply[1][1])
+                destination.pickPiece()
+
+                this.orchestrator.performBotMove(origin, destination)
+                this.orchestrator.changeState(new AnimationState(this.orchestrator))
+            })
+        }
     }
 
     pickTile(tile) {

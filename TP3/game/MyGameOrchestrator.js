@@ -1,15 +1,38 @@
+const Players = Object.freeze({
+    HUMAN: 1,
+    BOT_EASY: 2,
+    BOT_NORMAL: 3
+})
+
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene
-        this.gameSequence = new MyGameSequence()
-        this.animator = new MyAnimator(this, this.gameSequence)
+
+        this.preferences = {
+            timeout: 2000 //!< bots delay in milliseconds
+        }
+
         // The gameboard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
+        this.state = new LoadingState(this)
+    }
+
+    init() {
+        this.player1 = {
+            type: Players.BOT_NORMAL,
+            code: 1
+        }
+        this.player2 = {
+            type: Players.BOT_EASY,
+            code: 2
+        }
+        this.currentPlayer = this.player1
+
+        this.gameSequence = new MyGameSequence()
+        this.animator = new MyAnimator(this, this.gameSequence)
         this.prolog = new MyPrologInterface(this)
 
         this.state = new ReadyState(this)
-
-        this.currentPlayer = 1
     }
 
     /**
@@ -44,17 +67,32 @@ class MyGameOrchestrator {
         this.currentMovement = new MyGameMove(tile, null, this.gameboard.clone())
     }
 
+    nextTurn() {
+        this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
+        console.log("Player " + this.currentPlayer.code + " turn")
+    }
+
     /**
      * Method to perform a full movement
      * @param {MyTile} tile Ending Point
      */
     performMove(tile) {
-        this.currentPlayer = 3 - this.currentPlayer
+        this.nextTurn()
         this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.destTile = tile
         this.currentMovement.processAnimations(this.gameboard.auxiliaryBoard.getNextPieceCoords())
         this.gameSequence.addMove(this.currentMovement)
         this.currentMovement.animate(Date.now() / 1000)
+    }
+
+    performBotMove(origin, destination) {
+        this.startPicking(origin)
+        this.performMove(destination)
+    }
+
+    performBotRemove(tile) {
+        this.startPicking(tile)
+        this.performMove(tile)
     }
 
     /**
@@ -106,7 +144,7 @@ class MyGameOrchestrator {
 
             this.prolog.checkFinalState(this.state, (reply) => {
                 this.state = (reply === 0) ? new RemoveState(this) : new ReadyState(this)
-                this.currentPlayer = 3 - this.currentPlayer
+                this.nextTurn()
 
                 console.log("Undo Movement")
             })
