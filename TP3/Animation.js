@@ -25,6 +25,15 @@ const Animations = Object.freeze({
     easeInOutQuart: (x) => x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2
 })
 
+const AnimationIndexes = Object.freeze({
+    'Ease In Out Sine': 'easeInOutSine',
+    'Ease In Out Cubic': 'easeInOutCubic',
+    'Ease Out Circular': 'easeOutCirc',
+    'Ease In Out Circular': 'easeInOutCirc',
+    'Ease In Out Elastic': 'easeInOutElastic',
+    'Ease In Out Back': 'easeInOutBack',
+    'Ease In Out Quart': 'easeInOutQuart'
+})
 
 class Animation {
     constructor(instant_start, instant_end) {

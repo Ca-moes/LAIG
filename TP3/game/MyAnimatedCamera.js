@@ -4,11 +4,12 @@ class MyAnimatedCamera extends CGFcamera {
 
         this.orchestrator = orchestrator
         this.animation = animation
+        this.animationTime = 1000
     }
 
     startAnimation() {
         this.startingTime = Date.now()
-        this.endTime = this.startingTime + this.orchestrator.preferences.cameraAnimationTime
+        this.endTime = this.startingTime + this.animationTime
         this.angle = 0
 
         console.log("Start: " + this.startingTime)
