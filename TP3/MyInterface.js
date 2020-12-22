@@ -1,6 +1,6 @@
 /**
-* MyInterface class, creating a GUI interface.
-*/
+ * MyInterface class, creating a GUI interface.
+ */
 class MyInterface extends CGFinterface {
     /**
      * @constructor
@@ -31,16 +31,20 @@ class MyInterface extends CGFinterface {
      * To be Used Later
      */
     initKeys() {
-        this.scene.gui=this;
-        this.processKeyboard=function(){};
-        this.activeKeys={};
+        this.scene.gui = this;
+        this.processKeyboard = function () {
+        };
+        this.activeKeys = {};
     }
+
     processKeyDown(event) {
-        this.activeKeys[event.code]=true;
+        this.activeKeys[event.code] = true;
     };
+
     processKeyUp(event) {
-        this.activeKeys[event.code]=false;
+        this.activeKeys[event.code] = false;
     };
+
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
@@ -100,9 +104,9 @@ class MyInterface extends CGFinterface {
 
         const options = group.addFolder("Options")
         options.open()
-        let undo = { add: () => this.scene.orchestrator.undo() };
-        let handshake = { add:() => this.scene.orchestrator.prolog.handshake() };
-        let quit = { add:() => this.scene.orchestrator.prolog.quit() };
+        let undo = {add: () => this.scene.orchestrator.undo()};
+        let handshake = {add: () => this.scene.orchestrator.prolog.handshake()};
+        let quit = {add: () => this.scene.orchestrator.prolog.quit()};
         options.add(handshake, 'add').name("Handshake");
         options.add(undo, 'add').name("Undo");
         options.add(quit, 'add').name("Quit");
