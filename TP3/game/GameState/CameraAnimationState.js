@@ -1,9 +1,6 @@
 class CameraAnimationState extends GameState {
     constructor(orchestrator) {
         super(orchestrator);
-
-        // remove this
-        // this.animationEnd()
     }
 
     animationEnd() {

@@ -30,7 +30,7 @@ class AnimationState extends GameState {
         this.orchestrator.gameboard.update(time)
 
         if (this.orchestrator.currentMovement.animationCompleted) {
-            this.orchestrator.currentMovement = null
+            this.orchestrator.currentMovement = null // dont think this is necessary
             this.orchestrator.animationEnd()
         }
 
@@ -38,15 +38,6 @@ class AnimationState extends GameState {
     }
 
     undo() {
-        let move = this.orchestrator.gameSequence.undo()
-        if (move != null) {
-            this.orchestrator.gameboard.auxiliaryBoard.undo()
-
-            this.orchestrator.gameboard = move.gameboard
-            this.orchestrator.gameboard.orchestrator = this.orchestrator
-
-            this.orchestrator.nextTurn()
-            console.log("Undo Movement")
-        }
+        // cannot undo while animating
     }
 }
