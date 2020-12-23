@@ -29,4 +29,8 @@ class CameraAnimationState extends GameState {
         this.orchestrator.camera.animate(time)
         this.orchestrator.animator.update(time)
     }
+
+    undo() {
+        // cannot undo while on camera animation
+    }
 }

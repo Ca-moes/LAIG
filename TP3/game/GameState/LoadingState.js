@@ -14,4 +14,8 @@ class LoadingState extends GameState {
     update(time) {
         // no update just yet
     }
+
+    undo() {
+        // cannot undo just yet
+    }
 }

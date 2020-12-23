@@ -74,6 +74,7 @@ class MyGameOrchestrator {
 
     nextTurn() {
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
+        this.changeState(new CameraAnimationState(this))
         this.camera.startAnimation()
         console.log("Player " + this.currentPlayer.code + " turn")
     }
@@ -130,19 +131,6 @@ class MyGameOrchestrator {
     }
 
     undo() {
-        let move = this.gameSequence.undo()
-        if (move != null) {
-            this.gameboard.auxiliaryBoard.undo()
-
-            this.gameboard = move.gameboard
-            this.gameboard.orchestrator = this
-
-            this.prolog.checkFinalState(this.state, (reply) => {
-                this.state = (reply === 0) ? new RemoveState(this) : new ReadyState(this)
-                this.nextTurn()
-
-                console.log("Undo Movement")
-            })
-        }
+        this.state.undo()
     }
 }

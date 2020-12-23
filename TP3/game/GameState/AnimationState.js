@@ -36,4 +36,17 @@ class AnimationState extends GameState {
 
         this.orchestrator.animator.update(time)
     }
+
+    undo() {
+        let move = this.orchestrator.gameSequence.undo()
+        if (move != null) {
+            this.orchestrator.gameboard.auxiliaryBoard.undo()
+
+            this.orchestrator.gameboard = move.gameboard
+            this.orchestrator.gameboard.orchestrator = this.orchestrator
+
+            this.orchestrator.nextTurn()
+            console.log("Undo Movement")
+        }
+    }
 }

@@ -48,4 +48,8 @@ class ReplayState extends GameState {
 
         this.orchestrator.animator.update(time)
     }
+
+    undo() {
+        // cannot undo on replay
+    }
 }

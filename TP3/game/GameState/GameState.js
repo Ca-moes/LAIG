@@ -25,6 +25,14 @@ class GameState {
 
     /**
      * @abstract
+     * Method to undo a move
+     */
+    undo() {
+        throw new Error("Abstract method undo()")
+    }
+
+    /**
+     * @abstract
      * @param time Time
      */
     update(time) {
