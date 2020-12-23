@@ -9,7 +9,7 @@ class ReadyState extends GameState {
             this.orchestrator.prolog.getBotNextMove(this, async (reply) => {
                 let origin = this.orchestrator.gameboard.getTile(reply[0][0], reply[0][1])
                 origin.pickPiece()
-                await new Promise(r => setTimeout(r, this.orchestrator.preferences.timeout));
+                await new Promise(r => setTimeout(r, this.orchestrator.botDelay * 1000));
                 let destination = this.orchestrator.gameboard.getTile(reply[1][0], reply[1][1])
                 destination.pickPiece()
 
@@ -35,5 +35,11 @@ class ReadyState extends GameState {
 
     animationEnd() {
         // do nothing, as no animation should be happening here
+    }
+
+    update(time) {
+        this.orchestrator.theme.updateAnimations(time);
+        this.orchestrator.gameboard.update(time)
+        this.orchestrator.animator.update(time)
     }
 }

@@ -18,4 +18,10 @@ class ConfirmRemoveState extends GameState {
             this.orchestrator.changeState(new RemoveState(this.orchestrator))
         }
     }
+
+    update(time) {
+        this.orchestrator.theme.updateAnimations(time);
+        this.orchestrator.gameboard.update(time)
+        this.orchestrator.animator.update(time)
+    }
 }

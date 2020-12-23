@@ -1,6 +1,6 @@
 /**
-* MyInterface class, creating a GUI interface.
-*/
+ * MyInterface class, creating a GUI interface.
+ */
 class MyInterface extends CGFinterface {
     /**
      * @constructor
@@ -31,16 +31,20 @@ class MyInterface extends CGFinterface {
      * To be Used Later
      */
     initKeys() {
-        this.scene.gui=this;
-        this.processKeyboard=function(){};
-        this.activeKeys={};
+        this.scene.gui = this;
+        this.processKeyboard = function () {
+        };
+        this.activeKeys = {};
     }
+
     processKeyDown(event) {
-        this.activeKeys[event.code]=true;
+        this.activeKeys[event.code] = true;
     };
+
     processKeyUp(event) {
-        this.activeKeys[event.code]=false;
+        this.activeKeys[event.code] = false;
     };
+
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
@@ -80,12 +84,31 @@ class MyInterface extends CGFinterface {
     addGameGroup() {
         const group = this.gui.addFolder("Game")
         group.open()
-        let undo = { add: () => this.scene.orchestrator.undo() };
-        let handshake = { add:() => this.scene.orchestrator.prolog.handshake() };
-        let quit = { add:() => this.scene.orchestrator.prolog.quit() };
 
-        group.add(handshake, 'add').name("Handshake");
-        group.add(undo, 'add').name("Undo");
-        group.add(quit, 'add').name("Quit");
+        const preferences = group.addFolder("Preferences");
+
+        const bots = preferences.addFolder("Bots")
+        bots.open()
+        bots.add(this.scene.orchestrator, 'botDelay', 0, 3.0).name("Delay")
+
+        const camera = preferences.addFolder("Camera Settings")
+        camera.open()
+
+        camera.add(this.scene.orchestrator, 'cameraAnimation', AnimationIndexes).name("Animation").onChange(() => {
+            this.scene.orchestrator.camera.animation = Animations[this.scene.orchestrator.cameraAnimation]
+        })
+
+        camera.add(this.scene.orchestrator, 'cameraSpeed', 0.1, 2.5).name("Speed").onChange(() => {
+            this.scene.orchestrator.camera.animationTime = 1000 / this.scene.orchestrator.cameraSpeed
+        })
+
+        const options = group.addFolder("Options")
+        options.open()
+        let undo = {add: () => this.scene.orchestrator.undo()};
+        let handshake = {add: () => this.scene.orchestrator.prolog.handshake()};
+        let quit = {add: () => this.scene.orchestrator.prolog.quit()};
+        options.add(handshake, 'add').name("Handshake");
+        options.add(undo, 'add').name("Undo");
+        options.add(quit, 'add').name("Quit");
     }
 }

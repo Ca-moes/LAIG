@@ -22,4 +22,12 @@ class GameState {
     animationEnd() {
         throw new Error("Abstract method animationEnd()")
     }
+
+    /**
+     * @abstract
+     * @param time Time
+     */
+    update(time) {
+        throw new Error("Abstract method update()")
+    }
 }

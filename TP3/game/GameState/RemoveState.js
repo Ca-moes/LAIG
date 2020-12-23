@@ -10,7 +10,7 @@ class RemoveState extends GameState {
                 let tile = this.orchestrator.gameboard.getTile(reply[0], reply[1])
                 tile.pickPiece()
                 tile.highlightTile(false)
-                await new Promise(r => setTimeout(r, this.orchestrator.preferences.timeout));
+                await new Promise(r => setTimeout(r, this.orchestrator.botDelay * 1000));
 
                 this.orchestrator.performBotRemove(tile)
                 this.orchestrator.changeState(new AnimationState(this.orchestrator))
@@ -31,5 +31,11 @@ class RemoveState extends GameState {
                 this.orchestrator.changeState(new ConfirmRemoveState(this.orchestrator))
             }
         })
+    }
+
+    update(time) {
+        this.orchestrator.theme.updateAnimations(time);
+        this.orchestrator.gameboard.update(time)
+        this.orchestrator.animator.update(time)
     }
 }

@@ -8,9 +8,9 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene
 
-        this.preferences = {
-            timeout: 0 //!< bots delay in milliseconds
-        }
+        this.cameraAnimation = "easeInOutSine"
+        this.cameraSpeed = 1
+        this.botDelay = 0
 
         // The gameBoard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
@@ -33,6 +33,9 @@ class MyGameOrchestrator {
         this.prolog = new MyPrologInterface(this)
 
         this.state = new ReadyState(this)
+
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, -2, 0))
+        this.scene.camera = this.camera
     }
 
     /**
@@ -69,6 +72,7 @@ class MyGameOrchestrator {
 
     nextTurn() {
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
+        this.camera.startAnimation()
         console.log("Player " + this.currentPlayer.code + " turn")
     }
 
@@ -114,16 +118,8 @@ class MyGameOrchestrator {
             this.scene.timeSet = true;
         }
         else if (this.scene.sceneInited && this.scene.timeSet) {
-            this.theme.updateAnimations(time);
-            this.gameboard.update(time)
+            this.state.update(time)
         }
-        if (this.currentMovement) {
-            if (this.currentMovement.animationCompleted) {
-                this.currentMovement = null
-                this.animationEnd()
-            }
-        }
-        this.animator.update(time)
     }
 
     display() {
