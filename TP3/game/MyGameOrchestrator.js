@@ -8,15 +8,17 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene
 
+        // Preferences (interface)
         this.cameraAnimation = "easeInOutSine"
         this.cameraSpeed = 1
         this.botDelay = 0
+        // -----------------------
 
-        // The gameBoard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
         this.state = new LoadingState(this)
     }
 
+    // called on graph loaded
     init() {
         this.player1 = {
             type: Players.BOT_NORMAL,
@@ -81,7 +83,6 @@ class MyGameOrchestrator {
      * @param {MyTile} tile Ending Point
      */
     performMove(tile) {
-        // this.nextTurn()
         this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.destTile = tile
         this.currentMovement.processAnimations(this.gameboard.auxiliaryBoard.getNextPieceCoords())
@@ -124,8 +125,6 @@ class MyGameOrchestrator {
 
     display() {
         this.theme.displayScene()
-        // linter may say its unresolved but as soon as the XMLScene is loaded
-        // game board is assigned here
         this.gameboard.display()
         this.animator.display()
     }
@@ -145,10 +144,5 @@ class MyGameOrchestrator {
                 console.log("Undo Movement")
             })
         }
-    }
-
-    orchestrate() {
-        /* state machine (we probably wont need this method as we are implementing a state pattern for every
-         * element, State Pattern -> Thank god we had LPOO Last Semester */
     }
 }

@@ -9,6 +9,10 @@ class MyAuxiliaryBoard extends CGFobject {
         this.pieces = []
     }
 
+    emptyBoard() {
+        this.pieces = []
+    }
+
     undo() {
         this.pieces.pop()
     }

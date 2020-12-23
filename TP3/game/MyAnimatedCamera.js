@@ -11,9 +11,6 @@ class MyAnimatedCamera extends CGFcamera {
         this.startingTime = Date.now()
         this.endTime = this.startingTime + this.animationTime
         this.angle = 0
-
-        console.log("Start: " + this.startingTime)
-        console.log("End: " + this.endTime)
     }
 
     animate(t) {

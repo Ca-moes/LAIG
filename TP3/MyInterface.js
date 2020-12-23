@@ -85,13 +85,13 @@ class MyInterface extends CGFinterface {
         const group = this.gui.addFolder("Game")
         group.open()
 
-        const preferences = group.addFolder("Preferences");
+        this.preferences = group.addFolder("Preferences");
 
-        const bots = preferences.addFolder("Bots")
+        const bots = this.preferences.addFolder("Bots")
         bots.open()
         bots.add(this.scene.orchestrator, 'botDelay', 0, 3.0).name("Delay")
 
-        const camera = preferences.addFolder("Camera Settings")
+        const camera = this.preferences.addFolder("Camera Settings")
         camera.open()
 
         camera.add(this.scene.orchestrator, 'cameraAnimation', AnimationIndexes).name("Animation").onChange(() => {
@@ -110,5 +110,15 @@ class MyInterface extends CGFinterface {
         options.add(handshake, 'add').name("Handshake");
         options.add(undo, 'add').name("Undo");
         options.add(quit, 'add').name("Quit");
+    }
+
+    addReplayButton() {
+        if (this.replayButton == null)
+            this.replayButton = this.preferences.add({replay: () => {this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))}}, "replay")
+    }
+
+    removeReplayButton() {
+        this.replayButton.remove()
+        this.replayButton = null
     }
 }

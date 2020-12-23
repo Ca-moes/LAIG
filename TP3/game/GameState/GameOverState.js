@@ -1,6 +1,7 @@
 class GameOverState extends GameState {
     constructor(orchestrator) {
         super(orchestrator);
+        this.orchestrator.scene.interface.addReplayButton()
     }
 
     animationEnd() {
