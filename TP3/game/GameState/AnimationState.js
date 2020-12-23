@@ -30,10 +30,14 @@ class AnimationState extends GameState {
         this.orchestrator.gameboard.update(time)
 
         if (this.orchestrator.currentMovement.animationCompleted) {
-            this.orchestrator.currentMovement = null
+            this.orchestrator.currentMovement = null // dont think this is necessary
             this.orchestrator.animationEnd()
         }
 
         this.orchestrator.animator.update(time)
+    }
+
+    undo() {
+        // cannot undo while animating
     }
 }

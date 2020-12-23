@@ -14,6 +14,11 @@ class MyGameMove {
         this.animationCompleted = false
     }
 
+    setCoordinates(origin, destination) {
+        this.origin = {x: origin.x, y: origin.y}
+        this.destination = {x: destination.x, y: destination.y}
+    }
+
     /**
      * This method could in theory be inside the constructor,
      * but we are creating this MyGameMove with 2 steps, first we assign the origin tile
@@ -129,6 +134,29 @@ class MyGameMove {
 
             this.animationCompleted = true
             this.gameboard.movePiece(this.origTile, this.destTile)
+            this.setCoordinates(this.origTile, this.destTile)
         }
+    }
+
+    clone() {
+        let move = new MyGameMove(null, null, this.gameboard.clone())
+        let origin = new MyTile(this.origTile.scene, move.gameboard, this.origTile.x, this.origTile.y, this.origTile.material, this.origTile.texture)
+        let destination = new MyTile(this.destTile.scene, move.gameboard, this.destTile.x, this.destTile.y, this.destTile.material, this.destTile.texture)
+
+        if (this.origTile.piece) {
+            let piece = new MyPiece(this.origTile.scene, this.origTile.piece.player, this.origTile.piece.material, this.origTile.piece.texture, this.origTile.piece.model)
+            origin.setPiece(piece)
+        }
+        if (this.destTile.piece) {
+            let piece = new MyPiece(this.destTile.scene, this.destTile.piece.player, this.destTile.piece.material, this.destTile.piece.texture, this.destTile.piece.model)
+            destination.setPiece(piece)
+        }
+
+        move.origTile = origin
+        move.destTile = destination
+
+        move.setCoordinates(origin, destination)
+
+        return move
     }
 }

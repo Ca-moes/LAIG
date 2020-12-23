@@ -24,6 +24,22 @@ class GameState {
     }
 
     /**
+     * Method to undo a move
+     */
+    undo() {
+        let move = this.orchestrator.gameSequence.undo()
+        if (move != null) {
+            this.orchestrator.gameboard.auxiliaryBoard.undo()
+
+            this.orchestrator.gameboard = move.gameboard
+            this.orchestrator.gameboard.orchestrator = this.orchestrator
+
+            this.orchestrator.nextTurn()
+            console.log("Undo Movement")
+        }
+    }
+
+    /**
      * @abstract
      * @param time Time
      */

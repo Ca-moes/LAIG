@@ -120,7 +120,7 @@ class XMLscene extends CGFscene {
         this.updateLights()
 
         // gameboard is assigned to the orchestrator here
-        this.orchestrator.gameboard = this.orchestrator.theme.gameboard
+        this.orchestrator.gameboard = this.orchestrator.theme.gameboard.clone()
         this.orchestrator.gameboard.orchestrator = this.orchestrator
         this.orchestrator.init()
 

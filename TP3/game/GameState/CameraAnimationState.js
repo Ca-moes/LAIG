@@ -1,9 +1,6 @@
 class CameraAnimationState extends GameState {
     constructor(orchestrator) {
         super(orchestrator);
-
-        // remove this
-        // this.animationEnd()
     }
 
     animationEnd() {
@@ -28,5 +25,9 @@ class CameraAnimationState extends GameState {
         this.orchestrator.gameboard.update(time)
         this.orchestrator.camera.animate(time)
         this.orchestrator.animator.update(time)
+    }
+
+    undo() {
+        // cannot undo while on camera animation
     }
 }

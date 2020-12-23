@@ -10,6 +10,8 @@ class MyPiece extends CGFobject{
         this.player = player;
         this.updatedTexCoords = true; // no need for updateTexCoords
 
+        this.model = model
+
         this.material = material
         this.texture = texture
         this.tile = null

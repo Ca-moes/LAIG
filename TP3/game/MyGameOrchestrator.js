@@ -8,15 +8,17 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene
 
+        // Preferences (interface)
         this.cameraAnimation = "easeInOutSine"
         this.cameraSpeed = 1
         this.botDelay = 0
+        // -----------------------
 
-        // The gameBoard is assigned to the orchestrator as soon as the XMLScene is Loaded
         this.theme = new MySceneGraph("test.xml", this.scene)
         this.state = new LoadingState(this)
     }
 
+    // called on graph loaded
     init() {
         this.player1 = {
             type: Players.BOT_NORMAL,
@@ -72,6 +74,7 @@ class MyGameOrchestrator {
 
     nextTurn() {
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
+        this.changeState(new CameraAnimationState(this))
         this.camera.startAnimation()
         console.log("Player " + this.currentPlayer.code + " turn")
     }
@@ -81,7 +84,6 @@ class MyGameOrchestrator {
      * @param {MyTile} tile Ending Point
      */
     performMove(tile) {
-        // this.nextTurn()
         this.currentMovement.origTile.disableHighlighting()
         this.currentMovement.destTile = tile
         this.currentMovement.processAnimations(this.gameboard.auxiliaryBoard.getNextPieceCoords())
@@ -124,31 +126,11 @@ class MyGameOrchestrator {
 
     display() {
         this.theme.displayScene()
-        // linter may say its unresolved but as soon as the XMLScene is loaded
-        // game board is assigned here
         this.gameboard.display()
         this.animator.display()
     }
 
     undo() {
-        let move = this.gameSequence.undo()
-        if (move != null) {
-            this.gameboard.auxiliaryBoard.undo()
-
-            this.gameboard = move.gameboard
-            this.gameboard.orchestrator = this
-
-            this.prolog.checkFinalState(this.state, (reply) => {
-                this.state = (reply === 0) ? new RemoveState(this) : new ReadyState(this)
-                this.nextTurn()
-
-                console.log("Undo Movement")
-            })
-        }
-    }
-
-    orchestrate() {
-        /* state machine (we probably wont need this method as we are implementing a state pattern for every
-         * element, State Pattern -> Thank god we had LPOO Last Semester */
+        this.state.undo()
     }
 }
