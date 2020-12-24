@@ -1,7 +1,7 @@
 const Players = Object.freeze({
-    HUMAN: 1,
-    BOT_EASY: 2,
-    BOT_NORMAL: 3
+    HUMAN: 0,
+    BOT_EASY: 1,
+    BOT_NORMAL: 2
 })
 
 class MyGameOrchestrator {
@@ -14,38 +14,34 @@ class MyGameOrchestrator {
         this.botDelay = 0
         // -----------------------
 
+        this.prolog = new MyPrologInterface(this)
         this.theme = new MySceneGraph("test.xml", this.scene)
         this.state = new LoadingState(this)
     }
 
     // called on graph loaded
-    init() {
-        this.player1 = {
-            type: Players.BOT_NORMAL,
-            code: 1
-        }
-        this.player2 = {
-            type: Players.BOT_EASY,
-            code: 2
-        }
+    init(preferences) {
+        this.player1 = preferences.player1
+        this.player2 = preferences.player2
         this.currentPlayer = this.player1
 
         this.gameSequence = new MyGameSequence()
         this.animator = new MyAnimator(this, this.gameSequence)
-        this.prolog = new MyPrologInterface(this)
 
         this.hud = new MyGameHud(this.scene, this)
         this.startTime = Date.now() / 1000
 
-        this.state = new ReadyState(this)
+        this.changeState(new ReadyState(this))
 
         this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, 0, 0))
         this.scene.camera = this.camera
 
+        this.scene.interface.addGameGroup()
+
         this.player1score = 0
         this.player2score = 0
 
-        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+        this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
     }
 
     updatePlayer1Score(score) {
@@ -95,7 +91,7 @@ class MyGameOrchestrator {
         this.changeState(new CameraAnimationState(this))
         this.camera.startAnimation()
 
-        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+        this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
         console.log("Player " + this.currentPlayer.code + " turn") // remove this on release
     }
 
@@ -145,10 +141,7 @@ class MyGameOrchestrator {
     }
 
     display() {
-        this.theme.displayScene()
-        this.gameboard.display()
-        this.hud.display()
-        this.animator.display()
+        this.state.display()
     }
 
     undo() {
@@ -167,7 +160,7 @@ class MyGameOrchestrator {
 
         this.camera.setPosition(vec3.fromValues(0, 7, 15))
 
-        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+        this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
         this.changeState(new ReadyState(this))
     }

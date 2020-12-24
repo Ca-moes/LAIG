@@ -12,12 +12,12 @@ class AnimationState extends GameState {
             if (reply === 1) {
                 this.orchestrator.updatePlayer1Score(++this.orchestrator.player1score)
                 console.log("Winner: Player 1")
-                this.orchestrator.hud.updateMessage("Player 1 Wins")
+                this.orchestrator.hud.updateMessage("Player 1 Wins".toUpperCase())
                 this.orchestrator.changeState(new GameOverState(this.orchestrator))
             }
             else if (reply === -1) {
                 this.orchestrator.updatePlayer2Score(++this.orchestrator.player2score)
-                this.orchestrator.hud.updateMessage("Player 2 Wins")
+                this.orchestrator.hud.updateMessage("Player 2 Wins".toUpperCase())
                 console.log("Winner: Player 2")
                 this.orchestrator.changeState(new GameOverState(this.orchestrator))
             }

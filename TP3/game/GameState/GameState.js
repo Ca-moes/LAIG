@@ -46,4 +46,11 @@ class GameState {
     update(time) {
         throw new Error("Abstract method update()")
     }
+
+    display() {
+        this.orchestrator.theme.displayScene()
+        this.orchestrator.gameboard.display()
+        this.orchestrator.hud.display()
+        this.orchestrator.animator.display()
+    }
 }

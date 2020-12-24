@@ -22,7 +22,7 @@
   <illumination>
     <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
     <!-- global ambient -->
-    <background r="0.1" g="0.7" b="1.0" a="1.0" />
+    <background r="0.1" g="0.1" b="0.1" a="1.0" />
     <!-- background color -->
   </illumination>
 
@@ -92,7 +92,7 @@
     <player1 material="red" texture="clear"/>
     <player2 material="blue" texture="clear"/>
     <tiles material="base" texture="tile"/>
-    <model path="models/default_piece.obj" height="1" />
+    <model path="models/flat_chip_piece.obj" height="1" />
     <transformations>
         <translation x="0" y="0" z="0"/>
         <rotation angle="0" axis="x"/>

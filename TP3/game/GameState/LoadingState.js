@@ -1,6 +1,8 @@
 class LoadingState extends GameState {
-    constructor(props) {
-        super(props);
+    constructor(orchestrator) {
+        super(orchestrator);
+
+        
     }
 
     animationEnd() {
@@ -17,5 +19,9 @@ class LoadingState extends GameState {
 
     undo() {
         // cannot undo just yet
+    }
+
+    display() {
+
     }
 }
