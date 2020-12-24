@@ -48,13 +48,13 @@ class MyGameOrchestrator {
         this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
     }
 
-    incrementPlayer1Score() {
-        this.player1score++
+    updatePlayer1Score(score) {
+        this.player1score = score
         this.hud.updatePlayer1Score(this.player1score.toString())
     }
 
-    incrementPlayer2Score() {
-        this.player2score++
+    updatePlayer2Score(score) {
+        this.player2score = score
         this.hud.updatePlayer2Score(this.player2score.toString())
     }
 
@@ -153,5 +153,22 @@ class MyGameOrchestrator {
 
     undo() {
         this.state.undo()
+    }
+
+    restart() {
+        this.scene.interface.resetInterface()
+
+        this.gameboard = this.theme.gameboard.clone()
+        this.gameSequence = new MyGameSequence()
+        this.currentPlayer = this.player1
+        this.gameboard.auxiliaryBoard.emptyBoard()
+
+        this.startTime = Date.now() / 1000
+
+        this.camera.setPosition(vec3.fromValues(0, 7, 15))
+
+        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+
+        this.changeState(new ReadyState(this))
     }
 }

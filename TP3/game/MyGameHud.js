@@ -74,7 +74,7 @@ class MyGameHud extends CGFobject {
         // message
         this.scene.pushMatrix()
         this.scene.translate(0, -1, 0.01)
-        this.scene.scale(0.4, 0.5, 1)
+        this.scene.scale(0.5, 0.5, 1)
         this.message.display()
         this.scene.popMatrix()
 
@@ -115,7 +115,7 @@ class MyGameHud extends CGFobject {
 
         this.scene.pushMatrix()
         this.scene.translate(0, -1, 0.01)
-        this.scene.scale(0.4, 0.5, 1)
+        this.scene.scale(0.5, 0.5, 1)
         this.message.display()
         this.scene.popMatrix()
 
