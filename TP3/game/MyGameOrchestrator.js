@@ -41,6 +41,21 @@ class MyGameOrchestrator {
 
         this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, 0, 0))
         this.scene.camera = this.camera
+
+        this.player1score = 0
+        this.player2score = 0
+
+        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+    }
+
+    incrementPlayer1Score() {
+        this.player1score++
+        this.hud.updatePlayer1Score(this.player1score.toString())
+    }
+
+    incrementPlayer2Score() {
+        this.player2score++
+        this.hud.updatePlayer2Score(this.player2score.toString())
     }
 
     /**
@@ -79,7 +94,9 @@ class MyGameOrchestrator {
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
         this.changeState(new CameraAnimationState(this))
         this.camera.startAnimation()
-        console.log("Player " + this.currentPlayer.code + " turn")
+
+        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+        console.log("Player " + this.currentPlayer.code + " turn") // remove this on release
     }
 
     /**
