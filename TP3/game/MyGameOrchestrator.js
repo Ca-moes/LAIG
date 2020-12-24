@@ -34,9 +34,12 @@ class MyGameOrchestrator {
         this.animator = new MyAnimator(this, this.gameSequence)
         this.prolog = new MyPrologInterface(this)
 
+        this.hud = new MyGameHud(this.scene, this)
+        this.startTime = Date.now() / 1000
+
         this.state = new ReadyState(this)
 
-        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, -2, 0))
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, 0, 0))
         this.scene.camera = this.camera
     }
 
@@ -127,6 +130,7 @@ class MyGameOrchestrator {
     display() {
         this.theme.displayScene()
         this.gameboard.display()
+        this.hud.display()
         this.animator.display()
     }
 
