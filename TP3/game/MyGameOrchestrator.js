@@ -34,10 +34,28 @@ class MyGameOrchestrator {
         this.animator = new MyAnimator(this, this.gameSequence)
         this.prolog = new MyPrologInterface(this)
 
+        this.hud = new MyGameHud(this.scene, this)
+        this.startTime = Date.now() / 1000
+
         this.state = new ReadyState(this)
 
-        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, -2, 0))
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, 0, 0))
         this.scene.camera = this.camera
+
+        this.player1score = 0
+        this.player2score = 0
+
+        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+    }
+
+    updatePlayer1Score(score) {
+        this.player1score = score
+        this.hud.updatePlayer1Score(this.player1score.toString())
+    }
+
+    updatePlayer2Score(score) {
+        this.player2score = score
+        this.hud.updatePlayer2Score(this.player2score.toString())
     }
 
     /**
@@ -76,7 +94,9 @@ class MyGameOrchestrator {
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
         this.changeState(new CameraAnimationState(this))
         this.camera.startAnimation()
-        console.log("Player " + this.currentPlayer.code + " turn")
+
+        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+        console.log("Player " + this.currentPlayer.code + " turn") // remove this on release
     }
 
     /**
@@ -127,10 +147,28 @@ class MyGameOrchestrator {
     display() {
         this.theme.displayScene()
         this.gameboard.display()
+        this.hud.display()
         this.animator.display()
     }
 
     undo() {
         this.state.undo()
+    }
+
+    restart() {
+        this.scene.interface.resetInterface()
+
+        this.gameboard = this.theme.gameboard.clone()
+        this.gameSequence = new MyGameSequence()
+        this.currentPlayer = this.player1
+        this.gameboard.auxiliaryBoard.emptyBoard()
+
+        this.startTime = Date.now() / 1000
+
+        this.camera.setPosition(vec3.fromValues(0, 7, 15))
+
+        this.hud.updateMessage("Player " + this.currentPlayer.code + " turn")
+
+        this.changeState(new ReadyState(this))
     }
 }

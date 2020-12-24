@@ -10,10 +10,14 @@ class AnimationState extends GameState {
     animationEnd() {
         this.orchestrator.prolog.checkWinner(this, (reply) => {
             if (reply === 1) {
+                this.orchestrator.updatePlayer1Score(++this.orchestrator.player1score)
                 console.log("Winner: Player 1")
+                this.orchestrator.hud.updateMessage("Player 1 Wins")
                 this.orchestrator.changeState(new GameOverState(this.orchestrator))
             }
             else if (reply === -1) {
+                this.orchestrator.updatePlayer2Score(++this.orchestrator.player2score)
+                this.orchestrator.hud.updateMessage("Player 2 Wins")
                 console.log("Winner: Player 2")
                 this.orchestrator.changeState(new GameOverState(this.orchestrator))
             }
@@ -30,9 +34,10 @@ class AnimationState extends GameState {
         this.orchestrator.gameboard.update(time)
 
         if (this.orchestrator.currentMovement.animationCompleted) {
-            this.orchestrator.currentMovement = null // dont think this is necessary
             this.orchestrator.animationEnd()
         }
+
+        this.orchestrator.hud.updateTime(Utils.formatTime(time - this.orchestrator.startTime))
 
         this.orchestrator.animator.update(time)
     }

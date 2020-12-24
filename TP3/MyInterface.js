@@ -117,8 +117,27 @@ class MyInterface extends CGFinterface {
             this.replayButton = this.preferences.add({replay: () => {this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))}}, "replay")
     }
 
+    addRestartButton() {
+        if (this.restartButton == null)
+            this.restartButton = this.preferences.add({restart: () => {this.scene.orchestrator.restart()}}, "restart")
+    }
+
+    removeRestartButton() {
+        if (this.restartButton != null) {
+            this.restartButton.remove()
+            this.restartButton = null
+        }
+    }
+
     removeReplayButton() {
-        this.replayButton.remove()
-        this.replayButton = null
+        if (this.replayButton != null) {
+            this.replayButton.remove()
+            this.replayButton = null
+        }
+    }
+
+    resetInterface() {
+        this.removeReplayButton()
+        this.removeRestartButton()
     }
 }
