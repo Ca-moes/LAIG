@@ -19,8 +19,6 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.orchestrator = new MyGameOrchestrator(this)
-
         this.sceneInited = false;
 
         this.initCameras();
@@ -56,6 +54,8 @@ class XMLscene extends CGFscene {
 
         // enable picking
         this.setPickEnabled(true);
+
+        this.orchestrator = new MyGameOrchestrator(this)
     }
 
     /**
@@ -122,9 +122,8 @@ class XMLscene extends CGFscene {
         // gameboard is assigned to the orchestrator here
         this.orchestrator.gameboard = this.orchestrator.theme.gameboard.clone()
         this.orchestrator.gameboard.orchestrator = this.orchestrator
-        this.orchestrator.init()
-
-        this.interface.addGameGroup()
+        // this.orchestrator.init()
+        this.orchestrator.changeState(new MenuState(this.orchestrator))
 
         this.sceneInited = true;
         this.setUpdatePeriod(1000.0/20.0); // 60Hz
@@ -165,7 +164,8 @@ class XMLscene extends CGFscene {
 
         if (this.sceneInited) {
             // Draw axis
-            this.axis.display();
+            if (this.graph.referenceLength !== 0)
+                this.axis.display();
  
             this.defaultAppearance.apply();
 

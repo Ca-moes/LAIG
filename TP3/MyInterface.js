@@ -102,19 +102,43 @@ class MyInterface extends CGFinterface {
             this.scene.orchestrator.camera.animationTime = 1000 / this.scene.orchestrator.cameraSpeed
         })
 
-        const options = group.addFolder("Options")
-        options.open()
-        let undo = {add: () => this.scene.orchestrator.undo()};
-        let handshake = {add: () => this.scene.orchestrator.prolog.handshake()};
-        let quit = {add: () => this.scene.orchestrator.prolog.quit()};
-        options.add(handshake, 'add').name("Handshake");
-        options.add(undo, 'add').name("Undo");
-        options.add(quit, 'add').name("Quit");
+        const optionsFolder = group.addFolder("Options")
+        const options = {
+            handshake: () => this.scene.orchestrator.prolog.handshake(),
+            undo: () => this.scene.orchestrator.undo(),
+            quit: () => this.scene.orchestrator.prolog.quit(),
+            resetCamera: () => this.scene.orchestrator.resetCamera()
+        }
+
+        optionsFolder.open()
+        optionsFolder.add(options, 'handshake').name("Handshake Server")
+        optionsFolder.add(options, 'quit').name("Quit Server");
+        optionsFolder.add(options, 'undo').name("Undo");
+        optionsFolder.add(options, 'resetCamera').name("Reset Camera");
     }
 
     addReplayButton() {
         if (this.replayButton == null)
             this.replayButton = this.preferences.add({replay: () => {this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))}}, "replay")
+    }
+
+    removeReplayButton() {
+        if (this.replayButton != null) {
+            this.replayButton.remove()
+            this.replayButton = null
+        }
+    }
+
+    addStartButton(obj) {
+        if (this.startButton == null)
+            this.startButton = this.gui.add({start: () => obj.startGame()}, "start")
+    }
+
+    removeStartButton() {
+        if (this.startButton != null) {
+            this.startButton.remove()
+            this.startButton = null
+        }
     }
 
     addRestartButton() {
@@ -126,13 +150,6 @@ class MyInterface extends CGFinterface {
         if (this.restartButton != null) {
             this.restartButton.remove()
             this.restartButton = null
-        }
-    }
-
-    removeReplayButton() {
-        if (this.replayButton != null) {
-            this.replayButton.remove()
-            this.replayButton = null
         }
     }
 
