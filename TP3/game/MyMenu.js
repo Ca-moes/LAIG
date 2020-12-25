@@ -31,7 +31,7 @@ class MyMenu extends CGFobject {
         this.orchestrator = orchestrator
 
         this.welcome = new MySpriteText(scene, "WELCOME TO TALPA")
-        this.credits = new MySpriteText(scene, "GONCALO TEIXEIRA : DANIEL GOMES")
+        this.credits = new MySpriteText(scene, "GONCALO TEIXEIRA : ANDRE GOMES")
         this.label1 = new MySpriteText(scene, "PLAYER 1")
         this.label2 = new MySpriteText(scene, "PLAYER 2")
 
