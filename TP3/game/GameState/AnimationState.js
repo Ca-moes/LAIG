@@ -24,7 +24,7 @@ class AnimationState extends GameState {
             else if (reply === 0) {
                 this.orchestrator.nextTurn()
                 console.log("No Winner Yet")
-                this.orchestrator.changeState(new CameraAnimationState(this.orchestrator))
+                //this.orchestrator.changeState(new CameraAnimationState(this.orchestrator))
             }
         })
     }

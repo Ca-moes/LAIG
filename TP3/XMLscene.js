@@ -19,8 +19,6 @@ class XMLscene extends CGFscene {
     init(application) {
         super.init(application);
 
-        this.orchestrator = new MyGameOrchestrator(this)
-
         this.sceneInited = false;
 
         this.initCameras();
@@ -56,6 +54,8 @@ class XMLscene extends CGFscene {
 
         // enable picking
         this.setPickEnabled(true);
+
+        this.orchestrator = new MyGameOrchestrator(this)
     }
 
     /**

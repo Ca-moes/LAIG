@@ -5,16 +5,21 @@ class MyAnimatedCamera extends CGFcamera {
         this.orchestrator = orchestrator
         this.animation = animation
         this.animationTime = 1000
+        this.animationComplete = false
     }
 
     startAnimation() {
         this.startingTime = Date.now()
         this.endTime = this.startingTime + this.animationTime
         this.angle = 0
+        this.animationComplete = false
     }
 
     animate(t) {
+        if (this.animationComplete) return
+
         if (t*1000 >= this.endTime) {
+            this.animationComplete = true
             this.orbit(CGFcameraAxis.Y, Math.PI - this.angle)
             this.orchestrator.animationEnd()
             return
