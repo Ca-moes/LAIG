@@ -30,6 +30,8 @@ class MyMenu extends CGFobject {
 
         this.orchestrator = orchestrator
 
+        this.welcome = new MySpriteText(scene, "WELCOME TO TALPA")
+        this.credits = new MySpriteText(scene, "GONCALO TEIXEIRA : DANIEL GOMES")
         this.label1 = new MySpriteText(scene, "PLAYER 1")
         this.label2 = new MySpriteText(scene, "PLAYER 2")
 
@@ -90,8 +92,8 @@ class MyMenu extends CGFobject {
                 for (let i = 0; i < this.scene.pickResults.length; i++) {
                     const obj = this.scene.pickResults[i][0];
                     if (obj instanceof Option) {
-                        const customId = this.scene.pickResults[i][1];
-                        console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
+                        // const customId = this.scene.pickResults[i][1];
+                        // console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
                         this.activateOption(obj.option)
                     }
                 }
@@ -108,21 +110,21 @@ class MyMenu extends CGFobject {
         this.scene.registerForPick(this.human1.option, this.human1)
         this.scene.pushMatrix()
         this.human.bind()
-        this.scene.translate(-3.5, 3, 0)
+        this.scene.translate(-9.25, -3, 0)
         this.human1.display()
         this.scene.popMatrix()
 
         this.scene.registerForPick(this.easy1.option, this.easy1)
         this.scene.pushMatrix()
         this.easy.bind()
-        this.scene.translate(0, 3, 0)
+        this.scene.translate(-6.25, -3, 0)
         this.easy1.display()
         this.scene.popMatrix()
 
         this.scene.registerForPick(this.normal1.option, this.normal1)
         this.scene.pushMatrix()
         this.normal.bind()
-        this.scene.translate(3.5, 3, 0)
+        this.scene.translate(-3.25, -3, 0)
         this.normal1.display()
         this.scene.popMatrix()
 
@@ -130,33 +132,44 @@ class MyMenu extends CGFobject {
         this.scene.registerForPick(this.human2.option, this.human2)
         this.scene.pushMatrix()
         this.human.bind()
-        this.scene.translate(-3.5, -3, 0)
+        this.scene.translate(3.25, -3, 0)
         this.human2.display()
         this.scene.popMatrix()
 
         this.scene.registerForPick(this.easy2.option, this.easy2)
         this.scene.pushMatrix()
         this.easy.bind()
-        this.scene.translate(0, -3, 0)
+        this.scene.translate(6.25, -3, 0)
         this.easy2.display()
         this.scene.popMatrix()
 
         this.scene.registerForPick(this.normal2.option, this.normal2)
         this.scene.pushMatrix()
         this.normal.bind()
-        this.scene.translate(3.5, -3, 0)
+        this.scene.translate(9.25, -3, 0)
         this.normal2.display()
         this.scene.popMatrix()
 
         // Labels
         this.scene.pushMatrix()
-        this.scene.translate(0, 0.5, 0)
+        this.scene.translate(-6, 0, 0)
         this.label1.display()
         this.scene.popMatrix()
 
         this.scene.pushMatrix()
-        this.scene.translate(0, -0.5, 0)
+        this.scene.translate(6, 0, 0)
         this.label2.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(0, 4, 0)
+        this.welcome.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(0, -6, 0)
+        this.scene.scale(0.3, 0.3, 1)
+        this.credits.display()
         this.scene.popMatrix()
     }
 }
