@@ -101,13 +101,23 @@ class MyPrologInterface {
         const request = new XMLHttpRequest();
         request.open('GET', 'http://localhost:8081/handshake', true);
 
+        let msg = this.orchestrator.hud.message.string
         request.onload = () => {
-            if (JSON.parse(request.responseText) === "handshake")
+            if (JSON.parse(request.responseText) === "handshake") {
                 console.log("Handshake Successful")
-            else
+                this.orchestrator.hud.updateMessage("HANDSHAKE")
+            }
+            else {
                 console.log("Handshake Failed")
+                this.orchestrator.hud.updateMessage("FAIL HS")
+            }
+            setTimeout(() => this.orchestrator.hud.updateMessage(msg), 3000)
         }
-        request.onerror = () => console.log("Failed to Contact Server")
+        request.onerror = () => {
+            console.log("Failed to Contact Server")
+            this.orchestrator.hud.updateMessage("FAIL HS")
+            setTimeout(() => this.orchestrator.hud.updateMessage(msg), 3000)
+        }
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();  // bloqueia aqui até receber resposta
@@ -120,13 +130,22 @@ class MyPrologInterface {
         const request = new XMLHttpRequest();
         request.open('GET', 'http://localhost:8081/quit', true);
 
+        let msg = this.orchestrator.hud.message.string
         request.onload = () => {
-            if (JSON.parse(request.responseText) === "goodbye")
+            if (JSON.parse(request.responseText) === "goodbye") {
                 console.log("Quit Successful")
-            else
+                this.orchestrator.hud.updateMessage("SERVER QUIT")
+            }
+            else {
                 console.log("Quit Failed")
+                this.orchestrator.hud.updateMessage("QUIT FAIL")
+            }
         }
-        request.onerror = () => console.log("Failed to Contact Server")
+        request.onerror = () => {
+            console.log("Failed to Contact Server")
+            this.orchestrator.hud.updateMessage("QUIT FAIL")
+            setTimeout(() => this.orchestrator.hud.updateMessage(msg), 3000)
+        }
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();  // bloqueia aqui até receber resposta
