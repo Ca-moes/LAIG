@@ -4,19 +4,16 @@
  */
 
 class MyPiece extends CGFobject{
-    constructor(scene, player, material, texture, model) {
+    constructor(scene, player, texture) {
         super(scene);
         this.scene = scene;
         this.player = player;
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        this.model = model
-
-        this.material = material
         this.texture = texture
         this.tile = null
-        this.obj = model.obj
-        this.height = model.height
+
+        this.height = 1
 
         this.animationComplete = true
 

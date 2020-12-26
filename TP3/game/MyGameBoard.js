@@ -28,9 +28,7 @@ class MyGameBoard extends CGFobject{
                 let piece = new MyPiece(
                     this.scene,
                     pieceType,
-                    (pieceType === 1) ? this.properties.player1.material : this.properties.player2.material,
-                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture,
-                    this.properties.model)
+                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture)
                 tile.setPiece(piece)
                 piece.setTile(tile)
                 this.board.push(tile)
@@ -175,9 +173,8 @@ class MyGameBoard extends CGFobject{
                 let piece = new MyPiece(
                     this.scene,
                     value.piece.player,
-                    (value.piece.player === 1) ? this.properties.player1.material : this.properties.player2.material,
-                    (value.piece.player === 1) ? this.properties.player1.texture : this.properties.player2.texture,
-                    this.properties.model)
+                    (value.piece.player === 1) ? this.properties.player1.texture : this.properties.player2.texture
+                    )
                 tile.setPiece(piece)
             }
             clonedBoard.push(tile)
