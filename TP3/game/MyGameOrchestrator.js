@@ -15,8 +15,9 @@ class MyGameOrchestrator {
         // -----------------------
 
         this.prolog = new MyPrologInterface(this)
-        this.theme = new MySceneGraph("test.xml", this.scene)
+        //this.theme = new MySceneGraph("test.xml", this.scene)
         this.state = new LoadingState(this)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 5)
     }
 
     // called on graph loaded

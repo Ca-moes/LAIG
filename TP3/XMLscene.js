@@ -30,12 +30,19 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
+        this.gl.clearColor(0.1, 0.1, 0.1, 1.0)
+
         this.axis = new CGFaxis(this);
 
         this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
         this.loadingProgress=0;
 
         this.defaultAppearance=new CGFappearance(this);
+        this.defaultAppearance.setEmission(0.1, 0.1, 0.1, 1.0)
+        this.defaultAppearance.setDiffuse(0.1, 0.1, 0.1, 1.0)
+        this.defaultAppearance.setAmbient(0.1, 0.1, 0.1, 1.0)
+        this.defaultAppearance.setColor(0.1, 0.1, 0.1, 1.0)
+        this.defaultAppearance.setSpecular(0.1, 0.1, 0.1, 1.0)
 
         this.selectedView = -1
         this.lightFlags = {}
@@ -62,7 +69,7 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
     }
 
     /**
@@ -162,11 +169,8 @@ class XMLscene extends CGFscene {
         
         this.updateLights();
 
-        if (this.sceneInited) {
-            // Draw axis
-            if (this.graph.referenceLength !== 0)
-                this.axis.display();
- 
+
+        if (this.orchestrator != null) {
             this.defaultAppearance.apply();
 
             // Displays the scene (MySceneGraph function).

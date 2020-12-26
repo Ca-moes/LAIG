@@ -1,8 +1,6 @@
 class LoadingState extends GameState {
     constructor(orchestrator) {
         super(orchestrator);
-
-        
     }
 
     animationEnd() {
@@ -22,6 +20,6 @@ class LoadingState extends GameState {
     }
 
     display() {
-
+        this.orchestrator.loadingScreen.display()
     }
 }
