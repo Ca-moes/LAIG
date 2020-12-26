@@ -1097,6 +1097,7 @@ class MySceneGraph {
 
     parseBoard(boardNode) {
         let x = this.reader.getFloat(boardNode, "x")
+        let y = this.reader.getFloat(boardNode, "y")
         let z = this.reader.getFloat(boardNode, "z")
         let size = this.reader.getInteger(boardNode, "size")
 
@@ -1207,8 +1208,19 @@ class MySceneGraph {
             transformations: transformationMatrix
         }
 
-        this.gameboard = new MyGameBoard(this.scene, x, z, size, properties)
-        this.gameboard.orchestrator = this.orchestrator
+        this.gameboardProperties = {
+            x: x,
+            y: y,
+            z: z,
+            tiles: {
+                material: this.materials[materialIDTile],
+                texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null
+            },
+            transformations: transformationMatrix
+        }
+
+        // this.gameboard = new MyGameBoard(this.scene, x, z, size, properties)
+        // this.gameboard.orchestrator = this.orchestrator
 
         this.log("Parsed Gameboard")
     }

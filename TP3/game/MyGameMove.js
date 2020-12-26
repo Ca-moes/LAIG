@@ -133,7 +133,11 @@ class MyGameMove {
             this.destTile.getPiece().stopAnimation()
 
             this.animationCompleted = true
+
+            let clone = this.gameboard.clone()
             this.gameboard.movePiece(this.origTile, this.destTile)
+            this.gameboard = clone
+
             this.setCoordinates(this.origTile, this.destTile)
         }
     }
@@ -144,11 +148,11 @@ class MyGameMove {
         let destination = new MyTile(this.destTile.scene, move.gameboard, this.destTile.x, this.destTile.y, this.destTile.material, this.destTile.texture)
 
         if (this.origTile.piece) {
-            let piece = new MyPiece(this.origTile.scene, this.origTile.piece.player, this.origTile.piece.texture)
+            let piece = new MyPiece(this.origTile.scene, this.origTile.piece.player)
             origin.setPiece(piece)
         }
         if (this.destTile.piece) {
-            let piece = new MyPiece(this.destTile.scene, this.destTile.piece.player, this.destTile.piece.texture)
+            let piece = new MyPiece(this.destTile.scene, this.destTile.piece.player)
             destination.setPiece(piece)
         }
 

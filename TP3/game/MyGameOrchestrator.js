@@ -13,6 +13,7 @@ class MyGameOrchestrator {
         this.cameraSpeed = 1
         this.botDelay = 0
         // -----------------------
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
 
         this.prolog = new MyPrologInterface(this)
         this.state = new LoadingState(this)
@@ -70,13 +71,12 @@ class MyGameOrchestrator {
     }
 
     onScenesLoadingComplete() {
-        this.gameboard = this.themes[0].gameboard.clone()
-        this.gameboard.orchestrator = this
+        // this.gameboard = this.themes[0].gameboard.clone()
+        // this.gameboard.orchestrator = this
 
         this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1})
 
-        this.scene.updateScene(this.themes[0])
-
+        this.updateScene()
         this.loadModels()
     }
 
@@ -97,6 +97,8 @@ class MyGameOrchestrator {
         this.scene.interface.addColorsGroup()
 
         this.changeState(new MenuState(this))
+        this.scene.camera = this.camera
+        this.scene.interface.setActiveCamera(this.camera)
     }
 
     loadScene() {
@@ -107,10 +109,14 @@ class MyGameOrchestrator {
 
     updateScene() {
         this.scene.updateScene(this.themes[this.selectedTheme])
+        this.gameboardProperties = this.themes[this.selectedTheme].gameboardProperties
+        this.scene.camera = this.camera
     }
 
     // called on graph loaded
     init(preferences) {
+        this.gameboard = new MyGameBoard(this.scene, this,8, this.gameboardProperties)
+
         this.player1 = preferences.player1
         this.player2 = preferences.player2
         this.currentPlayer = this.player1
@@ -121,9 +127,7 @@ class MyGameOrchestrator {
         this.hud = new MyGameHud(this.scene, this)
         this.startTime = Date.now() / 1000
 
-        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, 0, 0))
         this.scene.camera = this.camera
-        this.scene.selectedView = "Game"
 
         this.scene.interface.addGameGroup()
 
@@ -132,11 +136,15 @@ class MyGameOrchestrator {
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
+        this.resetCamera()
+        this.scene.interface.setActiveCamera(null)
         this.changeState(new ReadyState(this))
     }
 
     resetCamera() {
         this.scene.camera = this.camera
+        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, 0, this.gameboardProperties.z))
+        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y + 7, 15))
         console.log("Game Camera Reset")
     }
 
@@ -179,7 +187,7 @@ class MyGameOrchestrator {
      * @param {MyTile} tile Starting Point
      */
     startPicking(tile) {
-        this.currentMovement = new MyGameMove(tile, null, this.gameboard.clone())
+        this.currentMovement = new MyGameMove(tile, null, this.gameboard)
     }
 
     nextTurn() {
@@ -245,7 +253,7 @@ class MyGameOrchestrator {
     }
 
     restart() {
-        this.scene.interface.resetInterface()
+        /*this.scene.interface.resetInterface()
 
         this.gameboard = this.theme.gameboard.clone()
         this.gameSequence = new MyGameSequence()
@@ -258,6 +266,6 @@ class MyGameOrchestrator {
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
-        this.changeState(new ReadyState(this))
+        this.changeState(new ReadyState(this))*/
     }
 }
