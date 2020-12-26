@@ -63,13 +63,15 @@ class XMLscene extends CGFscene {
         this.setPickEnabled(true);
 
         this.orchestrator = new MyGameOrchestrator(this)
+
+        this.setUpdatePeriod(1000.0/20.0); // 60Hz
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
+        this.camera = new CGFcamera(45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 20), vec3.fromValues(0, 0, 0))
     }
 
     /**
@@ -105,6 +107,30 @@ class XMLscene extends CGFscene {
         }
     }
 
+
+    updateScene(theme) {
+        this.graph = theme
+        this.axis = new CGFaxis(this, this.graph.referenceLength);
+
+        this.gl.clearColor(...this.graph.background);
+
+        this.setGlobalAmbientLight(...this.graph.ambient);
+
+        this.initLights();
+        //TO-DO this.initCameras();
+
+        // add dropdown for views with default view selected
+        this.interface.addViewsGroup("selectedView", this.graph.viewsIds, "View")
+        // add lights block
+        this.interface.addLightsGroup(this.graph.lights)
+        // update view and lights accordingly
+        // this.updateView()
+        this.updateLights()
+
+        this.sceneInited = true
+        this.timeSet = false
+    }
+
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -123,11 +149,11 @@ class XMLscene extends CGFscene {
         // add lights block
         this.interface.addLightsGroup(this.graph.lights)
         // update view and lights accordingly
-        this.updateView()
+        // this.updateView()
         this.updateLights()
 
         // gameboard is assigned to the orchestrator here
-        this.orchestrator.gameboard = this.orchestrator.theme.gameboard.clone()
+        this.orchestrator.gameboard = this.orchestrator.themes[this.orchestrator.selectedTheme].gameboard.clone()
         this.orchestrator.gameboard.orchestrator = this.orchestrator
         // this.orchestrator.init()
         this.orchestrator.changeState(new MenuState(this.orchestrator))

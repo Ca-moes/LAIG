@@ -15,9 +15,42 @@ class MyGameOrchestrator {
         // -----------------------
 
         this.prolog = new MyPrologInterface(this)
-        //this.theme = new MySceneGraph("test.xml", this.scene)
         this.state = new LoadingState(this)
-        this.loadingScreen = new MyLoadingScreen(scene, this, 5)
+
+        // Themes
+        this.loadingScreen = new MyLoadingScreen(scene, this, 2)
+        this.currentTheme = 0
+        this.themesNames = {0: "test.xml", 1: "izakaya.xml"}
+        this.themes = []
+        this.selectedTheme = 0
+
+        this.loadScene()
+        // -----------------------
+    }
+
+    onThemeLoaded() {
+        this.currentTheme++
+        if (this.currentTheme >= 2) {
+            this.loadingScreen.updateMessage("Loading Completed")
+            this.onLoadingComplete()
+        } else {
+            this.loadScene()
+        }
+    }
+
+    onLoadingComplete() {
+        this.gameboard = this.themes[0].gameboard.clone()
+        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1})
+
+        this.scene.updateScene(this.themes[0])
+
+        this.changeState(new MenuState(this))
+    }
+
+    loadScene() {
+        this.loadingScreen.updateMessage("Loading " + this.themesNames[this.currentTheme])
+        this.themes.push(new MySceneGraph(this.themesNames[this.currentTheme], this.scene, this))
+        this.loadingScreen.updateProgress()
     }
 
     // called on graph loaded
@@ -139,7 +172,7 @@ class MyGameOrchestrator {
      */
     update(time) {
         if (this.scene.sceneInited && !this.scene.timeSet) {
-            this.theme.setAnimationsStartTime(time);
+            this.themes[this.selectedTheme].setAnimationsStartTime(time);
             this.scene.timeSet = true;
         }
         else if (this.scene.sceneInited && this.scene.timeSet) {

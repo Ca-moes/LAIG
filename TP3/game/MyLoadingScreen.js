@@ -13,9 +13,12 @@ class MyLoadingScreen extends CGFobject {
         this.shader = new CGFshader(scene.gl, "shaders/loading.vert", "shaders/loading.frag")
     }
 
-    updateProgress(message) {
-        this.progress += 1
+    updateMessage(message) {
         this.message.string = message
+    }
+
+    updateProgress() {
+        this.progress += 1
     }
 
     display() {

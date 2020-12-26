@@ -48,7 +48,7 @@ class GameState {
     }
 
     display() {
-        this.orchestrator.theme.displayScene()
+        this.orchestrator.themes[this.orchestrator.selectedTheme].displayScene()
         this.orchestrator.gameboard.display()
         this.orchestrator.hud.display()
         this.orchestrator.animator.display()

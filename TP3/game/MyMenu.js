@@ -68,7 +68,7 @@ class MyMenu extends CGFobject {
             if (this.options[i].selected)
                 player2 = { type: i - 3, code: 2}
 
-        console.clear()
+        //console.clear()
         console.log("Game Started", "\n", "Player1:", player1, "\n", "Player2:", player2)
         this.orchestrator.scene.gui.removeStartButton()
         this.orchestrator.init({player1: player1, player2: player2})
