@@ -86,6 +86,17 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    addBoardSizesGroup(boardSizes) {
+        this.boardSizes = this.gui.addFolder("Board Size");
+        this.boardSizes.open();
+
+        this.boardSizes.add(this.scene.orchestrator, "selectedBoardSize", boardSizes).name("Size")
+    }
+
+    removeBoardSizesGroup() {
+        this.gui.removeFolder(this.boardSizes)
+    }
+
     addThemesGroup(themes) {
         this.themes = this.gui.addFolder("Themes");
         this.themes.open();

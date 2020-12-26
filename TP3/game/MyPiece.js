@@ -4,13 +4,12 @@
  */
 
 class MyPiece extends CGFobject{
-    constructor(scene, player, texture) {
+    constructor(scene, player) {
         super(scene);
         this.scene = scene;
         this.player = player;
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        this.texture = texture
         this.tile = null
 
         this.height = 1

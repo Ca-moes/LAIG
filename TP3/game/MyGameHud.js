@@ -37,7 +37,7 @@ class MyGameHud extends CGFobject {
         this.orchestrator.player1material.apply()
 
         // backboard
-        this.scene.translate(0, 2, -10)
+        this.scene.translate(this.orchestrator.gameboardProperties.x, 2 + this.orchestrator.gameboardProperties.y, -10 + this.orchestrator.gameboardProperties.z)
         this.texture.bind()
         this.billboard.display()
 
@@ -82,7 +82,7 @@ class MyGameHud extends CGFobject {
         this.scene.pushMatrix()
 
         this.orchestrator.player2material.apply()
-        this.scene.translate(0, 2, 10)
+        this.scene.translate(this.orchestrator.gameboardProperties.x, 2 + this.orchestrator.gameboardProperties.y, 10 + this.orchestrator.gameboardProperties.z)
         this.scene.rotate(Math.PI, 0, 1, 0)
         this.texture.bind()
         this.billboard.display()

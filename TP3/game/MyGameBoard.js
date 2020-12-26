@@ -1,11 +1,12 @@
 class MyGameBoard extends CGFobject{
-    constructor(scene, centerx, centerz, size, properties){
+    constructor(scene, orchestrator, size, properties){
         super(scene)
         this.scene = scene
-        this.centerx = centerx
-        this.centerz = centerz
         this.size = size
-        this.properties = properties
+        this.orchestrator = orchestrator
+
+        this.updateBoard(properties)
+
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
@@ -16,6 +17,16 @@ class MyGameBoard extends CGFobject{
         this.createBoard()
     }
 
+    updateBoard(properties) {
+        this.properties = properties
+        this.centerx = properties.x
+        this.centery = properties.y
+        this.centerz = properties.z
+        this.transformations = properties.transformations
+        this.texture = properties.tiles.texture
+        this.material = properties.tiles.material
+    }
+
     createBoard() {
         let pieceType = 1
         for (let y = 0; y < this.size; y++) {
@@ -23,12 +34,11 @@ class MyGameBoard extends CGFobject{
                 let tile = new MyTile(
                     this.scene,
                     this, x, y,
-                    this.properties.tiles.material,
-                    this.properties.tiles.texture)
+                    this.material,
+                    this.texture)
                 let piece = new MyPiece(
                     this.scene,
-                    pieceType,
-                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture)
+                    pieceType)
                 tile.setPiece(piece)
                 piece.setTile(tile)
                 this.board.push(tile)
@@ -105,15 +115,15 @@ class MyGameBoard extends CGFobject{
         this.logPicking()
         this.scene.clearPickRegistration();
 
-        this.scene.multMatrix(this.properties.transformations)
+        this.scene.multMatrix(this.transformations)
 
         this.scene.pushMatrix()
-        this.scene.translate(this.size*0.8, 0.5, 0)
+        this.scene.translate(this.centerx + this.size*0.8, this.centery + 0.5, this.centerz)
         this.auxiliaryBoard.display()
         this.scene.popMatrix()
 
         this.scene.pushMatrix()
-        this.scene.translate(this.centerx, 0, this.centerz)
+        this.scene.translate(this.centerx, this.centery, this.centerz)
         this.boardsides.display()
         this.scene.popMatrix()
 
@@ -123,7 +133,7 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                this.scene.translate(this.centerx, 0, this.centerz)
+                this.scene.translate(this.centerx, this.centery, this.centerz)
                 this.scene.translate(x - (this.size/2) + 0.5, 0, z - (this.size/2) + 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()
@@ -159,7 +169,7 @@ class MyGameBoard extends CGFobject{
     }
 
     clone() {
-        let board = new MyGameBoard(this.scene, this.centerx, this.centerz, this.size, this.properties)
+        let board = new MyGameBoard(this.scene, this.orchestrator, this.size, this.properties)
         board.board = []
         board.auxiliaryBoard = this.auxiliaryBoard
         let clonedBoard = []
@@ -167,14 +177,12 @@ class MyGameBoard extends CGFobject{
             let tile = new MyTile(
                 this.scene,
                 board, value.x, value.y,
-                this.properties.tiles.material,
-                this.properties.tiles.texture)
+                this.material,
+                this.texture)
             if (value.piece) {
                 let piece = new MyPiece(
                     this.scene,
-                    value.piece.player,
-                    (value.piece.player === 1) ? this.properties.player1.texture : this.properties.player2.texture
-                    )
+                    value.piece.player)
                 tile.setPiece(piece)
             }
             clonedBoard.push(tile)
