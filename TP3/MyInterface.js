@@ -87,10 +87,14 @@ class MyInterface extends CGFinterface {
     }
 
     addThemesGroup(themes) {
-        const group = this.gui.addFolder("Themes");
-        group.open();
+        this.themes = this.gui.addFolder("Themes");
+        this.themes.open();
 
-        group.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene() })
+        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene() })
+    }
+
+    addModelsGroup(models) {
+        this.themes.add(this.scene.orchestrator, "selectedModel", models).name("Model")
     }
 
     addGameGroup() {

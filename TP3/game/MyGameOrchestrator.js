@@ -18,27 +18,31 @@ class MyGameOrchestrator {
         this.state = new LoadingState(this)
 
         // Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 2)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 5)
         this.currentTheme = 0
         this.themesNames = {0: "test.xml", 1: "izakaya.xml"}
         this.themes = []
         this.selectedTheme = 0
-
         this.loadScene()
+        // -----------------------
+
+        // Models
+        this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2}
+        this.selectedModel = 0
+        this.models = []
         // -----------------------
     }
 
     onThemeLoaded() {
         this.currentTheme++
         if (this.currentTheme >= 2) {
-            this.loadingScreen.updateMessage("Loading Completed")
-            this.onLoadingComplete()
+            this.onScenesLoadingComplete()
         } else {
             this.loadScene()
         }
     }
 
-    onLoadingComplete() {
+    onScenesLoadingComplete() {
         this.gameboard = this.themes[0].gameboard.clone()
         this.gameboard.orchestrator = this
 
@@ -46,6 +50,23 @@ class MyGameOrchestrator {
 
         this.scene.updateScene(this.themes[0])
 
+        this.loadModels()
+    }
+
+    loadModels() {
+        this.loadingScreen.updateMessage("Loading Model: Default")
+        this.models.push(new CGFOBJModel(this.scene, "models/default_piece.obj"))
+        this.loadingScreen.updateProgress()
+        this.loadingScreen.updateMessage("Loading Model: Flat Chip")
+        this.models.push(new CGFOBJModel(this.scene, "models/flat_chip_piece.obj"))
+        this.loadingScreen.updateProgress()
+        this.loadingScreen.updateMessage("Loading Model: Round Chip")
+        this.models.push(new CGFOBJModel(this.scene, "models/round_chip_piece.obj"))
+        this.loadingScreen.updateProgress()
+
+        this.loadingScreen.updateMessage("Loading Completed")
+
+        this.scene.interface.addModelsGroup(this.modelsNames)
         this.changeState(new MenuState(this))
     }
 

@@ -18,7 +18,7 @@ class AnimatedPieceState extends PieceState {
         this.piece.scene.scale(0.2, 0.2, 0.2)
         this.piece.scene.translate(0, this.piece.height/2, 0)
 
-        this.piece.obj.display()
+        this.piece.scene.orchestrator.models[this.piece.scene.orchestrator.selectedModel].display()
         this.piece.scene.popMatrix()
     }
 

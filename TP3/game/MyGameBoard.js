@@ -72,7 +72,6 @@ class MyGameBoard extends CGFobject{
      * @returns {MyTile} tile
      */
     getTile(x, y) {
-        // this needs to be enhanced
         return this.board[y*this.size + x]
     }
 
@@ -97,8 +96,6 @@ class MyGameBoard extends CGFobject{
                     const obj = this.scene.pickResults[i][0];
                     if (obj instanceof MyTile) {
                         this.orchestrator.pickTile(obj)
-                        // const customId = this.scene.pickResults[i][1];
-                        // console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
 					}
 				}
 				this.scene.pickResults.splice(0, this.scene.pickResults.length);
