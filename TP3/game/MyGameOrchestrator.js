@@ -263,9 +263,9 @@ class MyGameOrchestrator {
     }
 
     restart() {
-        /*this.scene.interface.resetInterface()
+        this.scene.interface.resetInterface()
 
-        this.gameboard = this.theme.gameboard.clone()
+        this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
         this.gameSequence = new MyGameSequence()
         this.currentPlayer = this.player1
         this.gameboard.auxiliaryBoard.emptyBoard()
@@ -276,6 +276,6 @@ class MyGameOrchestrator {
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
-        this.changeState(new ReadyState(this))*/
+        this.changeState(new ReadyState(this))
     }
 }
