@@ -5,13 +5,7 @@ class MyGameBoard extends CGFobject{
         this.size = size
         this.orchestrator = orchestrator
 
-        this.properties = properties
-        this.centerx = properties.x
-        this.centery = properties.y
-        this.centerz = properties.z
-        this.transformations = properties.transformations
-        this.texture = properties.tiles.texture
-        this.material = properties.tiles.material
+        this.updateBoard(properties)
 
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
@@ -21,6 +15,16 @@ class MyGameBoard extends CGFobject{
         this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
 
         this.createBoard()
+    }
+
+    updateBoard(properties) {
+        this.properties = properties
+        this.centerx = properties.x
+        this.centery = properties.y
+        this.centerz = properties.z
+        this.transformations = properties.transformations
+        this.texture = properties.tiles.texture
+        this.material = properties.tiles.material
     }
 
     createBoard() {

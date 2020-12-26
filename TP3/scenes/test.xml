@@ -88,7 +88,7 @@
   <animations>
   </animations>
 
-  <gameboard x="0" y="2" z="0" size="8">
+  <gameboard x="0" y="0" z="0" size="8">
     <player1 material="red" texture="clear"/>
     <player2 material="blue" texture="clear"/>
     <tiles material="base" texture="tile"/>
@@ -96,7 +96,7 @@
     <transformations>
         <translation x="0" y="0" z="0"/>
         <rotation angle="0" axis="x"/>
-        <scale sx="1" sy="1" sz="1"/>
+        <scale sx="0.5" sy="0.5" sz="0.5"/>
     </transformations>
   </gameboard>
 

@@ -50,6 +50,11 @@ class MyGameOrchestrator {
         this.selectedModel = 0
         this.models = []
         // -----------------------
+
+        // Board Sizes
+        this.boardSizes = {"6x6": 6, "8x8": 8, "10x10": 10, "12x12": 12}
+        this.selectedBoardSize = 8
+        // -----------------------
     }
 
     updateColors() {
@@ -95,6 +100,7 @@ class MyGameOrchestrator {
 
         this.scene.interface.addModelsGroup(this.modelsNames)
         this.scene.interface.addColorsGroup()
+        this.scene.interface.addBoardSizesGroup(this.boardSizes)
 
         this.changeState(new MenuState(this))
         this.scene.camera = this.camera
@@ -115,7 +121,8 @@ class MyGameOrchestrator {
 
     // called on graph loaded
     init(preferences) {
-        this.gameboard = new MyGameBoard(this.scene, this,8, this.gameboardProperties)
+        this.scene.interface.removeBoardSizesGroup()
+        this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
 
         this.player1 = preferences.player1
         this.player2 = preferences.player2

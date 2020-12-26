@@ -395,7 +395,7 @@
         </animation>
     </animations>
 
-    <gameboard x="0" y="2" z="0" size="8">
+    <gameboard x="0" y="0" z="0" size="8">
         <player1 material="red" texture="clear"/>
         <player2 material="blue" texture="clear"/>
         <tiles material="base" texture="tile"/>
