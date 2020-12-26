@@ -22,8 +22,9 @@ class MySceneGraph {
      * @param {string} filename - File that defines the 3D scene
      * @param {XMLscene} scene
      */
-    constructor(filename, scene) {
+    constructor(filename, scene, orchestrator) {
         this.loadedOk = null;
+        this.orchestrator = orchestrator
 
         // Establish bidirectional references between scene and graph.
         this.scene = scene;
@@ -68,7 +69,7 @@ class MySceneGraph {
         this.loadedOk = true;
 
         // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
-        this.scene.onGraphLoaded();
+        this.orchestrator.onThemeLoaded();
     }
 
     /**
@@ -1207,6 +1208,7 @@ class MySceneGraph {
         }
 
         this.gameboard = new MyGameBoard(this.scene, x, z, size, properties)
+        this.gameboard.orchestrator = this.orchestrator
 
         this.log("Parsed Gameboard")
     }
@@ -1592,6 +1594,7 @@ class MySceneGraph {
 
     setAnimationsStartTime(t) {
         for (const [animationID, animation] of Object.entries(this.animations)) {
+            if (animation instanceof KeyframeAnimation)
             animation.setStartingTime(t)
         }
     }

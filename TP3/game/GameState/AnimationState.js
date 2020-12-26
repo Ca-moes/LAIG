@@ -30,7 +30,7 @@ class AnimationState extends GameState {
     }
 
     update(time) {
-        this.orchestrator.theme.updateAnimations(time);
+        this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
 
         if (this.orchestrator.currentMovement.animationCompleted) {

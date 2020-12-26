@@ -29,6 +29,8 @@ class MySpriteAnimation extends Animation{
         this.updatedTexCoords = true; // no need for updateTexCoords
     }
 
+
+
     /**
      * 1. Calculate elapsed time
      * 2. calculate which sprite cell is active

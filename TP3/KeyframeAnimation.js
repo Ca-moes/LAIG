@@ -20,7 +20,6 @@ class KeyframeAnimation extends Animation {
         this.startTime = time
     }
 
-
     interpolate(initialValues, finalValues, time) {
         let timeFactor = (time - initialValues.instant) / (finalValues.instant - initialValues.instant)
 
@@ -39,7 +38,6 @@ class KeyframeAnimation extends Animation {
             scale: scale
         }
     }
-
 
     apply(scene) {
         scene.multMatrix(this.current_matrix)

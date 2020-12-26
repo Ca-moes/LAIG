@@ -56,13 +56,16 @@ class MyInterface extends CGFinterface {
      * @param {*} name Name to Display in Interface
      */
     addViewsGroup(id, list, name) {
-        const group = this.gui.addFolder("Views");
-        group.open();
+        if (this.views != null)
+            this.gui.removeFolder(this.views)
+
+        this.views = this.gui.addFolder("Views");
+        this.views.open();
 
         this.scene.selectedView = this.scene.graph.defaultView
 
         list.push("default/reset")
-        group.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
+        this.views.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
     }
 
     /**
@@ -70,15 +73,33 @@ class MyInterface extends CGFinterface {
      * @param {any} lights Map of Lights to pass to Folder
      */
     addLightsGroup(lights) {
-        const group = this.gui.addFolder("Lights");
-        group.open();
+        if (this.lights != null)
+            this.gui.removeFolder(this.lights)
+        this.lights = this.gui.addFolder("Lights");
+        this.lights.open();
 
         for (let key in lights) {
             if (lights.hasOwnProperty(key)) {
                 this.scene.lightFlags[key] = lights[key][0];
-                group.add(this.scene.lightFlags, key).onChange(this.scene.updateLights.bind(this.scene))
+                this.lights.add(this.scene.lightFlags, key).onChange(this.scene.updateLights.bind(this.scene))
             }
         }
+    }
+
+    addThemesGroup(themes) {
+        this.themes = this.gui.addFolder("Themes");
+        this.themes.open();
+
+        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene() })
+    }
+
+    addModelsGroup(models) {
+        this.themes.add(this.scene.orchestrator, "selectedModel", models).name("Model")
+    }
+
+    addColorsGroup() {
+        this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.onColorsChanged())
+        this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.onColorsChanged())
     }
 
     addGameGroup() {

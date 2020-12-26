@@ -15,8 +15,98 @@ class MyGameOrchestrator {
         // -----------------------
 
         this.prolog = new MyPrologInterface(this)
-        this.theme = new MySceneGraph("test.xml", this.scene)
         this.state = new LoadingState(this)
+
+        // Colors
+        this.player1color = [153, 12, 20]
+        this.player2color = [15, 50, 128]
+        this.player1material = new CGFappearance(this.scene)
+        this.player1material.setSpecular(0.1, 0.2, 0.2, 1)
+        this.player1material.setAmbient(0.3, 0.2, 0.2, 1)
+        this.player1material.setEmission(0, 0, 0, 1)
+        this.player1material.setShininess(10)
+
+        this.player2material = new CGFappearance(this.scene)
+        this.player2material.setSpecular(0.1, 0.1, 0.2, 1)
+        this.player2material.setAmbient(0.2, 0.2, 0.3, 1)
+        this.player2material.setEmission(0.0, 0.0, 0.0, 1)
+        this.player2material.setShininess(10)
+
+        this.updateColors()
+        // -----------------------
+
+        // Themes
+        this.loadingScreen = new MyLoadingScreen(scene, this, 5)
+        this.currentTheme = 0
+        this.themesNames = {0: "test.xml", 1: "izakaya.xml"}
+        this.themes = []
+        this.selectedTheme = 0
+        this.loadScene()
+        // -----------------------
+
+        // Models
+        this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2}
+        this.selectedModel = 0
+        this.models = []
+        // -----------------------
+    }
+
+    updateColors() {
+        this.player1material.setDiffuse(this.player1color[0]/255.0,this.player1color[1]/255.0, this.player1color[2]/255.0, 1)
+        this.player2material.setDiffuse(this.player2color[0]/255.0,this.player2color[1]/255.0, this.player2color[2]/255.0, 1)
+    }
+
+    onColorsChanged() {
+        this.updateColors()
+    }
+
+    onThemeLoaded() {
+        this.currentTheme++
+        if (this.currentTheme >= 2) {
+            this.onScenesLoadingComplete()
+        } else {
+            this.loadScene()
+        }
+    }
+
+    onScenesLoadingComplete() {
+        this.gameboard = this.themes[0].gameboard.clone()
+        this.gameboard.orchestrator = this
+
+        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1})
+
+        this.scene.updateScene(this.themes[0])
+
+        this.loadModels()
+    }
+
+    loadModels() {
+        this.loadingScreen.updateMessage("Loading Model: Default")
+        this.models.push(new CGFOBJModel(this.scene, "models/default_piece.obj"))
+        this.loadingScreen.updateProgress()
+        this.loadingScreen.updateMessage("Loading Model: Flat Chip")
+        this.models.push(new CGFOBJModel(this.scene, "models/flat_chip_piece.obj"))
+        this.loadingScreen.updateProgress()
+        this.loadingScreen.updateMessage("Loading Model: Round Chip")
+        this.models.push(new CGFOBJModel(this.scene, "models/round_chip_piece.obj"))
+        this.loadingScreen.updateProgress()
+
+        this.loadingScreen.updateMessage("Loading Completed")
+
+        this.scene.interface.addModelsGroup(this.modelsNames)
+        this.scene.interface.addColorsGroup()
+
+        this.changeState(new MenuState(this))
+    }
+
+    loadScene() {
+        this.loadingScreen.updateMessage("Loading " + this.themesNames[this.currentTheme])
+        this.themes.push(new MySceneGraph(this.themesNames[this.currentTheme], this.scene, this))
+        this.loadingScreen.updateProgress()
+    }
+
+    updateScene() {
+        this.scene.updateScene(this.themes[this.selectedTheme])
     }
 
     // called on graph loaded
@@ -31,8 +121,6 @@ class MyGameOrchestrator {
         this.hud = new MyGameHud(this.scene, this)
         this.startTime = Date.now() / 1000
 
-        this.changeState(new ReadyState(this))
-
         this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 7, 15), vec3.fromValues(0, 0, 0))
         this.scene.camera = this.camera
         this.scene.selectedView = "Game"
@@ -43,6 +131,8 @@ class MyGameOrchestrator {
         this.player2score = 0
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
+
+        this.changeState(new ReadyState(this))
     }
 
     resetCamera() {
@@ -138,7 +228,7 @@ class MyGameOrchestrator {
      */
     update(time) {
         if (this.scene.sceneInited && !this.scene.timeSet) {
-            this.theme.setAnimationsStartTime(time);
+            this.themes[this.selectedTheme].setAnimationsStartTime(time);
             this.scene.timeSet = true;
         }
         else if (this.scene.sceneInited && this.scene.timeSet) {

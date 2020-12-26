@@ -4,7 +4,7 @@
 class XMLscene extends CGFscene {
     /**
      * @constructor
-     * @param {MyInterface} myinterface 
+     * @param {MyInterface} myinterface
      */
     constructor(myinterface) {
         super();
@@ -30,12 +30,14 @@ class XMLscene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
 
+        this.gl.clearColor(0.1, 0.1, 0.1, 1.0)
+
         this.axis = new CGFaxis(this);
 
-        this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
-        this.loadingProgress=0;
+        this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
+        this.loadingProgress = 0;
 
-        this.defaultAppearance=new CGFappearance(this);
+        this.defaultAppearance = new CGFappearance(this);
 
         this.selectedView = -1
         this.lightFlags = {}
@@ -56,13 +58,15 @@ class XMLscene extends CGFscene {
         this.setPickEnabled(true);
 
         this.orchestrator = new MyGameOrchestrator(this)
+
+        this.setUpdatePeriod(1000.0 / 20.0); // 60Hz
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(45 * DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 20), vec3.fromValues(0, 0, 0))
     }
 
     /**
@@ -98,10 +102,41 @@ class XMLscene extends CGFscene {
         }
     }
 
-    /** Handler called when the graph is finally loaded. 
+    deactivateLights() {
+        for (const [key, _] of Object.entries(this.lightFlags)) {
+            this.lightFlags[key] = false
+        }
+    }
+
+
+    updateScene(theme) {
+        this.sceneInited = false
+        this.graph = theme
+        this.axis = new CGFaxis(this, this.graph.referenceLength);
+
+        this.gl.clearColor(...this.graph.background);
+
+        this.setGlobalAmbientLight(...this.graph.ambient);
+
+        this.deactivateLights()
+
+        this.initLights();
+
+        this.interface.addViewsGroup("selectedView", this.graph.viewsIds, "View")
+        this.interface.addLightsGroup(this.graph.lights)
+
+        // this.updateView()
+        this.updateLights()
+
+        this.sceneInited = true
+        this.timeSet = false
+    }
+
+    /** Handler called when the graph is finally loaded.
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
+        this.sceneInited = false
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.gl.clearColor(...this.graph.background);
@@ -116,17 +151,17 @@ class XMLscene extends CGFscene {
         // add lights block
         this.interface.addLightsGroup(this.graph.lights)
         // update view and lights accordingly
-        this.updateView()
+        // this.updateView()
         this.updateLights()
 
         // gameboard is assigned to the orchestrator here
-        this.orchestrator.gameboard = this.orchestrator.theme.gameboard.clone()
+        this.orchestrator.gameboard = this.orchestrator.themes[this.orchestrator.selectedTheme].gameboard.clone()
         this.orchestrator.gameboard.orchestrator = this.orchestrator
         // this.orchestrator.init()
         this.orchestrator.changeState(new MenuState(this.orchestrator))
 
         this.sceneInited = true;
-        this.setUpdatePeriod(1000.0/20.0); // 60Hz
+        this.setUpdatePeriod(1000.0 / 20.0); // 60Hz
 
         this.timeSet = false
     }
@@ -155,30 +190,18 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(false);
-            this.lights[i].enable();
-        }
-        
         this.updateLights();
 
-        if (this.sceneInited) {
-            // Draw axis
-            if (this.graph.referenceLength !== 0)
-                this.axis.display();
- 
+        if (this.orchestrator != null) {
             this.defaultAppearance.apply();
 
-            // Displays the scene (MySceneGraph function).
             this.orchestrator.display();
-        }
-        else
-        {
+        } else {
             // Show some "loading" visuals
             this.defaultAppearance.apply();
 
-            this.rotate(-this.loadingProgress/10.0,0,0,1);
-            
+            this.rotate(-this.loadingProgress / 10.0, 0, 0, 1);
+
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
@@ -211,11 +234,10 @@ class XMLscene extends CGFscene {
         for (let key in this.lightFlags) {
             if (this.lightFlags.hasOwnProperty(key)) {
                 if (this.lightFlags[key]) {
-                    this.lights[i].setVisible(true);
+                    this.lights[i].setVisible(false);
                     this.lights[i].enable();
-                }
-                else {
-                    this.lights[i].setVisible(true);
+                } else {
+                    this.lights[i].setVisible(false);
                     this.lights[i].disable();
                 }
                 this.lights[i].update();

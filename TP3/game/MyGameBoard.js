@@ -9,7 +9,7 @@ class MyGameBoard extends CGFobject{
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
+        this.boardsides = new MyBoardFrame(this.scene, size)
 
         this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
 
@@ -28,9 +28,7 @@ class MyGameBoard extends CGFobject{
                 let piece = new MyPiece(
                     this.scene,
                     pieceType,
-                    (pieceType === 1) ? this.properties.player1.material : this.properties.player2.material,
-                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture,
-                    this.properties.model)
+                    (pieceType === 1) ? this.properties.player1.texture : this.properties.player2.texture)
                 tile.setPiece(piece)
                 piece.setTile(tile)
                 this.board.push(tile)
@@ -72,7 +70,6 @@ class MyGameBoard extends CGFobject{
      * @returns {MyTile} tile
      */
     getTile(x, y) {
-        // this needs to be enhanced
         return this.board[y*this.size + x]
     }
 
@@ -97,8 +94,6 @@ class MyGameBoard extends CGFobject{
                     const obj = this.scene.pickResults[i][0];
                     if (obj instanceof MyTile) {
                         this.orchestrator.pickTile(obj)
-                        // const customId = this.scene.pickResults[i][1];
-                        // console.log("Picked object: " + obj.toString() + ", with pick id " + customId);
 					}
 				}
 				this.scene.pickResults.splice(0, this.scene.pickResults.length);
@@ -178,9 +173,8 @@ class MyGameBoard extends CGFobject{
                 let piece = new MyPiece(
                     this.scene,
                     value.piece.player,
-                    (value.piece.player === 1) ? this.properties.player1.material : this.properties.player2.material,
-                    (value.piece.player === 1) ? this.properties.player1.texture : this.properties.player2.texture,
-                    this.properties.model)
+                    (value.piece.player === 1) ? this.properties.player1.texture : this.properties.player2.texture
+                    )
                 tile.setPiece(piece)
             }
             clonedBoard.push(tile)

@@ -6,7 +6,10 @@ class PickedPieceState extends PieceState {
     display() {
         this.piece.scene.pushMatrix()
 
-        this.piece.material.apply()
+        this.piece.player === 1 ?
+            this.piece.scene.orchestrator.player1material.apply() :
+            this.piece.scene.orchestrator.player2material.apply()
+
         if (this.piece.texture)
             this.piece.texture.bind()
 
@@ -14,7 +17,7 @@ class PickedPieceState extends PieceState {
         this.piece.scene.scale(0.2, 0.2, 0.2)
         this.piece.scene.translate(0, this.piece.height/2 + 0.5, 0)
 
-        this.piece.obj.display()
+        this.piece.scene.orchestrator.models[this.piece.scene.orchestrator.selectedModel].display()
 
         this.piece.scene.popMatrix()
     }
