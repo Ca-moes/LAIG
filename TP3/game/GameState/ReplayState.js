@@ -4,6 +4,9 @@ class ReplayState extends GameState {
 
         this.orchestrator.scene.interface.removeReplayButton()
 
+        // this.orchestrator.camera.setPosition(vec3.fromValues(this.orchestrator.gameboardProperties.x, 10,this.orchestrator.gameboardProperties.z))
+        // this.orchestrator.camera.setTarget(vec3.fromValues(this.orchestrator.gameboardProperties.x, this.orchestrator.gameboardProperties.y, this.orchestrator.gameboardProperties.z))
+
         this.movements = orchestrator.gameSequence.moves.map(a => a.clone())
         this.movements.reverse()
 
@@ -29,10 +32,14 @@ class ReplayState extends GameState {
     }
 
     animationEnd() {
-        if (this.movements.length !== 0)
+        if (this.movements.length !== 0) {
             this.nextMove()
-        else
+        }
+        else {
+            this.orchestrator.resetCamera()
             this.orchestrator.changeState(new GameOverState(this.orchestrator))
+        }
+
     }
 
     pickTile(tile) {
