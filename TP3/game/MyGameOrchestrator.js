@@ -117,6 +117,9 @@ class MyGameOrchestrator {
         this.scene.updateScene(this.themes[this.selectedTheme])
         this.gameboardProperties = this.themes[this.selectedTheme].gameboardProperties
         this.scene.camera = this.camera
+
+        if (this.gameboard)
+            this.gameboard.updateBoard(this.gameboardProperties)
     }
 
     // called on graph loaded

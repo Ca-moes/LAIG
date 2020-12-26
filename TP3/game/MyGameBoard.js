@@ -115,7 +115,7 @@ class MyGameBoard extends CGFobject{
         this.logPicking()
         this.scene.clearPickRegistration();
 
-        this.scene.multMatrix(this.properties.transformations)
+        this.scene.multMatrix(this.transformations)
 
         this.scene.pushMatrix()
         this.scene.translate(this.centerx + this.size*0.8, this.centery + 0.5, this.centerz)

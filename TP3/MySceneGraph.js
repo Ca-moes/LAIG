@@ -1099,7 +1099,6 @@ class MySceneGraph {
         let x = this.reader.getFloat(boardNode, "x")
         let y = this.reader.getFloat(boardNode, "y")
         let z = this.reader.getFloat(boardNode, "z")
-        let size = this.reader.getInteger(boardNode, "size")
 
         let children = boardNode.children
 
@@ -1110,29 +1109,12 @@ class MySceneGraph {
         }
 
         let index;
-        if ((index = nodeNames.indexOf("player1")) === -1) {
-            return "missing <player1> tag"
-        }
-        const materialIDPiece1 = this.reader.getString(children[index], "material")
-        const textureIDPiece1 = this.reader.getString(children[index], "texture")
-
-        if ((index = nodeNames.indexOf("player2")) === -1) {
-            return "missing <player2> tag"
-        }
-        const materialIDPiece2 = this.reader.getString(children[index], "material")
-        const textureIDPiece2 = this.reader.getString(children[index], "texture")
-
         if ((index = nodeNames.indexOf("tiles")) === -1) {
             return "missing <tiles> tag"
         }
         const materialIDTile = this.reader.getString(children[index], "material")
         const textureIDTile = this.reader.getString(children[index], "texture")
 
-        if ((index = nodeNames.indexOf("model")) === -1) {
-            return "missing <model> tag"
-        }
-        const modelPath = this.reader.getString(children[index], "path")
-        const modelHeight = this.reader.getFloat(children[index], "height")
 
         // Transformations
         // when theres no <transformation> block we simply pass the identity matrix
@@ -1188,26 +1170,6 @@ class MySceneGraph {
             }
         }
 
-        let properties = {
-            player1: {
-                material: this.materials[materialIDPiece1],
-                texture: (textureIDPiece1 !== "clear") ? this.textures[textureIDPiece1] : null
-            },
-            player2: {
-                material: this.materials[materialIDPiece2],
-                texture: (textureIDPiece2 !== "clear") ? this.textures[textureIDPiece2] : null
-            },
-            tiles: {
-                material: this.materials[materialIDTile],
-                texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null
-            },
-            model: {
-                height: modelHeight,
-                obj: new CGFOBJModel(this.scene, modelPath, false)
-            },
-            transformations: transformationMatrix
-        }
-
         this.gameboardProperties = {
             x: x,
             y: y,
@@ -1218,9 +1180,6 @@ class MySceneGraph {
             },
             transformations: transformationMatrix
         }
-
-        // this.gameboard = new MyGameBoard(this.scene, x, z, size, properties)
-        // this.gameboard.orchestrator = this.orchestrator
 
         this.log("Parsed Gameboard")
     }

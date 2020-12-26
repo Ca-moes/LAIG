@@ -88,11 +88,8 @@
   <animations>
   </animations>
 
-  <gameboard x="0" y="0" z="0" size="8">
-    <player1 material="red" texture="clear"/>
-    <player2 material="blue" texture="clear"/>
+  <gameboard x="0" y="0" z="0">
     <tiles material="base" texture="tile"/>
-    <model path="models/default_piece.obj" height="1" />
     <transformations>
         <translation x="0" y="0" z="0"/>
         <rotation angle="0" axis="x"/>
