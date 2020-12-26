@@ -159,16 +159,16 @@ class MyPrologInterface {
      */
     getPrologRequest(requestString, state, callback) {
         const request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:8081/' + requestString, false);
+        request.open('GET', 'http://localhost:8081/' + requestString, true);
 
-        // request.onload = () => { callback.apply(state, [JSON.parse(request.responseText)]) }
-        // request.onerror = () => console.log("error getting request")
+        request.onload = () => { callback.apply(state, [JSON.parse(request.responseText)]) }
+        request.onerror = () => console.log("error getting request")
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        // request.timeout = 5000
+        request.timeout = 10000
         request.send();
 
-        callback.apply(state, [JSON.parse(request.responseText)])
+        // callback.apply(state, [JSON.parse(request.responseText)])
     }
 }
 

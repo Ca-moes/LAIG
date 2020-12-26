@@ -12,7 +12,6 @@ class ReadyState extends GameState {
                 await new Promise(r => setTimeout(r, this.orchestrator.botDelay * 1000));
                 let destination = this.orchestrator.gameboard.getTile(reply[1][0], reply[1][1])
                 destination.pickPiece()
-
                 this.orchestrator.performBotMove(origin, destination)
                 this.orchestrator.changeState(new AnimationState(this.orchestrator))
             })
