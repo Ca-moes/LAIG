@@ -17,6 +17,24 @@ class MyGameOrchestrator {
         this.prolog = new MyPrologInterface(this)
         this.state = new LoadingState(this)
 
+        // Colors
+        this.player1color = [153, 12, 20]
+        this.player2color = [15, 50, 128]
+        this.player1material = new CGFappearance(this.scene)
+        this.player1material.setSpecular(0.1, 0.2, 0.2, 1)
+        this.player1material.setAmbient(0.3, 0.2, 0.2, 1)
+        this.player1material.setEmission(0, 0, 0, 1)
+        this.player1material.setShininess(10)
+
+        this.player2material = new CGFappearance(this.scene)
+        this.player2material.setSpecular(0.1, 0.1, 0.2, 1)
+        this.player2material.setAmbient(0.2, 0.2, 0.3, 1)
+        this.player2material.setEmission(0.0, 0.0, 0.0, 1)
+        this.player2material.setShininess(10)
+
+        this.updateColors()
+        // -----------------------
+
         // Themes
         this.loadingScreen = new MyLoadingScreen(scene, this, 5)
         this.currentTheme = 0
@@ -31,6 +49,15 @@ class MyGameOrchestrator {
         this.selectedModel = 0
         this.models = []
         // -----------------------
+    }
+
+    updateColors() {
+        this.player1material.setDiffuse(this.player1color[0]/255.0,this.player1color[1]/255.0, this.player1color[2]/255.0, 1)
+        this.player2material.setDiffuse(this.player2color[0]/255.0,this.player2color[1]/255.0, this.player2color[2]/255.0, 1)
+    }
+
+    onColorsChanged() {
+        this.updateColors()
     }
 
     onThemeLoaded() {
@@ -67,6 +94,8 @@ class MyGameOrchestrator {
         this.loadingScreen.updateMessage("Loading Completed")
 
         this.scene.interface.addModelsGroup(this.modelsNames)
+        this.scene.interface.addColorsGroup()
+
         this.changeState(new MenuState(this))
     }
 

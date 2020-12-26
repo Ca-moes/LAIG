@@ -9,7 +9,7 @@ class MyGameBoard extends CGFobject{
         this.board = []
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        this.boardsides = new MyBoardFrame(this.scene, properties.player1.material, properties.player2.material, size)
+        this.boardsides = new MyBoardFrame(this.scene, size)
 
         this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
 

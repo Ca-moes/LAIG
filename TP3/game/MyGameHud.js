@@ -12,8 +12,6 @@ class MyGameHud extends CGFobject {
 
         this.billboard = new MyRectangle(scene, -4, -2, 4, 2)
         this.texture = new CGFtexture(scene, "scenes/images/tile.jpg")
-        this.player1material = this.orchestrator.gameboard.properties.player1.material
-        this.player2material = this.orchestrator.gameboard.properties.player2.material
     }
 
     updateTime(time) {
@@ -36,7 +34,7 @@ class MyGameHud extends CGFobject {
         // Player 1 HUD
         this.scene.pushMatrix()
 
-        this.player1material.apply()
+        this.orchestrator.player1material.apply()
 
         // backboard
         this.scene.translate(0, 2, -10)
@@ -83,7 +81,7 @@ class MyGameHud extends CGFobject {
         // player 2 HUD
         this.scene.pushMatrix()
 
-        this.player2material.apply()
+        this.orchestrator.player2material.apply()
         this.scene.translate(0, 2, 10)
         this.scene.rotate(Math.PI, 0, 1, 0)
         this.texture.bind()

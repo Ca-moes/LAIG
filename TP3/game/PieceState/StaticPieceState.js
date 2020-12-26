@@ -6,7 +6,10 @@ class StaticPieceState extends PieceState {
     display() {
         this.piece.scene.pushMatrix()
 
-        this.piece.material.apply()
+        this.piece.player === 1 ?
+            this.piece.scene.orchestrator.player1material.apply() :
+            this.piece.scene.orchestrator.player2material.apply()
+
         if (this.piece.texture)
             this.piece.texture.bind()
 

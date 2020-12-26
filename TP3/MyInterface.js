@@ -97,6 +97,11 @@ class MyInterface extends CGFinterface {
         this.themes.add(this.scene.orchestrator, "selectedModel", models).name("Model")
     }
 
+    addColorsGroup() {
+        this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.onColorsChanged())
+        this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.onColorsChanged())
+    }
+
     addGameGroup() {
         const group = this.gui.addFolder("Game")
         group.open()
