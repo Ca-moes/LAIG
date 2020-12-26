@@ -1594,6 +1594,7 @@ class MySceneGraph {
 
     setAnimationsStartTime(t) {
         for (const [animationID, animation] of Object.entries(this.animations)) {
+            if (animation instanceof KeyframeAnimation)
             animation.setStartingTime(t)
         }
     }

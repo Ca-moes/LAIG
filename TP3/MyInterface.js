@@ -56,13 +56,16 @@ class MyInterface extends CGFinterface {
      * @param {*} name Name to Display in Interface
      */
     addViewsGroup(id, list, name) {
-        const group = this.gui.addFolder("Views");
-        group.open();
+        if (this.views != null)
+            this.gui.removeFolder(this.views)
+
+        this.views = this.gui.addFolder("Views");
+        this.views.open();
 
         this.scene.selectedView = this.scene.graph.defaultView
 
         list.push("default/reset")
-        group.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
+        this.views.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))
     }
 
     /**
@@ -70,13 +73,15 @@ class MyInterface extends CGFinterface {
      * @param {any} lights Map of Lights to pass to Folder
      */
     addLightsGroup(lights) {
-        const group = this.gui.addFolder("Lights");
-        group.open();
+        if (this.lights != null)
+            this.gui.removeFolder(this.lights)
+        this.lights = this.gui.addFolder("Lights");
+        this.lights.open();
 
         for (let key in lights) {
             if (lights.hasOwnProperty(key)) {
                 this.scene.lightFlags[key] = lights[key][0];
-                group.add(this.scene.lightFlags, key).onChange(this.scene.updateLights.bind(this.scene))
+                this.lights.add(this.scene.lightFlags, key).onChange(this.scene.updateLights.bind(this.scene))
             }
         }
     }
@@ -85,7 +90,7 @@ class MyInterface extends CGFinterface {
         const group = this.gui.addFolder("Themes");
         group.open();
 
-        group.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme")
+        group.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene() })
     }
 
     addGameGroup() {

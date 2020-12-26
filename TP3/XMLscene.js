@@ -4,7 +4,7 @@
 class XMLscene extends CGFscene {
     /**
      * @constructor
-     * @param {MyInterface} myinterface 
+     * @param {MyInterface} myinterface
      */
     constructor(myinterface) {
         super();
@@ -34,15 +34,10 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
 
-        this.loadingProgressObject=new MyRectangle(this, -1, -.1, 1, .1);
-        this.loadingProgress=0;
+        this.loadingProgressObject = new MyRectangle(this, -1, -.1, 1, .1);
+        this.loadingProgress = 0;
 
-        this.defaultAppearance=new CGFappearance(this);
-        this.defaultAppearance.setEmission(0.1, 0.1, 0.1, 1.0)
-        this.defaultAppearance.setDiffuse(0.1, 0.1, 0.1, 1.0)
-        this.defaultAppearance.setAmbient(0.1, 0.1, 0.1, 1.0)
-        this.defaultAppearance.setColor(0.1, 0.1, 0.1, 1.0)
-        this.defaultAppearance.setSpecular(0.1, 0.1, 0.1, 1.0)
+        this.defaultAppearance = new CGFappearance(this);
 
         this.selectedView = -1
         this.lightFlags = {}
@@ -64,14 +59,14 @@ class XMLscene extends CGFscene {
 
         this.orchestrator = new MyGameOrchestrator(this)
 
-        this.setUpdatePeriod(1000.0/20.0); // 60Hz
+        this.setUpdatePeriod(1000.0 / 20.0); // 60Hz
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 20), vec3.fromValues(0, 0, 0))
+        this.camera = new CGFcamera(45 * DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 20), vec3.fromValues(0, 0, 0))
     }
 
     /**
@@ -107,8 +102,8 @@ class XMLscene extends CGFscene {
         }
     }
 
-
     updateScene(theme) {
+        this.sceneInited = false
         this.graph = theme
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
@@ -117,13 +112,10 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(...this.graph.ambient);
 
         this.initLights();
-        //TO-DO this.initCameras();
 
-        // add dropdown for views with default view selected
         this.interface.addViewsGroup("selectedView", this.graph.viewsIds, "View")
-        // add lights block
         this.interface.addLightsGroup(this.graph.lights)
-        // update view and lights accordingly
+
         // this.updateView()
         this.updateLights()
 
@@ -131,10 +123,11 @@ class XMLscene extends CGFscene {
         this.timeSet = false
     }
 
-    /** Handler called when the graph is finally loaded. 
+    /** Handler called when the graph is finally loaded.
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
+        this.sceneInited = false
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.gl.clearColor(...this.graph.background);
@@ -159,7 +152,7 @@ class XMLscene extends CGFscene {
         this.orchestrator.changeState(new MenuState(this.orchestrator))
 
         this.sceneInited = true;
-        this.setUpdatePeriod(1000.0/20.0); // 60Hz
+        this.setUpdatePeriod(1000.0 / 20.0); // 60Hz
 
         this.timeSet = false
     }
@@ -188,27 +181,18 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(false);
-            this.lights[i].enable();
-        }
-        
         this.updateLights();
-
 
         if (this.orchestrator != null) {
             this.defaultAppearance.apply();
 
-            // Displays the scene (MySceneGraph function).
             this.orchestrator.display();
-        }
-        else
-        {
+        } else {
             // Show some "loading" visuals
             this.defaultAppearance.apply();
 
-            this.rotate(-this.loadingProgress/10.0,0,0,1);
-            
+            this.rotate(-this.loadingProgress / 10.0, 0, 0, 1);
+
             this.loadingProgressObject.display();
             this.loadingProgress++;
         }
@@ -243,8 +227,7 @@ class XMLscene extends CGFscene {
                 if (this.lightFlags[key]) {
                     this.lights[i].setVisible(true);
                     this.lights[i].enable();
-                }
-                else {
+                } else {
                     this.lights[i].setVisible(true);
                     this.lights[i].disable();
                 }
