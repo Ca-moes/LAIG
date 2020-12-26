@@ -102,6 +102,13 @@ class XMLscene extends CGFscene {
         }
     }
 
+    deactivateLights() {
+        for (const [key, _] of Object.entries(this.lightFlags)) {
+            this.lightFlags[key] = false
+        }
+    }
+
+
     updateScene(theme) {
         this.sceneInited = false
         this.graph = theme
@@ -110,6 +117,8 @@ class XMLscene extends CGFscene {
         this.gl.clearColor(...this.graph.background);
 
         this.setGlobalAmbientLight(...this.graph.ambient);
+
+        this.deactivateLights()
 
         this.initLights();
 
@@ -225,10 +234,10 @@ class XMLscene extends CGFscene {
         for (let key in this.lightFlags) {
             if (this.lightFlags.hasOwnProperty(key)) {
                 if (this.lightFlags[key]) {
-                    this.lights[i].setVisible(true);
+                    this.lights[i].setVisible(false);
                     this.lights[i].enable();
                 } else {
-                    this.lights[i].setVisible(true);
+                    this.lights[i].setVisible(false);
                     this.lights[i].disable();
                 }
                 this.lights[i].update();
