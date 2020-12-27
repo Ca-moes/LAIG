@@ -5,6 +5,8 @@ class GameOverState extends GameState {
         this.orchestrator.scene.interface.addRestartButton()
 
         this.orchestrator.prolog.checkWinner(this, (reply) => this.winner = (reply === 1) ? 1 : 2)
+
+        this.orchestrator.currentPlayer = this.orchestrator.currentPlayer.code === 1 ? this.orchestrator.player2 : this.orchestrator.player1
     }
 
     animationEnd() {
