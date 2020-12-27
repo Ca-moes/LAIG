@@ -23,13 +23,13 @@ class MyGameOrchestrator {
         this.player2color = [15, 50, 128]
         this.player1material = new CGFappearance(this.scene)
         this.player1material.setSpecular(0.1, 0.2, 0.2, 1)
-        this.player1material.setAmbient(0.3, 0.2, 0.2, 1)
+        this.player1material.setAmbient(0, 0, 0, 1)
         this.player1material.setEmission(0, 0, 0, 1)
         this.player1material.setShininess(10)
 
         this.player2material = new CGFappearance(this.scene)
         this.player2material.setSpecular(0.1, 0.1, 0.2, 1)
-        this.player2material.setAmbient(0.2, 0.2, 0.3, 1)
+        this.player2material.setAmbient(0, 0, 0, 1)
         this.player2material.setEmission(0.0, 0.0, 0.0, 1)
         this.player2material.setShininess(10)
 
@@ -37,9 +37,9 @@ class MyGameOrchestrator {
         // -----------------------
 
         // Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 5)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 6)
         this.currentTheme = 0
-        this.themesNames = {0: "test.xml", 1: "izakaya.xml"}
+        this.themesNames = {0: "test.xml", 1: "izakaya.xml", 2: "space.xml"}
         this.themes = []
         this.selectedTheme = 0
         this.loadScene()
@@ -68,7 +68,7 @@ class MyGameOrchestrator {
 
     onThemeLoaded() {
         this.currentTheme++
-        if (this.currentTheme >= 2) {
+        if (this.currentTheme >= 3) {
             this.onScenesLoadingComplete()
         } else {
             this.loadScene()
@@ -76,10 +76,7 @@ class MyGameOrchestrator {
     }
 
     onScenesLoadingComplete() {
-        // this.gameboard = this.themes[0].gameboard.clone()
-        // this.gameboard.orchestrator = this
-
-        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1})
+        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2})
 
         this.updateScene()
         this.loadModels()
