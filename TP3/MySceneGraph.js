@@ -43,6 +43,7 @@ class MySceneGraph {
         // File reading
         this.reader = new CGFXMLreader();
 
+        this.filename = filename
         /*
          * Read the contents of the xml file, and refer to this class for loading and error handlers.
          * After the file is read, the reader calls onXMLReady on this object.
@@ -94,7 +95,7 @@ class MySceneGraph {
      * @param {String} message
      */
     log(message) {
-        console.log("   " + message);
+        console.log(`    [${this.filename}] ${message}`);
     }
 
     /**
@@ -1115,6 +1116,14 @@ class MySceneGraph {
         const materialIDTile = this.reader.getString(children[index], "material")
         const textureIDTile = this.reader.getString(children[index], "texture")
 
+        if ((index = nodeNames.indexOf("camera")) === -1) {
+            return "missing <camera> tag"
+        }
+        const camera = {
+            x: this.reader.getString(children[index], "x"),
+            y: this.reader.getString(children[index], "y"),
+            z: this.reader.getString(children[index], "z")
+        }
 
         // Transformations
         // when theres no <transformation> block we simply pass the identity matrix
@@ -1174,6 +1183,7 @@ class MySceneGraph {
             x: x,
             y: y,
             z: z,
+            camera: camera,
             tiles: {
                 material: this.materials[materialIDTile],
                 texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null

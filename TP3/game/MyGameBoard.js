@@ -19,9 +19,6 @@ class MyGameBoard extends CGFobject{
 
     updateBoard(properties) {
         this.properties = properties
-        this.centerx = properties.x
-        this.centery = properties.y
-        this.centerz = properties.z
         this.transformations = properties.transformations
         this.texture = properties.tiles.texture
         this.material = properties.tiles.material
@@ -118,12 +115,12 @@ class MyGameBoard extends CGFobject{
         this.scene.multMatrix(this.transformations)
 
         this.scene.pushMatrix()
-        this.scene.translate(this.centerx + this.size*0.8, this.centery + 0.5, this.centerz)
+        this.scene.translate(this.size*0.8, 0.5, 0)
         this.auxiliaryBoard.display()
         this.scene.popMatrix()
 
         this.scene.pushMatrix()
-        this.scene.translate(this.centerx, this.centery, this.centerz)
+        // this.scene.translate(this.centerx, this.centery, this.centerz)
         this.boardsides.display()
         this.scene.popMatrix()
 
@@ -133,7 +130,7 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                this.scene.translate(this.centerx, this.centery, this.centerz)
+                // this.scene.translate(this.centerx, this.centery, this.centerz)
                 this.scene.translate(x - (this.size/2) + 0.5, 0, z - (this.size/2) + 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()

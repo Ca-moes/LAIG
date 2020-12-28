@@ -88,12 +88,17 @@
   <animations>
   </animations>
 
+  <!-- x,y,z defines the center of the board, but this is not applied on transformations!! -->
   <gameboard x="0" y="0" z="0">
+    <!-- tiles properties -->
     <tiles material="base" texture="tile"/>
+    <!-- animated camera's position -->
+    <camera x="0" y="7" z="15" />
+    <!-- transformations block, same as on nodes block -->
     <transformations>
         <translation x="0" y="0" z="0"/>
-        <rotation angle="0" axis="x"/>
-        <scale sx="0.5" sy="0.5" sz="0.5"/>
+        <rotation angle="0" axis="y"/>
+        <scale sx="1" sy="1" sz="1"/>
     </transformations>
   </gameboard>
 

@@ -48,9 +48,11 @@ class GameState {
     }
 
     display() {
+        this.orchestrator.scene.clearPickRegistration()
         this.orchestrator.themes[this.orchestrator.selectedTheme].displayScene()
         this.orchestrator.gameboard.display()
         this.orchestrator.hud.display()
+        this.orchestrator.scene.clearPickRegistration()
         this.orchestrator.animator.display()
     }
 }
