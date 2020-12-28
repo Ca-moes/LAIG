@@ -127,7 +127,7 @@ class MyInterface extends CGFinterface {
 
         const bots = this.preferences.addFolder("Bots")
         bots.open()
-        bots.add(this.scene.orchestrator, 'botDelay', 0, 3.0).name("Delay")
+        bots.add(this.scene.orchestrator, 'botDelay', 0, 5.0).name("Delay")
 
         const camera = this.preferences.addFolder("Camera Settings")
         camera.open()
@@ -136,7 +136,7 @@ class MyInterface extends CGFinterface {
             this.scene.orchestrator.camera.animation = Animations[this.scene.orchestrator.cameraAnimation]
         })
 
-        camera.add(this.scene.orchestrator, 'cameraSpeed', 0.1, 2.5).name("Speed").onChange(() => {
+        camera.add(this.scene.orchestrator, 'cameraSpeed', 0.1, 5).name("Speed").onChange(() => {
             this.scene.orchestrator.camera.animationTime = 1000 / this.scene.orchestrator.cameraSpeed
         })
 
