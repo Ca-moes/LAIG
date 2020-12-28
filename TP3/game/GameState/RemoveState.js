@@ -34,6 +34,9 @@ class RemoveState extends GameState {
     }
 
     update(time) {
+        if ((time - this.orchestrator.startTime) > this.orchestrator.moveTimeout)
+            this.orchestrator.nextTurn()
+
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
         this.orchestrator.hud.updateTime(Utils.formatTime(time - this.orchestrator.startTime))

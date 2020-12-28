@@ -86,15 +86,21 @@ class MyInterface extends CGFinterface {
         }
     }
 
-    addBoardSizesGroup(boardSizes) {
-        this.boardSizes = this.gui.addFolder("Board Size");
-        this.boardSizes.open();
+    /**
+     *
+     * @param {MyGameOrchestrator} orchestrator
+     */
+    addStartGameGroup(orchestrator) {
+        this.startOptions = this.gui.addFolder("Start Game");
+        this.startOptions.open();
 
-        this.boardSizes.add(this.scene.orchestrator, "selectedBoardSize", boardSizes).name("Size")
+        this.startOptions.add(orchestrator, "selectedBoardSize", orchestrator.boardSizes).name("Size")
+        this.startOptions.add(orchestrator, 'moveTimeout', 5, 30, 1).name("Move Timeout")
+        this.startOptions.add({start: () => orchestrator.state.menu.startGame()}, "start").name("Start Game")
     }
 
-    removeBoardSizesGroup() {
-        this.gui.removeFolder(this.boardSizes)
+    removeStartGameGroup() {
+        this.gui.removeFolder(this.startOptions)
     }
 
     addThemesGroup(themes) {
@@ -121,7 +127,7 @@ class MyInterface extends CGFinterface {
 
         const bots = this.preferences.addFolder("Bots")
         bots.open()
-        bots.add(this.scene.orchestrator, 'botDelay', 0, 3.0).name("Delay")
+        bots.add(this.scene.orchestrator, 'botDelay', 0, 5.0).name("Delay")
 
         const camera = this.preferences.addFolder("Camera Settings")
         camera.open()
@@ -130,7 +136,7 @@ class MyInterface extends CGFinterface {
             this.scene.orchestrator.camera.animation = Animations[this.scene.orchestrator.cameraAnimation]
         })
 
-        camera.add(this.scene.orchestrator, 'cameraSpeed', 0.1, 2.5).name("Speed").onChange(() => {
+        camera.add(this.scene.orchestrator, 'cameraSpeed', 0.1, 5).name("Speed").onChange(() => {
             this.scene.orchestrator.camera.animationTime = 1000 / this.scene.orchestrator.cameraSpeed
         })
 
@@ -164,18 +170,6 @@ class MyInterface extends CGFinterface {
         if (this.replayButton != null) {
             this.replayButton.remove()
             this.replayButton = null
-        }
-    }
-
-    addStartButton(obj) {
-        if (this.startButton == null)
-            this.startButton = this.gui.add({start: () => obj.startGame()}, "start")
-    }
-
-    removeStartButton() {
-        if (this.startButton != null) {
-            this.startButton.remove()
-            this.startButton = null
         }
     }
 

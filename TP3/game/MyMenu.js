@@ -54,8 +54,6 @@ class MyMenu extends CGFobject {
         this.human2.selected = true
 
         this.options = [this.human1, this.easy1, this.normal1, this.human2, this.easy2, this.normal2]
-
-        this.scene.interface.addStartButton(this)
     }
 
     startGame() {
@@ -70,7 +68,7 @@ class MyMenu extends CGFobject {
 
         console.clear()
         console.log("Game Started", "\n", "Player1:", player1, "\n", "Player2:", player2)
-        this.orchestrator.scene.gui.removeStartButton()
+
         this.orchestrator.init({player1: player1, player2: player2})
     }
 
