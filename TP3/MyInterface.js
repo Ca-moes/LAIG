@@ -173,18 +173,6 @@ class MyInterface extends CGFinterface {
         }
     }
 
-    addStartButton(obj) {
-        if (this.startButton == null)
-            this.startButton = this.gui.add({start: () => obj.startGame()}, "start")
-    }
-
-    removeStartButton() {
-        if (this.startButton != null) {
-            this.startButton.remove()
-            this.startButton = null
-        }
-    }
-
     addRestartButton() {
         if (this.restartButton == null)
             this.restartButton = this.preferences.add({restart: () => {this.scene.orchestrator.restart()}}, "restart")
