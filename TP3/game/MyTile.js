@@ -3,6 +3,12 @@
  * @constructor
  */
 
+const HighlightColors = Object.freeze({
+    RED: [0.8, 0.1, 0.1],
+    BLUE: [0.275, 0.412, 1.0],
+    GREEN: [0.1, 0.8, 0.1]
+})
+
 class MyTile extends CGFobject {
     constructor(scene, gameboard, x, y, material, texture) {
         super(scene);
@@ -15,9 +21,9 @@ class MyTile extends CGFobject {
         this.texture = texture
         this.updatedTexCoords = true; // no need for updateTexCoords
 
-        this.state = new StaticTIleState(this)
+        this.state = new StaticTileState(this)
 
-        this.friend = true
+        this.highlightColor = HighlightColors.RED
 
         this.obj = new Plane(scene, 5, 5)
     };
@@ -42,8 +48,8 @@ class MyTile extends CGFobject {
         this.state = state
     }
 
-    highlightTile(friend = true) {
-        this.state.highlightTile(friend)
+    highlightTile(color) {
+        this.state.highlightTile(color)
     }
 
     disableHighlighting() {

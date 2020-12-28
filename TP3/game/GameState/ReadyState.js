@@ -22,7 +22,7 @@ class ReadyState extends GameState {
         this.orchestrator.prolog.canPickTile(tile, this, (reply) => {
             if (reply === 0) {
                 tile.pickPiece()
-                tile.highlightTile()
+                tile.highlightTile(HighlightColors.BLUE)
                 this.orchestrator.startPicking(tile)
                 this.orchestrator.prolog.getPossibleTiles(tile, this, (tiles) => {
                     if (tiles instanceof Array) this.orchestrator.gameboard.highlightEnemyTiles(tiles)

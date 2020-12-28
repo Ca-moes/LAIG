@@ -9,7 +9,7 @@ class RemoveState extends GameState {
             this.orchestrator.prolog.getBotRemoveMove(this, async (reply) => {
                 let tile = this.orchestrator.gameboard.getTile(reply[0], reply[1])
                 tile.pickPiece()
-                tile.highlightTile(false)
+                tile.highlightTile(HighlightColors.RED)
                 await new Promise(r => setTimeout(r, this.orchestrator.botDelay * 1000));
 
                 this.orchestrator.performBotRemove(tile)
@@ -26,7 +26,7 @@ class RemoveState extends GameState {
         this.orchestrator.prolog.canRemovePiece(tile, this, (reply) => {
             if (reply === 0) {
                 tile.pickPiece()
-                tile.highlightTile(false)
+                tile.highlightTile(HighlightColors.RED)
                 this.orchestrator.startPicking(tile)
                 this.orchestrator.changeState(new ConfirmRemoveState(this.orchestrator))
             }

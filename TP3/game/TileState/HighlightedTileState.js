@@ -5,17 +5,14 @@ class HighlightedTileState extends TileState {
 
 
     disableHighlight() {
-        this.tile.changeState(new StaticTIleState(this.tile))
+        this.tile.changeState(new StaticTileState(this.tile))
     }
 
     display() {
         this.tile.scene.pushMatrix()
 
         this.tile.scene.setActiveShaderSimple(this.tile.scene.tileHighlightingShader)
-        if (this.tile.friend)
-            this.tile.scene.tileHighlightingShader.setUniformsValues({colors: [0.275, 0.412, 1.0]})
-        else
-            this.tile.scene.tileHighlightingShader.setUniformsValues({colors: [0.8, 0.1, 0.1]})
+        this.tile.scene.tileHighlightingShader.setUniformsValues({colors: this.tile.highlightColor})
 
         this.tile.material.apply()
         if (this.tile.texture)
@@ -27,10 +24,11 @@ class HighlightedTileState extends TileState {
 
         this.tile.scene.popMatrix()
 
-        this.tile.piece.display()
+        if (this.tile.piece)
+            this.tile.piece.display()
     }
 
-    highlightTile() {
+    highlightTile(color) {
         // tile is already highlighted
     }
 
@@ -40,7 +38,8 @@ class HighlightedTileState extends TileState {
      * @param t
      */
     update(t) {
-        this.tile.piece.update(t)
+        if (this.tile.piece)
+            this.tile.piece.update(t)
         this.tile.scene.tileHighlightingShader.setUniformsValues({timeFactor: t * 10 % 1000})
     }
 }
