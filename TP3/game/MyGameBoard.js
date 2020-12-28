@@ -19,9 +19,6 @@ class MyGameBoard extends CGFobject{
 
     updateBoard(properties) {
         this.properties = properties
-        this.centerx = properties.x
-        this.centery = properties.y
-        this.centerz = properties.z
         this.transformations = properties.transformations
         this.texture = properties.tiles.texture
         this.material = properties.tiles.material

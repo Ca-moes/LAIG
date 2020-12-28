@@ -163,6 +163,10 @@ class MyGameOrchestrator {
         this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
         this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
 
+        if (this.currentPlayer.code !== 1) {
+            this.camera.orbit(CGFcameraAxis.Y, Math.PI)
+        }
+
         this.scene.camera = this.camera
         console.log("Game Camera Reset")
     }
