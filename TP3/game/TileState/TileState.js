@@ -24,7 +24,7 @@ class TileState {
     /**
      * @abstract
      */
-    highlightTile() {
+    highlightTile(color) {
 
     }
 

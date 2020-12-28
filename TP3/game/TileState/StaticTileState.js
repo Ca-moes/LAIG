@@ -1,4 +1,4 @@
-class StaticTIleState extends TileState {
+class StaticTileState extends TileState {
     constructor(tile) {
         super(tile);
     }
@@ -27,8 +27,8 @@ class StaticTIleState extends TileState {
         }
     }
 
-    highlightTile(friend) {
-        this.tile.friend = friend
+    highlightTile(color) {
+        this.tile.highlightColor = color
         this.tile.changeState(new HighlightedTileState(this.tile))
     }
 

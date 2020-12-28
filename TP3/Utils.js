@@ -10,3 +10,105 @@ const Utils = Object.freeze({
 function str_pad_left(string,pad,length) {
     return (new Array(length+1).join(pad)+string).slice(-length);
 }
+
+const GraphUtils = Object.freeze({
+    toGraph: (board) => {
+        let graph = []
+        for (let y = 0; y < board.length; y++) {
+            let row = []
+            for (let x = 0; x < board[y].length; x++) {
+                row.push({value: (board[y][x] !== 0) ? -1 : 0, x: x, y: y, visited: false, marked: false})
+            }
+            graph.push(row)
+        }
+        return graph
+    },
+    findPath: (graph, x, y, destination) => {
+        if (x >= graph[0].length || x < 0 || y >= graph.length || y < 0) {
+            return false;
+        }
+
+        if (x === destination.x && y === destination.y) {
+            graph[y][x].marked = true;
+            return true;
+        }
+
+        if (graph[y][x].value !== 0) {
+            return false;
+        }
+
+        if (graph[y][x].visited)
+            return false;
+        graph[y][x].visited = true;
+
+        graph[y][x].marked = true;
+
+        if (GraphUtils.findPath(graph, x + 1, y, destination) === true) {
+            return true;
+        }
+        if (GraphUtils.findPath(graph, x, y + 1, destination) === true) {
+            return true;
+        }
+        if (GraphUtils.findPath(graph, x - 1, y, destination) === true) {
+            return true;
+        }
+        if (GraphUtils.findPath(graph, x, y - 1 , destination) === true) {
+            return true;
+        }
+
+        graph[y][x].marked = false;
+
+        return false;
+    },
+    getPath: (graph) => {
+        let solution = []
+        let pathSize = 0
+        for (let y = 0; y < graph.length; y++) {
+            let row = []
+            for (let x = 0; x < graph[0].length; x++) {
+                row.push(graph[y][x].marked)
+                if (graph[y][x].marked) {
+                    pathSize++
+                }
+            }
+            solution.push(row)
+        }
+        return {solution: solution, size: pathSize}
+    },
+    findPathPlayer1: (board) => {
+        let solutions = []
+        for (let y0 = 0; y0 < board.length; y0++) {
+            for (let y1= 0; y1 < board[0].length; y1++) {
+                let graph = GraphUtils.toGraph(board)
+                if (graph[y0][0].value !== 0 || graph[y1][graph.length - 1].value !== 0)
+                    continue
+                if (GraphUtils.findPath(graph, 0, y0, graph[y1][graph.length - 1]))
+                    solutions.push(GraphUtils.getPath(graph))
+            }
+        }
+        if (solutions.length === 0) return null
+        let solution = solutions[0]
+        for (let i = 0; i < solutions.length; i++)
+            if (solutions[i].size < solution.size)
+                solution = solutions[i]
+        return solution.solution
+    },
+    findPathPlayer2: (board) => {
+        let solutions = []
+        for (let x0 = 0; x0 < board.length; x0++) {
+            for (let x1= 0; x1 < board[0].length; x1++) {
+                let graph = GraphUtils.toGraph(board)
+                if (graph[0][x0].value !== 0 || graph[graph.length - 1][x1].value !== 0)
+                    continue
+                if (GraphUtils.findPath(graph, x0, 0, graph[graph.length - 1][x1]))
+                    solutions.push(GraphUtils.getPath(graph))
+            }
+        }
+        if (solutions.length === 0) return null
+        let solution = solutions[0]
+        for (let i = 0; i < solutions.length; i++)
+            if (solutions[i].size < solution.size)
+                solution = solutions[i]
+        return solution.solution
+    }
+})

@@ -64,6 +64,15 @@ class MyGameBoard extends CGFobject{
         return JSON.stringify(board)
     }
 
+    fillPath(solution) {
+        for (let y = 0; y < solution.length; y++) {
+            for (let x = 0; x < solution.length; x++) {
+                if (solution[y][x])
+                    this.board[y*this.size + x].highlightTile(HighlightColors.GREEN)
+            }
+        }
+    }
+
     update(t) {
         for (let i = 0; i < this.board.length; i++) {
             this.board[i].update(t)
@@ -84,7 +93,7 @@ class MyGameBoard extends CGFobject{
         for (let i = 0; i < tiles.length; i++) {
             let tile = this.getTile(tiles[i][0], tiles[i][1])
             tile.friend = false
-            tile.highlightTile(false)
+            tile.highlightTile(HighlightColors.RED)
         }
     }
 
