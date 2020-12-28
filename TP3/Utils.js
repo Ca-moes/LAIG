@@ -75,15 +75,6 @@ const GraphUtils = Object.freeze({
         }
         return {solution: solution, size: pathSize}
     },
-    printSolution: (solution) => {
-        for (let y = 0; y < solution.length; y++) {
-            let row = ""
-            for (let x = 0; x < solution[0].length; x++) {
-                row += solution[y][x] + "\t"
-            }
-            console.log(row)
-        }
-    },
     findPathPlayer1: (board) => {
         let solutions = []
         for (let y0 = 0; y0 < board.length; y0++) {
@@ -100,7 +91,6 @@ const GraphUtils = Object.freeze({
         for (let i = 0; i < solutions.length; i++)
             if (solutions[i].size < solution.size)
                 solution = solutions[i]
-        GraphUtils.printSolution(solution.solution)
         return solution.solution
     },
     findPathPlayer2: (board) => {
@@ -119,7 +109,6 @@ const GraphUtils = Object.freeze({
         for (let i = 0; i < solutions.length; i++)
             if (solutions[i].size < solution.size)
                 solution = solutions[i]
-        GraphUtils.printSolution(solution.solution)
         return solution.solution
     }
 })
