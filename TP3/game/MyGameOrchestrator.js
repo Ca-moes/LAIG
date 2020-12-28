@@ -12,6 +12,7 @@ class MyGameOrchestrator {
         this.cameraAnimation = "easeInOutSine"
         this.cameraSpeed = 1
         this.botDelay = 0
+        this.moveTimeout = 10
         // -----------------------
         this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
 
@@ -101,7 +102,7 @@ class MyGameOrchestrator {
 
         this.loadingScreen.updateMessage("Loading Completed")
 
-        this.scene.interface.addBoardSizesGroup(this.boardSizes)
+        this.scene.interface.addStartGameGroup(this)
 
         this.changeState(new MenuState(this))
         this.scene.camera = this.camera
@@ -125,7 +126,8 @@ class MyGameOrchestrator {
 
     // called on graph loaded
     init(preferences) {
-        this.scene.interface.removeBoardSizesGroup()
+        this.scene.interface.removeStartGameGroup()
+
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
 
         this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2, "City": 3})
@@ -214,12 +216,13 @@ class MyGameOrchestrator {
     }
 
     nextTurn() {
+        this.startTime = Date.now() / 1000
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
         this.changeState(new CameraAnimationState(this))
         this.camera.startAnimation()
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
-        console.log("Player " + this.currentPlayer.code + " turn") // remove this on release
+        console.log("Player " + this.currentPlayer.code + " turn")
     }
 
     /**

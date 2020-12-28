@@ -5,6 +5,7 @@ class MyGameHud extends CGFobject {
         this.orchestrator = orchestrator
 
         this.timeSprite = new MySpriteText(scene, "20:20")
+        this.timeoutSprite = new MySpriteText(scene, Utils.formatTime(this.orchestrator.moveTimeout))
         this.playersSprite = new MySpriteText(scene, "P1 P2")
         this.player1score = new MySpriteText(scene, "0")
         this.player2score = new MySpriteText(scene, "0")
@@ -62,6 +63,13 @@ class MyGameHud extends CGFobject {
         this.playersSprite.display()
         this.scene.popMatrix()
 
+        // timeout
+        this.scene.pushMatrix()
+        this.scene.translate(0, 1.5, 0.01)
+        this.scene.scale(0.4, 0.4, 1)
+        this.timeoutSprite.display()
+        this.scene.popMatrix()
+
         // time
         this.scene.pushMatrix()
         this.scene.translate(0, 1, 0.01)
@@ -103,6 +111,12 @@ class MyGameHud extends CGFobject {
         this.scene.translate(0, 0, 0.01)
         this.scene.scale(0.7, 0.7, 1)
         this.playersSprite.display()
+        this.scene.popMatrix()
+
+        this.scene.pushMatrix()
+        this.scene.translate(0, 1.5, 0.01)
+        this.scene.scale(0.4, 0.4, 1)
+        this.timeoutSprite.display()
         this.scene.popMatrix()
 
         this.scene.pushMatrix()

@@ -86,15 +86,21 @@ class MyInterface extends CGFinterface {
         }
     }
 
-    addBoardSizesGroup(boardSizes) {
-        this.boardSizes = this.gui.addFolder("Board Size");
-        this.boardSizes.open();
+    /**
+     *
+     * @param {MyGameOrchestrator} orchestrator
+     */
+    addStartGameGroup(orchestrator) {
+        this.startOptions = this.gui.addFolder("Start Game");
+        this.startOptions.open();
 
-        this.boardSizes.add(this.scene.orchestrator, "selectedBoardSize", boardSizes).name("Size")
+        this.startOptions.add(orchestrator, "selectedBoardSize", orchestrator.boardSizes).name("Size")
+        this.startOptions.add(orchestrator, 'moveTimeout', 5, 30, 1).name("Move Timeout")
+        this.startOptions.add({start: () => orchestrator.state.menu.startGame()}, "start").name("Start Game")
     }
 
-    removeBoardSizesGroup() {
-        this.gui.removeFolder(this.boardSizes)
+    removeStartGameGroup() {
+        this.gui.removeFolder(this.startOptions)
     }
 
     addThemesGroup(themes) {
