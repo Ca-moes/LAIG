@@ -92,7 +92,7 @@
     <tiles material="base" texture="tile"/>
     <transformations>
         <translation x="0" y="0" z="0"/>
-        <rotation angle="0" axis="x"/>
+        <rotation angle="90" axis="y"/>
         <scale sx="0.5" sy="0.5" sz="0.5"/>
     </transformations>
   </gameboard>

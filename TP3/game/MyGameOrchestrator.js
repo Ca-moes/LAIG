@@ -37,9 +37,9 @@ class MyGameOrchestrator {
         // -----------------------
 
         // Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 6)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 7)
         this.currentTheme = 0
-        this.themesNames = {0: "test.xml", 1: "izakaya.xml", 2: "space.xml"}
+        this.themesNames = {0: "test.xml", 1: "izakaya.xml", 2: "space.xml", 3: "city.xml"}
         this.themes = []
         this.selectedTheme = 0
         this.loadScene()
@@ -68,7 +68,7 @@ class MyGameOrchestrator {
 
     onThemeLoaded() {
         this.currentTheme++
-        if (this.currentTheme >= 3) {
+        if (this.currentTheme >= 4) {
             this.onScenesLoadingComplete()
         } else {
             this.loadScene()
@@ -76,7 +76,7 @@ class MyGameOrchestrator {
     }
 
     onScenesLoadingComplete() {
-        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2})
+        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2, "City": 3})
 
         this.updateScene()
         this.loadModels()
@@ -150,8 +150,9 @@ class MyGameOrchestrator {
 
     resetCamera() {
         this.scene.camera = this.camera
-        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, 0, this.gameboardProperties.z))
-        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y + 7, 15))
+
+        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
+        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y + 7, this.gameboardProperties.z + 15))
         console.log("Game Camera Reset")
     }
 

@@ -101,7 +101,7 @@ class MyInterface extends CGFinterface {
         this.themes = this.gui.addFolder("Themes");
         this.themes.open();
 
-        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene() })
+        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene(); this.scene.orchestrator.resetCamera() })
     }
 
     addModelsGroup(models) {
