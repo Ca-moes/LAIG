@@ -109,8 +109,8 @@ class MyInterface extends CGFinterface {
     }
 
     addColorsGroup() {
-        this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.onColorsChanged())
-        this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.onColorsChanged())
+        this.color1 = this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.onColorsChanged())
+        this.color2 = this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.onColorsChanged())
     }
 
     addGameGroup() {
@@ -139,7 +139,12 @@ class MyInterface extends CGFinterface {
             handshake: () => this.scene.orchestrator.prolog.handshake(),
             undo: () => this.scene.orchestrator.undo(),
             quit: () => this.scene.orchestrator.prolog.quit(),
-            resetCamera: () => this.scene.orchestrator.resetCamera()
+            resetCamera: () => this.scene.orchestrator.resetCamera(),
+            resetColors: () => {
+                let colors = this.scene.orchestrator.resetColors()
+                this.color1.setValue(colors.color1)
+                this.color2.setValue(colors.color2)
+            }
         }
 
         optionsFolder.open()
@@ -147,6 +152,7 @@ class MyInterface extends CGFinterface {
         optionsFolder.add(options, 'quit').name("Quit Server");
         optionsFolder.add(options, 'undo').name("Undo");
         optionsFolder.add(options, 'resetCamera').name("Reset Camera");
+        optionsFolder.add(options, 'resetColors').name("Reset Colors");
     }
 
     addReplayButton() {

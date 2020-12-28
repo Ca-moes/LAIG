@@ -62,6 +62,14 @@ class MyGameOrchestrator {
         this.player2material.setDiffuse(this.player2color[0]/255.0,this.player2color[1]/255.0, this.player2color[2]/255.0, 1)
     }
 
+    resetColors() {
+        this.player1color = [153, 12, 20]
+        this.player2color = [15, 50, 128]
+        this.updateColors()
+
+        return {color1: this.player1color, color2: this.player2color}
+    }
+
     onColorsChanged() {
         this.updateColors()
     }
@@ -76,8 +84,6 @@ class MyGameOrchestrator {
     }
 
     onScenesLoadingComplete() {
-        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2, "City": 3})
-
         this.updateScene()
         this.loadModels()
     }
@@ -95,8 +101,6 @@ class MyGameOrchestrator {
 
         this.loadingScreen.updateMessage("Loading Completed")
 
-        this.scene.interface.addModelsGroup(this.modelsNames)
-        this.scene.interface.addColorsGroup()
         this.scene.interface.addBoardSizesGroup(this.boardSizes)
 
         this.changeState(new MenuState(this))
@@ -124,6 +128,10 @@ class MyGameOrchestrator {
         this.scene.interface.removeBoardSizesGroup()
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
 
+        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2, "City": 3})
+        this.scene.interface.addModelsGroup(this.modelsNames)
+        this.scene.interface.addColorsGroup()
+
         this.player1 = preferences.player1
         this.player2 = preferences.player2
         this.currentPlayer = this.player1
@@ -143,16 +151,19 @@ class MyGameOrchestrator {
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
+        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
+        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
         this.resetCamera()
+
         this.scene.interface.setActiveCamera(null)
         this.changeState(new ReadyState(this))
     }
 
     resetCamera() {
-        this.scene.camera = this.camera
-
         this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
-        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y + 7, this.gameboardProperties.z + 15))
+        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
+
+        this.scene.camera = this.camera
         console.log("Game Camera Reset")
     }
 
@@ -270,7 +281,7 @@ class MyGameOrchestrator {
 
         this.startTime = Date.now() / 1000
 
-        this.camera.setPosition(vec3.fromValues(0, 7, 15))
+        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 

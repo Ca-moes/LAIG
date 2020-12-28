@@ -106,6 +106,11 @@ class XMLscene extends CGFscene {
         for (const [key, _] of Object.entries(this.lightFlags)) {
             this.lightFlags[key] = false
         }
+        for (let i = 0; i < 8; i++) {
+            this.lights[i].setAmbient(0, 0, 0, 0)
+            this.lights[i].setSpecular(0, 0, 0, 0)
+            this.lights[i].setDiffuse(0, 0, 0, 0)
+        }
         this.lightFlags = {}
     }
 

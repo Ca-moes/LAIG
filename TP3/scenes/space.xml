@@ -65,6 +65,7 @@
 
     <gameboard x="0" y="0" z="0">
         <tiles material="base" texture="tile"/>
+        <camera x="0" y="7" z="15" />
         <transformations>
             <translation x="0" y="0" z="0"/>
             <rotation angle="0" axis="x"/>
