@@ -162,8 +162,9 @@ class MyGameOrchestrator {
         this.gameSequence = new MyGameSequence()
         this.animator = new MyAnimator(this, this.gameSequence)
 
-        this.hud = new MyGameHud(this.scene, this)
         this.startTime = Date.now() / 1000
+        this.moveStartTime = Date.now() / 1000
+        this.hud = new MyGameHud(this.scene, this)
 
         this.scene.camera = this.camera
 
@@ -237,7 +238,7 @@ class MyGameOrchestrator {
     }
 
     nextTurn(orbit = true) {
-        this.startTime = Date.now() / 1000
+        this.moveStartTime = Date.now() / 1000
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
 
         if (orbit) {

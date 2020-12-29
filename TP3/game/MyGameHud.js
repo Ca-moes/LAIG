@@ -19,6 +19,10 @@ class MyGameHud extends CGFobject {
         this.timeSprite.string = time
     }
 
+    updateTimeLeft(time) {
+        this.timeoutSprite.string = time
+    }
+
     updateMessage(msg) {
         this.message.string = msg
     }

@@ -24,7 +24,7 @@ class MoveState extends GameState {
     }
 
     update(time) {
-        if ((time - this.orchestrator.startTime) > this.orchestrator.moveTimeout) {
+        if ((time - this.orchestrator.moveStartTime) > this.orchestrator.moveTimeout) {
             this.orchestrator.cancelMove()
             this.orchestrator.gameboard.disableHighlight()
             this.orchestrator.nextTurn()
@@ -33,6 +33,7 @@ class MoveState extends GameState {
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
         this.orchestrator.hud.updateTime(Utils.formatTime(time - this.orchestrator.startTime))
+        this.orchestrator.hud.updateTimeLeft(Utils.formatTime(this.orchestrator.moveTimeout - time + this.orchestrator.moveStartTime))
         this.orchestrator.animator.update(time)
     }
 }
