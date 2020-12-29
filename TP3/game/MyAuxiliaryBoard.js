@@ -34,7 +34,7 @@ class MyAuxiliaryBoard extends CGFobject {
                 y += 1
             }
         }
-        return {x: x, y:y, z:z}
+        return {x: x, y: y, z: z}
     }
 
     display() {

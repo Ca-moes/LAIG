@@ -73,37 +73,37 @@ class MyGameMove {
             },
             {
                 instant: 0.1,
-                translation: vec3.fromValues((coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1, ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
+                translation: vec3.fromValues((coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1, ((this.gameboard.size / 2 - 2 + coords.z) - this.destTile.y) / 10),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 0.3,
-                translation: vec3.fromValues(3 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 3 * ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
+                translation: vec3.fromValues(3 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 3 * ((this.gameboard.size / 2 - 2 + coords.z) - this.destTile.y) / 10),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 0.7,
-                translation: vec3.fromValues(7 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 7 * ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
+                translation: vec3.fromValues(7 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 7 * ((this.gameboard.size / 2 - 2 + coords.z) - this.destTile.y) / 10),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 0.9,
-                translation: vec3.fromValues(9 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 9 * ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y) / 10),
+                translation: vec3.fromValues(9 * (coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x) / 10, 1.5, 9 * ((this.gameboard.size / 2 - 2 + coords.z) - this.destTile.y) / 10),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 1,
-                translation: vec3.fromValues(coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x, 1.5, (this.gameboard.size/2 - 2 + coords.z) - this.destTile.y),
+                translation: vec3.fromValues(coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x, 1.5, (this.gameboard.size / 2 - 2 + coords.z) - this.destTile.y),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
             {
                 instant: 1.2,
-                translation: vec3.fromValues(coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x, 0.15 + coords.y*0.2, ((this.gameboard.size/2 - 2 + coords.z) - this.destTile.y)),
+                translation: vec3.fromValues(coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x, 0.15 + coords.y * 0.2, ((this.gameboard.size / 2 - 2 + coords.z) - this.destTile.y)),
                 rotation: vec3.fromValues(0, 0, 0),
                 scale: vec3.fromValues(1, 1, 1)
             },
@@ -116,8 +116,7 @@ class MyGameMove {
     animate(t) {
         if (this.origTile === this.destTile) {
             this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "move")
-        }
-        else {
+        } else {
             this.origTile.getPiece().startAnimation(this, this.moveAnimation, t, "move")
             this.destTile.getPiece().startAnimation(this, this.removeAnimation, t, "remove")
         }

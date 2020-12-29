@@ -61,10 +61,10 @@ class MyMenu extends CGFobject {
         let player1, player2
         for (let i = 0; i < 3; i++)
             if (this.options[i].selected)
-                player1 = { type: i, code: 1}
+                player1 = {type: i, code: 1}
         for (let i = 3; i < 6; i++)
             if (this.options[i].selected)
-                player2 = { type: i - 3, code: 2}
+                player2 = {type: i - 3, code: 2}
 
         console.clear()
         console.log("Starting Game")

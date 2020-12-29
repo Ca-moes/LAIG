@@ -19,7 +19,7 @@ class AnimatedPieceState extends PieceState {
 
         // as the models are being made on a 5x5 XY Plane, we need to rescale them
         this.piece.scene.scale(0.2, 0.2, 0.2)
-        this.piece.scene.translate(0, this.piece.height/2, 0)
+        this.piece.scene.translate(0, this.piece.height / 2, 0)
 
         this.piece.scene.orchestrator.models[this.piece.scene.orchestrator.selectedModel].display()
         this.piece.scene.popMatrix()

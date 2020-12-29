@@ -14,7 +14,7 @@ class MyGameOrchestrator {
         this.botDelay = 0
         this.moveTimeout = 10
         // -----------------------
-        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45*DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45 * DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
 
         this.prolog = new MyPrologInterface(this)
         this.state = new LoadingState(this)
@@ -79,17 +79,17 @@ class MyGameOrchestrator {
     }
 
     updateColors() {
-        this.player1material.setDiffuse(this.player1color[0]/255.0,this.player1color[1]/255.0, this.player1color[2]/255.0, 1)
-        this.player2material.setDiffuse(this.player2color[0]/255.0,this.player2color[1]/255.0, this.player2color[2]/255.0, 1)
-        this.boxMaterial.setDiffuse(this.boxColor[0]/255.0,this.boxColor[1]/255.0, this.boxColor[2]/255.0, 1)
-        this.tileMaterial.setDiffuse(this.tileColor[0]/255.0,this.tileColor[1]/255.0, this.tileColor[2]/255.0, 1)
+        this.player1material.setDiffuse(this.player1color[0] / 255.0, this.player1color[1] / 255.0, this.player1color[2] / 255.0, 1)
+        this.player2material.setDiffuse(this.player2color[0] / 255.0, this.player2color[1] / 255.0, this.player2color[2] / 255.0, 1)
+        this.boxMaterial.setDiffuse(this.boxColor[0] / 255.0, this.boxColor[1] / 255.0, this.boxColor[2] / 255.0, 1)
+        this.tileMaterial.setDiffuse(this.tileColor[0] / 255.0, this.tileColor[1] / 255.0, this.tileColor[2] / 255.0, 1)
     }
 
     resetColors() {
-        this.player1color   = [153, 12, 20]
-        this.player2color   = [15, 50, 128]
-        this.boxColor       = [15, 15, 15]
-        this.tileColor      = [220, 220, 220]
+        this.player1color = [153, 12, 20]
+        this.player2color = [15, 50, 128]
+        this.boxColor = [15, 15, 15]
+        this.tileColor = [220, 220, 220]
         this.updateColors()
 
         return {color1: this.player1color, color2: this.player2color, box: this.boxColor, tile: this.tileColor}
@@ -299,8 +299,7 @@ class MyGameOrchestrator {
         if (this.scene.sceneInited && !this.scene.timeSet) {
             this.themes[this.selectedTheme].setAnimationsStartTime(time);
             this.scene.timeSet = true;
-        }
-        else if (this.scene.sceneInited && this.scene.timeSet) {
+        } else if (this.scene.sceneInited && this.scene.timeSet) {
             this.state.update(time)
         }
     }

@@ -1,5 +1,5 @@
-class MyGameBoard extends CGFobject{
-    constructor(scene, orchestrator, size, properties){
+class MyGameBoard extends CGFobject {
+    constructor(scene, orchestrator, size, properties) {
         super(scene)
         this.scene = scene
         this.size = size
@@ -66,7 +66,7 @@ class MyGameBoard extends CGFobject{
         for (let y = 0; y < solution.length; y++) {
             for (let x = 0; x < solution.length; x++) {
                 if (solution[y][x])
-                    this.board[y*this.size + x].highlightTile(HighlightColors.GREEN)
+                    this.board[y * this.size + x].highlightTile(HighlightColors.GREEN)
             }
         }
     }
@@ -84,7 +84,7 @@ class MyGameBoard extends CGFobject{
      * @returns {MyTile} tile
      */
     getTile(x, y) {
-        return this.board[y*this.size + x]
+        return this.board[y * this.size + x]
     }
 
     highlightEnemyTiles(tiles) {
@@ -102,27 +102,27 @@ class MyGameBoard extends CGFobject{
     }
 
     logPicking() {
-		if (this.scene.pickMode === false) {
-			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-				for (let i = 0; i < this.scene.pickResults.length; i++) {
+        if (this.scene.pickMode === false) {
+            if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+                for (let i = 0; i < this.scene.pickResults.length; i++) {
                     const obj = this.scene.pickResults[i][0];
                     if (obj instanceof MyTile) {
                         this.orchestrator.pickTile(obj)
-					}
-				}
-				this.scene.pickResults.splice(0, this.scene.pickResults.length);
-			}
-		}
-	}
+                    }
+                }
+                this.scene.pickResults.splice(0, this.scene.pickResults.length);
+            }
+        }
+    }
 
-    display(){
+    display() {
         this.logPicking()
         this.scene.clearPickRegistration();
 
         this.scene.multMatrix(this.transformations)
 
         this.scene.pushMatrix()
-        this.scene.translate(this.size*0.8, 0.5, 0)
+        this.scene.translate(this.size * 0.8, 0.5, 0)
         this.auxiliaryBoard.display()
         this.scene.popMatrix()
 
@@ -136,7 +136,7 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                this.scene.translate(x - (this.size/2) + 0.5, 0, z - (this.size/2) + 0.5)
+                this.scene.translate(x - (this.size / 2) + 0.5, 0, z - (this.size / 2) + 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()
                 index++
