@@ -34,8 +34,8 @@ class GameState {
             this.orchestrator.gameboard = move.gameboard
             this.orchestrator.gameboard.orchestrator = this.orchestrator
 
-            this.orchestrator.nextTurn(false)
-            console.log("Undo Movement")
+            this.orchestrator.nextTurn()
+            this.orchestrator.custom.log("Undo Movement")
         }
     }
 
@@ -51,8 +51,8 @@ class GameState {
         this.orchestrator.scene.clearPickRegistration()
         this.orchestrator.themes[this.orchestrator.selectedTheme].displayScene()
         this.orchestrator.gameboard.display()
-        this.orchestrator.hud.display()
         this.orchestrator.scene.clearPickRegistration()
+        this.orchestrator.hud.display()
         this.orchestrator.animator.display()
     }
 }

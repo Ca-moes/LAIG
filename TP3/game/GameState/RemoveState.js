@@ -4,7 +4,7 @@ class RemoveState extends GameState {
 
         if (orchestrator.currentPlayer.type !== Players.HUMAN) {
             this.pickTile = (_) => {
-                console.log("Bot move, can't pick")
+                this.orchestrator.error.log("Bot move, can't pick")
             }
             this.orchestrator.prolog.getBotRemoveMove(this, async (reply) => {
                 let tile = this.orchestrator.gameboard.getTile(reply[0], reply[1])

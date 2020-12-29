@@ -167,7 +167,7 @@ class MyGameBoard extends CGFobject {
 
         this.auxiliaryBoard.addPiece(removed)
 
-        console.log("Piece Moved")
+        this.orchestrator.custom.logPieceMoved(originalTile, destinationTile)
     }
 
     clone() {

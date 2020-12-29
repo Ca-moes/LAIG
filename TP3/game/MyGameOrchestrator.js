@@ -8,18 +8,25 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene
 
-        // Preferences (interface)
+        // region Logging Utils
+        this.custom = new CustomLogging()
+        this.error = new CustomLogging('error')
+        // endregion
+
+        // region Preferences (interface)
         this.cameraAnimation = "easeInOutSine"
         this.cameraSpeed = 1
         this.botDelay = 0
         this.moveTimeout = 10
-        // -----------------------
-        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45 * DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
+        // endregion
 
+        // region Components
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45 * DEGREE_TO_RAD, 0.1, 500, vec3.fromValues(0, 0, 15), vec3.fromValues(0, 0, 0))
         this.prolog = new MyPrologInterface(this)
         this.state = new LoadingState(this)
+        // endregion
 
-        // Colors
+        //region Colors
         this.player1color = [153, 12, 20]
         this.player2color = [15, 50, 128]
         this.boxColor = [15, 15, 15]
@@ -54,28 +61,28 @@ class MyGameOrchestrator {
         this.tileMaterial.setShininess(10)
 
         this.updateColors()
-        // -----------------------
+        //endregion
 
-        // Themes
+        // region Themes
         this.loadingScreen = new MyLoadingScreen(scene, this, 7)
         this.currentTheme = 0
         this.themesNames = {0: "test.xml", 1: "izakaya.xml", 2: "space.xml", 3: "city.xml"}
         this.themes = []
         this.selectedTheme = 0
         this.loadScene()
-        // -----------------------
+        // endregion
 
-        // Models
+        // region Models
         this.boxModel = new CGFOBJModel(scene, "models/box.obj")
         this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2}
         this.selectedModel = 0
         this.models = []
-        // -----------------------
+        // endregion
 
-        // Board Sizes
+        // region Board Sizes
         this.boardSizes = {"6x6": 6, "8x8": 8, "10x10": 10, "12x12": 12}
         this.selectedBoardSize = 8
-        // -----------------------
+        // endregion
     }
 
     updateColors() {
@@ -91,6 +98,9 @@ class MyGameOrchestrator {
         this.boxColor = [15, 15, 15]
         this.tileColor = [220, 220, 220]
         this.updateColors()
+
+        this.custom.log("Colors Reset")
+        console.table({color1: this.player1color, color2: this.player2color, box: this.boxColor, tile: this.tileColor})
 
         return {color1: this.player1color, color2: this.player2color, box: this.boxColor, tile: this.tileColor}
     }
@@ -182,7 +192,7 @@ class MyGameOrchestrator {
         this.scene.interface.setActiveCamera(null)
         this.changeState(new ReadyState(this))
 
-        console.log("Game Started")
+        this.custom.log("Game Started")
         console.table({
             "Player 1": Utils.getType(this.player1),
             "Player 2": Utils.getType(this.player2),
@@ -200,7 +210,7 @@ class MyGameOrchestrator {
         }
 
         this.scene.camera = this.camera
-        console.log("Game Camera Reset")
+        this.custom.log("Game Camera Reset")
     }
 
     updatePlayer1Score(score) {
@@ -219,7 +229,7 @@ class MyGameOrchestrator {
      */
     changeState(state) {
         this.state = state
-        console.log("Changed state:", this.state.constructor.name)
+        this.custom.logStateChanged(this.state.constructor.name)
     }
 
     /**
@@ -245,19 +255,12 @@ class MyGameOrchestrator {
         this.currentMovement = new MyGameMove(tile, null, this.gameboard)
     }
 
-    nextTurn(orbit = true) {
+    nextTurn() {
         this.moveStartTime = Date.now() / 1000
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
 
-        if (orbit) {
-            this.changeState(new CameraAnimationState(this))
-            this.camera.startAnimation()
-        } else {
-            new CameraAnimationState(this).animationEnd()
-        }
-
-        this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
-        console.log("Player ", this.currentPlayer.code, " turn")
+        this.changeState(new CameraAnimationState(this))
+        this.camera.startAnimation()
     }
 
     /**
@@ -326,6 +329,7 @@ class MyGameOrchestrator {
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
+        this.custom.log("Restarted Game")
         this.changeState(new ReadyState(this))
     }
 }

@@ -67,7 +67,7 @@ class MyMenu extends CGFobject {
                 player2 = {type: i - 3, code: 2}
 
         console.clear()
-        console.log("Starting Game")
+        this.orchestrator.custom.log("Starting Game")
 
         this.orchestrator.init({player1: player1, player2: player2})
     }

@@ -21,7 +21,8 @@ const Utils = Object.freeze({
                 break
         }
         return type
-    }
+    },
+    tileToCoords: (tile) => `${String.fromCharCode(65 + tile.y)}${tile.x}`
 })
 
 function str_pad_left(string,pad,length) {
@@ -129,3 +130,80 @@ const GraphUtils = Object.freeze({
         return solution.solution
     }
 })
+
+class CustomLogging {
+    constructor(title) {
+        this.title = {
+            body: title || "---",
+            color: "darkgrey",
+            size: "1rem"
+        };
+
+        this.body = {
+            color: "#008f68",
+            size: "1rem"
+        };
+    }
+
+    setTitleStyle({ color, size }) {
+        if (color !== undefined) this.title.color = color;
+        if (size !== undefined) this.title.size = size;
+    }
+
+    setBodyStyle({ color, size }) {
+        if (color !== undefined) this.body.color = color;
+        if (size !== undefined) this.body.size = size;
+    }
+
+    logStateChanged(state) {
+        console.log(
+            `%cChanged State: %c${state}`,
+            `font-weight: bold; font-size: ${
+                this.title.size
+            };`,
+            `color: blue; font-weight: bold; font-size: ${
+                this.body.size
+            }; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+        );
+    }
+
+    logPieceMoved(tile1, tile2) {
+        console.log(
+            `%cPiece Moved: %c${Utils.tileToCoords(tile1)} to %c${Utils.tileToCoords(tile2)}`,
+            `font-weight: bold; font-size: ${
+                this.title.size
+            };`,
+            `color: blue; font-weight: bold; font-size: ${
+                this.body.size
+            }; text-shadow: 0 0 5px rgba(0,0,0,0.2);`,
+            `color: blue; font-weight: bold; font-size: ${
+                this.body.size
+            }; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+        );
+    }
+
+    extraInfo(body) {
+        console.log(
+            `%c-- | %c${body}`,
+            `color: ${this.title.color}; font-weight: bold; font-size: ${
+                this.title.size
+            };`,
+            `font-size: ${
+                this.body.size
+            }; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+        );
+    }
+
+    log(body = "") {
+        // the second line is now the body because the first references the content after the first %c for the title
+        console.log(
+            `%c${this.title.body} | %c${body}`,
+            `color: ${this.title.color}; font-weight: bold; font-size: ${
+                this.title.size
+            };`,
+            `color: ${this.body.color}; font-weight: bold; font-size: ${
+                this.body.size
+            }; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+        );
+    }
+}

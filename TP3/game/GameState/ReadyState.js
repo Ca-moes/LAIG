@@ -4,7 +4,7 @@ class ReadyState extends GameState {
 
         if (orchestrator.currentPlayer.type !== Players.HUMAN) {
             this.pickTile = (_) => {
-                console.log("Bot move, can't pick")
+                this.orchestrator.error.log("Bot move, can't pick")
             }
             this.orchestrator.prolog.getBotNextMove(this, async (reply) => {
                 let origin = this.orchestrator.gameboard.getTile(reply[0][0], reply[0][1])
