@@ -4,6 +4,23 @@ const Utils = Object.freeze({
         const seconds = Math.round(secs) - minutes * 60;
 
         return str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2)
+    },
+    getType: (player) => {
+        let type
+        switch (player.type) {
+            case 0:
+                type = "Human"
+                break
+            case 1:
+                type = "Bot Easy"
+                break
+            case 2:
+                type = "Bot Normal"
+                break
+            default:
+                break
+        }
+        return type
     }
 })
 

@@ -14,8 +14,7 @@ class MoveState extends GameState {
                 this.orchestrator.performMove(tile)
                 this.orchestrator.gameboard.disableHighlight()
                 this.orchestrator.changeState(new AnimationState(this.orchestrator))
-            }
-            else if (reply === 1) {
+            } else if (reply === 1) {
                 this.orchestrator.cancelMove()
                 this.orchestrator.gameboard.disableHighlight()
                 this.orchestrator.changeState(new ReadyState(this.orchestrator))

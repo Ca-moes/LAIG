@@ -181,6 +181,14 @@ class MyGameOrchestrator {
 
         this.scene.interface.setActiveCamera(null)
         this.changeState(new ReadyState(this))
+
+        console.log("Game Started")
+        console.table({
+            "Player 1": Utils.getType(this.player1),
+            "Player 2": Utils.getType(this.player2),
+            "Timeout": this.moveTimeout,
+            "Board Size": `${this.selectedBoardSize}x${this.selectedBoardSize}`
+        })
     }
 
     resetCamera() {
@@ -211,7 +219,7 @@ class MyGameOrchestrator {
      */
     changeState(state) {
         this.state = state
-        console.log("Changed state: " + this.state.constructor.name)
+        console.log("Changed state:", this.state.constructor.name)
     }
 
     /**
@@ -249,7 +257,7 @@ class MyGameOrchestrator {
         }
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
-        console.log("Player " + this.currentPlayer.code + " turn")
+        console.log("Player ", this.currentPlayer.code, " turn")
     }
 
     /**

@@ -12,8 +12,7 @@ class ConfirmRemoveState extends GameState {
             this.orchestrator.performMove(tile)
             this.orchestrator.gameboard.disableHighlight()
             this.orchestrator.changeState(new AnimationState(this.orchestrator))
-        }
-        else {
+        } else {
             this.orchestrator.cancelMove()
             this.orchestrator.changeState(new RemoveState(this.orchestrator))
         }
