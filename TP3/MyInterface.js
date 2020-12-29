@@ -117,6 +117,7 @@ class MyInterface extends CGFinterface {
     addColorsGroup() {
         this.color1 = this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.onColorsChanged())
         this.color2 = this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.onColorsChanged())
+        this.box = this.themes.addColor(this.scene.orchestrator, 'boxColor').name("Box Color").onChange(() => this.scene.orchestrator.onColorsChanged())
     }
 
     addGameGroup() {

@@ -22,6 +22,8 @@ class MyGameOrchestrator {
         // Colors
         this.player1color = [153, 12, 20]
         this.player2color = [15, 50, 128]
+        this.boxColor = [15, 15, 15]
+
         this.player1material = new CGFappearance(this.scene)
         this.player1material.setSpecular(0.1, 0.2, 0.2, 1)
         this.player1material.setAmbient(0, 0, 0, 1)
@@ -33,6 +35,12 @@ class MyGameOrchestrator {
         this.player2material.setAmbient(0, 0, 0, 1)
         this.player2material.setEmission(0.0, 0.0, 0.0, 1)
         this.player2material.setShininess(10)
+
+        this.boxMaterial = new CGFappearance(this.scene)
+        this.boxMaterial.setSpecular(0.1, 0.2, 0.2, 1)
+        this.boxMaterial.setAmbient(0, 0, 0, 1)
+        this.boxMaterial.setEmission(0, 0, 0, 1)
+        this.boxMaterial.setShininess(10)
 
         this.updateColors()
         // -----------------------
@@ -47,6 +55,7 @@ class MyGameOrchestrator {
         // -----------------------
 
         // Models
+        this.boxModel = new CGFOBJModel(scene, "models/box.obj")
         this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2}
         this.selectedModel = 0
         this.models = []
@@ -61,14 +70,16 @@ class MyGameOrchestrator {
     updateColors() {
         this.player1material.setDiffuse(this.player1color[0]/255.0,this.player1color[1]/255.0, this.player1color[2]/255.0, 1)
         this.player2material.setDiffuse(this.player2color[0]/255.0,this.player2color[1]/255.0, this.player2color[2]/255.0, 1)
+        this.boxMaterial.setDiffuse(this.boxColor[0]/255.0,this.boxColor[1]/255.0, this.boxColor[2]/255.0, 1)
     }
 
     resetColors() {
         this.player1color = [153, 12, 20]
         this.player2color = [15, 50, 128]
+        this.boxColor = [15, 15, 15]
         this.updateColors()
 
-        return {color1: this.player1color, color2: this.player2color}
+        return {color1: this.player1color, color2: this.player2color, box: this.boxColor}
     }
 
     onColorsChanged() {
