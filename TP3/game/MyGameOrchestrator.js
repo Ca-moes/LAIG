@@ -85,6 +85,9 @@ class MyGameOrchestrator {
         // endregion
     }
 
+    /**
+     * Method to be called when user changes a color on Game Interface
+     */
     updateColors() {
         this.player1material.setDiffuse(this.player1color[0] / 255.0, this.player1color[1] / 255.0, this.player1color[2] / 255.0, 1)
         this.player2material.setDiffuse(this.player2color[0] / 255.0, this.player2color[1] / 255.0, this.player2color[2] / 255.0, 1)
@@ -92,6 +95,10 @@ class MyGameOrchestrator {
         this.tileMaterial.setDiffuse(this.tileColor[0] / 255.0, this.tileColor[1] / 255.0, this.tileColor[2] / 255.0, 1)
     }
 
+    /**
+     * Method to be called when user clicks on "Reset Colors" on Game Interface
+     * @returns {{color1: number[], color2: number[], tile: number[], box: number[]}}
+     */
     resetColors() {
         this.player1color = [153, 12, 20]
         this.player2color = [15, 50, 128]
@@ -105,20 +112,28 @@ class MyGameOrchestrator {
         return {color1: this.player1color, color2: this.player2color, box: this.boxColor, tile: this.tileColor}
     }
 
-    onColorsChanged() {
-        this.updateColors()
-    }
-
+    /**
+     * Callback to when XMLGraphScene is done loading the scene, this method either proceeds to the next scene
+     * or if all scenes are already loaded it calls the onScenesLoadingComplete to start the menus
+     */
     onThemeLoaded() {
         this.currentTheme++
         this.currentTheme >= 4 ? this.onScenesLoadingComplete() : this.loadScene()
     }
 
+    /**
+     * After the program is done loading the scenes it then proceeds to loading the models required
+     */
     onScenesLoadingComplete() {
         this.updateScene()
         this.loadModels()
     }
 
+    /**
+     * This is the final part of the loading process, it loads the models, and adds the start game group
+     * to the interface. Then it changes the state to Menu State, the user is now able to chose the preferences
+     * for the game and start it.
+     */
     loadModels() {
         this.loadingScreen.updateMessage("Loading Model: Default")
         this.models.push(new CGFOBJModel(this.scene, "models/default_piece.obj"))
@@ -141,12 +156,23 @@ class MyGameOrchestrator {
         this.scene.interface.setActiveCamera(this.camera)
     }
 
+    /**
+     * Method to load a scene
+     * Updates the Message on Loading Screen
+     * Loads the Scene
+     * Updates the Progress on Loading Screen
+     */
     loadScene() {
         this.loadingScreen.updateMessage("Loading " + this.themesNames[this.currentTheme])
-        this.themes.push(new MySceneGraph(this.themesNames[this.currentTheme], this.scene, this))
+        // this timeout is just a "fancy" "useless" thing, we can load is no timeout, but this allows the user to see the
+        // loading progress being incremented
+        setTimeout(() => this.themes.push(new MySceneGraph(this.themesNames[this.currentTheme], this.scene, this)), 500)
         this.loadingScreen.updateProgress()
     }
 
+    /**
+     * Method to update the scene selected on interface
+     */
     updateScene() {
         this.scene.updateScene(this.themes[this.selectedTheme])
         this.gameboardProperties = this.themes[this.selectedTheme].gameboardProperties
@@ -155,7 +181,11 @@ class MyGameOrchestrator {
         if (this.gameboard) this.gameboard.updateBoard(this.gameboardProperties)
     }
 
-    // called on graph loaded
+    /**
+     * Called on Game Start
+     * This method starts the orchestrator, and the game itself, with preferences selected on menu state
+     * @param preferences preferences for the game (type of game, board size, move timeout, difficulty)
+     */
     init(preferences) {
         this.scene.interface.removeStartGameGroup()
 
@@ -201,6 +231,9 @@ class MyGameOrchestrator {
         })
     }
 
+    /**
+     * This method resets the animated camera.
+     */
     resetCamera() {
         this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
         this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
@@ -213,11 +246,19 @@ class MyGameOrchestrator {
         this.custom.log("Game Camera Reset")
     }
 
+    /**
+     * Method to update the score for player 1 and updates the HUD
+     * @param {int} score player 1 score
+     */
     updatePlayer1Score(score) {
         this.player1score = score
         this.hud.updatePlayer1Score(this.player1score.toString())
     }
 
+    /**
+     * Method to update the score for player 2 and updates the HUD
+     * @param {int} score player 2 score
+     */
     updatePlayer2Score(score) {
         this.player2score = score
         this.hud.updatePlayer2Score(this.player2score.toString())
@@ -233,7 +274,7 @@ class MyGameOrchestrator {
     }
 
     /**
-     * Method to handle a 'pickValidTile' event
+     * Method to handle a 'pickTile' event
      * @param {MyTile} tile
      */
     pickTile(tile) {
@@ -255,6 +296,9 @@ class MyGameOrchestrator {
         this.currentMovement = new MyGameMove(tile, null, this.gameboard)
     }
 
+    /**
+     * Method to pass the turn to the next player, entering the camera animation state
+     */
     nextTurn() {
         this.moveStartTime = Date.now() / 1000
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
@@ -275,11 +319,20 @@ class MyGameOrchestrator {
         this.currentMovement.animate(Date.now() / 1000)
     }
 
+    /**
+     * Method to perform a bot movement
+     * @param {MyTile} origin original tile position
+     * @param {MyTile} destination destination tile position
+     */
     performBotMove(origin, destination) {
         this.startPicking(origin)
         this.performMove(destination)
     }
 
+    /**
+     * Method to perform a bot remove movement
+     * @param {MyTile} tile tile containing a piece to remove
+     */
     performBotRemove(tile) {
         this.startPicking(tile)
         this.performMove(tile)
@@ -307,14 +360,27 @@ class MyGameOrchestrator {
         }
     }
 
+    /**
+     * Method to display the orchestrator's elements
+     * this method depends on the state, thus being delegated to the active state
+     */
     display() {
         this.state.display()
     }
 
+    /**
+     * Method to perform an 'Undo' action
+     * this method depends on the state, thus being delegated to the active state
+     */
     undo() {
         this.state.undo()
     }
 
+    /**
+     * Method to start a new game, after the game over state, this method starts an identical
+     * game to the previous one, if the user wishes to change the type of game, the difficulty, the
+     * board size or the move timeout then they must reload the application
+     */
     restart() {
         this.scene.interface.resetInterface()
 

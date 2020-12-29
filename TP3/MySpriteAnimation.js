@@ -46,7 +46,6 @@ class MySpriteAnimation extends Animation{
         }
         if (this.index >=  this.final + 1)
             this.index = this.index - this.final
-        
     }
 
     display(){
