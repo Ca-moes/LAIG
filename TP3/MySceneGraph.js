@@ -1184,10 +1184,7 @@ class MySceneGraph {
             y: y,
             z: z,
             camera: camera,
-            tiles: {
-                material: this.materials[materialIDTile],
-                texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null
-            },
+            texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null,
             transformations: transformationMatrix
         }
 

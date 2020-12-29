@@ -34,7 +34,7 @@ class GameState {
             this.orchestrator.gameboard = move.gameboard
             this.orchestrator.gameboard.orchestrator = this.orchestrator
 
-            this.orchestrator.nextTurn()
+            this.orchestrator.nextTurn(false)
             console.log("Undo Movement")
         }
     }

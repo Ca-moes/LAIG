@@ -23,24 +23,35 @@ class MyGameOrchestrator {
         this.player1color = [153, 12, 20]
         this.player2color = [15, 50, 128]
         this.boxColor = [15, 15, 15]
+        this.tileColor = [220, 220, 220]
+
+        this.ambient = [0, 0, 0, 1]
+        this.specular = [0.1, 0.2, 0.2, 1]
+        this.emission = [0, 0, 0, 1]
 
         this.player1material = new CGFappearance(this.scene)
-        this.player1material.setSpecular(0.1, 0.2, 0.2, 1)
-        this.player1material.setAmbient(0, 0, 0, 1)
-        this.player1material.setEmission(0, 0, 0, 1)
+        this.player1material.setSpecular(...this.specular)
+        this.player1material.setAmbient(...this.ambient)
+        this.player1material.setEmission(...this.emission)
         this.player1material.setShininess(10)
 
         this.player2material = new CGFappearance(this.scene)
-        this.player2material.setSpecular(0.1, 0.1, 0.2, 1)
-        this.player2material.setAmbient(0, 0, 0, 1)
-        this.player2material.setEmission(0.0, 0.0, 0.0, 1)
+        this.player2material.setSpecular(...this.specular)
+        this.player2material.setAmbient(...this.ambient)
+        this.player2material.setEmission(...this.emission)
         this.player2material.setShininess(10)
 
         this.boxMaterial = new CGFappearance(this.scene)
-        this.boxMaterial.setSpecular(0.1, 0.2, 0.2, 1)
-        this.boxMaterial.setAmbient(0, 0, 0, 1)
-        this.boxMaterial.setEmission(0, 0, 0, 1)
+        this.boxMaterial.setSpecular(...this.specular)
+        this.boxMaterial.setAmbient(...this.ambient)
+        this.boxMaterial.setEmission(...this.emission)
         this.boxMaterial.setShininess(10)
+
+        this.tileMaterial = new CGFappearance(this.scene)
+        this.tileMaterial.setSpecular(...this.specular)
+        this.tileMaterial.setAmbient(...this.ambient)
+        this.tileMaterial.setEmission(...this.emission)
+        this.tileMaterial.setShininess(10)
 
         this.updateColors()
         // -----------------------
@@ -71,15 +82,17 @@ class MyGameOrchestrator {
         this.player1material.setDiffuse(this.player1color[0]/255.0,this.player1color[1]/255.0, this.player1color[2]/255.0, 1)
         this.player2material.setDiffuse(this.player2color[0]/255.0,this.player2color[1]/255.0, this.player2color[2]/255.0, 1)
         this.boxMaterial.setDiffuse(this.boxColor[0]/255.0,this.boxColor[1]/255.0, this.boxColor[2]/255.0, 1)
+        this.tileMaterial.setDiffuse(this.tileColor[0]/255.0,this.tileColor[1]/255.0, this.tileColor[2]/255.0, 1)
     }
 
     resetColors() {
-        this.player1color = [153, 12, 20]
-        this.player2color = [15, 50, 128]
-        this.boxColor = [15, 15, 15]
+        this.player1color   = [153, 12, 20]
+        this.player2color   = [15, 50, 128]
+        this.boxColor       = [15, 15, 15]
+        this.tileColor      = [220, 220, 220]
         this.updateColors()
 
-        return {color1: this.player1color, color2: this.player2color, box: this.boxColor}
+        return {color1: this.player1color, color2: this.player2color, box: this.boxColor, tile: this.tileColor}
     }
 
     onColorsChanged() {
@@ -88,11 +101,7 @@ class MyGameOrchestrator {
 
     onThemeLoaded() {
         this.currentTheme++
-        if (this.currentTheme >= 4) {
-            this.onScenesLoadingComplete()
-        } else {
-            this.loadScene()
-        }
+        this.currentTheme >= 4 ? this.onScenesLoadingComplete() : this.loadScene()
     }
 
     onScenesLoadingComplete() {
@@ -104,9 +113,11 @@ class MyGameOrchestrator {
         this.loadingScreen.updateMessage("Loading Model: Default")
         this.models.push(new CGFOBJModel(this.scene, "models/default_piece.obj"))
         this.loadingScreen.updateProgress()
+
         this.loadingScreen.updateMessage("Loading Model: Flat Chip")
         this.models.push(new CGFOBJModel(this.scene, "models/flat_chip_piece.obj"))
         this.loadingScreen.updateProgress()
+
         this.loadingScreen.updateMessage("Loading Model: Round Chip")
         this.models.push(new CGFOBJModel(this.scene, "models/round_chip_piece.obj"))
         this.loadingScreen.updateProgress()
@@ -131,8 +142,7 @@ class MyGameOrchestrator {
         this.gameboardProperties = this.themes[this.selectedTheme].gameboardProperties
         this.scene.camera = this.camera
 
-        if (this.gameboard)
-            this.gameboard.updateBoard(this.gameboardProperties)
+        if (this.gameboard) this.gameboard.updateBoard(this.gameboardProperties)
     }
 
     // called on graph loaded
@@ -226,11 +236,16 @@ class MyGameOrchestrator {
         this.currentMovement = new MyGameMove(tile, null, this.gameboard)
     }
 
-    nextTurn() {
+    nextTurn(orbit = true) {
         this.startTime = Date.now() / 1000
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
-        this.changeState(new CameraAnimationState(this))
-        this.camera.startAnimation()
+
+        if (orbit) {
+            this.changeState(new CameraAnimationState(this))
+            this.camera.startAnimation()
+        } else {
+            new CameraAnimationState(this).animationEnd()
+        }
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
         console.log("Player " + this.currentPlayer.code + " turn")

@@ -10,14 +10,13 @@ const HighlightColors = Object.freeze({
 })
 
 class MyTile extends CGFobject {
-    constructor(scene, gameboard, x, y, material, texture) {
+    constructor(scene, gameboard, x, y, texture) {
         super(scene);
         this.scene = scene;
         this.gameboard = gameboard;
         this.piece = null
         this.x = x;
         this.y = y;
-        this.material = material
         this.texture = texture
         this.updatedTexCoords = true; // no need for updateTexCoords
 

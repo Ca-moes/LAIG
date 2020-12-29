@@ -8,7 +8,7 @@ class MyGameBoard extends CGFobject{
         this.updateBoard(properties)
 
         this.board = []
-        this.updatedTexCoords = true; // no need for updateTexCoords
+        this.updatedTexCoords = true;
 
         this.boardsides = new MyBoardFrame(this.scene, size)
 
@@ -20,8 +20,7 @@ class MyGameBoard extends CGFobject{
     updateBoard(properties) {
         this.properties = properties
         this.transformations = properties.transformations
-        this.texture = properties.tiles.texture
-        this.material = properties.tiles.material
+        this.texture = properties.texture
     }
 
     createBoard() {
@@ -31,7 +30,6 @@ class MyGameBoard extends CGFobject{
                 let tile = new MyTile(
                     this.scene,
                     this, x, y,
-                    this.material,
                     this.texture)
                 let piece = new MyPiece(
                     this.scene,
@@ -129,7 +127,6 @@ class MyGameBoard extends CGFobject{
         this.scene.popMatrix()
 
         this.scene.pushMatrix()
-        // this.scene.translate(this.centerx, this.centery, this.centerz)
         this.boardsides.display()
         this.scene.popMatrix()
 
@@ -139,7 +136,6 @@ class MyGameBoard extends CGFobject{
                 this.scene.registerForPick(index + 1, this.board[index]);
 
                 this.scene.pushMatrix()
-                // this.scene.translate(this.centerx, this.centery, this.centerz)
                 this.scene.translate(x - (this.size/2) + 0.5, 0, z - (this.size/2) + 0.5)
                 this.board[index].display()
                 this.scene.popMatrix()
@@ -183,7 +179,6 @@ class MyGameBoard extends CGFobject{
             let tile = new MyTile(
                 this.scene,
                 board, value.x, value.y,
-                this.material,
                 this.texture)
             if (value.piece) {
                 let piece = new MyPiece(
@@ -192,7 +187,6 @@ class MyGameBoard extends CGFobject{
                 tile.setPiece(piece)
             }
             clonedBoard.push(tile)
-            // clonedBoard.push(value)
         }))
         board.board = clonedBoard
         return board

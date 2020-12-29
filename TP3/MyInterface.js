@@ -118,6 +118,7 @@ class MyInterface extends CGFinterface {
         this.color1 = this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.onColorsChanged())
         this.color2 = this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.onColorsChanged())
         this.box = this.themes.addColor(this.scene.orchestrator, 'boxColor').name("Box Color").onChange(() => this.scene.orchestrator.onColorsChanged())
+        this.tile = this.themes.addColor(this.scene.orchestrator, 'tileColor').name("Tile Color").onChange(() => this.scene.orchestrator.onColorsChanged())
     }
 
     addGameGroup() {
@@ -151,6 +152,8 @@ class MyInterface extends CGFinterface {
                 let colors = this.scene.orchestrator.resetColors()
                 this.color1.setValue(colors.color1)
                 this.color2.setValue(colors.color2)
+                this.box.setValue(colors.box)
+                this.tile.setValue(colors.tile)
             }
         }
 
