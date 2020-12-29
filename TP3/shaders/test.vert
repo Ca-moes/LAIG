@@ -1,17 +1,17 @@
 // informação de cada vértice
-attribute vec3 aVertexPosition;  // posição [x,y,z]
-attribute vec3 aVertexNormal;    // normal [x,y,z]
-attribute vec2 aTextureCoord;    // coordenadas de textura [s,t] - Tex-coords input to VS
+attribute vec3 aVertexPosition;// posição [x,y,z]
+attribute vec3 aVertexNormal;// normal [x,y,z]
+attribute vec2 aTextureCoord;// coordenadas de textura [s,t] - Tex-coords input to VS
 
 // info comum a todos os vértice
 // WebCGF-provided Input Variables (uniforms)
-uniform mat4 uMVMatrix; // Model View matrix - Matrix onde são aplicadas as transformações
-uniform mat4 uPMatrix;  // Projection matrix - Matrix com info da camara
-uniform mat4 uNMatrix;	// Normal transformation matrix - Processa a normal associada ao vértice
+uniform mat4 uMVMatrix;// Model View matrix - Matrix onde são aplicadas as transformações
+uniform mat4 uPMatrix;// Projection matrix - Matrix com info da camara
+uniform mat4 uNMatrix;// Normal transformation matrix - Processa a normal associada ao vértice
 
-varying vec2 vTextureCoord; // Tex-coords output from VS to be input to FS
+varying vec2 vTextureCoord;// Tex-coords output from VS to be input to FS
 
-uniform float normScale;  // valor recebido de programa de escala da normal
+uniform float normScale;// valor recebido de programa de escala da normal
 // Valores a passar a Fragment Shader
 varying vec4 coords;
 varying vec4 normal;
@@ -26,26 +26,26 @@ void main() {
         pela matrix da cena [uMVMatrix]
         seguida pela multiplicação pela matrix de projeção [uPMatrix]
     */
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 
     // Shift no vertex ao longo da normal
     vec4 vertex=vec4(aVertexPosition+aVertexNormal*normScale*0.1, 1.0);
-	gl_Position = uPMatrix * uMVMatrix * vertex;
-	normal = vec4(aVertexNormal, 1.0);
-	coords=vertex/10.0;
+    gl_Position = uPMatrix * uMVMatrix * vertex;
+    normal = vec4(aVertexNormal, 1.0);
+    coords=vertex/10.0;
 
-	vTextureCoord = aTextureCoord;
+    vTextureCoord = aTextureCoord;
 
     // Usar máscara para offset de vértices
-    vec3 offset=vec3(0.0,0.0,0.0);
-    if (texture2D(uSampler2, vec2(0.0,0.1)+vTextureCoord).b > 0.5)
-		offset=aVertexNormal*normScale*0.1;
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
+    vec3 offset=vec3(0.0, 0.0, 0.0);
+    if (texture2D(uSampler2, vec2(0.0, 0.1)+vTextureCoord).b > 0.5)
+    offset=aVertexNormal*normScale*0.1;
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
 
     // animação
-    if (texture2D(uSampler1, vec2(0.0,0.1)+vTextureCoord).b > 0.5)
-		offset=aVertexNormal*normScale*0.1*sin(timeFactor);
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
+    if (texture2D(uSampler1, vec2(0.0, 0.1)+vTextureCoord).b > 0.5)
+    offset=aVertexNormal*normScale*0.1*sin(timeFactor);
+    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
 
 
     // Mostrar uma letra

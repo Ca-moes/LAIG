@@ -115,7 +115,10 @@ class MyInterface extends CGFinterface {
         this.themes = this.gui.addFolder("Themes");
         this.themes.open();
 
-        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene(); this.scene.orchestrator.resetCamera() })
+        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => {
+            this.scene.orchestrator.updateScene();
+            this.scene.orchestrator.resetCamera()
+        })
     }
 
     /**
@@ -189,7 +192,11 @@ class MyInterface extends CGFinterface {
      */
     addReplayButton() {
         if (this.replayButton == null)
-            this.replayButton = this.preferences.add({replay: () => {this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))}}, "replay")
+            this.replayButton = this.preferences.add({
+                replay: () => {
+                    this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))
+                }
+            }, "replay")
     }
 
     /**
@@ -207,7 +214,11 @@ class MyInterface extends CGFinterface {
      */
     addRestartButton() {
         if (this.restartButton == null)
-            this.restartButton = this.preferences.add({restart: () => {this.scene.orchestrator.restart()}}, "restart")
+            this.restartButton = this.preferences.add({
+                restart: () => {
+                    this.scene.orchestrator.restart()
+                }
+            }, "restart")
     }
 
     /**

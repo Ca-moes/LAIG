@@ -1,50 +1,50 @@
 <lsf>
     <initials>
-        <reference length="0" />
-        <root id="root" />
+        <reference length="0"/>
+        <root id="root"/>
     </initials>
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="0" y="7" z="5" />
-            <to x="0" y="-2" z="0" />
+            <from x="0" y="7" z="5"/>
+            <to x="0" y="-2" z="0"/>
         </perspective>
         <ortho id="demoOrtho" near="1" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
-            <from x="5" y="0" z="10" />
-            <to x="5" y="0" z="0" />
-            <up x="0" y="1" z="0" />
+            <from x="5" y="0" z="10"/>
+            <to x="5" y="0" z="0"/>
+            <up x="0" y="1" z="0"/>
         </ortho>
     </views>
 
     <illumination>
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-        <background r="0.1" g="0.1" b="0.1" a="1.0" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
+        <background r="0.1" g="0.1" b="0.1" a="1.0"/>
     </illumination>
 
 
     <lights>
         <light id="Sun">
-            <enable value="1" />
-            <position x="0" y="70" z="0" w="1.0" />
-            <ambient r="0.4" g="0.4" b="0.4" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <enable value="1"/>
+            <position x="0" y="70" z="0" w="1.0"/>
+            <ambient r="0.4" g="0.4" b="0.4" a="1.0"/>
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
+            <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
         </light>
     </lights>
 
 
     <textures>
-        <texture id="testTexture" path="./scenes/images/testTexture.png" />
-        <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
-        <texture id="testTexture3" path="./scenes/images/testTexture3.jpg" />
-        <texture id="tile" path="./scenes/images/tile.jpg" />
+        <texture id="testTexture" path="./scenes/images/testTexture.png"/>
+        <texture id="testTexture2" path="./scenes/images/testTexture2.png"/>
+        <texture id="testTexture3" path="./scenes/images/testTexture3.jpg"/>
+        <texture id="tile" path="./scenes/images/tile.jpg"/>
 
-        <texture id="skybox_back" path="./scenes/images/city/back.jpg" />
-        <texture id="skybox_bottom" path="./scenes/images/city/bottom.jpg" />
-        <texture id="skybox_front" path="./scenes/images/city/front.jpg" />
-        <texture id="skybox_right" path="./scenes/images/city/right.jpg" />
-        <texture id="skybox_top" path="./scenes/images/city/top.jpg" />
-        <texture id="skybox_left" path="./scenes/images/city/left.jpg" />
+        <texture id="skybox_back" path="./scenes/images/city/back.jpg"/>
+        <texture id="skybox_bottom" path="./scenes/images/city/bottom.jpg"/>
+        <texture id="skybox_front" path="./scenes/images/city/front.jpg"/>
+        <texture id="skybox_right" path="./scenes/images/city/right.jpg"/>
+        <texture id="skybox_top" path="./scenes/images/city/top.jpg"/>
+        <texture id="skybox_left" path="./scenes/images/city/left.jpg"/>
     </textures>
 
     <spritesheets>
@@ -52,11 +52,11 @@
 
     <materials>
         <material id="base">
-            <shininess value="10" />
-            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
-            <diffuse r="0" g="0" b="0.0" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-            <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
+            <shininess value="10"/>
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+            <diffuse r="0" g="0" b="0.0" a="1.0"/>
+            <specular r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <emissive r="0.5" g="0.5" b="0.5" a="1.0"/>
         </material>
     </materials>
 
@@ -65,7 +65,7 @@
 
     <gameboard x="0" y="50" z="0">
         <tiles material="base" texture="tile"/>
-        <camera x="0" y="57" z="15" />
+        <camera x="0" y="57" z="15"/>
         <transformations>
             <translation x="0" y="50" z="0"/>
             <rotation angle="0" axis="x"/>
@@ -75,17 +75,17 @@
 
     <nodes>
         <node id="root">
-            <material id="base" />
+            <material id="base"/>
             <texture id="testTexture3">
-                <amplification aft="1" afs="1" />
+                <amplification aft="1" afs="1"/>
             </texture>
 
             <transformations>
             </transformations>
 
             <descendants>
-                <noderef id="skybox" />
-<!--                <noderef id="floor" />-->
+                <noderef id="skybox"/>
+                <!--                <noderef id="floor" />-->
             </descendants>
         </node>
 
@@ -97,7 +97,7 @@
                 <scale sx="100" sy="100" sz="100"/>
             </transformations>
             <descendants>
-                <leaf type="plane" npartsU="5" npartsV="5" />
+                <leaf type="plane" npartsU="5" npartsV="5"/>
             </descendants>
         </node>
 
@@ -121,7 +121,7 @@
         <node id="skybox_side1">
             <material id="base"/>
             <texture id="skybox_bottom">
-                <amplification afs="100" aft="100" />
+                <amplification afs="100" aft="100"/>
             </texture>
             <transformations>
                 <translation x="0" z="0" y="-0.5"/>
@@ -133,7 +133,7 @@
         <node id="skybox_side2">
             <material id="base"/>
             <texture id="skybox_left">
-                <amplification afs="200" aft="200" />
+                <amplification afs="200" aft="200"/>
             </texture>
             <transformations>
                 <translation x="0.5" z="0" y="0"/>
@@ -147,7 +147,7 @@
         <node id="skybox_side3">
             <material id="base"/>
             <texture id="skybox_right">
-                <amplification afs="200" aft="200" />
+                <amplification afs="200" aft="200"/>
             </texture>
             <transformations>
                 <translation x="-0.5" z="0" y="0"/>
@@ -161,7 +161,7 @@
         <node id="skybox_side4">
             <material id="base"/>
             <texture id="skybox_back">
-                <amplification afs="200" aft="200" />
+                <amplification afs="200" aft="200"/>
             </texture>
             <transformations>
                 <translation x="0" z="-0.5" y="0"/>
@@ -174,7 +174,7 @@
         <node id="skybox_side5">
             <material id="base"/>
             <texture id="skybox_front">
-                <amplification afs="200" aft="200" />
+                <amplification afs="200" aft="200"/>
             </texture>
             <transformations>
                 <translation x="0" z="0.5" y="0"/>
@@ -188,7 +188,7 @@
         <node id="skybox_side6">
             <material id="base"/>
             <texture id="skybox_top">
-                <amplification afs="200" aft="200" />
+                <amplification afs="200" aft="200"/>
             </texture>
             <transformations>
                 <translation x="0" z="0" y="0.5"/>

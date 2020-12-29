@@ -2,8 +2,8 @@
 precision highp float;
 #endif
 
-varying vec2 vTextureCoord;  // coordenadas de textura interpoladas recebidas de VS
-uniform sampler2D uSampler;  // recebe um identificador da textura a usar
+varying vec2 vTextureCoord;// coordenadas de textura interpoladas recebidas de VS
+uniform sampler2D uSampler;// recebe um identificador da textura a usar
 
 uniform float progress;
 

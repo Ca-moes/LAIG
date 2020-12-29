@@ -3,7 +3,7 @@ const Utils = Object.freeze({
         const minutes = Math.floor(Math.round(secs) / 60);
         const seconds = Math.round(secs) - minutes * 60;
 
-        return str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2)
+        return str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2)
     },
     getType: (player) => {
         let type
@@ -25,8 +25,8 @@ const Utils = Object.freeze({
     tileToCoords: (tile) => `${String.fromCharCode(65 + tile.y)}${tile.x}`
 })
 
-function str_pad_left(string,pad,length) {
-    return (new Array(length+1).join(pad)+string).slice(-length);
+function str_pad_left(string, pad, length) {
+    return (new Array(length + 1).join(pad) + string).slice(-length);
 }
 
 const GraphUtils = Object.freeze({
@@ -70,7 +70,7 @@ const GraphUtils = Object.freeze({
         if (GraphUtils.findPath(graph, x - 1, y, destination) === true) {
             return true;
         }
-        if (GraphUtils.findPath(graph, x, y - 1 , destination) === true) {
+        if (GraphUtils.findPath(graph, x, y - 1, destination) === true) {
             return true;
         }
 
@@ -96,7 +96,7 @@ const GraphUtils = Object.freeze({
     findPathPlayer1: (board) => {
         let solutions = []
         for (let y0 = 0; y0 < board.length; y0++) {
-            for (let y1= 0; y1 < board[0].length; y1++) {
+            for (let y1 = 0; y1 < board[0].length; y1++) {
                 let graph = GraphUtils.toGraph(board)
                 if (graph[y0][0].value !== 0 || graph[y1][graph.length - 1].value !== 0)
                     continue
@@ -114,7 +114,7 @@ const GraphUtils = Object.freeze({
     findPathPlayer2: (board) => {
         let solutions = []
         for (let x0 = 0; x0 < board.length; x0++) {
-            for (let x1= 0; x1 < board[0].length; x1++) {
+            for (let x1 = 0; x1 < board[0].length; x1++) {
                 let graph = GraphUtils.toGraph(board)
                 if (graph[0][x0].value !== 0 || graph[graph.length - 1][x1].value !== 0)
                     continue
@@ -145,12 +145,12 @@ class CustomLogging {
         };
     }
 
-    setTitleStyle({ color, size }) {
+    setTitleStyle({color, size}) {
         if (color !== undefined) this.title.color = color;
         if (size !== undefined) this.title.size = size;
     }
 
-    setBodyStyle({ color, size }) {
+    setBodyStyle({color, size}) {
         if (color !== undefined) this.body.color = color;
         if (size !== undefined) this.body.size = size;
     }
