@@ -939,7 +939,7 @@ class MySceneGraph {
                         const text = this.reader.getString(descendantsNodes[j], 'text')
                         if (text == null)
                             this.onXMLMinorError("[NODES] No text for spritetext on node id: " + nodeID);
-                        
+
                         leaves.push({
                             type: "spritetext",
                             object: new MySpriteText(this.scene, text)
@@ -969,7 +969,7 @@ class MySceneGraph {
                         this.animations.push(spriteAnim)
                         leaves.push({
                             type: "spriteanim",
-                            object : spriteAnim
+                            object: spriteAnim
                         })
                     } else if (type === "plane") {
                         let npartsU = this.reader.getInteger(descendantsNodes[j], 'npartsU');
@@ -1184,10 +1184,7 @@ class MySceneGraph {
             y: y,
             z: z,
             camera: camera,
-            tiles: {
-                material: this.materials[materialIDTile],
-                texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null
-            },
+            texture: (textureIDTile !== "clear") ? this.textures[textureIDTile] : null,
             transformations: transformationMatrix
         }
 
@@ -1411,8 +1408,7 @@ class MySceneGraph {
                             y: this.reader.getFloat(transformations[k], 'y'),
                             z: this.reader.getFloat(transformations[k], 'z'),
                         }
-                    }
-                    else if (transformations[k].nodeName === "rotation") {
+                    } else if (transformations[k].nodeName === "rotation") {
                         switch (this.reader.getString(transformations[k], 'axis')) {
                             case 'x':
                                 rotation.x = this.reader.getFloat(transformations[k], 'angle');
@@ -1426,8 +1422,7 @@ class MySceneGraph {
                             default:
                                 break;
                         }
-                    }
-                    else if (transformations[k].nodeName === "scale") {
+                    } else if (transformations[k].nodeName === "scale") {
                         scale = {
                             sx: this.reader.getFloat(transformations[k], 'sx'),
                             sy: this.reader.getFloat(transformations[k], 'sy'),
@@ -1576,7 +1571,7 @@ class MySceneGraph {
     setAnimationsStartTime(t) {
         for (const [animationID, animation] of Object.entries(this.animations)) {
             if (animation instanceof KeyframeAnimation)
-            animation.setStartingTime(t)
+                animation.setStartingTime(t)
         }
     }
 

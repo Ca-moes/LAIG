@@ -14,7 +14,7 @@ class StaticTileState extends TileState {
     display() {
         this.tile.scene.pushMatrix()
 
-        this.tile.material.apply()
+        this.tile.gameboard.orchestrator.tileMaterial.apply()
         if (this.tile.texture)
             this.tile.texture.bind()
 

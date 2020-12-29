@@ -87,7 +87,7 @@ class MyInterface extends CGFinterface {
     }
 
     /**
-     *
+     * This method adds a group to the interface containing the preferences to start a new game
      * @param {MyGameOrchestrator} orchestrator
      */
     addStartGameGroup(orchestrator) {
@@ -99,26 +99,50 @@ class MyInterface extends CGFinterface {
         this.startOptions.add({start: () => orchestrator.state.menu.startGame()}, "start").name("Start Game")
     }
 
+    /**
+     * This method removes the start game group
+     */
     removeStartGameGroup() {
         this.gui.removeFolder(this.startOptions)
     }
 
+    /**
+     * This method takes a list of themes and adds them to the interface, so the user can change
+     * the current theme on runtime
+     * @param {Object} themes {theme1: 0, theme2: 1, ...} themes loaded on orchestrator
+     */
     addThemesGroup(themes) {
         this.themes = this.gui.addFolder("Themes");
         this.themes.open();
 
-        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => { this.scene.orchestrator.updateScene(); this.scene.orchestrator.resetCamera() })
+        this.themes.add(this.scene.orchestrator, "selectedTheme", themes).name("Theme").onChange(() => {
+            this.scene.orchestrator.updateScene();
+            this.scene.orchestrator.resetCamera()
+        })
     }
 
+    /**
+     * This method takes a list of models and adds them to the interface, so the user can change
+     * the current model on runtime
+     * @param {Object} models {model1: 0, model2: 1, ...} models loaded on orchestrator
+     */
     addModelsGroup(models) {
         this.themes.add(this.scene.orchestrator, "selectedModel", models).name("Model")
     }
 
+    /**
+     * This method adds the option to change some colors on runtime
+     */
     addColorsGroup() {
-        this.color1 = this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.onColorsChanged())
-        this.color2 = this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.onColorsChanged())
+        this.color1 = this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.updateColors())
+        this.color2 = this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.updateColors())
+        this.box = this.themes.addColor(this.scene.orchestrator, 'boxColor').name("Box Color").onChange(() => this.scene.orchestrator.updateColors())
+        this.tile = this.themes.addColor(this.scene.orchestrator, 'tileColor').name("Tile Color").onChange(() => this.scene.orchestrator.updateColors())
     }
 
+    /**
+     * Method to add options concerning the Game to the interface
+     */
     addGameGroup() {
         const group = this.gui.addFolder("Game")
         group.open()
@@ -150,6 +174,8 @@ class MyInterface extends CGFinterface {
                 let colors = this.scene.orchestrator.resetColors()
                 this.color1.setValue(colors.color1)
                 this.color2.setValue(colors.color2)
+                this.box.setValue(colors.box)
+                this.tile.setValue(colors.tile)
             }
         }
 
@@ -161,11 +187,21 @@ class MyInterface extends CGFinterface {
         optionsFolder.add(options, 'resetColors').name("Reset Colors");
     }
 
+    /**
+     * Method to add the replay button
+     */
     addReplayButton() {
         if (this.replayButton == null)
-            this.replayButton = this.preferences.add({replay: () => {this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))}}, "replay")
+            this.replayButton = this.preferences.add({
+                replay: () => {
+                    this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))
+                }
+            }, "replay")
     }
 
+    /**
+     * Method to remove the replay button
+     */
     removeReplayButton() {
         if (this.replayButton != null) {
             this.replayButton.remove()
@@ -173,11 +209,21 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    /**
+     * Method to add the restart button
+     */
     addRestartButton() {
         if (this.restartButton == null)
-            this.restartButton = this.preferences.add({restart: () => {this.scene.orchestrator.restart()}}, "restart")
+            this.restartButton = this.preferences.add({
+                restart: () => {
+                    this.scene.orchestrator.restart()
+                }
+            }, "restart")
     }
 
+    /**
+     * Method to remove the restart button
+     */
     removeRestartButton() {
         if (this.restartButton != null) {
             this.restartButton.remove()
@@ -185,6 +231,9 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    /**
+     * Method to reset interface, removing replay and restart button
+     */
     resetInterface() {
         this.removeReplayButton()
         this.removeRestartButton()

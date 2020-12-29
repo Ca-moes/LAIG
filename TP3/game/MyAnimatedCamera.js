@@ -20,14 +20,14 @@ class MyAnimatedCamera extends CGFcamera {
         if (this.animationCompleted)
             return
 
-        if (t*1000 >= this.endTime) {
+        if (t * 1000 >= this.endTime) {
             this.animationCompleted = true
             this.orbit(CGFcameraAxis.Y, Math.PI - this.angle)
             this.orchestrator.animationEnd()
             return
         }
 
-        let timeFactor = (t*1000 - this.startingTime) / (this.endTime - this.startingTime)
+        let timeFactor = (t * 1000 - this.startingTime) / (this.endTime - this.startingTime)
         let animationFactor = this.animation(timeFactor)
         let angle = Math.PI * animationFactor
         let increment = angle - this.angle

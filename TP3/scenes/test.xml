@@ -1,120 +1,120 @@
 <lsf>
-  <initials>
-    <reference length="0" />
-    <!-- axis length; "0" means no axis displayed -->
-    <root id="demoRoot" />
-    <!-- identifier of root node of the scene graph; this node -->
-    <!-- must be defined in one of the following NODE declarations -->
-  </initials>
+    <initials>
+        <reference length="0"/>
+        <!-- axis length; "0" means no axis displayed -->
+        <root id="demoRoot"/>
+        <!-- identifier of root node of the scene graph; this node -->
+        <!-- must be defined in one of the following NODE declarations -->
+    </initials>
 
-  <views default="defaultCamera">
-    <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-      <from x="0" y="7" z="5" />
-      <to x="0" y="-2" z="0" />
-    </perspective>
-    <ortho id="demoOrtho" near="1" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
-      <from x="5" y="0" z="10" />
-      <to x="5" y="0" z="0" />
-      <up x="0" y="1" z="0" />
-    </ortho>
-  </views>
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="0" y="7" z="5"/>
+            <to x="0" y="-2" z="0"/>
+        </perspective>
+        <ortho id="demoOrtho" near="1" far="100" left="-0.2" right="0.2" top="0.2" bottom="-0.2">
+            <from x="5" y="0" z="10"/>
+            <to x="5" y="0" z="0"/>
+            <up x="0" y="1" z="0"/>
+        </ortho>
+    </views>
 
-  <illumination>
-    <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
-    <!-- global ambient -->
-    <background r="0.1" g="0.1" b="0.1" a="1.0" />
-    <!-- background color -->
-  </illumination>
-
-
-  <lights>
-    <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
-    <light id="demoLight">      <!-- light identifier -->
-      <enable value="1" />
-      <!-- enable/disable -->
-      <position x="0" y="20" z="0" w="1.0" />
-      <!-- light position; w=1: point light; w=0: directional light -->
-      <ambient r="0" g="0" b="0" a="1.0" />
-      <!-- ambient component -->
-      <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-      <!-- diffuse component -->
-      <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-      <!-- specular component -->
-    </light>
-  </lights>
+    <illumination>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0"/>
+        <!-- global ambient -->
+        <background r="0.1" g="0.1" b="0.1" a="1.0"/>
+        <!-- background color -->
+    </illumination>
 
 
-  <textures>
-    <texture id="testTexture" path="./scenes/images/testTexture.png" />
-    <texture id="testTexture2" path="./scenes/images/testTexture2.png" />
-    <texture id="testTexture3" path="./scenes/images/testTexture3.jpg" />
-    <texture id="tile" path="./scenes/images/tile.jpg" />
-  </textures>
+    <lights>
+        <!-- NOTE: this block "light" must be repeated as necessary with different "id". At least one light should be present, and a maximum of eight lights is accepted. -->
+        <light id="demoLight">      <!-- light identifier -->
+            <enable value="1"/>
+            <!-- enable/disable -->
+            <position x="0" y="20" z="0" w="1.0"/>
+            <!-- light position; w=1: point light; w=0: directional light -->
+            <ambient r="0" g="0" b="0" a="1.0"/>
+            <!-- ambient component -->
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0"/>
+            <!-- diffuse component -->
+            <specular r="1.0" g="1.0" b="1.0" a="1.0"/>
+            <!-- specular component -->
+        </light>
+    </lights>
 
-  <spritesheets>
-  </spritesheets>
 
-  <materials>
-    <material id="base">
-      <shininess value="10" />
-      <ambient r="1" g="1" b="1" a="1.0" />
-      <diffuse r="0" g="0" b="0.0" a="1.0" />
-      <specular r="0.0" g="0.0" b="0.0" a="1.0" />
-      <emissive r="0.5" g="0.5" b="0.5" a="1.0" />
-    </material>
-    <material id="red">
-      <shininess value="10"/>
-      <ambient r="0.3" g="0.2" b="0.2" a="1.0"/>
-      <diffuse r="0.6" g="0.05" b="0.08" a="1.0" />
-      <specular r="0.1" g="0.2" b="0.2" a="1.0" />
-      <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
-    </material>
-    <material id="blue">
-      <shininess value="10"/>
-      <ambient r="0.2" g="0.2" b="0.3" a="1.0"/>
-      <diffuse r="0.06" g="0.2" b="0.5" a="1.0" />
-      <specular r="0.1" g="0.1" b="0.2" a="1.0" />
-      <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
-    </material>
-    <material id="transparent">
-      <shininess value="10"/>
-      <ambient r="1" g="1" b="1" a="0"/>
-      <diffuse r="1" g="1" b="1" a="0" />
-      <specular r="1" g="1" b="1" a="0" />
-      <emissive r="0.0" g="0.0" b="0.0" a="0.0" />
-    </material>
-  </materials>
+    <textures>
+        <texture id="testTexture" path="./scenes/images/testTexture.png"/>
+        <texture id="testTexture2" path="./scenes/images/testTexture2.png"/>
+        <texture id="testTexture3" path="./scenes/images/testTexture3.jpg"/>
+        <texture id="tile" path="./scenes/images/tile.jpg"/>
+    </textures>
 
-  <animations>
-  </animations>
+    <spritesheets>
+    </spritesheets>
 
-  <!-- x,y,z defines the center of the board, but this is not applied on transformations!! -->
-  <gameboard x="0" y="0" z="0">
-    <!-- tiles properties -->
-    <tiles material="base" texture="tile"/>
-    <!-- animated camera's position -->
-    <camera x="0" y="7" z="15" />
-    <!-- transformations block, same as on nodes block -->
-    <transformations>
-        <translation x="0" y="0" z="0"/>
-        <rotation angle="0" axis="y"/>
-        <scale sx="1" sy="1" sz="1"/>
-    </transformations>
-  </gameboard>
+    <materials>
+        <material id="base">
+            <shininess value="10"/>
+            <ambient r="1" g="1" b="1" a="1.0"/>
+            <diffuse r="0" g="0" b="0.0" a="1.0"/>
+            <specular r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <emissive r="0.5" g="0.5" b="0.5" a="1.0"/>
+        </material>
+        <material id="red">
+            <shininess value="10"/>
+            <ambient r="0.3" g="0.2" b="0.2" a="1.0"/>
+            <diffuse r="0.6" g="0.05" b="0.08" a="1.0"/>
+            <specular r="0.1" g="0.2" b="0.2" a="1.0"/>
+            <emissive r="0.0" g="0.0" b="0.0" a="0.0"/>
+        </material>
+        <material id="blue">
+            <shininess value="10"/>
+            <ambient r="0.2" g="0.2" b="0.3" a="1.0"/>
+            <diffuse r="0.06" g="0.2" b="0.5" a="1.0"/>
+            <specular r="0.1" g="0.1" b="0.2" a="1.0"/>
+            <emissive r="0.0" g="0.0" b="0.0" a="0.0"/>
+        </material>
+        <material id="transparent">
+            <shininess value="10"/>
+            <ambient r="1" g="1" b="1" a="0"/>
+            <diffuse r="1" g="1" b="1" a="0"/>
+            <specular r="1" g="1" b="1" a="0"/>
+            <emissive r="0.0" g="0.0" b="0.0" a="0.0"/>
+        </material>
+    </materials>
 
-  <nodes>
-    <node id="demoRoot">      <!-- defines one intermediate node; may be repeated as necessary -->
-      <material id="base" />
-      <texture id="testTexture3">
-        <amplification aft="1" afs="1" />
-      </texture>
+    <animations>
+    </animations>
 
-      <transformations>
-      </transformations>
+    <!-- x,y,z defines the center of the board, but this is not applied on transformations!! -->
+    <gameboard x="0" y="0" z="0">
+        <!-- tiles properties -->
+        <tiles material="base" texture="tile"/>
+        <!-- animated camera's position -->
+        <camera x="0" y="7" z="15"/>
+        <!-- transformations block, same as on nodes block -->
+        <transformations>
+            <translation x="0" y="0" z="0"/>
+            <rotation angle="0" axis="y"/>
+            <scale sx="1" sy="1" sz="1"/>
+        </transformations>
+    </gameboard>
 
-      <descendants>
-        <leaf type="rectangle" x1="0" y1="0" x2="0" y2="0"/>
-      </descendants>
-    </node>
-  </nodes>
+    <nodes>
+        <node id="demoRoot">      <!-- defines one intermediate node; may be repeated as necessary -->
+            <material id="base"/>
+            <texture id="testTexture3">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <leaf type="rectangle" x1="0" y1="0" x2="0" y2="0"/>
+            </descendants>
+        </node>
+    </nodes>
 </lsf>

@@ -14,7 +14,7 @@ class HighlightedTileState extends TileState {
         this.tile.scene.setActiveShaderSimple(this.tile.scene.tileHighlightingShader)
         this.tile.scene.tileHighlightingShader.setUniformsValues({colors: this.tile.highlightColor})
 
-        this.tile.material.apply()
+        this.tile.gameboard.orchestrator.tileMaterial.apply()
         if (this.tile.texture)
             this.tile.texture.bind()
 

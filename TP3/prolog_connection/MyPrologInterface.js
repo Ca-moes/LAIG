@@ -106,8 +106,7 @@ class MyPrologInterface {
             if (JSON.parse(request.responseText) === "handshake") {
                 console.log("Handshake Successful")
                 this.orchestrator.hud.updateMessage("HANDSHAKE")
-            }
-            else {
+            } else {
                 console.log("Handshake Failed")
                 this.orchestrator.hud.updateMessage("FAIL HS")
             }
@@ -135,8 +134,7 @@ class MyPrologInterface {
             if (JSON.parse(request.responseText) === "goodbye") {
                 console.log("Quit Successful")
                 this.orchestrator.hud.updateMessage("SERVER QUIT")
-            }
-            else {
+            } else {
                 console.log("Quit Failed")
                 this.orchestrator.hud.updateMessage("QUIT FAIL")
             }
@@ -161,7 +159,9 @@ class MyPrologInterface {
         const request = new XMLHttpRequest();
         request.open('GET', 'http://localhost:8081/' + requestString, true);
 
-        request.onload = () => { callback.apply(state, [JSON.parse(request.responseText)]) }
+        request.onload = () => {
+            callback.apply(state, [JSON.parse(request.responseText)])
+        }
         request.onerror = () => console.log("error getting request")
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');

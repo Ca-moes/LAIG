@@ -8,15 +8,18 @@
 | Gonçalo André Carneiro Teixeira | 201806562 | up201806562@fe.up.pt |
 
 ----
+
 ## Project information
 
 - Strong Points
-  - 1
-  - 2
+    - 1
+    - 2
 - Scene;
-  - description
-  - [XML File](./scenes/)
+    - description
+    - [XML File](./scenes/)
+
 ----
+
 ## Issues/Problems
 
 - 1

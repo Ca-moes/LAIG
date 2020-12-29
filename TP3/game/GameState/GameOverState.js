@@ -31,11 +31,6 @@ class GameOverState extends GameState {
     }
 
     undo() {
-        if (this.winner === 1)
-            this.orchestrator.updatePlayer1Score(--this.orchestrator.player1score)
-        else
-            this.orchestrator.updatePlayer2Score(--this.orchestrator.player2score)
-
-        super.undo();
+        this.orchestrator.error.log("Cannot Undo While on Game Over State")
     }
 }

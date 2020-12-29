@@ -3,7 +3,7 @@
  * @constructor
  */
 
-class MyPiece extends CGFobject{
+class MyPiece extends CGFobject {
     constructor(scene, player) {
         super(scene);
         this.scene = scene;
@@ -19,15 +19,15 @@ class MyPiece extends CGFobject{
         this.state = new StaticPieceState(this)
     };
 
-    getPlayer(){
+    getPlayer() {
         return this.player
     }
 
-    setPlayer(player){
+    setPlayer(player) {
         this.player = player
     }
 
-    getTile(){
+    getTile() {
         return this.tile
     }
 
@@ -62,7 +62,7 @@ class MyPiece extends CGFobject{
         this.state.stopAnimation()
     }
 
-    setTile(tile){
+    setTile(tile) {
         this.tile = tile
     }
 

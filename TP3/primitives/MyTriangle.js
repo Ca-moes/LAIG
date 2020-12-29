@@ -1,5 +1,5 @@
 class MyTriangle extends CGFobject {
-        constructor(scene, x1, y1, x2, y2, x3, y3) {
+    constructor(scene, x1, y1, x2, y2, x3, y3) {
         super(scene);
         this.x1 = x1
         this.y1 = y1
@@ -45,7 +45,7 @@ class MyTriangle extends CGFobject {
 
         // calculate distances
         this.distA = Math.sqrt(Math.pow(v12[0], 2) + Math.pow(v12[1], 2) + Math.pow(v12[2], 2))
-        this.distB = Math.sqrt(Math.pow(this.x3-this.x2, 2) + Math.pow(this.y3-this.y2, 2))
+        this.distB = Math.sqrt(Math.pow(this.x3 - this.x2, 2) + Math.pow(this.y3 - this.y2, 2))
         this.distC = Math.sqrt(Math.pow(v13[0], 2) + Math.pow(v13[1], 2) + Math.pow(v13[2], 2))
 
         // alpha angle between a and c

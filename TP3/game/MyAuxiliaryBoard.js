@@ -4,7 +4,7 @@ class MyAuxiliaryBoard extends CGFobject {
         this.scene = scene
         this.gameboard = gameboard
 
-        this.box = new MyBox(scene)
+        this.box = gameboard.orchestrator.boxModel
 
         this.pieces = []
     }
@@ -34,7 +34,7 @@ class MyAuxiliaryBoard extends CGFobject {
                 y += 1
             }
         }
-        return {x: x, y:y, z:z}
+        return {x: x, y: y, z: z}
     }
 
     display() {
@@ -55,6 +55,7 @@ class MyAuxiliaryBoard extends CGFobject {
                 y += 1
             }
         }
+        this.gameboard.orchestrator.boxMaterial.apply()
         this.scene.scale(1.15, 1, 1.15)
         this.box.display()
         this.scene.popMatrix()
