@@ -205,7 +205,7 @@ class MyInterface extends CGFinterface {
                 replay: () => {
                     this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))
                 }
-            }, "replay")
+            }, "replay").name("Replay")
     }
 
     /**
@@ -227,7 +227,7 @@ class MyInterface extends CGFinterface {
                 restart: () => {
                     this.scene.orchestrator.restart()
                 }
-            }, "restart")
+            }, "restart").name("Restart")
     }
 
     /**
