@@ -197,7 +197,7 @@ class MyGameOrchestrator {
     /**
      * Called on Game Start
      * This method starts the orchestrator, and the game itself, with preferences selected on menu state
-     * @param preferences preferences for the game (type of game, board size, move timeout, difficulty)
+     * @param {Object} preferences preferences for the game (type of game, board size, move timeout, difficulty)
      */
     init(preferences) {
         this.scene.interface.removeStartGameGroup()
