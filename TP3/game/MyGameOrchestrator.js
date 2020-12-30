@@ -96,7 +96,7 @@ class MyGameOrchestrator {
     }
 
     /**
-     * Method to be called when user clicks on "Reset Colors" on Game Interface
+     * Method to be called when user clicks "Reset Colors" on Game Interface
      * @returns {{color1: number[], color2: number[], tile: number[], box: number[]}}
      */
     resetColors() {

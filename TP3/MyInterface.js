@@ -168,7 +168,10 @@ class MyInterface extends CGFinterface {
         const options = {
             handshake: () => this.scene.orchestrator.prolog.handshake(),
             undo: () => this.scene.orchestrator.undo(),
-            quit: () => this.scene.orchestrator.prolog.quit(),
+            quit: () => {
+                this.scene.orchestrator.prolog.quit()
+                close()
+            },
             resetCamera: () => this.scene.orchestrator.resetCamera(),
             resetColors: () => {
                 let colors = this.scene.orchestrator.resetColors()
@@ -181,7 +184,7 @@ class MyInterface extends CGFinterface {
 
         optionsFolder.open()
         optionsFolder.add(options, 'handshake').name("Handshake Server")
-        optionsFolder.add(options, 'quit').name("Quit Server");
+        optionsFolder.add(options, 'quit').name("Quit");
         optionsFolder.add(options, 'undo').name("Undo");
         optionsFolder.add(options, 'resetCamera').name("Reset Camera");
         optionsFolder.add(options, 'resetColors').name("Reset Colors");
