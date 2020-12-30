@@ -33,4 +33,11 @@ class GameOverState extends GameState {
     undo() {
         this.orchestrator.error.log("Cannot Undo While on Game Over State")
     }
+
+
+    continue() {
+    }
+
+    pause() {
+    }
 }

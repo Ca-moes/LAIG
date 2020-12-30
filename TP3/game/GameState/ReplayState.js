@@ -58,4 +58,11 @@ class ReplayState extends GameState {
     undo() {
         // cannot undo on replay
     }
+
+
+    continue() {
+    }
+
+    pause() {
+    }
 }

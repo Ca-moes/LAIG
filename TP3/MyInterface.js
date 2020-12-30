@@ -149,9 +149,9 @@ class MyInterface extends CGFinterface {
 
         this.preferences = group.addFolder("Preferences");
 
-        const bots = this.preferences.addFolder("Bots")
-        bots.open()
-        bots.add(this.scene.orchestrator, 'botDelay', 0, 5.0).name("Delay")
+        this.bots = this.preferences.addFolder("Bots")
+        this.bots.open()
+        this.bots.add(this.scene.orchestrator, 'botDelay', 0, 5.0).name("Delay")
 
         const camera = this.preferences.addFolder("Camera Settings")
         camera.open()
@@ -164,7 +164,7 @@ class MyInterface extends CGFinterface {
             this.scene.orchestrator.camera.animationTime = 1000 / this.scene.orchestrator.cameraSpeed
         })
 
-        const optionsFolder = group.addFolder("Options")
+        this.optionsFolder = group.addFolder("Options")
         const options = {
             handshake: () => this.scene.orchestrator.prolog.handshake(),
             undo: () => this.scene.orchestrator.undo(),
@@ -182,12 +182,12 @@ class MyInterface extends CGFinterface {
             }
         }
 
-        optionsFolder.open()
-        optionsFolder.add(options, 'handshake').name("Handshake Server")
-        optionsFolder.add(options, 'quit').name("Quit");
-        optionsFolder.add(options, 'undo').name("Undo");
-        optionsFolder.add(options, 'resetCamera').name("Reset Camera");
-        optionsFolder.add(options, 'resetColors').name("Reset Colors");
+        this.optionsFolder.open()
+        this.optionsFolder.add(options, 'handshake').name("Handshake Server")
+        this.optionsFolder.add(options, 'quit').name("Quit");
+        this.optionsFolder.add(options, 'undo').name("Undo");
+        this.optionsFolder.add(options, 'resetCamera').name("Reset Camera");
+        this.optionsFolder.add(options, 'resetColors').name("Reset Colors");
     }
 
     /**
@@ -240,5 +240,37 @@ class MyInterface extends CGFinterface {
     resetInterface() {
         this.removeReplayButton()
         this.removeRestartButton()
+    }
+
+    addPauseButton() {
+        if (this.pauseButton == null) this.pauseButton = this.optionsFolder.add({ pause: () => this.scene.orchestrator.pause() }, 'pause').name("Pause");
+    }
+
+    addContinueButton() {
+        if (this.continueButton == null) this.continueButton = this.optionsFolder.add({continue: () => this.scene.orchestrator.continue() }, 'continue').name("Continue");
+    }
+
+    removeContinueButton() {
+        if (this.continueButton != null) {
+            this.continueButton.remove()
+            this.continueButton = null
+        }
+    }
+
+    removePauseButton() {
+        if (this.pauseButton != null) {
+            this.pauseButton.remove()
+            this.pauseButton = null
+        }
+    }
+
+    addBotsDifficulties() {
+        let diffs = {"Easy": 1, "Normal": 2}
+        if (this.scene.orchestrator.player1.type !== Players.HUMAN) {
+            this.bots.add(this.scene.orchestrator.player1, "type", diffs).name("Player 1").onChange(() => this.scene.orchestrator.player1.type = parseInt(this.scene.orchestrator.player1.type))
+        }
+        if (this.scene.orchestrator.player2.type !== Players.HUMAN) {
+            this.bots.add(this.scene.orchestrator.player2, "type", diffs).name("Player 2").onChange(() => this.scene.orchestrator.player2.type = parseInt(this.scene.orchestrator.player2.type))
+        }
     }
 }
