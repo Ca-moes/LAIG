@@ -417,6 +417,9 @@ class MyGameOrchestrator {
 
     pause() {
         this.custom.log("Paused Game")
+        this.tempMessage = this.hud.message.string
+        this.hud.updateMessage("PAUSED")
+
         this.scene.interface.removePauseButton()
         this.scene.interface.addContinueButton()
         this.state.pause()
@@ -424,6 +427,8 @@ class MyGameOrchestrator {
 
     continue() {
         this.custom.log("Continued Game")
+        this.hud.updateMessage(this.tempMessage)
+
         this.scene.interface.addPauseButton()
         this.scene.interface.removeContinueButton()
         this.state.continue()
