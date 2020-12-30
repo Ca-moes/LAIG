@@ -39,7 +39,7 @@ class MyGameHud extends CGFobject {
         // Player 1 HUD
         this.scene.pushMatrix()
 
-        this.orchestrator.player1material.apply()
+        this.orchestrator.hud1material.apply()
 
         // backboard
         this.scene.translate(0, 2, -10)
@@ -93,7 +93,7 @@ class MyGameHud extends CGFobject {
         // player 2 HUD
         this.scene.pushMatrix()
 
-        this.orchestrator.player2material.apply()
+        this.orchestrator.hud2material.apply()
         this.scene.translate(0, 2, 10)
         this.scene.rotate(Math.PI, 0, 1, 0)
         this.texture.bind()

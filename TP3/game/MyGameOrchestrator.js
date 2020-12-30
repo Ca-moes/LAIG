@@ -4,6 +4,8 @@ const Players = Object.freeze({
     BOT_NORMAL: 2
 })
 
+// TODO - adicionar funcionalidade de pausa
+
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene
@@ -33,7 +35,7 @@ class MyGameOrchestrator {
         this.tileColor = [220, 220, 220]
 
         this.ambient = [0, 0, 0, 1]
-        this.specular = [0.1, 0.2, 0.2, 1]
+        this.specular = [0.2, 0.2, 0.2, 1]
         this.emission = [0, 0, 0, 1]
 
         this.player1material = new CGFappearance(this.scene)
@@ -47,6 +49,16 @@ class MyGameOrchestrator {
         this.player2material.setAmbient(...this.ambient)
         this.player2material.setEmission(...this.emission)
         this.player2material.setShininess(10)
+
+        this.hud1material = new CGFappearance(this.scene)
+        this.hud1material.setSpecular(...this.specular)
+        this.hud1material.setEmission(...this.emission)
+        this.hud1material.setShininess(10)
+
+        this.hud2material = new CGFappearance(this.scene)
+        this.hud2material.setSpecular(...this.specular)
+        this.hud2material.setEmission(...this.emission)
+        this.hud2material.setShininess(10)
 
         this.boxMaterial = new CGFappearance(this.scene)
         this.boxMaterial.setSpecular(...this.specular)
@@ -90,7 +102,10 @@ class MyGameOrchestrator {
      */
     updateColors() {
         this.player1material.setDiffuse(this.player1color[0] / 255.0, this.player1color[1] / 255.0, this.player1color[2] / 255.0, 1)
+        this.hud1material.setDiffuse(this.player1color[0] / 255.0, this.player1color[1] / 255.0, this.player1color[2] / 255.0, 1)
+        this.hud1material.setAmbient(this.player1color[0] / 255.0 * 0.35, this.player1color[1] / 255.0 * 0.35, this.player1color[2] / 255.0 * 0.35, 1)
         this.player2material.setDiffuse(this.player2color[0] / 255.0, this.player2color[1] / 255.0, this.player2color[2] / 255.0, 1)
+        this.hud2material.setDiffuse(this.player2color[0] / 255.0, this.player2color[1] / 255.0, this.player2color[2] / 255.0, 1)
         this.boxMaterial.setDiffuse(this.boxColor[0] / 255.0, this.boxColor[1] / 255.0, this.boxColor[2] / 255.0, 1)
         this.tileMaterial.setDiffuse(this.tileColor[0] / 255.0, this.tileColor[1] / 255.0, this.tileColor[2] / 255.0, 1)
     }
