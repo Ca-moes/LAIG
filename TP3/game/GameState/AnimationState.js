@@ -44,8 +44,6 @@ class AnimationState extends GameState {
         this.orchestrator.animator.update(time)
     }
 
-
-
     undo() {
         // cannot undo while animating
     }

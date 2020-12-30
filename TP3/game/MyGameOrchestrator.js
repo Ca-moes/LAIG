@@ -16,6 +16,8 @@ class MyGameOrchestrator {
         // region Preferences (interface)
         this.cameraAnimation = "easeInOutSine"
         this.cameraSpeed = 1
+        this.moveAnimation = "easeInOutSine"
+        this.moveSpeed = 1
         this.botDelay = 0
         this.moveTimeout = 10
         // endregion

@@ -38,7 +38,7 @@ class PickedPieceState extends PieceState {
         this.piece.gameMove = gameMove
         this.piece.type = type
         this.piece.animation = animation
-        this.piece.animation.setStartingTime(time)
+        this.piece.animation.setStartTime(time)
         this.piece.animationComplete = false
         this.piece.changeState(new AnimatedPieceState(this.piece))
     }
