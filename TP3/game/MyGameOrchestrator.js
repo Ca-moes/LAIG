@@ -4,8 +4,6 @@ const Players = Object.freeze({
     BOT_NORMAL: 2
 })
 
-// TODO - adicionar funcionalidade de pausa
-
 class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene
@@ -224,6 +222,9 @@ class MyGameOrchestrator {
         this.scene.camera = this.camera
 
         this.scene.interface.addGameGroup()
+        this.scene.interface.addBotsDifficulties()
+        this.scene.interface.addViewsGroup("selectedView", this.scene.graph.viewsIds, "View")
+        this.scene.interface.addLightsGroup(this.scene.graph.lights)
 
         this.player1score = 0
         this.player2score = 0
