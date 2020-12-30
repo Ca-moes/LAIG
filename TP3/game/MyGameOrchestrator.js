@@ -413,4 +413,18 @@ class MyGameOrchestrator {
         this.custom.log("Restarted Game")
         this.changeState(new ReadyState(this))
     }
+
+    pause() {
+        this.custom.log("Paused Game")
+        this.scene.interface.removePauseButton()
+        this.scene.interface.addContinueButton()
+        this.state.pause()
+    }
+
+    continue() {
+        this.custom.log("Continued Game")
+        this.scene.interface.addPauseButton()
+        this.scene.interface.removeContinueButton()
+        this.state.continue()
+    }
 }

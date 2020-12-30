@@ -31,4 +31,10 @@ class ConfirmRemoveState extends GameState {
         this.orchestrator.hud.updateTimeLeft(Utils.formatTime(this.orchestrator.moveTimeout - time + this.orchestrator.moveStartTime))
         this.orchestrator.animator.update(time)
     }
+
+    continue() {
+    }
+
+    pause() {
+    }
 }

@@ -24,4 +24,11 @@ class MenuState extends GameState {
     undo() {
 
     }
+
+
+    continue() {
+    }
+
+    pause() {
+    }
 }

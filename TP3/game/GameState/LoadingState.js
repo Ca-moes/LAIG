@@ -22,4 +22,11 @@ class LoadingState extends GameState {
     display() {
         this.orchestrator.loadingScreen.display()
     }
+
+
+    continue() {
+    }
+
+    pause() {
+    }
 }

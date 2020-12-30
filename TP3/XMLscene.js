@@ -107,7 +107,6 @@ class XMLscene extends CGFscene {
             this.lightFlags[key] = false
         }
         this.updateLights()
-        console.log(this.lightFlags)
         this.lightFlags = {}
     }
 
@@ -120,9 +119,7 @@ class XMLscene extends CGFscene {
         this.deactivateLights()
 
         this.gl.clearColor(...this.graph.background);
-
         this.setGlobalAmbientLight(...this.graph.ambient);
-
 
         this.initLights();
 

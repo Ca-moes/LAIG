@@ -3,6 +3,8 @@ class RemoveState extends GameState {
         super(orchestrator);
 
         if (orchestrator.currentPlayer.type !== Players.HUMAN) {
+            this.orchestrator.scene.interface.removePauseButton()
+
             this.pickTile = (_) => {
                 this.orchestrator.error.log("Bot move, can't pick")
             }
@@ -16,6 +18,27 @@ class RemoveState extends GameState {
                 this.orchestrator.changeState(new AnimationState(this.orchestrator))
             })
         }
+        else {
+            this.orchestrator.scene.interface.addPauseButton()
+        }
+
+        this.normalPicking = (tile) => {
+            this.orchestrator.scene.interface.removePauseButton()
+            this.orchestrator.prolog.canRemovePiece(tile, this, (reply) => {
+                if (reply === 0) {
+                    tile.pickPiece()
+                    tile.highlightTile(HighlightColors.RED)
+                    this.orchestrator.startPicking(tile)
+                    this.orchestrator.changeState(new ConfirmRemoveState(this.orchestrator))
+                } else {
+                    this.orchestrator.scene.interface.addPauseButton()
+                }
+            })
+        }
+
+        this.pausePicking = (_) => {
+            this.orchestrator.error.log("Cannot Pick While in Pause")
+        }
     }
 
     animationEnd() {
@@ -23,24 +46,23 @@ class RemoveState extends GameState {
     }
 
     pickTile(tile) {
-        this.orchestrator.prolog.canRemovePiece(tile, this, (reply) => {
-            if (reply === 0) {
-                tile.pickPiece()
-                tile.highlightTile(HighlightColors.RED)
-                this.orchestrator.startPicking(tile)
-                this.orchestrator.changeState(new ConfirmRemoveState(this.orchestrator))
-            }
-        })
+        this.normalPicking(tile)
     }
 
     update(time) {
-        if ((time - this.orchestrator.moveStartTime) > this.orchestrator.moveTimeout)
-            this.orchestrator.nextTurn()
+        this.normalUpdate(time)
+    }
 
-        this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
-        this.orchestrator.gameboard.update(time)
-        this.orchestrator.hud.updateTime(Utils.formatTime(time - this.orchestrator.startTime))
-        this.orchestrator.hud.updateTimeLeft(Utils.formatTime(this.orchestrator.moveTimeout - time + this.orchestrator.moveStartTime))
-        this.orchestrator.animator.update(time)
+    continue() {
+        this.orchestrator.startTime += Date.now() / 1000 - this.pauseStart
+        this.orchestrator.moveStartTime += Date.now() / 1000 - this.pauseStart
+        this.update = this.normalUpdate
+        this.pickTile = this.normalPicking
+    }
+
+    pause() {
+        this.pauseStart = Date.now() / 1000
+        this.update = this.pauseUpdate
+        this.pickTile = this.pausePicking
     }
 }

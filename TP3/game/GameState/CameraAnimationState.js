@@ -37,4 +37,10 @@ class CameraAnimationState extends GameState {
     undo() {
         // cannot undo while on camera animation
     }
+
+    continue() {
+    }
+
+    pause() {
+    }
 }
