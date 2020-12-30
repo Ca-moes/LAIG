@@ -83,8 +83,8 @@ class MyGameMove {
 
     clone() {
         let move = new MyGameMove(null, null, this.gameboard.clone())
-        let origin = new MyTile(this.origTile.scene, move.gameboard, this.origTile.x, this.origTile.y, this.origTile.material, this.origTile.texture)
-        let destination = new MyTile(this.destTile.scene, move.gameboard, this.destTile.x, this.destTile.y, this.destTile.material, this.destTile.texture)
+        let origin = new MyTile(this.origTile.scene, move.gameboard, this.origTile.x, this.origTile.y, this.origTile.texture)
+        let destination = new MyTile(this.destTile.scene, move.gameboard, this.destTile.x, this.destTile.y, this.destTile.texture)
 
         if (this.origTile.piece) {
             let piece = new MyPiece(this.origTile.scene, this.origTile.piece.player)
