@@ -34,7 +34,7 @@ class MyGameMove {
             initialPosition: [0, 0.1, 0],
             finalPosition: [this.destTile.x - this.origTile.x, 0, this.destTile.y - this.origTile.y],
             duration: moveTime,
-            heightLevels: [{instant: 0, height: 0.1}, {instant: moveTime * 0.5, height: 0.66}, {instant: moveTime, height: 0.1}]
+            heightLevels: [{instant: 0, height: 0.1}, {instant: moveTime * 0.5, height: 0.66}, {instant: moveTime, height: 0}]
         }
 
         this.moveAnimation = new EasingAnimation(this.moveAnimationAux, () => { this.notifyMoveAnimationCompleted("move") })
@@ -44,7 +44,7 @@ class MyGameMove {
             initialPosition: [0, 0, 0],
             finalPosition: [coords.x + this.gameboard.size * 1.3 - 1 - this.destTile.x, 0.15 + coords.y * 0.2, ((this.gameboard.size / 2 - 2 + coords.z) - this.destTile.y)],
             duration: removeTime,
-            heightLevels: [{instant: 0, height: 0}, {instant: removeTime * 0.3333, height: 1.5}, {instant: removeTime * 0.90 , height: 1.5}, {instant: removeTime, height: 0}]
+            heightLevels: [{instant: 0, height: 0}, {instant: removeTime * 0.3333, height: 1.5}, {instant: removeTime * 0.90 , height: 1.5}, {instant: removeTime, height: 0.15 + coords.y * 0.2}]
         }
 
         this.removeAnimation = new EasingAnimation(this.removeAnimationAux, () => { this.notifyMoveAnimationCompleted("remove") })

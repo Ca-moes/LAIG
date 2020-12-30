@@ -53,7 +53,7 @@ class EasingAnimation {
                     let yTimeFactor = (t - this.startTime - this.heightLevels[i-1].instant) / (this.heightLevels[i].instant - this.heightLevels[i-1].instant)
                     let yAnimationFactor = this.animation(yTimeFactor)
 
-                    this.y = (this.heightLevels[i - 1].height + this.finalPosition[1] - this.initialPosition[1]) + yAnimationFactor * (this.heightLevels[i].height - this.heightLevels[i - 1].height)
+                    this.y = (this.heightLevels[i - 1].height) + yAnimationFactor * (this.heightLevels[i].height - this.heightLevels[i - 1].height)
                     break
                 }
             }
