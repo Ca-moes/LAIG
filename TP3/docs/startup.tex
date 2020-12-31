@@ -1,0 +1,22 @@
+\section{Startup}
+
+\textbf{Requirements}
+\begin{itemize}
+    \item SICStus Prolog
+    \item Mozilla Firefox (yes, it \textbf{must} be this browser, for some reason, chromium-based browsers are not working properly with the prolog server)
+    \item An HTTP Web Server provider
+\end{itemize}
+
+\noindent \textbf{Instructions}
+\begin{enumerate}
+    \item Execute SICStus Prolog;
+    \item Consult \verb+server.pl+ on \verb+./prolog_connection/+;
+    \item Start the server, executing '\verb+server.+' on SICStus Console;
+    \item Start the Application using an HTTP Web Server on your local machine.
+\end{enumerate}
+
+\noindent The server will be running on the background, so, unless the user closes the server, it will be receiving 
+requests on port 8081.
+This means closing the browser tab \textbf{won't} shutdown the server.\\
+\noindent These are the only mandatory requirements and procedures to startup the application, the details about starting a game and using the in-game controls
+will be exposed on the next section.
