@@ -409,12 +409,12 @@ class MyGameOrchestrator {
     onRestartAnimationCompleted() {
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
         this.gameSequence = new MyGameSequence()
-        this.currentPlayer = this.player1
+        // this.currentPlayer = this.player1
         this.gameboard.auxiliaryBoard.emptyBoard()
 
         this.startTime = Date.now() / 1000
 
-        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
+        // this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
