@@ -13,7 +13,7 @@ class GameOverState extends GameState {
             this.orchestrator.gameboard.fillPath(solution)
         })
 
-        this.orchestrator.currentPlayer = this.orchestrator.currentPlayer.code === 1 ? this.orchestrator.player2 : this.orchestrator.player1
+        // this.orchestrator.currentPlayer = this.orchestrator.currentPlayer.code === 1 ? this.orchestrator.player2 : this.orchestrator.player1
     }
 
     animationEnd() {
@@ -27,7 +27,6 @@ class GameOverState extends GameState {
     update(time) {
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
-        this.orchestrator.animator.update(time)
     }
 
     undo() {

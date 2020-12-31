@@ -88,10 +88,14 @@ class MyGameMove {
 
         if (this.origTile.piece) {
             let piece = new MyPiece(this.origTile.scene, this.origTile.piece.player)
+            piece.originalX = this.origTile.piece.originalX
+            piece.originalY = this.origTile.piece.originalY
             origin.setPiece(piece)
         }
         if (this.destTile.piece) {
             let piece = new MyPiece(this.destTile.scene, this.destTile.piece.player)
+            piece.originalX = this.destTile.piece.originalX
+            piece.originalY = this.destTile.piece.originalY
             destination.setPiece(piece)
         }
 

@@ -35,7 +35,6 @@ class ReplayState extends GameState {
         if (this.movements.length !== 0) {
             this.nextMove()
         } else {
-            this.orchestrator.resetCamera()
             this.orchestrator.changeState(new GameOverState(this.orchestrator))
         }
 
@@ -51,8 +50,6 @@ class ReplayState extends GameState {
 
         if (this.orchestrator.currentMovement.animationCompleted)
             this.orchestrator.animationEnd()
-
-        this.orchestrator.animator.update(time)
     }
 
     undo() {

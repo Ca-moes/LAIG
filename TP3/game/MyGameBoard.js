@@ -11,8 +11,8 @@ class MyGameBoard extends CGFobject {
         this.updatedTexCoords = true;
 
         this.boardsides = new MyBoardFrame(this.scene, size)
-
         this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
+        this.animator = new MyBoardAnimator(this)
 
         this.createBoard()
     }
@@ -21,6 +21,14 @@ class MyGameBoard extends CGFobject {
         this.properties = properties
         this.transformations = properties.transformations
         this.texture = properties.texture
+    }
+
+    startAppearingAnimation(callback) {
+        this.animator.startAppearingAnimation(callback)
+    }
+
+    startRestartAnimation(callback) {
+        this.animator.startRestartAnimation(callback)
     }
 
     createBoard() {
@@ -34,6 +42,10 @@ class MyGameBoard extends CGFobject {
                 let piece = new MyPiece(
                     this.scene,
                     pieceType)
+
+                piece.originalX = x
+                piece.originalY = y
+
                 tile.setPiece(piece)
                 piece.setTile(tile)
                 this.board.push(tile)
@@ -75,6 +87,7 @@ class MyGameBoard extends CGFobject {
         for (let i = 0; i < this.board.length; i++) {
             this.board[i].update(t)
         }
+        this.auxiliaryBoard.update(t)
     }
 
     /**
@@ -185,13 +198,14 @@ class MyGameBoard extends CGFobject {
                     this.scene,
                     value.piece.player)
                 tile.setPiece(piece)
+
+                piece.originalX = value.piece.originalX
+                piece.originalY = value.piece.originalY
             }
             clonedBoard.push(tile)
         }))
         board.board = clonedBoard
 
-        console.log("board:", board)
-        console.log("tiles:", )
         return board
     }
 }

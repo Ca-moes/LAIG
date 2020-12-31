@@ -33,7 +33,6 @@ class MoveState extends GameState {
         this.orchestrator.gameboard.update(time)
         this.orchestrator.hud.updateTime(Utils.formatTime(time - this.orchestrator.startTime))
         this.orchestrator.hud.updateTimeLeft(Utils.formatTime(this.orchestrator.moveTimeout - time + this.orchestrator.moveStartTime))
-        this.orchestrator.animator.update(time)
     }
 
 

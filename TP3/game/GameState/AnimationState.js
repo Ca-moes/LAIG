@@ -40,8 +40,6 @@ class AnimationState extends GameState {
         }
 
         this.orchestrator.hud.updateTime(Utils.formatTime(time - this.orchestrator.startTime))
-
-        this.orchestrator.animator.update(time)
     }
 
     undo() {
