@@ -48,4 +48,12 @@ class PieceState {
     stopAnimation() {
         throw new Error("Abstract method stopAnimation")
     }
+
+    /**
+     * @param animation
+     * @param time
+     */
+    startCustomAnimation(animation, time) {
+
+    }
 }

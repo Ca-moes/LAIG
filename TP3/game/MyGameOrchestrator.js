@@ -192,7 +192,6 @@ class MyGameOrchestrator {
     updateScene() {
         this.scene.updateScene(this.themes[this.selectedTheme])
         this.gameboardProperties = this.themes[this.selectedTheme].gameboardProperties
-        this.scene.camera = this.camera
 
         if (this.gameboard) this.gameboard.updateBoard(this.gameboardProperties)
     }
@@ -216,7 +215,6 @@ class MyGameOrchestrator {
         this.currentPlayer = this.player1
 
         this.gameSequence = new MyGameSequence()
-        this.animator = new MyAnimator(this, this.gameSequence)
 
         this.startTime = Date.now() / 1000
         this.moveStartTime = Date.now() / 1000
@@ -239,7 +237,8 @@ class MyGameOrchestrator {
         this.resetCamera()
 
         this.scene.interface.setActiveCamera(null)
-        this.changeState(new ReadyState(this))
+        this.changeState(new BoardAnimationState(this))
+        this.state.startAnimation("start")
 
         this.custom.log("Game Started")
         console.table({
@@ -254,8 +253,9 @@ class MyGameOrchestrator {
      * This method resets the animated camera.
      */
     resetCamera() {
-        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
-        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45 * DEGREE_TO_RAD, 0.1, 500,
+            vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z),
+            vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
 
         if (this.currentPlayer.code !== 1) {
             this.camera.orbit(CGFcameraAxis.Y, Math.PI)
@@ -402,20 +402,34 @@ class MyGameOrchestrator {
      */
     restart() {
         this.scene.interface.resetInterface()
+        this.changeState(new BoardAnimationState(this))
+        this.state.startAnimation("restart")
+    }
 
+    onRestartAnimationCompleted() {
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
         this.gameSequence = new MyGameSequence()
-        this.currentPlayer = this.player1
+        // this.currentPlayer = this.player1
         this.gameboard.auxiliaryBoard.emptyBoard()
 
         this.startTime = Date.now() / 1000
 
-        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
+        // this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
 
         this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
 
         this.custom.log("Restarted Game")
         this.changeState(new ReadyState(this))
+    }
+
+    replay() {
+        this.changeState(new BoardAnimationState(this))
+        this.state.startAnimation("replay")
+    }
+
+    onReplayAnimationCompleted() {
+        this.custom.log("Started Replay")
+        this.changeState(new ReplayState(this))
     }
 
     pause() {

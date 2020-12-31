@@ -58,6 +58,10 @@ class MyPiece extends CGFobject {
         this.state.startAnimation(gameMove, animation, time, type)
     }
 
+    startCustomAnimation(animation, time) {
+        this.state.startCustomAnimation(animation, time)
+    }
+
     stopAnimation() {
         this.state.stopAnimation()
     }
