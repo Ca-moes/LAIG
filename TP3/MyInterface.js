@@ -207,7 +207,7 @@ class MyInterface extends CGFinterface {
      */
     addReplayButton() {
         if (this.replayButton == null)
-            this.replayButton = this.preferences.add({
+            this.replayButton = this.optionsFolder.add({
                 replay: () => {
                     this.scene.orchestrator.replay()
                 }
@@ -229,7 +229,7 @@ class MyInterface extends CGFinterface {
      */
     addRestartButton() {
         if (this.restartButton == null)
-            this.restartButton = this.preferences.add({
+            this.restartButton = this.optionsFolder.add({
                 restart: () => {
                     this.scene.orchestrator.restart()
                 }
