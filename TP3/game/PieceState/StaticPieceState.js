@@ -43,4 +43,11 @@ class StaticPieceState extends PieceState {
     stopAnimation() {
         // static piece cannot stop a movement if it does not exist just yet
     }
+
+    startCustomAnimation(animation, time) {
+        this.piece.animation = animation
+        this.piece.animation.setStartTime(time)
+        this.piece.animationComplete = false
+        this.piece.changeState(new AnimatedPieceState(this.piece))
+    }
 }

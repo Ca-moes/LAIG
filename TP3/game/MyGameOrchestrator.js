@@ -239,7 +239,8 @@ class MyGameOrchestrator {
         this.resetCamera()
 
         this.scene.interface.setActiveCamera(null)
-        this.changeState(new ReadyState(this))
+        this.changeState(new BoardAnimationState(this))
+        this.state.startAnimation("start")
 
         this.custom.log("Game Started")
         console.table({

@@ -23,6 +23,11 @@ class MyGameBoard extends CGFobject {
         this.texture = properties.texture
     }
 
+    startAppearingAnimation(callback) {
+        let animator = new MyBoardAnimator(this)
+        animator.startAppearingAnimation(callback)
+    }
+
     createBoard() {
         let pieceType = 1
         for (let y = 0; y < this.size; y++) {
