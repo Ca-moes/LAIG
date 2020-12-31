@@ -87,7 +87,8 @@ class MyGameOrchestrator {
         // region Models
         this.boxModel = new CGFOBJModel(scene, "models/box.obj")
         this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2}
-        this.selectedModel = 0
+        this.selectedModelPlayer1 = 0
+        this.selectedModelPlayer2 = 0
         this.models = []
         // endregion
 

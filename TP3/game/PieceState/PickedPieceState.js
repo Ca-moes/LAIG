@@ -17,7 +17,9 @@ class PickedPieceState extends PieceState {
         this.piece.scene.scale(0.2, 0.2, 0.2)
         this.piece.scene.translate(0, this.piece.height / 2 + 0.5, 0)
 
-        this.piece.scene.orchestrator.models[this.piece.scene.orchestrator.selectedModel].display()
+        this.piece.player === 1 ?
+            this.piece.scene.orchestrator.models[this.piece.scene.orchestrator.selectedModelPlayer1].display() :
+            this.piece.scene.orchestrator.models[this.piece.scene.orchestrator.selectedModelPlayer2].display()
 
         this.piece.scene.popMatrix()
     }

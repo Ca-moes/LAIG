@@ -127,17 +127,23 @@ class MyInterface extends CGFinterface {
      * @param {Object} models {model1: 0, model2: 1, ...} models loaded on orchestrator
      */
     addModelsGroup(models) {
-        this.themes.add(this.scene.orchestrator, "selectedModel", models).name("Model")
+        let modelsGroup = this.themes.addFolder("Models")
+        modelsGroup.open()
+
+        modelsGroup.add(this.scene.orchestrator, "selectedModelPlayer1", models).name("Player 1")
+        modelsGroup.add(this.scene.orchestrator, "selectedModelPlayer2", models).name("Player 2")
     }
 
     /**
      * This method adds the option to change some colors on runtime
      */
     addColorsGroup() {
-        this.color1 = this.themes.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.updateColors())
-        this.color2 = this.themes.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.updateColors())
-        this.box = this.themes.addColor(this.scene.orchestrator, 'boxColor').name("Box Color").onChange(() => this.scene.orchestrator.updateColors())
-        this.tile = this.themes.addColor(this.scene.orchestrator, 'tileColor').name("Tile Color").onChange(() => this.scene.orchestrator.updateColors())
+        let colors = this.themes.addFolder("Colors")
+
+        this.color1 = colors.addColor(this.scene.orchestrator, 'player1color').name("Player 1").onChange(() => this.scene.orchestrator.updateColors())
+        this.color2 = colors.addColor(this.scene.orchestrator, 'player2color').name("Player 2").onChange(() => this.scene.orchestrator.updateColors())
+        this.box = colors.addColor(this.scene.orchestrator, 'boxColor').name("Box Color").onChange(() => this.scene.orchestrator.updateColors())
+        this.tile = colors.addColor(this.scene.orchestrator, 'tileColor').name("Tile Color").onChange(() => this.scene.orchestrator.updateColors())
     }
 
     /**
