@@ -14,7 +14,8 @@ class AnimatedPieceState extends PieceState {
             this.piece.texture.bind()
 
         if (!this.piece.animationComplete) {
-            this.piece.animation.apply(this.piece.scene)
+            let [x, y, z] = this.piece.animation.getCoords()
+            this.piece.scene.translate(x, y, z)
         }
 
         // as the models are being made on a 5x5 XY Plane, we need to rescale them
@@ -44,12 +45,8 @@ class AnimatedPieceState extends PieceState {
     }
 
     update(t) {
-        if (this.piece.animation.completed) {
-            this.piece.gameMove.notifyMoveAnimationCompleted(this.piece.type)
-        }
-
         if (!this.piece.animationComplete) {
-            this.piece.animation.update(t)
+            this.piece.animation.animate(t)
         }
     }
 }

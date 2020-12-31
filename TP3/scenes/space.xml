@@ -45,6 +45,9 @@
         <texture id="skybox_right" path="./scenes/images/right.png"/>
         <texture id="skybox_top" path="./scenes/images/top.png"/>
         <texture id="skybox_left" path="./scenes/images/left.png"/>
+
+        <texture id="mars" path="./scenes/images/mars.jpg"/>
+        <texture id="pluto" path="./scenes/images/pluto.jpg"/>
     </textures>
 
     <spritesheets>
@@ -61,6 +64,43 @@
     </materials>
 
     <animations>
+        <animation id="planet_rotation">
+            <keyframe instant="0.0">
+                <translation z="0" x="0" y="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="0"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="300">
+                <translation z="0" x="70" y="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="1800"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="600">
+                <translation z="0" x="0" y="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="3600"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="900">
+                <translation z="0" x="70" y="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="5400"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+            <keyframe instant="1200">
+                <translation z="0" x="0" y="0"/>
+                <rotation axis="x" angle="0"/>
+                <rotation axis="y" angle="0"/>
+                <rotation axis="z" angle="7200"/>
+                <scale sx="1" sy="1" sz="1"/>
+            </keyframe>
+        </animation>
     </animations>
 
     <gameboard x="0" y="0" z="0">
@@ -85,6 +125,35 @@
 
             <descendants>
                 <noderef id="skybox"/>
+                <noderef id="planet1"/>
+                <noderef id="planet2"/>
+            </descendants>
+        </node>
+
+        <node id="planet1">
+            <material id="base"/>
+            <texture id="mars"/>
+            <transformations>
+                <translation y="0" x="-20" z="-30"/>
+                <scale sx="1" sy="1" sz="1"/>
+                <rotation angle="90" axis="x"/>
+            </transformations>
+            <animationref id="planet_rotation"/>
+            <descendants>
+                <leaf type="sphere" radius="3" slices="20" stacks="20"/>
+            </descendants>
+        </node>
+        <node id="planet2">
+            <material id="base"/>
+            <texture id="pluto"/>
+            <transformations>
+                <translation y="0" x="-20" z="30"/>
+                <scale sx="1" sy="1" sz="1"/>
+                <rotation angle="90" axis="x"/>
+            </transformations>
+            <animationref id="planet_rotation"/>
+            <descendants>
+                <leaf type="sphere" radius="3" slices="20" stacks="20"/>
             </descendants>
         </node>
 

@@ -16,6 +16,8 @@ class MyGameOrchestrator {
         // region Preferences (interface)
         this.cameraAnimation = "easeInOutSine"
         this.cameraSpeed = 1
+        this.moveAnimation = "easeInOutSine"
+        this.moveSpeed = 1
         this.botDelay = 0
         this.moveTimeout = 10
         // endregion
@@ -179,7 +181,7 @@ class MyGameOrchestrator {
         this.loadingScreen.updateMessage("Loading " + this.themesNames[this.currentTheme])
         // this timeout is just a "fancy" "useless" thing, we can load is no timeout, but this allows the user to see the
         // loading progress being incremented
-        setTimeout(() => this.themes.push(new MySceneGraph(this.themesNames[this.currentTheme], this.scene, this)), 500)
+        setTimeout(() => this.themes.push(new MySceneGraph(this.themesNames[this.currentTheme], this.scene, this)), 0)
         this.loadingScreen.updateProgress()
     }
 
@@ -197,7 +199,7 @@ class MyGameOrchestrator {
     /**
      * Called on Game Start
      * This method starts the orchestrator, and the game itself, with preferences selected on menu state
-     * @param preferences preferences for the game (type of game, board size, move timeout, difficulty)
+     * @param {Object} preferences preferences for the game (type of game, board size, move timeout, difficulty)
      */
     init(preferences) {
         this.scene.interface.removeStartGameGroup()
@@ -417,6 +419,9 @@ class MyGameOrchestrator {
 
     pause() {
         this.custom.log("Paused Game")
+        this.tempMessage = this.hud.message.string
+        this.hud.updateMessage("PAUSED")
+
         this.scene.interface.removePauseButton()
         this.scene.interface.addContinueButton()
         this.state.pause()
@@ -424,6 +429,8 @@ class MyGameOrchestrator {
 
     continue() {
         this.custom.log("Continued Game")
+        this.hud.updateMessage(this.tempMessage)
+
         this.scene.interface.addPauseButton()
         this.scene.interface.removeContinueButton()
         this.state.continue()

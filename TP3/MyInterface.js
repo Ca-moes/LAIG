@@ -164,6 +164,12 @@ class MyInterface extends CGFinterface {
             this.scene.orchestrator.camera.animationTime = 1000 / this.scene.orchestrator.cameraSpeed
         })
 
+        const moves = this.preferences.addFolder("Move Settings")
+        moves.open()
+
+        moves.add(this.scene.orchestrator, 'moveAnimation', AnimationIndexes).name("Animation")
+        moves.add(this.scene.orchestrator, 'moveSpeed', 0.1, 5).name("Speed")
+
         this.optionsFolder = group.addFolder("Options")
         const options = {
             handshake: () => this.scene.orchestrator.prolog.handshake(),
@@ -199,7 +205,7 @@ class MyInterface extends CGFinterface {
                 replay: () => {
                     this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))
                 }
-            }, "replay")
+            }, "replay").name("Replay")
     }
 
     /**
@@ -221,7 +227,7 @@ class MyInterface extends CGFinterface {
                 restart: () => {
                     this.scene.orchestrator.restart()
                 }
-            }, "restart")
+            }, "restart").name("Restart")
     }
 
     /**

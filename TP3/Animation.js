@@ -22,7 +22,16 @@ const Animations = Object.freeze({
             ? (Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
             : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
     },
-    easeInOutQuart: (x) => x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2
+    easeInOutQuart: (x) => x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2,
+    easeOutElastic: (x) => {
+        const c4 = (2 * Math.PI) / 3;
+
+        return x === 0
+            ? 0
+            : x === 1
+                ? 1
+                : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1;
+    }
 })
 
 const AnimationIndexes = Object.freeze({
@@ -32,7 +41,8 @@ const AnimationIndexes = Object.freeze({
     'Ease In Out Circular': 'easeInOutCirc',
     'Ease In Out Elastic': 'easeInOutElastic',
     'Ease In Out Back': 'easeInOutBack',
-    'Ease In Out Quart': 'easeInOutQuart'
+    'Ease In Out Quart': 'easeInOutQuart',
+    'Ease Out Elastic': 'easeOutElastic'
 })
 
 class Animation {

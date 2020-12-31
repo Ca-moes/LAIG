@@ -189,6 +189,9 @@ class MyGameBoard extends CGFobject {
             clonedBoard.push(tile)
         }))
         board.board = clonedBoard
+
+        console.log("board:", board)
+        console.log("tiles:", )
         return board
     }
 }
