@@ -50,8 +50,6 @@ class ReplayState extends GameState {
 
         if (this.orchestrator.currentMovement.animationCompleted)
             this.orchestrator.animationEnd()
-
-        this.orchestrator.animator.update(time)
     }
 
     undo() {

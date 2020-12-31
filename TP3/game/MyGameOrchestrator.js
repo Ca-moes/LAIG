@@ -215,7 +215,6 @@ class MyGameOrchestrator {
         this.currentPlayer = this.player1
 
         this.gameSequence = new MyGameSequence()
-        this.animator = new MyAnimator(this, this.gameSequence)
 
         this.startTime = Date.now() / 1000
         this.moveStartTime = Date.now() / 1000

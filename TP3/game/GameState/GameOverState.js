@@ -27,7 +27,6 @@ class GameOverState extends GameState {
     update(time) {
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
-        this.orchestrator.animator.update(time)
     }
 
     undo() {
