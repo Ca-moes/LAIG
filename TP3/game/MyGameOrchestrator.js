@@ -192,7 +192,6 @@ class MyGameOrchestrator {
     updateScene() {
         this.scene.updateScene(this.themes[this.selectedTheme])
         this.gameboardProperties = this.themes[this.selectedTheme].gameboardProperties
-        this.scene.camera = this.camera
 
         if (this.gameboard) this.gameboard.updateBoard(this.gameboardProperties)
     }
@@ -255,8 +254,9 @@ class MyGameOrchestrator {
      * This method resets the animated camera.
      */
     resetCamera() {
-        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
-        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
+        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45 * DEGREE_TO_RAD, 0.1, 500,
+            vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z),
+            vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
 
         if (this.currentPlayer.code !== 1) {
             this.camera.orbit(CGFcameraAxis.Y, Math.PI)
@@ -403,7 +403,11 @@ class MyGameOrchestrator {
      */
     restart() {
         this.scene.interface.resetInterface()
+        this.changeState(new BoardAnimationState(this))
+        this.state.startAnimation("restart")
+    }
 
+    onRestartAnimationCompleted() {
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
         this.gameSequence = new MyGameSequence()
         this.currentPlayer = this.player1

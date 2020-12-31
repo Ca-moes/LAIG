@@ -6,7 +6,8 @@ class BoardAnimationState extends GameState {
     startAnimation(type) {
         if (type === "start")
             this.orchestrator.gameboard.startAppearingAnimation(() => { this.animationEnd() })
-
+        else if (type === "restart")
+            this.orchestrator.gameboard.startRestartAnimation(() => { this.orchestrator.onRestartAnimationCompleted() })
     }
 
     animationEnd() {
@@ -26,6 +27,6 @@ class BoardAnimationState extends GameState {
     }
 
     update(time) {
-        this.normalUpdate(time)
+        this.pauseUpdate(time)
     }
 }

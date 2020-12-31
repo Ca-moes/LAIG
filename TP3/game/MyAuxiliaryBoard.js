@@ -60,4 +60,8 @@ class MyAuxiliaryBoard extends CGFobject {
         this.box.display()
         this.scene.popMatrix()
     }
+
+    update(t) {
+        this.pieces.forEach(piece => piece.update(t))
+    }
 }
