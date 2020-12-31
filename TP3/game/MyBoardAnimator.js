@@ -48,7 +48,7 @@ class MyBoardAnimator {
                     let piece = this.gameboard.board[i].piece
                     let tile = this.gameboard.board[i]
 
-                    let time = Math.random() * 2 + 1
+                    let time = Math.random() + 1
 
                     let moveAnimationAux = {
                         animation: Animations[this.gameboard.orchestrator.moveAnimation],
@@ -72,7 +72,7 @@ class MyBoardAnimator {
         for (let j = 0; j < this.gameboard.auxiliaryBoard.pieces.length; j++) {
             let piece = this.gameboard.auxiliaryBoard.pieces[j]
 
-            let time = Math.random() * 3 + 1
+            let time = Math.random() * 2 + 1
             let coords = aux.getNextPieceCoords()
 
             let moveAnimationAux = {

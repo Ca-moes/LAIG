@@ -8,6 +8,8 @@ class BoardAnimationState extends GameState {
             this.orchestrator.gameboard.startAppearingAnimation(() => { this.animationEnd() })
         else if (type === "restart")
             this.orchestrator.gameboard.startRestartAnimation(() => { this.orchestrator.onRestartAnimationCompleted() })
+        else if (type === "replay")
+            this.orchestrator.gameboard.startRestartAnimation(() => { this.orchestrator.onReplayAnimationCompleted() })
     }
 
     animationEnd() {

@@ -423,6 +423,16 @@ class MyGameOrchestrator {
         this.changeState(new ReadyState(this))
     }
 
+    replay() {
+        this.changeState(new BoardAnimationState(this))
+        this.state.startAnimation("replay")
+    }
+
+    onReplayAnimationCompleted() {
+        this.custom.log("Started Replay")
+        this.changeState(new ReplayState(this))
+    }
+
     pause() {
         this.custom.log("Paused Game")
         this.tempMessage = this.hud.message.string

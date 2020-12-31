@@ -209,7 +209,7 @@ class MyInterface extends CGFinterface {
         if (this.replayButton == null)
             this.replayButton = this.preferences.add({
                 replay: () => {
-                    this.scene.orchestrator.changeState(new ReplayState(this.scene.orchestrator))
+                    this.scene.orchestrator.replay()
                 }
             }, "replay").name("Replay")
     }
