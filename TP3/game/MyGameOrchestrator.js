@@ -76,9 +76,9 @@ class MyGameOrchestrator {
         //endregion
 
         // region Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 7)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 8)
         this.currentTheme = 0
-        this.themesNames = {0: "test.xml", 1: "izakaya.xml", 2: "space.xml", 3: "city.xml"}
+        this.themesNames = {0: "space.xml", 1: "city.xml", 2: "izakaya.xml", 3: "room.xml", 4: "test.xml"}
         this.themes = []
         this.selectedTheme = 0
         this.loadScene()
@@ -206,7 +206,7 @@ class MyGameOrchestrator {
 
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
 
-        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2, "City": 3})
+        this.scene.interface.addThemesGroup({"Space": 0,"City": 1, "Izakaya": 2, "Room": 3, "Test": 4})
         this.scene.interface.addModelsGroup(this.modelsNames)
         this.scene.interface.addColorsGroup()
 
