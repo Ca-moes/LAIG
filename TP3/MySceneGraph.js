@@ -1580,8 +1580,4 @@ class MySceneGraph {
             animation.update(t);
         }
     }
-
-    verififyValues(/* tipo pretendido, id, mensagem predefinida */) {
-
-    }
 }
