@@ -41,6 +41,8 @@
 
         <texture id="semi_clear_wood" path="./scenes/images/semi_clear_wood.jpg"/>
         <texture id="wall_wood" path="./scenes/images/wall_wood.jpg"/>
+        <texture id="candle" path="./scenes/images/candle.jpg"/>
+        <texture id="flame" path="./scenes/images/flame.jpg"/>
 
         <texture id="skybox_back" path="./scenes/images/room/back.jpg"/>
         <texture id="skybox_bottom" path="./scenes/images/room/bottom.jpg"/>
@@ -138,6 +140,7 @@
 
             <descendants>
                 <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
             </descendants>
         </node>
         <node id="caneca2">
@@ -153,6 +156,7 @@
 
             <descendants>
                 <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
             </descendants>
         </node>
         <node id="caneca3">
@@ -168,6 +172,7 @@
 
             <descendants>
                 <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
             </descendants>
         </node>
         <node id="caneca4">
@@ -183,9 +188,44 @@
 
             <descendants>
                 <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
             </descendants>
         </node>
         <!-- endregion -->
+
+        <node id="vela">
+            <material id="null"/>
+            <texture id="candle">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="2"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="0.01" topRadius="0.5" bottomRadius="0.5" stacks="10" slices="20"/>
+                <noderef id="chama"/>
+            </descendants>
+        </node>
+
+        <node id="chama">
+            <material id="null"/>
+            <texture id="flame">
+                <amplification afs="1.0" aft="1.0"/>
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="0.2"/>
+                <rotation axis="x" angle="90"/>
+                <scale sx="0.1" sy="0.3" sz="0.1"/>
+                <rotation axis="x" angle="-45"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.4" outer="0.5" slices="4" loops="20"/>
+            </descendants>
+        </node>
 
         <!-- region skybox -->
         <node id="skybox">
