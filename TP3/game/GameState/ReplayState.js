@@ -4,8 +4,8 @@ class ReplayState extends GameState {
 
         this.orchestrator.scene.interface.removeReplayButton()
 
-        // this.orchestrator.camera.setTarget(vec3.fromValues(this.orchestrator.gameboardProperties.x, this.orchestrator.gameboardProperties.y, this.orchestrator.gameboardProperties.z))
-        // this.orchestrator.camera.setPosition(vec3.fromValues(this.orchestrator.gameboardProperties.camera.x, this.orchestrator.gameboardProperties.camera.y + 10, this.orchestrator.gameboardProperties.camera.z))
+        this.orchestrator.camera.setTarget(vec3.fromValues(this.orchestrator.gameboardProperties.x, this.orchestrator.gameboardProperties.y, this.orchestrator.gameboardProperties.z))
+        this.orchestrator.camera.setPosition(vec3.fromValues(this.orchestrator.gameboardProperties.x, this.orchestrator.gameboardProperties.y + 15, this.orchestrator.gameboardProperties.z + 1))
 
         this.movements = orchestrator.gameSequence.moves.map(a => a.clone())
         this.movements.reverse()
