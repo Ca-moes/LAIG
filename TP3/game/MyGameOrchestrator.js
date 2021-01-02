@@ -253,13 +253,12 @@ class MyGameOrchestrator {
      * This method resets the animated camera.
      */
     resetCamera() {
-        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45 * DEGREE_TO_RAD, 0.1, 500,
-            vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z),
-            vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
-
         if (this.currentPlayer.code !== 1) {
             this.camera.orbit(CGFcameraAxis.Y, Math.PI)
         }
+
+        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
+        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
 
         this.scene.camera = this.camera
         this.custom.log("Game Camera Reset")
