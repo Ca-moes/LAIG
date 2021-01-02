@@ -265,7 +265,6 @@ class MyGameOrchestrator {
         }
 
         this.scene.camera = this.camera
-        this.custom.log("Game Camera Reset")
     }
 
     /**
@@ -326,7 +325,7 @@ class MyGameOrchestrator {
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
 
         this.changeState(new CameraAnimationState(this))
-        this.camera.startAnimation()
+        this.camera.startAnimation("orbit", 1 / this.cameraSpeed)
     }
 
     /**
@@ -431,8 +430,20 @@ class MyGameOrchestrator {
     }
 
     onReplayAnimationCompleted() {
-        this.custom.log("Started Replay")
-        this.changeState(new ReplayState(this))
+        this.camera.startAnimation("position", 1.5, () => {
+                this.custom.log("Started Replay")
+                this.changeState(new ReplayState(this))
+            },
+            [
+                this.gameboardProperties.x,
+                this.gameboardProperties.y + 15,
+                this.gameboardProperties.z
+            ],
+            [
+                this.gameboardProperties.x,
+                this.gameboardProperties.y,
+                this.gameboardProperties.z
+            ])
     }
 
     pause() {

@@ -166,9 +166,7 @@ class MyInterface extends CGFinterface {
             this.scene.orchestrator.camera.animation = Animations[this.scene.orchestrator.cameraAnimation]
         })
 
-        camera.add(this.scene.orchestrator, 'cameraSpeed', 0.1, 5).name("Speed").onChange(() => {
-            this.scene.orchestrator.camera.animationTime = 1000 / this.scene.orchestrator.cameraSpeed
-        })
+        camera.add(this.scene.orchestrator, 'cameraSpeed', 0.1, 5).name("Speed")
 
         const moves = this.preferences.addFolder("Move Settings")
         moves.open()
