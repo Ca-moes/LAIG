@@ -55,7 +55,7 @@ class MyInterface extends CGFinterface {
         const group = this.gui.addFolder("Views");
         group.open();
 
-        this.scene.selectedView = this.scene.graph.defaultView
+        // this.scene.selectedView = this.scene.graph.defaultView
 
         list.push("default/reset")
         group.add(this.scene, id, list).name(name).onChange(this.scene.updateView.bind(this.scene))

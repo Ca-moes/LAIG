@@ -198,6 +198,18 @@ class MyGameOrchestrator {
         this.gameboardProperties = this.themes[this.selectedTheme].gameboardProperties
 
         if (this.gameboard) this.gameboard.updateBoard(this.gameboardProperties)
+
+        this.camera.startAnimation("position", 1, () => { },
+            [
+                this.gameboardProperties.camera.x,
+                this.gameboardProperties.camera.y,
+                this.gameboardProperties.camera.z
+            ],
+            [
+                this.gameboardProperties.x,
+                this.gameboardProperties.y,
+                this.gameboardProperties.z
+            ])
     }
 
     /**
