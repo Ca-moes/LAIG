@@ -416,12 +416,21 @@ class MyGameOrchestrator {
 
         this.startTime = Date.now() / 1000
 
-        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
-
-        this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
-
-        this.custom.log("Restarted Game")
-        this.changeState(new ReadyState(this))
+        this.camera.startAnimation("position", 1.5, () => {
+                this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
+                this.custom.log("Restarted Game")
+                this.changeState(new ReadyState(this))
+            },
+            [
+                this.gameboardProperties.camera.x,
+                this.gameboardProperties.camera.y,
+                this.gameboardProperties.camera.z
+            ],
+            [
+                this.gameboardProperties.x,
+                this.gameboardProperties.y,
+                this.gameboardProperties.z
+            ])
     }
 
     replay() {

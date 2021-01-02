@@ -30,7 +30,15 @@ class ReplayState extends GameState {
         if (this.movements.length !== 0) {
             this.nextMove()
         } else {
-            this.orchestrator.changeState(new GameOverState(this.orchestrator))
+            this.orchestrator.camera.startAnimation("position", 1.5, () => {
+                    this.orchestrator.changeState(new GameOverState(this.orchestrator))
+                },
+                [...this.orchestrator.camera.originalPosition],
+                [
+                    this.orchestrator.gameboardProperties.x,
+                    this.orchestrator.gameboardProperties.y,
+                    this.orchestrator.gameboardProperties.z
+                ])
         }
 
     }
