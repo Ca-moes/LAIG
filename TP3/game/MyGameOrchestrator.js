@@ -76,7 +76,7 @@ class MyGameOrchestrator {
         //endregion
 
         // region Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 8)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 9)
         this.currentTheme = 0
         this.themesNames = {0: "space.xml", 1: "city.xml", 2: "izakaya.xml", 3: "room.xml", 4: "test.xml"}
         this.themes = []
@@ -86,7 +86,7 @@ class MyGameOrchestrator {
 
         // region Models
         this.boxModel = new CGFOBJModel(scene, "models/box.obj")
-        this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2}
+        this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2, "Donut Chip": 3}
         this.selectedModelPlayer1 = 0
         this.selectedModelPlayer2 = 0
         this.models = []
@@ -161,6 +161,10 @@ class MyGameOrchestrator {
 
         this.loadingScreen.updateMessage("Loading Model: Round Chip")
         this.models.push(new CGFOBJModel(this.scene, "models/round_chip_piece.obj"))
+        this.loadingScreen.updateProgress()
+
+        this.loadingScreen.updateMessage("Loading Model: Donut Chip")
+        this.models.push(new CGFOBJModel(this.scene, "models/donut_chip_piece.obj"))
         this.loadingScreen.updateProgress()
 
         this.loadingScreen.updateMessage("Loading Completed")
