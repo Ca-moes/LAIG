@@ -5,12 +5,12 @@
         <root id="root"/>
     </initials>
 
-    <views default="Inicial">
-        <perspective id="Inicial" near="0.1" far="500" angle="45">
+    <views default="Board">
+        <perspective id="Board" near="0.1" far="500" angle="45">
             <from x="5" y="7" z="30"/>
             <to x="5" y="3" z="6"/>
         </perspective>
-        <perspective id="Interior 1" near="0.1" far="500" angle="45">
+<!--         <perspective id="Interior 1" near="0.1" far="500" angle="45">
             <from x="10" y="3" z="1"/>
             <to x="2.5" y="1" z="6"/>
         </perspective>
@@ -29,7 +29,7 @@
         <perspective id="Board" near="0.1" far="500" angle="45">
             <from x="3" y="2.7" z="2"/>
             <to x="0.2" y="2.7" z="2"/>
-        </perspective>
+        </perspective> -->
         <perspective id="Clock" near="0.1" far="500" angle="45">
             <from x="2" y="3" z="13"/>
             <to x="0.2" y="3" z="13"/>
