@@ -34,21 +34,6 @@
             <from x="2" y="3" z="13"/>
             <to x="0.2" y="3" z="13"/>
         </perspective>
-        <ortho id="Ortho_EntryView" near="0.1" far="100" left="-3.5" right="6.5" top="2.1" bottom="-2.1">
-            <from x="3.5" y="2" z="15"/>
-            <to x="3.5" y="2" z="0"/>
-            <up x="0" y="1" z="0"/>
-        </ortho>
-        <ortho id="Ortho_SideView" near="0.1" far="100" left="-5.2" right="5.2" top="2.5" bottom="-2.5">
-            <from x="5" y="2" z="5"/>
-            <to x="0" y="2" z="5"/>
-            <up x="0" y="1" z="0"/>
-        </ortho>
-        <ortho id="Ortho_TopView" near="0.1" far="100" left="-8" right="8" top="5.1" bottom="-5.1">
-            <from x="2.5" y="3.5" z="5"/>
-            <to x="2.5" y="0" z="5"/>
-            <up x="0" y="1" z="1"/>
-        </ortho>
     </views>
 
     <illumination>
@@ -279,17 +264,19 @@
             </transformations>
 
             <descendants>
-                <noderef id="paredes"/>
+                <noderef id="paredes"/> 
                 <noderef id="bancada"/>
-                <noderef id="set_lat_cadeiras"/>
+                <!-- <noderef id="set_lat_cadeiras"/>  -->
                 <noderef id="set_lat_tapetes"/>
-                <noderef id="prateleira"/>
+
+                <!-- <noderef id="prateleira"/>
                 <noderef id="garrafa_1"/>
                 <noderef id="televisao_lat"/>
-                <noderef id="quadro_tra"/>
-                <noderef id="jarro_flor"/>
-                <noderef id="set_barrels"/>
-                <noderef id="mesa_refeicao"/>
+                <noderef id="quadro_tra"/> 
+                <noderef id="jarro_flor"/> -->
+
+                <noderef id="set_barrels"/> 
+                <noderef id="mesa_refeicao"/> 
             </descendants>
         </node>
 
@@ -2017,23 +2004,14 @@
                 <noderef id="pilar2"/>
                 <noderef id="pilar3"/>
 
-                <noderef id="set1_cadeiras_mesa"/>
+                <!-- <noderef id="set1_cadeiras_mesa"/>
                 <noderef id="set2_cadeiras_mesa"/>
                 <noderef id="set3_cadeiras_mesa"/>
                 <noderef id="set4_cadeiras_mesa"/>
                 <noderef id="set5_cadeiras_mesa"/>
                 <noderef id="set6_cadeiras_mesa"/>
                 <noderef id="set7_cadeiras_mesa"/>
-                <noderef id="set8_cadeiras_mesa"/>
-
-                <!--                <noderef id="set1_pratos_mesa"/>-->
-                <!--                <noderef id="set2_pratos_mesa"/>-->
-                <!--                <noderef id="set3_pratos_mesa"/>-->
-                <!--                <noderef id="set4_pratos_mesa"/>-->
-                <!--                <noderef id="set5_pratos_mesa"/>-->
-                <!--                <noderef id="set6_pratos_mesa"/>-->
-                <!--                <noderef id="set7_pratos_mesa"/>-->
-                <!--                <noderef id="set8_pratos_mesa"/>-->
+                <noderef id="set8_cadeiras_mesa"/> -->
             </descendants>
         </node>
         <!-- region tampo mesa refeicao -->

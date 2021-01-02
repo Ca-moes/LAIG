@@ -193,7 +193,7 @@
             <texture id="clear"/>
             <transformations>
                 <translation y="0" x="0" z="0"/>
-                <scale sx="500" sy="500" sz="500"/>
+                <scale sx="100" sy="100" sz="100"/>
             </transformations>
             <descendants>
                 <noderef id="skybox_side1"/>
