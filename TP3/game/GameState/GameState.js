@@ -48,6 +48,7 @@ class GameState {
         let callback = () => {
             this.orchestrator.gameboard.auxiliaryBoard.undo()
             this.orchestrator.gameboard = move.gameboard
+            this.orchestrator.gameboard.updateBoard(this.orchestrator.gameboardProperties)
             this.orchestrator.gameboard.orchestrator = this.orchestrator
             this.orchestrator.nextTurn()
             this.orchestrator.custom.log("Undo Movement")

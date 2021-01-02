@@ -7,8 +7,8 @@
 
     <views default="Board">
         <perspective id="Board" near="0.1" far="500" angle="45">
-            <from x="5" y="7" z="30"/>
-            <to x="5" y="3" z="6"/>
+            <from x="9" y="2" z="6.5"/>
+            <to x="7.5" y="1.3" z="6.5"/>
         </perspective>
 <!--         <perspective id="Interior 1" near="0.1" far="500" angle="45">
             <from x="10" y="3" z="1"/>
@@ -88,6 +88,7 @@
         <texture id="barro" path="./scenes/images/barro.png"/>
         <texture id="porta" path="./scenes/images/door.jpg"/>
         <texture id="inside" path="./scenes/images/inside.jpg"/>
+        <texture id="tile" path="./scenes/images/tile.jpg"/>
 
     </textures>
 

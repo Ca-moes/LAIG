@@ -445,7 +445,7 @@ class MyGameOrchestrator {
             },
             [
                 this.gameboardProperties.x,
-                this.gameboardProperties.y + 15,
+                this.gameboardProperties.y + (this.gameboardProperties.camera.y - this.gameboardProperties.y)*2.5,
                 this.gameboardProperties.z
             ],
             [

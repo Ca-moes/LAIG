@@ -6,6 +6,7 @@ class ReplayState extends GameState {
         this.movements = orchestrator.gameSequence.moves.map(a => a.clone())
         this.movements.reverse()
         this.orchestrator.gameboard = this.orchestrator.gameSequence.moves[0].gameboard.clone()
+        this.orchestrator.gameboard.updateBoard(this.orchestrator.gameboardProperties)
         this.orchestrator.gameboard.auxiliaryBoard.emptyBoard()
 
         this.nextMove();
