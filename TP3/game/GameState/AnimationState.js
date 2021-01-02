@@ -39,6 +39,8 @@ class AnimationState extends GameState {
             this.orchestrator.animationEnd()
         }
 
+        this.orchestrator.camera.animate(time)
+
         this.orchestrator.hud.updateTime(Utils.formatTime(time - this.orchestrator.startTime))
     }
 

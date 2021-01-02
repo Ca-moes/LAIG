@@ -76,9 +76,9 @@ class MyGameOrchestrator {
         //endregion
 
         // region Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 7)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 9)
         this.currentTheme = 0
-        this.themesNames = {0: "test.xml", 1: "izakaya.xml", 2: "space.xml", 3: "city.xml"}
+        this.themesNames = {0: "space.xml", 1: "izakaya.xml", 2: "room.xml", 3: "test.xml"}
         this.themes = []
         this.selectedTheme = 0
         this.loadScene()
@@ -86,7 +86,7 @@ class MyGameOrchestrator {
 
         // region Models
         this.boxModel = new CGFOBJModel(scene, "models/box.obj")
-        this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2}
+        this.modelsNames = {"Default": 0, "Flat Chip": 1, "Round Chip": 2, "Donut Chip": 3}
         this.selectedModelPlayer1 = 0
         this.selectedModelPlayer2 = 0
         this.models = []
@@ -163,6 +163,10 @@ class MyGameOrchestrator {
         this.models.push(new CGFOBJModel(this.scene, "models/round_chip_piece.obj"))
         this.loadingScreen.updateProgress()
 
+        this.loadingScreen.updateMessage("Loading Model: Donut Chip")
+        this.models.push(new CGFOBJModel(this.scene, "models/donut_chip_piece.obj"))
+        this.loadingScreen.updateProgress()
+
         this.loadingScreen.updateMessage("Loading Completed")
 
         this.scene.interface.addStartGameGroup(this)
@@ -206,7 +210,7 @@ class MyGameOrchestrator {
 
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
 
-        this.scene.interface.addThemesGroup({"Test": 0, "Izakaya": 1, "Space": 2, "City": 3})
+        this.scene.interface.addThemesGroup({"Space": 0, "Izakaya": 1, "Room": 2, "Test": 3})
         this.scene.interface.addModelsGroup(this.modelsNames)
         this.scene.interface.addColorsGroup()
 
@@ -253,16 +257,14 @@ class MyGameOrchestrator {
      * This method resets the animated camera.
      */
     resetCamera() {
-        this.camera = new MyAnimatedCamera(this, Animations[this.cameraAnimation], 45 * DEGREE_TO_RAD, 0.1, 500,
-            vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z),
-            vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
+        this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
+        this.camera.setTarget(vec3.fromValues(this.gameboardProperties.x, this.gameboardProperties.y, this.gameboardProperties.z))
 
         if (this.currentPlayer.code !== 1) {
             this.camera.orbit(CGFcameraAxis.Y, Math.PI)
         }
 
         this.scene.camera = this.camera
-        this.custom.log("Game Camera Reset")
     }
 
     /**
@@ -323,7 +325,7 @@ class MyGameOrchestrator {
         this.currentPlayer = this.currentPlayer.code === 1 ? this.player2 : this.player1
 
         this.changeState(new CameraAnimationState(this))
-        this.camera.startAnimation()
+        this.camera.startAnimation("orbit", 1 / this.cameraSpeed)
     }
 
     /**
@@ -409,17 +411,26 @@ class MyGameOrchestrator {
     onRestartAnimationCompleted() {
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
         this.gameSequence = new MyGameSequence()
-        // this.currentPlayer = this.player1
+        this.currentPlayer = this.player1
         this.gameboard.auxiliaryBoard.emptyBoard()
 
         this.startTime = Date.now() / 1000
 
-        // this.camera.setPosition(vec3.fromValues(this.gameboardProperties.camera.x, this.gameboardProperties.camera.y, this.gameboardProperties.camera.z))
-
-        this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
-
-        this.custom.log("Restarted Game")
-        this.changeState(new ReadyState(this))
+        this.camera.startAnimation("position", 1.5, () => {
+                this.hud.updateMessage(("Player " + this.currentPlayer.code + " turn").toUpperCase())
+                this.custom.log("Restarted Game")
+                this.changeState(new ReadyState(this))
+            },
+            [
+                this.gameboardProperties.camera.x,
+                this.gameboardProperties.camera.y,
+                this.gameboardProperties.camera.z
+            ],
+            [
+                this.gameboardProperties.x,
+                this.gameboardProperties.y,
+                this.gameboardProperties.z
+            ])
     }
 
     replay() {
@@ -428,8 +439,20 @@ class MyGameOrchestrator {
     }
 
     onReplayAnimationCompleted() {
-        this.custom.log("Started Replay")
-        this.changeState(new ReplayState(this))
+        this.camera.startAnimation("position", 1.5, () => {
+                this.custom.log("Started Replay")
+                this.changeState(new ReplayState(this))
+            },
+            [
+                this.gameboardProperties.x,
+                this.gameboardProperties.y + (this.gameboardProperties.camera.y - this.gameboardProperties.y)*2.5,
+                this.gameboardProperties.z
+            ],
+            [
+                this.gameboardProperties.x,
+                this.gameboardProperties.y,
+                this.gameboardProperties.z
+            ])
     }
 
     pause() {

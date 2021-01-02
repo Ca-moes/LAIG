@@ -168,6 +168,19 @@ class CustomLogging {
     }
 
     logPieceMoved(tile1, tile2) {
+        if (tile1 === tile2) {
+            console.log(
+                `%cPiece Removed: %c${Utils.tileToCoords(tile1)}`,
+                `font-weight: bold; font-size: ${
+                    this.title.size
+                };`,
+                `color: blue; font-weight: bold; font-size: ${
+                    this.body.size
+                }; text-shadow: 0 0 5px rgba(0,0,0,0.2);`
+            );
+            return
+        }
+
         console.log(
             `%cPiece Moved: %c${Utils.tileToCoords(tile1)} to %c${Utils.tileToCoords(tile2)}`,
             `font-weight: bold; font-size: ${

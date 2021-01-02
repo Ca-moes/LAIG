@@ -13,6 +13,8 @@ class BoardAnimationState extends GameState {
     }
 
     animationEnd() {
+        this.orchestrator.startTime = Date.now() / 1000
+        this.orchestrator.moveStartTime = Date.now() / 1000
         this.orchestrator.changeState(new ReadyState(this.orchestrator))
     }
 

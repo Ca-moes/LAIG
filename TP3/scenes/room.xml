@@ -1,0 +1,357 @@
+<lsf>
+    <initials>
+        <reference length="0"/>
+        <root id="root"/>
+    </initials>
+
+    <views default="Board">
+        <perspective id="Board" near="0.1" far="500" angle="45">
+            <from x="0" y="7" z="5"/>
+            <to x="0" y="-2" z="0"/>
+        </perspective>
+    </views>
+
+    <illumination>
+        <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+        <background r="0.1" g="0.1" b="0.1" a="1.0"/>
+    </illumination>
+
+
+    <lights>
+        <light id="ceiling">
+            <enable value="0"/>
+            <position x="5" y="20" z="0" w="1.0"/>
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0"/>
+            <specular r="0.5" g="0.5" b="0.5" a="1.0"/>
+        </light>
+
+        <light id="candle1">
+            <enable value="1"/>
+            <position x="8" y="2.2" z="8" w="1.0"/>
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0"/>
+            <specular r="0.8" g="0.8" b="0.8" a="1.0"/>
+        </light>
+
+        <light id="candle2">
+            <enable value="0"/>
+            <position x="-8" y="2.2" z="8" w="1.0"/>
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0"/>
+            <specular r="0.8" g="0.8" b="0.8" a="1.0"/>
+        </light>
+
+        <light id="candle3">
+            <enable value="0"/>
+            <position x="8" y="2.2" z="-8" w="1.0"/>
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0"/>
+            <specular r="0.8" g="0.8" b="0.8" a="1.0"/>
+        </light>
+
+        <light id="candle4">
+            <enable value="1"/>
+            <position x="-8" y="2.2" z="-8" w="1.0"/>
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0"/>
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0"/>
+            <specular r="0.8" g="0.8" b="0.8" a="1.0"/>
+        </light>
+    </lights>
+
+
+    <textures>
+        <texture id="testTexture" path="./scenes/images/testTexture.png"/>
+        <texture id="testTexture2" path="./scenes/images/testTexture2.png"/>
+        <texture id="testTexture3" path="./scenes/images/testTexture3.jpg"/>
+        <texture id="tile" path="./scenes/images/tile.jpg"/>
+
+        <texture id="semi_clear_wood" path="./scenes/images/semi_clear_wood.jpg"/>
+        <texture id="wall_wood" path="./scenes/images/wall_wood.jpg"/>
+        <texture id="table" path="./scenes/images/table.png"/>
+        <texture id="candle" path="./scenes/images/candle.jpg"/>
+        <texture id="flame" path="./scenes/images/flame.jpg"/>
+
+        <texture id="skybox_back" path="./scenes/images/room/back.jpg"/>
+        <texture id="skybox_bottom" path="./scenes/images/room/bottom.jpg"/>
+        <texture id="skybox_front" path="./scenes/images/room/front.jpg"/>
+        <texture id="skybox_right" path="./scenes/images/room/right.jpg"/>
+        <texture id="skybox_top" path="./scenes/images/room/top.jpg"/>
+        <texture id="skybox_left" path="./scenes/images/room/left.jpg"/>
+    </textures>
+
+    <spritesheets>
+    </spritesheets>
+
+    <materials>
+        <material id="base">
+            <shininess value="10"/>
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0"/>
+            <diffuse r="0.2" g="0.2" b="0.2" a="1.0"/>
+            <specular r="0.2" g="0.2" b="0.2" a="1.0"/>
+            <emissive r="0.2" g="0.2" b="0.2" a="1.0"/>
+        </material>
+    </materials>
+
+    <animations>
+    </animations>
+
+    <gameboard x="0" y="0" z="0">
+        <tiles material="base" texture="tile"/>
+        <camera x="0" y="7" z="15"/>
+        <transformations>
+            <translation x="0" y="0" z="0"/>
+            <rotation angle="0" axis="x"/>
+            <scale sx="1" sy="1" sz="1"/>
+        </transformations>
+    </gameboard>
+
+    <nodes>
+        <node id="root">
+            <material id="base"/>
+            <texture id="testTexture3">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="skybox"/>
+                <noderef id="mesa"/>
+            </descendants>
+        </node>
+
+        <!-- region mesa -->
+        <node id="mesa">
+            <material id="base"/>
+            <texture id="semi_clear_wood">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+            </transformations>
+
+            <descendants>
+                <noderef id="tampo"/>
+                <noderef id="caneca1"/>
+                <noderef id="caneca2"/>
+                <noderef id="caneca3"/>
+                <noderef id="caneca4"/>
+            </descendants>
+        </node>
+        <node id="tampo">
+            <material id="null"/>
+            <texture id="table">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+                <translation z="0" y="-0.1" x="0"/>
+                <scale sz="20" sy="20" sx="20"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="plane" npartsV="6" npartsU="6" />
+            </descendants>
+        </node>
+        <node id="caneca1">
+            <material id="null"/>
+            <texture id="wall_wood">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+                <translation z="8" y="0" x="-8"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
+            </descendants>
+        </node>
+        <node id="caneca2">
+            <material id="null"/>
+            <texture id="wall_wood">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+                <translation z="-8" y="0" x="8"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
+            </descendants>
+        </node>
+        <node id="caneca3">
+            <material id="null"/>
+            <texture id="wall_wood">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+                <translation z="-8" y="0" x="-8"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
+            </descendants>
+        </node>
+        <node id="caneca4">
+            <material id="null"/>
+            <texture id="wall_wood">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+                <translation z="8" y="0" x="8"/>
+                <rotation axis="x" angle="-90"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="defbarrel" base="0.5" middle="0.7" height="2" slices="10" stacks="10"/>
+                <noderef id="vela"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+
+        <node id="vela">
+            <material id="null"/>
+            <texture id="candle">
+                <amplification aft="1" afs="1"/>
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="2"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="cylinder" height="0.01" topRadius="0.5" bottomRadius="0.5" stacks="10" slices="20"/>
+                <noderef id="chama"/>
+            </descendants>
+        </node>
+
+        <node id="chama">
+            <material id="null"/>
+            <texture id="flame">
+                <amplification afs="1.0" aft="1.0"/>
+            </texture>
+
+            <transformations>
+                <translation x="0" y="0" z="0.2"/>
+                <rotation axis="x" angle="90"/>
+                <scale sx="0.1" sy="0.3" sz="0.1"/>
+                <rotation axis="x" angle="-45"/>
+            </transformations>
+
+            <descendants>
+                <leaf type="torus" inner="0.4" outer="0.5" slices="4" loops="20"/>
+            </descendants>
+        </node>
+
+        <!-- region skybox -->
+        <node id="skybox">
+            <material id="base"/>
+            <texture id="clear"/>
+            <transformations>
+                <translation y="0" x="0" z="0"/>
+                <scale sx="100" sy="100" sz="100"/>
+            </transformations>
+            <descendants>
+                <noderef id="skybox_side1"/>
+                <noderef id="skybox_side2"/>
+                <noderef id="skybox_side3"/>
+                <noderef id="skybox_side4"/>
+                <noderef id="skybox_side5"/>
+                <noderef id="skybox_side6"/>
+            </descendants>
+        </node>
+        <node id="skybox_side1">
+            <material id="base"/>
+            <texture id="skybox_bottom">
+                <amplification afs="100" aft="100"/>
+            </texture>
+            <transformations>
+                <translation x="0" z="0" y="-0.5"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="2" npartsV="2"/>
+            </descendants>
+        </node>
+        <node id="skybox_side2">
+            <material id="base"/>
+            <texture id="skybox_left">
+                <amplification afs="200" aft="200"/>
+            </texture>
+            <transformations>
+                <translation x="0.5" z="0" y="0"/>
+                <rotation axis="y" angle="-90"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="2" npartsV="2"/>
+            </descendants>
+        </node>
+        <node id="skybox_side3">
+            <material id="base"/>
+            <texture id="skybox_right">
+                <amplification afs="200" aft="200"/>
+            </texture>
+            <transformations>
+                <translation x="-0.5" z="0" y="0"/>
+                <rotation axis="y" angle="90"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="2" npartsV="2"/>
+            </descendants>
+        </node>
+        <node id="skybox_side4">
+            <material id="base"/>
+            <texture id="skybox_back">
+                <amplification afs="200" aft="200"/>
+            </texture>
+            <transformations>
+                <translation x="0" z="-0.5" y="0"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="2" npartsV="2"/>
+            </descendants>
+        </node>
+        <node id="skybox_side5">
+            <material id="base"/>
+            <texture id="skybox_front">
+                <amplification afs="200" aft="200"/>
+            </texture>
+            <transformations>
+                <translation x="0" z="0.5" y="0"/>
+                <rotation angle="180" axis="y"/>
+                <rotation axis="x" angle="90"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="2" npartsV="2"/>
+            </descendants>
+        </node>
+        <node id="skybox_side6">
+            <material id="base"/>
+            <texture id="skybox_top">
+                <amplification afs="200" aft="200"/>
+            </texture>
+            <transformations>
+                <translation x="0" z="0" y="0.5"/>
+                <rotation axis="x" angle="180"/>
+            </transformations>
+            <descendants>
+                <leaf type="plane" npartsU="2" npartsV="2"/>
+            </descendants>
+        </node>
+        <!-- endregion -->
+    </nodes>
+</lsf>

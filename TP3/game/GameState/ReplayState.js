@@ -3,17 +3,13 @@ class ReplayState extends GameState {
         super(orchestrator);
 
         this.orchestrator.scene.interface.removeReplayButton()
-
-        // this.orchestrator.camera.setTarget(vec3.fromValues(this.orchestrator.gameboardProperties.x, this.orchestrator.gameboardProperties.y, this.orchestrator.gameboardProperties.z))
-        // this.orchestrator.camera.setPosition(vec3.fromValues(this.orchestrator.gameboardProperties.camera.x, this.orchestrator.gameboardProperties.camera.y + 10, this.orchestrator.gameboardProperties.camera.z))
-
         this.movements = orchestrator.gameSequence.moves.map(a => a.clone())
         this.movements.reverse()
-
         this.orchestrator.gameboard = this.orchestrator.gameSequence.moves[0].gameboard.clone()
-
+        this.orchestrator.gameboard.updateBoard(this.orchestrator.gameboardProperties)
         this.orchestrator.gameboard.auxiliaryBoard.emptyBoard()
-        this.nextMove()
+
+        this.nextMove();
     }
 
     nextMove() {
@@ -35,7 +31,15 @@ class ReplayState extends GameState {
         if (this.movements.length !== 0) {
             this.nextMove()
         } else {
-            this.orchestrator.changeState(new GameOverState(this.orchestrator))
+            this.orchestrator.camera.startAnimation("position", 1.5, () => {
+                    this.orchestrator.changeState(new GameOverState(this.orchestrator))
+                },
+                [...this.orchestrator.camera.originalPosition],
+                [
+                    this.orchestrator.gameboardProperties.x,
+                    this.orchestrator.gameboardProperties.y,
+                    this.orchestrator.gameboardProperties.z
+                ])
         }
 
     }
@@ -47,6 +51,7 @@ class ReplayState extends GameState {
     update(time) {
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
+        this.orchestrator.camera.animate(time)
 
         if (this.orchestrator.currentMovement.animationCompleted)
             this.orchestrator.animationEnd()

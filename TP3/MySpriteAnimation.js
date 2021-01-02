@@ -13,7 +13,7 @@ class MySpriteAnimation extends Animation {
      * @param {Float} period seconds
      */
     constructor(scene, spritesheet, initial, final, period) {
-        super(0, 0, 0, 0)
+        super(0, 0)
         this.scene = scene;
         this.initial = initial;
         this.final = final;

@@ -1,5 +1,5 @@
-:- consult('extras.pl').
-:- consult('requests.pl').
+:- compile('extras.pl').
+:- compile('requests.pl').
 :-use_module(library(sockets)).
 :-use_module(library(lists)).
 :-use_module(library(codesio)).
