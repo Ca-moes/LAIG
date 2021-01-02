@@ -14,7 +14,35 @@ class MyGameBoard extends CGFobject {
         this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
         this.animator = new MyBoardAnimator(this)
 
+       /* this.createBoardFromArray([
+            [ 1, 0, 1, 0, 1, 0, 1, 0],
+            [ 0,-1, 0,-1, 0,-1, 0,-1],
+            [ 1, 0, 1, 0, 1, 0, 1, 0],
+            [ 0,-1, 1,-1, 0,-1, 0,-1],
+            [ 1, 0, 1, 0, 1, 0, 1, 0],
+            [ 0,-1, 0,-1, 0,-1, 0,-1],
+            [ 1, 0, 1, 0, 1, 0, 1, 0],
+            [ 0,-1, 0,-1, 0,-1, 0,-1]
+        ])*/
         this.createBoard()
+    }
+
+    createBoardFromArray(board) {
+        for (let y = 0; y < this.size; y++) {
+            for (let x = 0; x < this.size; x++) {
+                let tile = new MyTile(this.scene, this, x, y, this.texture)
+                if (board[y][x] !== 0) {
+                    let piece = new MyPiece(this.scene, board[y][x])
+                    piece.originalX = x
+                    piece.originalY = y
+
+                    tile.setPiece(piece)
+                    piece.setTile(tile)
+                }
+
+                this.board.push(tile)
+            }
+        }
     }
 
     updateBoard(properties) {

@@ -13,6 +13,23 @@ class MyAuxiliaryBoard extends CGFobject {
         this.pieces = []
     }
 
+    currentCoords() {
+        let x = 0, y = 0, z = 0;
+        if (this.pieces.length <= 0) return {x: x, y: y, z: z}
+        for (let i = 0; i < this.pieces.length - 1; i++) {
+            x += 1
+            if (x === 2) {
+                x = 0
+                z += 1
+            }
+            if (z === 4) {
+                z = 0
+                y += 1
+            }
+        }
+        return {x: x, y: y, z: z}
+    }
+
     undo() {
         this.pieces.pop()
     }
