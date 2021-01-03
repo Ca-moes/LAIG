@@ -1,10 +1,23 @@
+/**
+ * Codes for players
+ * @type {Readonly<{HUMAN: number, BOT_EASY: number, BOT_NORMAL: number}>}
+ */
 const Players = Object.freeze({
     HUMAN: 0,
     BOT_EASY: 1,
     BOT_NORMAL: 2
 })
 
+/**
+ * Main class, responsible to orchestrate the course of the game, and almost every aspect of it,
+ * this class follows a State Pattern Design, which can be found here (provided you are logged in
+ * on git.fe.up.pt) https://git.fe.up.pt/laig/laig-2020-2021/t07/laig-t07-g08/-/issues/26
+ */
 class MyGameOrchestrator {
+    /**
+     * This constructor starts the orchestrator with the Static Elements, and fast to load.
+     * @param {XMLscene} scene Scene
+     */
     constructor(scene) {
         this.scene = scene
 

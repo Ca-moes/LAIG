@@ -1,4 +1,18 @@
+/**
+ *  This camera is in every aspect a CGFcamera, as being extended, but it has some extra features, thus
+ *  being named animated camera.
+ */
 class MyAnimatedCamera extends CGFcamera {
+    /**
+     * Constructor to the animated camera
+     * @param {MyGameOrchestrator} orchestrator
+     * @param {Animations} animation an easing animation function
+     * @param fov
+     * @param near
+     * @param far
+     * @param position
+     * @param target
+     */
     constructor(orchestrator, animation, fov, near, far, position, target) {
         super(fov, near, far, position, target)
 
@@ -9,6 +23,14 @@ class MyAnimatedCamera extends CGFcamera {
         this.animationCompleted = true
     }
 
+    /**
+     * This method starts an animation for the camera.
+     * @param {String} type "orbit" | "orbit-callback" | "position"
+     * @param time
+     * @param {Function} callback this is the method to be called when the animation ends
+     * @param {Array} position desired final position
+     * @param {Array} target desired final target
+     */
     startAnimation(type, time = 1, callback = () => this.orchestrator.custom.log("Finished Camera Animation"), position = [], target = []) {
         if (!this.animationCompleted) return
         this.animationCompleted = false
@@ -28,6 +50,13 @@ class MyAnimatedCamera extends CGFcamera {
         this.desiredPosition = position
     }
 
+    /**
+     * This method animates the camera, depending on the type of animation. For orbit or orbit callback, the
+     * camera orbits the target for 180ºY, and the calls animation end for orbit or the callback for orbit callback.
+     * If the type is position the camera is animated accordingly to the position of the camera and then it calls the
+     * callback when it's done.
+     * @param t time in seconds
+     */
     animate(t) {
         if (this.animationCompleted) return
 
