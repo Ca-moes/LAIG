@@ -252,14 +252,23 @@ class MyInterface extends CGFinterface {
         this.removeRestartButton()
     }
 
+    /**
+     * Adds a pause button if there's none already
+     */
     addPauseButton() {
         if (this.pauseButton == null) this.pauseButton = this.optionsFolder.add({ pause: () => this.scene.orchestrator.pause() }, 'pause').name("Pause");
     }
 
+    /**
+     * Adds a continue button if there's none already
+     */
     addContinueButton() {
         if (this.continueButton == null) this.continueButton = this.optionsFolder.add({continue: () => this.scene.orchestrator.continue() }, 'continue').name("Continue");
     }
 
+    /**
+     * Removes the continue button if it exists
+     */
     removeContinueButton() {
         if (this.continueButton != null) {
             this.continueButton.remove()
@@ -267,6 +276,9 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    /**
+     * Removes the pause button if it exists
+     */
     removePauseButton() {
         if (this.pauseButton != null) {
             this.pauseButton.remove()
@@ -274,6 +286,9 @@ class MyInterface extends CGFinterface {
         }
     }
 
+    /**
+     * Adds the Bot's difficulties to the interface so they can be changed on runtime
+     */
     addBotsDifficulties() {
         let diffs = {"Easy": 1, "Normal": 2}
         if (this.scene.orchestrator.player1.type !== Players.HUMAN) {
