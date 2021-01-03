@@ -1,10 +1,20 @@
 const Utils = Object.freeze({
+    /**
+     * Method to format the seconds in a mm:ss format
+     * @param secs
+     * @returns {string}
+     */
     formatTime: (secs) => {
         const minutes = Math.floor(Math.round(secs) / 60);
         const seconds = Math.round(secs) - minutes * 60;
 
         return str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2)
     },
+    /**
+     * Method to get the type of the player in a string
+     * @param player
+     * @returns {string}
+     */
     getType: (player) => {
         let type
         switch (player.type) {
@@ -22,13 +32,32 @@ const Utils = Object.freeze({
         }
         return type
     },
+    /**
+     * Method to parse a tile's coordinates into a string
+     * @param tile
+     * @returns {string}
+     */
     tileToCoords: (tile) => `${String.fromCharCode(65 + tile.y)}${tile.x}`
 })
 
+/**
+ * helper method
+ * @param string
+ * @param pad
+ * @param length
+ * @returns {string}
+ */
 function str_pad_left(string, pad, length) {
     return (new Array(length + 1).join(pad) + string).slice(-length);
 }
 
+/**
+ * This object contains methods to calculate a Solution path, we will not get into this, as it's not the point
+ * of Graphical Interface Applications. To put it simple, this is a labyrinth solver, not very very efficient
+ * but it serves its purpose. This is very useful as we wanted to show the path on the board after a winner
+ * had been found
+ * @type {Readonly<{getPath: (function(*): {solution: [], size: number}), findPathPlayer2: (function(*=): (null|[])), toGraph: (function(*): []), findPathPlayer1: (function(*=): (null|[])), findPath: (function(*=, *=, *=, *=): boolean)}>}
+ */
 const GraphUtils = Object.freeze({
     toGraph: (board) => {
         let graph = []
@@ -131,6 +160,12 @@ const GraphUtils = Object.freeze({
     }
 })
 
+/**
+ * Custom Logging
+ *
+ * This is just something we though was cool for anyone watching the console logs to present with.
+ * Our logs are different, they have style :)
+ */
 class CustomLogging {
     constructor(title) {
         this.title = {
