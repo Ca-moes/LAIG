@@ -1,4 +1,8 @@
 class ReplayState extends GameState {
+    /**
+     * Starts a Replay of every move on the current match
+     * @param {MyGameOrchestrator} orchestrator
+     */
     constructor(orchestrator) {
         super(orchestrator);
 
@@ -12,6 +16,10 @@ class ReplayState extends GameState {
         this.nextMove();
     }
 
+    /**
+     * Processes the next move on the game sequence
+     * @returns {MyGameMove} last movement performed
+     */
     nextMove() {
         let move = this.movements.pop()
 
@@ -27,6 +35,10 @@ class ReplayState extends GameState {
         return move
     }
 
+    /**
+     * On game move animation end, if theres no movement left then we want to change the state back to game over state
+     * and reset the camera
+     */
     animationEnd() {
         if (this.movements.length !== 0) {
             this.nextMove()
@@ -48,6 +60,10 @@ class ReplayState extends GameState {
         // do nothing
     }
 
+    /**
+     * Update orchestrator's elements
+     * @param time time in seconds
+     */
     update(time) {
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
@@ -61,10 +77,11 @@ class ReplayState extends GameState {
         // cannot undo on replay
     }
 
-
     continue() {
+
     }
 
     pause() {
+
     }
 }

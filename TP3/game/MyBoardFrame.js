@@ -1,4 +1,16 @@
+/**
+ * Frame of the board.
+ *
+ * We created this class so we can have the border colors equal to the piece's
+ * colors, as our game depends on that very much. The border colors can be changed
+ * by changing the player's color on the interface.
+ */
 class MyBoardFrame extends CGFobject {
+    /**
+     * This starts the board frame
+     * @param {XMLscene} scene
+     * @param size board size
+     */
     constructor(scene, size) {
         super(scene);
         this.scene = scene
@@ -10,6 +22,11 @@ class MyBoardFrame extends CGFobject {
         this.triangle = new MyTriangle(scene, 0, 0.5, 1, -0.5, 0, -0.5)
     }
 
+    /**
+     * This method displays the frame, it has in consideration the board size,
+     * and its elements are 8 triangles 4 rectangles and a plane. This can better be
+     * seen than being read about.
+     */
     display() {
         this.scene.pushMatrix()
         this.scene.orchestrator.player2material.apply()

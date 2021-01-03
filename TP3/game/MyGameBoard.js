@@ -1,4 +1,14 @@
+/**
+ * Game's GameBoard
+ */
 class MyGameBoard extends CGFobject {
+    /**
+     * Starts the game board
+     * @param {XMLscene} scene
+     * @param {MyGameOrchestrator} orchestrator
+     * @param size
+     * @param {Object} properties
+     */
     constructor(scene, orchestrator, size, properties) {
         super(scene)
         this.scene = scene
@@ -14,51 +24,42 @@ class MyGameBoard extends CGFobject {
         this.auxiliaryBoard = new MyAuxiliaryBoard(scene, this)
         this.animator = new MyBoardAnimator(this)
 
-       /* this.createBoardFromArray([
-            [ 1, 0, 1, 0, 1, 0, 1, 0],
-            [ 0,-1, 0,-1, 0,-1, 0,-1],
-            [ 1, 0, 1, 0, 1, 0, 1, 0],
-            [ 0,-1, 1,-1, 0,-1, 0,-1],
-            [ 1, 0, 1, 0, 1, 0, 1, 0],
-            [ 0,-1, 0,-1, 0,-1, 0,-1],
-            [ 1, 0, 1, 0, 1, 0, 1, 0],
-            [ 0,-1, 0,-1, 0,-1, 0,-1]
-        ])*/
         this.createBoard()
     }
 
-    createBoardFromArray(board) {
-        for (let y = 0; y < this.size; y++) {
-            for (let x = 0; x < this.size; x++) {
-                let tile = new MyTile(this.scene, this, x, y, this.texture)
-                if (board[y][x] !== 0) {
-                    let piece = new MyPiece(this.scene, board[y][x])
-                    piece.originalX = x
-                    piece.originalY = y
-
-                    tile.setPiece(piece)
-                    piece.setTile(tile)
-                }
-
-                this.board.push(tile)
-            }
-        }
-    }
-
+    /**
+     * This method updates the board's properties, this is called on start and when the user
+     * changes the scene. Some scenes have different board properties, such as transformations,
+     * positions, camera settings, etc.
+     * @param {Object} properties
+     */
     updateBoard(properties) {
         this.properties = properties
         this.transformations = properties.transformations
         this.texture = properties.texture
     }
 
+    /**
+     * This method starts an appearing animation (described on MyBoardAnimator) with a callback method to be
+     * called when the animation is done
+     * @param {Function} callback method to be called when the animation is finished
+     */
     startAppearingAnimation(callback) {
         this.animator.startAppearingAnimation(callback)
     }
 
+    /**
+     * This method starts a restart animation (described on MyBoardAnimator) with a callback method to be
+     * called when the animation is done
+     * @param {Function} callback method to be called when the animation is finished
+     */
     startRestartAnimation(callback) {
         this.animator.startRestartAnimation(callback)
     }
 
+    /**
+     * This method creates a chess-like board
+     */
     createBoard() {
         let pieceType = 1
         for (let y = 0; y < this.size; y++) {
@@ -84,6 +85,11 @@ class MyGameBoard extends CGFobject {
         }
     }
 
+    /**
+     * This method is useful to code the board to a string so we can send it to prolog
+     * server
+     * @returns {String} board coded "[[1,1,-1,0],[1,0,0,1],...]"
+     */
     toString() {
         let board = [];
         let index = 0;
@@ -102,6 +108,11 @@ class MyGameBoard extends CGFobject {
         return JSON.stringify(board)
     }
 
+    /**
+     * This method "fills" the path for a solution. The tiles which are marked with true on the solution
+     * array are highlighted as green.
+     * @param {Array[]} solution
+     */
     fillPath(solution) {
         for (let y = 0; y < solution.length; y++) {
             for (let x = 0; x < solution.length; x++) {
@@ -111,6 +122,10 @@ class MyGameBoard extends CGFobject {
         }
     }
 
+    /**
+     * This method updates the board's pieces and aux' too.
+     * @param t time in seconds
+     */
     update(t) {
         for (let i = 0; i < this.board.length; i++) {
             this.board[i].update(t)
@@ -128,6 +143,10 @@ class MyGameBoard extends CGFobject {
         return this.board[y * this.size + x]
     }
 
+    /**
+     * This method highlights tiles as enemy tiles.
+     * @param {Array[]} tiles tiles to highlighted - [[x, y], [x1, y1], [x2, y2], ...]
+     */
     highlightEnemyTiles(tiles) {
         for (let i = 0; i < tiles.length; i++) {
             let tile = this.getTile(tiles[i][0], tiles[i][1])
@@ -136,12 +155,19 @@ class MyGameBoard extends CGFobject {
         }
     }
 
+    /**
+     * This method disables every highlighted tile on the board.
+     */
     disableHighlight() {
         for (let i = 0; i < this.board.length; i++) {
             this.board[i].disableHighlighting()
         }
     }
 
+    /**
+     * Method to log the picking results, and trigger a pickTile event on the case of
+     * valid picking.
+     */
     logPicking() {
         if (this.scene.pickMode === false) {
             if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
@@ -156,6 +182,9 @@ class MyGameBoard extends CGFobject {
         }
     }
 
+    /**
+     * Method to display the board and its pieces
+     */
     display() {
         this.logPicking()
         this.scene.clearPickRegistration();
@@ -211,6 +240,10 @@ class MyGameBoard extends CGFobject {
         this.orchestrator.custom.logPieceMoved(originalTile, destinationTile)
     }
 
+    /**
+     * Deep Clone of the game board, this clone copies every tile and piece of the current game board
+     * @returns {MyGameBoard} cloned board
+     */
     clone() {
         let board = new MyGameBoard(this.scene, this.orchestrator, this.size, this.properties)
         board.board = []

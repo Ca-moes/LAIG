@@ -1,3 +1,7 @@
+/**
+ * Easing Functions
+ * @type {Readonly<{easeInOutCirc: (function(*): number), easeInOutSine: (function(*)), easeInOutBack: (function(*): number), easeInOutElastic: (function(*): number), easeOutElastic: (function(*): number), easeInOutCubic: (function(*): number), easeInOutQuart: (function(*): number), easeOutCirc: (function(*): number)}>}
+ */
 const Animations = Object.freeze({
     easeInOutSine: (x) => -(Math.cos(Math.PI * x) - 1) / 2,
     easeInOutCubic: (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
@@ -34,6 +38,10 @@ const Animations = Object.freeze({
     }
 })
 
+/**
+ * Map to send to the interface
+ * @type {Readonly<{"Ease In Out Elastic": string, "Ease In Out Cubic": string, "Ease In Out Quart": string, "Ease In Out Sine": string, "Ease In Out Circular": string, "Ease In Out Back": string, "Ease Out Elastic": string, "Ease Out Circular": string}>}
+ */
 const AnimationIndexes = Object.freeze({
     'Ease In Out Sine': 'easeInOutSine',
     'Ease In Out Cubic': 'easeInOutCubic',
@@ -45,7 +53,15 @@ const AnimationIndexes = Object.freeze({
     'Ease Out Elastic': 'easeOutElastic'
 })
 
+/**
+ * Animation parent class
+ */
 class Animation {
+    /**
+     * Starts the animation object
+     * @param instant_start
+     * @param instant_end
+     */
     constructor(instant_start, instant_end) {
         this.start = instant_start
         this.end = instant_end
@@ -53,10 +69,17 @@ class Animation {
         this.current_matrix = mat4.create()
     }
 
+    /**
+     * @abstract
+     */
     apply() {
         throw new Error("Abstract class cannot implement methods.");
     }
 
+    /**
+     * @abstract
+     * @param t time
+     */
     update(t) {
         throw new Error("Abstract class cannot implement methods.");
     }

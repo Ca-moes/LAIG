@@ -4,10 +4,16 @@ class HighlightedTileState extends TileState {
     }
 
 
+    /**
+     * Disables the highlight for the tile
+     */
     disableHighlight() {
         this.tile.changeState(new StaticTileState(this.tile))
     }
 
+    /**
+     * Displays a tile with highlighting
+     */
     display() {
         this.tile.scene.pushMatrix()
 
@@ -33,9 +39,10 @@ class HighlightedTileState extends TileState {
     }
 
     /**
-     * Theoretically only tiles containing pieces should be highlighted on our game
+     * Only tiles containing pieces should be highlighted on our game
      * as no other movement is allowed
-     * @param t
+     * But tiles on the solution path can be highlighted too
+     * @param t time in seconds
      */
     update(t) {
         if (this.tile.piece)

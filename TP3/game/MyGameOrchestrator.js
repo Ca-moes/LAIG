@@ -1,10 +1,23 @@
+/**
+ * Codes for players
+ * @type {Readonly<{HUMAN: number, BOT_EASY: number, BOT_NORMAL: number}>}
+ */
 const Players = Object.freeze({
     HUMAN: 0,
     BOT_EASY: 1,
     BOT_NORMAL: 2
 })
 
+/**
+ * Main class, responsible to orchestrate the course of the game, and almost every aspect of it,
+ * this class follows a State Pattern Design, which can be found here (provided you are logged in
+ * on git.fe.up.pt) https://git.fe.up.pt/laig/laig-2020-2021/t07/laig-t07-g08/-/issues/26
+ */
 class MyGameOrchestrator {
+    /**
+     * This constructor starts the orchestrator with the Static Elements, and fast to load.
+     * @param {XMLscene} scene Scene
+     */
     constructor(scene) {
         this.scene = scene
 
@@ -76,7 +89,7 @@ class MyGameOrchestrator {
         //endregion
 
         // region Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 9)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 8)
         this.currentTheme = 0
         this.themesNames = {0: "space.xml", 1: "izakaya.xml", 2: "room.xml", 3: "test.xml"}
         this.themes = []
@@ -420,6 +433,11 @@ class MyGameOrchestrator {
         this.state.startAnimation("restart")
     }
 
+    /**
+     * After the board animation is completed, this method starts a new game, assigning a new gameboard,
+     * a new game sequence, and the current player is now player 1, all games start with player 1.
+     * There's a camera animation, and after that, the state is changed to ReadyState
+     */
     onRestartAnimationCompleted() {
         this.gameboard = new MyGameBoard(this.scene, this, this.selectedBoardSize, this.gameboardProperties)
         this.gameSequence = new MyGameSequence()
@@ -445,11 +463,20 @@ class MyGameOrchestrator {
             ])
     }
 
+    /**
+     * This method starts a replay of every move on the current match, a board animation is performed, and then,
+     * when the animation is completed it calls onReplayAnimationCompleted to proceed
+     */
     replay() {
         this.changeState(new BoardAnimationState(this))
         this.state.startAnimation("replay")
     }
 
+    /**
+     * This method starts the relay after a small camera animation to adjust its position, the camera is set on
+     * top of the board to have a better visualization of the game sequence for both players.
+     * The Replay itself is started on the State, the orchestrator has no knowledge about how this is done.
+     */
     onReplayAnimationCompleted() {
         this.camera.startAnimation("position", 1.5, () => {
                 this.custom.log("Started Replay")
@@ -467,6 +494,10 @@ class MyGameOrchestrator {
             ])
     }
 
+    /**
+     * Method to pause the game, on ReadyState and RemoveState the user can pause the course of the game,
+     * pausing also the time. A message appears on the HUD showing the game is indeed paused.
+     */
     pause() {
         this.custom.log("Paused Game")
         this.tempMessage = this.hud.message.string
@@ -477,6 +508,9 @@ class MyGameOrchestrator {
         this.state.pause()
     }
 
+    /**
+     * Method to continue the game after it's been paused.
+     */
     continue() {
         this.custom.log("Continued Game")
         this.hud.updateMessage(this.tempMessage)

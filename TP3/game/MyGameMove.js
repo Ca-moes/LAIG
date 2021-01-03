@@ -14,6 +14,12 @@ class MyGameMove {
         this.animationCompleted = false
     }
 
+    /**
+     * This method is useful for the replay feature, as we cannot rely on object references, we need
+     * a static representation, and coordinates are ideal
+     * @param {MyTile} origin
+     * @param {MyTile} destination
+     */
     setCoordinates(origin, destination) {
         this.origin = {x: origin.x, y: origin.y}
         this.destination = {x: destination.x, y: destination.y}
@@ -81,6 +87,10 @@ class MyGameMove {
         }
     }
 
+    /**
+     * Deep clone of the GameMove, this is useful to start several replays
+     * @returns {MyGameMove} cloned game move
+     */
     clone() {
         let move = new MyGameMove(null, null, this.gameboard.clone())
         let origin = new MyTile(this.origTile.scene, move.gameboard, this.origTile.x, this.origTile.y, this.origTile.texture)

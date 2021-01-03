@@ -1,4 +1,13 @@
+/**
+ * Easing Animation class
+ */
 class EasingAnimation {
+    /**
+     * Starts the object
+     * @param {Object} properties properties of the animation (duration, easing function, initialPosition, finalPosition
+     * and heightLevels)
+     * @param {Function} callback method to call when the animation ends
+     */
     constructor(properties, callback) {
         this.animation = properties.animation
         this.duration = properties.duration
@@ -15,23 +24,41 @@ class EasingAnimation {
         this.animationCompleted = false
     }
 
+    /**
+     * Returns the Coordinates processed on the animate method
+     * @returns {[x, y, z]}
+     */
     getCoords() {
         return [this.x, this.y, this.z]
     }
 
+    /**
+     * Sets the starting and ending times for the animation
+     * @param time starting time in seconds
+     */
     setStartTime(time) {
         this.startTime = time
         this.endTime = this.startTime + this.duration
     }
 
+    /**
+     * Method to animate something with easing functions
+     * This method is a mix between easing functions and keyframes,
+     * the X and Z values are animated using only easing functions. The Y value is
+     * animated using keyframes (height Levels) and to process the progress between
+     * each keyframe (height level) an easing function is being used instead of a linear
+     * interpolation
+     * @param t time in seconds
+     * @returns {[x, y, z]}
+     */
     animate(t) {
         if (this.animationCompleted || t < this.startTime)
-            return
+            return [this.x, this.y, this.z]
 
         if (t >= this.endTime) {
             this.animationCompleted = true
             this.callback()
-            return
+            return [this.x, this.y, this.z]
         }
 
         let timeFactor = (t - this.startTime) / (this.endTime - this.startTime)

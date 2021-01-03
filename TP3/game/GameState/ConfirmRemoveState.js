@@ -7,6 +7,11 @@ class ConfirmRemoveState extends GameState {
         // no animation taking place
     }
 
+    /**
+     * Process a pickTile event. If the tile is the same as the tile selected before then start
+     * to perform the remove. If not, then return to remove state.
+     * @param tile
+     */
     pickTile(tile) {
         if (tile === this.orchestrator.currentMovement.origTile) {
             this.orchestrator.performMove(tile)
@@ -18,6 +23,11 @@ class ConfirmRemoveState extends GameState {
         }
     }
 
+    /**
+     * Method to update the orchestrator's elements, if there's no tine left for the remove it
+     * passes on to the next player.
+     * @param time time in seconds
+     */
     update(time) {
         if ((time - this.orchestrator.moveStartTime) > this.orchestrator.moveTimeout) {
             this.orchestrator.cancelMove()
@@ -33,8 +43,10 @@ class ConfirmRemoveState extends GameState {
     }
 
     continue() {
+        // cannot continue on board confirm remove state
     }
 
     pause() {
+        // cannot pause on board confirm remove state
     }
 }

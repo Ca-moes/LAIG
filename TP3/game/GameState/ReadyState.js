@@ -2,6 +2,9 @@ class ReadyState extends GameState {
     constructor(orchestrator) {
         super(orchestrator);
 
+        /**
+         * If the player is not a person then it processes the bot movement
+         */
         if (orchestrator.currentPlayer.type !== Players.HUMAN) {
             this.orchestrator.scene.interface.removePauseButton()
 
@@ -22,6 +25,10 @@ class ReadyState extends GameState {
             this.orchestrator.scene.interface.addPauseButton()
         }
 
+        /**
+         * Normal picking method for when the player is Human
+         * @param tile
+         */
         this.normalPicking = (tile) => {
             this.orchestrator.scene.interface.removePauseButton()
             this.orchestrator.prolog.canPickTile(tile, this, (reply) => {
@@ -56,6 +63,9 @@ class ReadyState extends GameState {
         this.normalUpdate(time)
     }
 
+    /**
+     * Method to continue a paused game
+     */
     continue() {
         this.orchestrator.startTime += Date.now() / 1000 - this.pauseStart
         this.orchestrator.moveStartTime += Date.now() / 1000 - this.pauseStart
@@ -63,6 +73,9 @@ class ReadyState extends GameState {
         this.pickTile = this.normalPicking
     }
 
+    /**
+     * Method to pause the game
+     */
     pause() {
         this.pauseStart = Date.now() / 1000
         this.update = this.pauseUpdate

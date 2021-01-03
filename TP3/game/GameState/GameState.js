@@ -45,6 +45,7 @@ class GameState {
      * Method to undo a move
      */
     undo() {
+        // method to call when the undo animation is done
         let callback = () => {
             this.orchestrator.gameboard.auxiliaryBoard.undo()
             this.orchestrator.gameboard = move.gameboard
@@ -54,6 +55,7 @@ class GameState {
             this.orchestrator.custom.log("Undo Movement")
         }
 
+        // this part it to process the undo animation
         let move = this.orchestrator.gameSequence.undo()
         if (move != null) {
             let moveTime = 1 / this.orchestrator.moveSpeed

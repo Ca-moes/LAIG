@@ -9,6 +9,11 @@ class AnimationState extends GameState {
         // do nothing as an animation is taking place
     }
 
+    /**
+     * When the animation is over we need to check if there's a winner, if there's a winner the state changes to
+     * GameOver and some messages are displayed to the HUDs and the console. If no winner is found then it calls
+     * the nextTurn method on the orchestrator.
+     */
     animationEnd() {
         if (!this.waitingReply) {
             this.waitingReply = true
@@ -31,6 +36,10 @@ class AnimationState extends GameState {
         }
     }
 
+    /**
+     * Updates the elements of the orchestrator
+     * @param time time in seconds
+     */
     update(time) {
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
@@ -49,10 +58,10 @@ class AnimationState extends GameState {
     }
 
     continue() {
-
+        // cannot continue on animation state
     }
 
     pause() {
-
+        // cannot pause on animation state
     }
 }
