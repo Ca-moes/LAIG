@@ -108,9 +108,16 @@ class MyBoardAnimator {
             let moveAnimationAux = {
                 animation: Animations[this.gameboard.orchestrator.moveAnimation],
                 initialPosition: [0, 0, 0],
-                finalPosition: [piece.originalX - (coords.x + this.gameboard.size * 1.3 - 1), -0.15 - coords.y * 0.2, piece.originalY - (this.gameboard.size / 2 - 2 + coords.z)],
+                finalPosition: [
+                    piece.originalX - (coords.x + this.gameboard.size * 1.3 - 1),
+                    -0.15 - coords.y * 0.2,
+                    piece.originalY - (this.gameboard.size / 2 - 2 + coords.z)],
                 duration: time,
-                heightLevels: [{instant: 0, height: 0}, {instant: time * 0.2, height: 1.5}, {instant: time * 0.66 , height: 1}, {instant: time, height: -0.15 - coords.y * 0.2}]
+                heightLevels: [
+                    {instant: 0, height: 0},
+                    {instant: time * 0.2, height: 1.5},
+                    {instant: time * 0.66 , height: 1},
+                    {instant: time, height: -0.15 - coords.y * 0.2}]
             }
 
             let animation = new EasingAnimation(moveAnimationAux, () => {
