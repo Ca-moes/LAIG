@@ -1,4 +1,13 @@
+/**
+ * Loading Screen Class
+ */
 class MyLoadingScreen extends CGFobject {
+    /**
+     * Starts a loading screen
+     * @param {XMLscene} scene
+     * @param {MyGameOrchestrator} orchestrator
+     * @param total total elements to be loaded (to update the shader)
+     */
     constructor(scene, orchestrator, total) {
         super(scene);
         this.orchestrator = orchestrator
@@ -13,14 +22,24 @@ class MyLoadingScreen extends CGFobject {
         this.shader = new CGFshader(scene.gl, "shaders/loading.vert", "shaders/loading.frag")
     }
 
+    /**
+     * This method updates the message being displayed on the Loading Screen
+     * @param message
+     */
     updateMessage(message) {
         this.message.string = message
     }
 
+    /**
+     * Updates the progress on the loading screen
+     */
     updateProgress() {
-        this.progress += 1
+        this.progress++
     }
 
+    /**
+     * Displays the loading screen
+     */
     display() {
         this.scene.pushMatrix()
         this.scene.translate(0, 2, 0)

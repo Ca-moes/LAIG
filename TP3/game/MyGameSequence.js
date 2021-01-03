@@ -1,3 +1,6 @@
+/**
+ * Game's Sequence of Moves
+ */
 class MyGameSequence {
     /**
      * Starts an Empty Stack of Movements
