@@ -1,4 +1,11 @@
+/**
+ * This class is an utility class, responsible for the board animations
+ */
 class MyBoardAnimator {
+    /**
+     * Starts the animator with a gameboard
+     * @param {MyGameBoard} gameboard
+     */
     constructor(gameboard) {
         this.gameboard = gameboard
 
@@ -6,6 +13,11 @@ class MyBoardAnimator {
         this.totalAnimations = gameboard.size * gameboard.size
     }
 
+    /**
+     * This method starts an appearing animation, this animation can be seen on the start
+     * of the first match, the pieces jump into the board.
+     * @param {Function} callback method to be called when the animation is done.
+     */
     startAppearingAnimation(callback) {
         let i = 0
         for (let y = 0; y < this.gameboard.size; y++) {
@@ -14,6 +26,7 @@ class MyBoardAnimator {
                     let piece = this.gameboard.board[i].piece
                     let tile = this.gameboard.board[i]
 
+                    // These coordinates represent the initial position for the pieces
                     let x0 = (x < this.gameboard.size / 2) ? -1 - tile.x : tile.x + 1
                     let y0 = -1
                     let z0 = (y < this.gameboard.size / 2) ? -1 - tile.y : tile.y + 1
@@ -42,7 +55,13 @@ class MyBoardAnimator {
         }
     }
 
+    /**
+     * This method starts a restart animation, this animation can be seen on restart or replay events,
+     * the animation consists on the pieces being placed on their original positions.
+     * @param {Function} callback method to be called when the animation is done.
+     */
     startRestartAnimation(callback) {
+        // the path highlight needs to be disabled first
         this.gameboard.disableHighlight()
 
         let i = 0
@@ -52,6 +71,7 @@ class MyBoardAnimator {
                     let piece = this.gameboard.board[i].piece
                     let tile = this.gameboard.board[i]
 
+                    // make the piece static so we can start animations
                     piece.reset()
 
                     let time = Math.random() + 1
@@ -73,6 +93,8 @@ class MyBoardAnimator {
                 i++
             }
         }
+        // this aux is created to keep track of the positions the pieces would have on the aux board
+        // without actually accessing the aux board.
         let aux = new MyAuxiliaryBoard(this.gameboard.scene, this.gameboard)
 
         for (let j = 0; j < this.gameboard.auxiliaryBoard.pieces.length; j++) {
@@ -101,6 +123,13 @@ class MyBoardAnimator {
         aux = null
     }
 
+    /**
+     * After a piece animation is done, the piece will call this method,
+     * unless the animations are all processed we just increment the counter for the animations done.
+     * When all animations are done, we reset the counter for the next animation and call the callback
+     * method
+     * @param {Function} callback method to be called when the animation is completed
+     */
     onAnimationEnd(callback) {
         this.animationsDone++
         if (this.animationsDone === this.totalAnimations) {
