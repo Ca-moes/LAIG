@@ -5,6 +5,10 @@ class CameraAnimationState extends GameState {
         this.waitingReply = false
     }
 
+    /**
+     * When the camera animation is done, we need to check if the game is on it's final state and change the state
+     * accordingly
+     */
     animationEnd() {
         if (!this.waitingReply) {
             this.orchestrator.hud.updateMessage(("Player " + this.orchestrator.currentPlayer.code + " turn").toUpperCase())
@@ -26,6 +30,10 @@ class CameraAnimationState extends GameState {
         // no tile is allowed to be picked at this stage
     }
 
+    /**
+     * Update the orchestrator's elements
+     * @param time time in seconds
+     */
     update(time) {
         this.orchestrator.themes[this.orchestrator.selectedTheme].updateAnimations(time);
         this.orchestrator.gameboard.update(time)
@@ -38,8 +46,10 @@ class CameraAnimationState extends GameState {
     }
 
     continue() {
+        // cannot continue on board camera animation state
     }
 
     pause() {
+        // cannot pause on board camera animation state
     }
 }
