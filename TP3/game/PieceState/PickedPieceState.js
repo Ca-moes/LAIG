@@ -3,6 +3,9 @@ class PickedPieceState extends PieceState {
         super(piece)
     }
 
+    /**
+     * Display a piece with picking animation
+     */
     display() {
         this.piece.scene.pushMatrix()
 
@@ -28,6 +31,9 @@ class PickedPieceState extends PieceState {
         // do nothing as a picked piece cannot be re-picked
     }
 
+    /**
+     * Reset the piece's state back to static
+     */
     reset() {
         this.piece.changeState(new StaticPieceState(this.piece))
     }
@@ -36,6 +42,13 @@ class PickedPieceState extends PieceState {
         // no need to update, only if we have shaders
     }
 
+    /**
+     * Starts an animation for this piece
+     * @param {MyGameMove} gameMove
+     * @param {KeyframeAnimation|EasingAnimation} animation
+     * @param time starting time in seconds
+     * @param {"move"|"remove"} type
+     */
     startAnimation(gameMove, animation, time, type) {
         this.piece.gameMove = gameMove
         this.piece.type = type

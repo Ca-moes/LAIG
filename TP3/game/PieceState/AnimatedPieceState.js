@@ -3,6 +3,9 @@ class AnimatedPieceState extends PieceState {
         super(piece);
     }
 
+    /**
+     * Display a piece with some animation
+     */
     display() {
         this.piece.scene.pushMatrix()
 
@@ -33,6 +36,9 @@ class AnimatedPieceState extends PieceState {
         // a moving piece doesnt allow the user to pick another piece
     }
 
+    /**
+     * Reset the piece's state back to static
+     */
     reset() {
         this.piece.changeState(new StaticPieceState(this.piece))
     }
@@ -41,12 +47,19 @@ class AnimatedPieceState extends PieceState {
         // we cannot start a new animation as an animation is taking place right now
     }
 
+    /**
+     * Stop an animation and change the piece's state back to static
+     */
     stopAnimation() {
         this.piece.animation = null
         this.piece.animationComplete = true
         this.piece.changeState(new StaticPieceState(this.piece))
     }
 
+    /**
+     * If there's an animation we want to update it
+     * @param t time in seconds
+     */
     update(t) {
         if (!this.piece.animationComplete) {
             this.piece.animation.animate(t)
