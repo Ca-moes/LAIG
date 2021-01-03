@@ -1,4 +1,14 @@
+/**
+ * Helper class Option
+ */
 class Option extends CGFobject {
+    /**
+     * Starts an option
+     * @param {XMLscene} scene
+     * @param {CGFtexture} texture
+     * @param {CGFshader} shader
+     * @param option
+     */
     constructor(scene, texture, shader, option) {
         super(scene);
 
@@ -10,10 +20,17 @@ class Option extends CGFobject {
         this.obj = new MyRectangle(scene, -1.5, -1, 1.5, 1)
     }
 
+    /**
+     * Helper method to see what's being picked
+     * @returns {string}
+     */
     toString() {
         return "Option: " + this.option + " - selected: " + this.selected
     }
 
+    /**
+     * displays the option
+     */
     display() {
         if (this.selected)
             this.scene.setActiveShader(this.shader)
@@ -24,7 +41,15 @@ class Option extends CGFobject {
     }
 }
 
+/**
+ * Menu class
+ */
 class MyMenu extends CGFobject {
+    /**
+     * Starts the Menu
+     * @param {XMLscene} scene
+     * @param {MyGameOrchestrator} orchestrator
+     */
     constructor(scene, orchestrator) {
         super(scene);
 
@@ -34,7 +59,6 @@ class MyMenu extends CGFobject {
         this.credits = new MySpriteText(scene, "GONCALO TEIXEIRA : ANDRE GOMES")
         this.label1 = new MySpriteText(scene, "PLAYER 1")
         this.label2 = new MySpriteText(scene, "PLAYER 2")
-
 
         this.human = new CGFtexture(scene, "scenes/images/human.png")
         this.easy = new CGFtexture(scene, "scenes/images/easy.png")
@@ -56,6 +80,10 @@ class MyMenu extends CGFobject {
         this.options = [this.human1, this.easy1, this.normal1, this.human2, this.easy2, this.normal2]
     }
 
+    /**
+     * This method starts the game with the options selected. It calls the orchestrator init
+     * method with the selected preferences.
+     */
     startGame() {
         // consult GameOrchestrator for codes
         let player1, player2
@@ -72,6 +100,10 @@ class MyMenu extends CGFobject {
         this.orchestrator.init({player1: player1, player2: player2})
     }
 
+    /**
+     * This is a method to activate the option selected, 0..2 belongs to player 1, 3..5 belong to player 2
+     * @param option
+     */
     activateOption(option) {
         this.options[option].selected = true
         if (option < 3) {
@@ -84,6 +116,9 @@ class MyMenu extends CGFobject {
         }
     }
 
+    /**
+     * Method to log the picking on the screen
+     */
     logPicking() {
         if (this.scene.pickMode === false) {
             if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
@@ -100,6 +135,9 @@ class MyMenu extends CGFobject {
         }
     }
 
+    /**
+     * Method to display the Menu screen
+     */
     display() {
         this.logPicking()
         this.scene.clearPickRegistration();
