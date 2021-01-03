@@ -1,4 +1,8 @@
 class GameOverState extends GameState {
+    /**
+     * Checks who won and fills the path for him
+     * @param orchestrator
+     */
     constructor(orchestrator) {
         super(orchestrator);
         this.orchestrator.scene.interface.addReplayButton()

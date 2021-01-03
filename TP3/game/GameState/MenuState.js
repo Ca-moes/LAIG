@@ -25,10 +25,11 @@ class MenuState extends GameState {
 
     }
 
-
     continue() {
+
     }
 
     pause() {
+
     }
 }

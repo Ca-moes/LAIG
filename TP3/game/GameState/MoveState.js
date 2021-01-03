@@ -7,6 +7,10 @@ class MoveState extends GameState {
         // do nothing here
     }
 
+    /**
+     * Method to process a pickTile event
+     * @param {MyTile} tile destination tile
+     */
     pickTile(tile) {
         this.orchestrator.prolog.canMoveToTile(tile, this, (reply) => {
             if (reply === 0) {
@@ -22,6 +26,11 @@ class MoveState extends GameState {
         })
     }
 
+    /**
+     * Method to update the orchestrator's elements, if there's no tine left for the move it
+     * passes on to the next player.
+     * @param time time in seconds
+     */
     update(time) {
         if ((time - this.orchestrator.moveStartTime) > this.orchestrator.moveTimeout) {
             this.orchestrator.cancelMove()
@@ -36,10 +45,11 @@ class MoveState extends GameState {
         this.orchestrator.hud.updateTimeLeft(Utils.formatTime(this.orchestrator.moveTimeout - time + this.orchestrator.moveStartTime))
     }
 
-
     continue() {
+
     }
 
     pause() {
+
     }
 }
