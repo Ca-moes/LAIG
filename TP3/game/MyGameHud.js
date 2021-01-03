@@ -1,4 +1,15 @@
+/**
+ * Game HUD display
+ */
 class MyGameHud extends CGFobject {
+    /**
+     * Starts the HUD
+     *
+     * This is just one class but it has 2 HUDs, on for each player
+     *
+     * @param {XMLscene} scene
+     * @param {MyGameOrchestrator} orchestrator
+     */
     constructor(scene, orchestrator) {
         super(scene);
         this.scene = scene
@@ -15,26 +26,49 @@ class MyGameHud extends CGFobject {
         this.texture = new CGFtexture(scene, "scenes/images/tile.jpg")
     }
 
+    /**
+     * Updates the total time on the HUDs
+     * @param time
+     */
     updateTime(time) {
         this.timeSprite.string = time
     }
 
+    /**
+     * Updates the total left on the HUDs
+     * @param time
+     */
     updateTimeLeft(time) {
         this.timeoutSprite.string = time
     }
 
+    /**
+     * Updates the message being displayed on the HUDs
+     * @param {String} msg message to update the HUDs with
+     */
     updateMessage(msg) {
         this.message.string = msg
     }
 
+    /**
+     * Updates the Player 1 score
+     * @param score
+     */
     updatePlayer1Score(score) {
         this.player1score.string = score
     }
 
+    /**
+     * Updates the Player 2 score
+     * @param score
+     */
     updatePlayer2Score(score) {
         this.player2score.string = score
     }
 
+    /**
+     * Displays the both HUDs
+     */
     display() {
         // Player 1 HUD
         this.scene.pushMatrix()
