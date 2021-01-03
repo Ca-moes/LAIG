@@ -89,7 +89,7 @@ class MyGameOrchestrator {
         //endregion
 
         // region Themes
-        this.loadingScreen = new MyLoadingScreen(scene, this, 9)
+        this.loadingScreen = new MyLoadingScreen(scene, this, 8)
         this.currentTheme = 0
         this.themesNames = {0: "space.xml", 1: "izakaya.xml", 2: "room.xml", 3: "test.xml"}
         this.themes = []
